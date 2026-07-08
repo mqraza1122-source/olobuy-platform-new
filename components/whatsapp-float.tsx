@@ -6,7 +6,7 @@ export function WhatsAppFloat() {
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2.5 rounded-full bg-whatsapp px-5 py-3.5 font-bold text-whatsapp-foreground shadow-xl shadow-black/20 transition-transform hover:scale-105"
+      className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2.5 rounded-full bg-[#25d366] px-5 py-3.5 font-bold text-white shadow-xl shadow-black/20 transition-transform hover:scale-105"
       aria-label="Start a Safe Deal on WhatsApp"
     >
       <svg
