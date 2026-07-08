@@ -30,7 +30,7 @@ export function TrustPartners() {
           {COMPLIANCE.map((item) => (
             <div
               key={item.name}
-              className="flex h-32 flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#283593] p-4 text-center shadow-sm transition-shadow hover:shadow-md"
+              className="flex h-32 flex-col items-center justify-center rounded-2xl border border-white/10 bg-white p-4 text-center shadow-sm"
             >
               <div className="relative h-12 w-full">
                 <Image
@@ -56,12 +56,12 @@ export function TrustPartners() {
               return (
                 <div
                   key={item.name}
-                  className="flex h-32 flex-col items-center justify-center gap-1.5 rounded-2xl border border-white/10 bg-[#283593] p-4 text-center shadow-sm transition-shadow hover:shadow-md"
+                  className="flex h-32 flex-col items-center justify-center gap-1.5 rounded-2xl border border-white/10 bg-white p-4 text-center shadow-sm"
                 >
                   {Icon ? (
                     <>
-                      <Icon className="h-9 w-9 text-[#ff9800]" strokeWidth={1.75} />
-                      <span className="text-sm font-bold text-white">{item.name}</span>
+                      <Icon className="h-9 w-9 text-[#1a237e]" strokeWidth={1.75} />
+                      <span className="text-[10px] font-bold text-[#1a237e]">{item.name}</span>
                     </>
                   ) : (
                     <div className="relative h-12 w-full">
@@ -74,7 +74,7 @@ export function TrustPartners() {
                       />
                     </div>
                   )}
-                  <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-300">
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
                     {item.note}
                   </span>
                 </div>
@@ -85,4 +85,4 @@ export function TrustPartners() {
       </div>
     </section>
   )
-}
+                  }
