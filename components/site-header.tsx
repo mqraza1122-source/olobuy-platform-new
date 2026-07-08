@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { WHATSAPP_URL } from '@/lib/constants'
 
@@ -18,15 +17,15 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <a href="#top" className="flex items-center gap-2.5">
-          <Image
-            src="/logos/olobuy.png"
-            alt="OloBuy Logo"
-            width={112}
-            height={56}
-            className="h-10 w-auto invert"
-            priority
-          />
+        {/* کسٹم لوگو اور سلوگن ڈیزائن */}
+        <a href="#top" className="flex flex-col">
+          <div className="flex items-center text-2xl font-bold">
+            <span className="text-[#ff9800]">Olo</span>
+            <span className="text-[#1a237e]">Buy</span>
+          </div>
+          <span className="text-[9px] font-medium uppercase tracking-wider text-gray-500">
+            Original Life, Original Buy
+          </span>
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">
