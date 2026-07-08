@@ -1,6 +1,5 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
-import { RoleSelection } from '@/components/role-selection'
 import { HowItWorks } from '@/components/how-it-works'
 import { Features } from '@/components/features'
 import { Testimonials } from '@/components/testimonials'
@@ -15,7 +14,6 @@ export default function HomePage() {
       <SiteHeader />
       <main className="flex-1">
         <Hero />
-        <RoleSelection />
         <HowItWorks />
         <Features />
         <Testimonials />
