@@ -35,16 +35,16 @@ const FEATURES = [
 
 export function Features() {
   return (
-    <section id="why" className="bg-background">
+    <section id="why" className="bg-[#1a237e]">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-bold uppercase tracking-wider text-brand-orange">
+          <p className="text-sm font-bold uppercase tracking-wider text-[#ff9800]">
             Why OloBuy
           </p>
-          <h2 className="mt-3 text-balance text-3xl font-extrabold text-foreground sm:text-4xl">
+          <h2 className="mt-3 text-balance text-3xl font-extrabold text-white sm:text-4xl">
             Built to end online buying &amp; selling fraud
           </h2>
-          <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-4 text-pretty text-lg leading-relaxed text-gray-200">
             Everything you need to trade safely with strangers online.
           </p>
         </div>
@@ -55,14 +55,14 @@ export function Features() {
             return (
               <div
                 key={feature.title}
-                className="flex gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
+                className="flex gap-4 rounded-2xl border border-white/10 bg-[#283593] p-6 shadow-sm transition-shadow hover:shadow-md"
               >
-                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-orange/15 text-brand-orange">
+                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#ff9800]/20 text-[#ff9800]">
                   <Icon className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="text-base font-bold text-foreground">{feature.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  <h3 className="text-base font-bold text-white">{feature.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-gray-300">
                     {feature.desc}
                   </p>
                 </div>
@@ -73,4 +73,4 @@ export function Features() {
       </div>
     </section>
   )
-}
+          }
