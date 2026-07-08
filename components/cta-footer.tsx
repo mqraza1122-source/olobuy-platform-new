@@ -4,7 +4,7 @@ import { WHATSAPP_URL } from '@/lib/constants'
 export function CtaFooter() {
   return (
     <>
-      <section className="bg-background">
+      <section className="bg-primary">
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
           <div className="rounded-3xl bg-primary px-6 py-14 text-center sm:px-12">
             <Lock className="mx-auto h-10 w-10 text-primary-foreground/80" />
