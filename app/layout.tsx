@@ -25,11 +25,9 @@ export const metadata: Metadata = {
     icon: [
       {
         url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
       },
       {
         url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
       },
       {
         url: '/icon.svg',
@@ -41,8 +39,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light',
-  themeColor: '#ffffff',
+  themeColor: '#1a237e',
 }
 
 export default function RootLayout({
@@ -51,8 +48,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${notoUrdu.variable} bg-background`}>
-      <body className="font-sans antialiased">
+    <html lang="en" className={`${inter.variable} ${notoUrdu.variable} bg-[#1a237e]`}>
+      <body className="font-sans antialiased text-white">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
