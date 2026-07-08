@@ -4,21 +4,22 @@ import { WHATSAPP_URL } from '@/lib/constants'
 export function CtaFooter() {
   return (
     <>
-      <section className="bg-primary">
+      {/* CTA سیکشن - نیوی بلیو کے اندر اورنج کارڈ */}
+      <section className="bg-[#1a237e]">
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
-          <div className="rounded-3xl bg-primary px-6 py-14 text-center sm:px-12">
-            <Lock className="mx-auto h-10 w-10 text-primary-foreground/80" />
-            <h2 className="mt-5 text-balance text-3xl font-extrabold text-primary-foreground sm:text-4xl">
+          <div className="rounded-3xl bg-[#ff9800] px-6 py-14 text-center sm:px-12 shadow-lg">
+            <Lock className="mx-auto h-10 w-10 text-[#1a237e]/80" />
+            <h2 className="mt-5 text-balance text-3xl font-extrabold text-[#1a237e] sm:text-4xl">
               Ready to buy or sell without the fear?
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-pretty text-lg leading-relaxed text-primary-foreground/80">
+            <p className="mx-auto mt-4 max-w-xl text-pretty text-lg leading-relaxed text-[#1a237e]/90">
               Start your first Safe Deal on WhatsApp today. No advance fear, no parcel fraud.
             </p>
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-8 inline-flex items-center justify-center gap-3 rounded-2xl bg-brand-orange px-8 py-4 text-lg font-bold text-accent-foreground shadow-lg transition-colors hover:bg-brand-orange/90"
+              className="group mt-8 inline-flex items-center justify-center gap-3 rounded-2xl bg-[#1a237e] px-8 py-4 text-lg font-bold text-white shadow-lg transition-colors hover:bg-[#283593]"
             >
               Start a Safe Deal
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -27,45 +28,46 @@ export function CtaFooter() {
         </div>
       </section>
 
-      <footer className="border-t border-border bg-secondary/40">
+      {/* فوٹر سیکشن - گہرا نیوی بلیو */}
+      <footer className="border-t border-white/10 bg-[#1a237e]">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
             <div className="max-w-sm">
               <span className="text-2xl font-extrabold tracking-tight">
-                <span className="text-primary">Olo</span>
-                <span className="text-brand-orange">Buy</span>
+                <span className="text-white">Olo</span>
+                <span className="text-[#ff9800]">Buy</span>
               </span>
-              <p className="mt-1 text-sm font-medium text-muted-foreground">
+              <p className="mt-1 text-sm font-medium text-gray-300">
                 Original Life, Original Buy
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-4 text-sm leading-relaxed text-gray-300">
                 Pakistan&apos;s #1 secure manual escrow service. We hold your payment safely
                 until you inspect and approve your item.
               </p>
             </div>
 
             <nav className="flex flex-col gap-3" aria-label="Footer">
-              <span className="text-sm font-bold text-foreground">Quick Links</span>
-              <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-primary">
+              <span className="text-sm font-bold text-white">Quick Links</span>
+              <a href="#how-it-works" className="text-sm text-gray-300 hover:text-[#ff9800]">
                 How It Works
               </a>
-              <a href="#why" className="text-sm text-muted-foreground hover:text-primary">
+              <a href="#why" className="text-sm text-gray-300 hover:text-[#ff9800]">
                 Why OloBuy
               </a>
-              <a href="#reviews" className="text-sm text-muted-foreground hover:text-primary">
+              <a href="#reviews" className="text-sm text-gray-300 hover:text-[#ff9800]">
                 Reviews
               </a>
-              <a href="#faq" className="text-sm text-muted-foreground hover:text-primary">
+              <a href="#faq" className="text-sm text-gray-300 hover:text-[#ff9800]">
                 FAQ
               </a>
             </nav>
           </div>
 
-          <div className="mt-10 border-t border-border pt-6 text-center text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} OloBuy. All rights reserved.
+          <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} OloBuy. All rights reserved. Secure Manual Escrow Network Pakistan.
           </div>
         </div>
       </footer>
     </>
   )
-}
+                }
