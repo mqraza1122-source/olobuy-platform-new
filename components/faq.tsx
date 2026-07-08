@@ -6,7 +6,7 @@ import { ChevronDown } from 'lucide-react'
 const FAQS = [
   {
     q: 'What is OloBuy exactly?',
-    a: 'OloBuy is a manual escrow service. We act as a trusted middleman that holds the buyer\u2019s payment securely until the item is received and approved, protecting both buyer and seller from fraud.',
+    a: 'OloBuy is a manual escrow service. We act as a trusted middleman that holds the buyer\u2019s payment securely until the item is received or deal approved by both parties, protecting both buyer and seller from fraud.',
   },
   {
     q: 'How much does it cost?',
@@ -30,7 +30,7 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="bg-background">
+    <section id="faq" className="bg-primary">
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="text-center">
           <p className="text-sm font-bold uppercase tracking-wider text-brand-orange">
