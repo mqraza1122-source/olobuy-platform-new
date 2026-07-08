@@ -1,4 +1,4 @@
-import { ArrowRight, Lock, Star } from 'lucide-react'
+import { ArrowRight, Lock, Star, ShieldCheck } from 'lucide-react'
 import { WHATSAPP_URL } from '@/lib/constants'
 
 export function Hero() {
@@ -7,15 +7,23 @@ export function Hero() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="flex flex-col items-center text-center">
           
-          {/* Updated Card: Orange background with Navy Blue text */}
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#ff9800] px-5 py-2.5 shadow-lg">
-            <Lock className="h-4 w-4 text-[#1a237e]" />
-            <span className="text-sm font-bold text-[#1a237e]">
-              Pakistan&apos;s first manual escrow platform
-            </span>
+          {/* Badge Section */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#ff9800] px-5 py-2 shadow-lg">
+              <Lock className="h-4 w-4 text-[#1a237e]" />
+              <span className="text-sm font-bold text-[#1a237e]">
+                Pakistan&apos;s first manual escrow
+              </span>
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 shadow-lg">
+              <ShieldCheck className="h-4 w-4 text-green-600" />
+              <span className="text-sm font-bold text-green-700">
+                0% Fraud Risk
+              </span>
+            </div>
           </div>
 
-          <h1 dir="rtl" lang="ur" className="mt-8 font-urdu leading-[2.5]">
+          <h1 dir="rtl" lang="ur" className="mt-2 font-urdu leading-[2.5]">
             <span className="block text-4xl font-bold text-white sm:text-6xl">
               نہ ایڈوانس کا ڈر،
             </span>
@@ -32,7 +40,7 @@ export function Hero() {
             until you inspect and approve the item.
           </p>
 
-          <div className="mt-10 w-full max-w-xl">
+          <div className="mt-10 w-full max-w-xl px-2">
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -44,18 +52,18 @@ export function Hero() {
             </a>
           </div>
 
-          <div className="mt-6 flex flex-col items-center gap-2">
+          <div className="mt-8 flex flex-col items-center gap-2">
             <div className="flex items-center gap-1" aria-label="Rated 5 out of 5 stars">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} className="h-6 w-6 fill-[#ff9800] text-[#ff9800]" />
               ))}
             </div>
             <p className="text-sm font-medium text-gray-300">
-              Trusted by thousands of buyers &amp; sellers across Pakistan
+              Trusted by thousands of buyers &amp; sellers
             </p>
           </div>
         </div>
       </div>
     </section>
   )
-}
+      }
