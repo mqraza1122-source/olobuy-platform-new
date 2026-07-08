@@ -14,7 +14,7 @@ export function RoleSelection() {
             <button
               key={role.title}
               onClick={() => window.open('https://forms.gle/64anSGPWJv3nn32J9', '_blank')}
-              className="p-6 border border-white/20 rounded-2xl hover:bg-[#ff9800] hover:text-[#1a237e] transition-all"
+              className="p-6 border border-white/20 rounded-2xl hover:bg-[#ff9800] hover:text-[#1a237e] transition-all duration-300"
             >
               <h3 className="text-xl font-bold">{role.title}</h3>
               <p className="text-sm opacity-80">{role.desc}</p>
@@ -24,4 +24,4 @@ export function RoleSelection() {
       </div>
     </section>
   )
-                                         }
+}
