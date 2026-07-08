@@ -4,7 +4,6 @@ import { WHATSAPP_URL } from '@/lib/constants'
 export function CtaFooter() {
   return (
     <>
-      {/* CTA سیکشن - نیوی بلیو کے اندر اورنج کارڈ */}
       <section className="bg-[#1a237e]">
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
           <div className="rounded-3xl bg-[#ff9800] px-6 py-14 text-center sm:px-12 shadow-lg">
@@ -28,7 +27,6 @@ export function CtaFooter() {
         </div>
       </section>
 
-      {/* فوٹر سیکشن - گہرا نیوی بلیو */}
       <footer className="border-t border-white/10 bg-[#1a237e]">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
@@ -48,18 +46,12 @@ export function CtaFooter() {
 
             <nav className="flex flex-col gap-3" aria-label="Footer">
               <span className="text-sm font-bold text-white">Quick Links</span>
-              <a href="#how-it-works" className="text-sm text-gray-300 hover:text-[#ff9800]">
-                How It Works
-              </a>
-              <a href="#why" className="text-sm text-gray-300 hover:text-[#ff9800]">
-                Why OloBuy
-              </a>
-              <a href="#reviews" className="text-sm text-gray-300 hover:text-[#ff9800]">
-                Reviews
-              </a>
-              <a href="#faq" className="text-sm text-gray-300 hover:text-[#ff9800]">
-                FAQ
-              </a>
+              <a href="#how-it-works" className="text-sm text-gray-300 hover:text-[#ff9800]">How It Works</a>
+              <a href="#why" className="text-sm text-gray-300 hover:text-[#ff9800]">Why OloBuy</a>
+              <a href="#reviews" className="text-sm text-gray-300 hover:text-[#ff9800]">Reviews</a>
+              <a href="#faq" className="text-sm text-gray-300 hover:text-[#ff9800]">FAQ</a>
+              <a href="/privacy" className="text-sm text-gray-300 hover:text-[#ff9800]">Privacy Policy</a>
+              <a href="/terms" className="text-sm text-gray-300 hover:text-[#ff9800]">Terms of Service</a>
             </nav>
           </div>
 
@@ -70,4 +62,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-                }
+}
