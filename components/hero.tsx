@@ -7,10 +7,11 @@ export function Hero() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="flex flex-col items-center text-center">
           
-          <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/10 px-5 py-2.5">
-            <Lock className="h-4 w-4 text-orange-500" />
-            <span className="text-sm font-bold text-orange-500">
-              Pakistan&apos;s #1 Secure Manual Escrow Service
+          {/* Updated Card: Orange background with Navy Blue text */}
+          <div className="inline-flex items-center gap-2 rounded-full bg-[#ff9800] px-5 py-2.5 shadow-lg">
+            <Lock className="h-4 w-4 text-[#1a237e]" />
+            <span className="text-sm font-bold text-[#1a237e]">
+              Pakistan&apos;s first manual escrow platform
             </span>
           </div>
 
@@ -57,4 +58,4 @@ export function Hero() {
       </div>
     </section>
   )
-        }
+}
