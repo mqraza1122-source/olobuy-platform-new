@@ -15,7 +15,7 @@ const PAYMENTS = [
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
+    <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-gray-300">
       {children}
     </p>
   )
@@ -23,14 +23,14 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 export function TrustPartners() {
   return (
-    <section className="bg-background">
+    <section className="bg-[#1a237e]">
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
         <SectionHeading>Trusted &amp; Compliant</SectionHeading>
         <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-5">
           {COMPLIANCE.map((item) => (
             <div
               key={item.name}
-              className="flex h-32 flex-col items-center justify-center rounded-2xl border border-border bg-card p-4 text-center shadow-sm transition-shadow hover:shadow-md"
+              className="flex h-32 flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#283593] p-4 text-center shadow-sm transition-shadow hover:shadow-md"
             >
               <div className="relative h-12 w-full">
                 <Image
@@ -41,7 +41,7 @@ export function TrustPartners() {
                   className="object-contain"
                 />
               </div>
-              <span className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-brand-orange">
+              <span className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-[#ff9800]">
                 {item.note}
               </span>
             </div>
@@ -56,12 +56,12 @@ export function TrustPartners() {
               return (
                 <div
                   key={item.name}
-                  className="flex h-32 flex-col items-center justify-center gap-1.5 rounded-2xl border border-border bg-card p-4 text-center shadow-sm transition-shadow hover:shadow-md"
+                  className="flex h-32 flex-col items-center justify-center gap-1.5 rounded-2xl border border-white/10 bg-[#283593] p-4 text-center shadow-sm transition-shadow hover:shadow-md"
                 >
                   {Icon ? (
                     <>
-                      <Icon className="h-9 w-9 text-primary" strokeWidth={1.75} />
-                      <span className="text-sm font-bold text-foreground">{item.name}</span>
+                      <Icon className="h-9 w-9 text-[#ff9800]" strokeWidth={1.75} />
+                      <span className="text-sm font-bold text-white">{item.name}</span>
                     </>
                   ) : (
                     <div className="relative h-12 w-full">
@@ -74,7 +74,7 @@ export function TrustPartners() {
                       />
                     </div>
                   )}
-                  <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-300">
                     {item.note}
                   </span>
                 </div>
