@@ -16,22 +16,17 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#1a237e]/95 backdrop-blur">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <a href="#top" className="flex items-center gap-2.5 leading-none">
+        <a href="#top" className="flex items-center gap-2.5">
           <Image
             src="/logos/olobuy.png"
-            alt="OloBuy logo"
+            alt="OloBuy Logo"
             width={112}
             height={56}
-            className="h-10 w-auto"
+            className="h-10 w-auto invert"
             priority
           />
-          <span className="hidden text-xs font-medium text-gray-300 sm:block">
-            Original Life,
-            <br />
-            Original Buy
-          </span>
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -39,7 +34,7 @@ export function SiteHeader() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-white/80 transition-colors hover:text-[#ff9800]"
+              className="text-sm font-medium text-[#1a237e] transition-colors hover:text-[#ff9800]"
             >
               {link.label}
             </a>
@@ -51,31 +46,30 @@ export function SiteHeader() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden rounded-lg bg-[#ff9800] px-5 py-2.5 text-sm font-bold text-[#1a237e] transition-colors hover:bg-orange-400 sm:inline-flex"
+            className="hidden rounded-lg bg-[#ff9800] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-orange-600 sm:inline-flex"
           >
             Start Safe Deal
           </a>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 text-white md:hidden"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-[#1a237e] md:hidden"
+            aria-label="Toggle menu"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
       {open && (
-        <div className="border-t border-white/10 bg-[#1a237e] md:hidden">
-          <nav className="mx-auto flex max-w-6xl flex-col px-4 py-2 sm:px-6">
+        <div className="border-t border-gray-100 bg-white md:hidden">
+          <nav className="flex flex-col px-4 py-4 gap-2">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-2 py-3 text-base font-medium text-white/80 hover:bg-[#283593] hover:text-[#ff9800]"
+                className="rounded-lg px-4 py-3 text-base font-medium text-[#1a237e] hover:bg-gray-50"
               >
                 {link.label}
               </a>
@@ -84,7 +78,7 @@ export function SiteHeader() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 mb-2 rounded-lg bg-[#ff9800] px-5 py-3 text-center text-base font-bold text-[#1a237e]"
+              className="mt-2 rounded-lg bg-[#ff9800] px-5 py-3 text-center text-base font-bold text-white"
             >
               Start Safe Deal
             </a>
@@ -93,4 +87,4 @@ export function SiteHeader() {
       )}
     </header>
   )
-      }
+}
