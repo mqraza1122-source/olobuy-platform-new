@@ -6,11 +6,11 @@ import { ChevronDown } from 'lucide-react'
 const FAQS = [
   {
     q: 'What is OloBuy exactly?',
-    a: 'OloBuy is a manual escrow service. We act as a trusted middleman that holds the buyer\u2019s payment securely until the item is received or deal approved by both parties, protecting both buyer and seller from fraud.',
+    a: 'OloBuy is a manual escrow service. We act as a trusted middleman that holds the buyer’s payment securely until the item is received or deal approved by both parties, protecting both buyer and seller from fraud.',
   },
   {
     q: 'How much does it cost?',
-    a: 'We charge a small, transparent escrow fee per deal. The exact fee depends on the item value \u2014 message us on WhatsApp and we\u2019ll share the fee before you commit to anything.',
+    a: 'We charge a small, transparent escrow fee per deal. The exact fee depends on the item value — message us on WhatsApp and we’ll share the fee before you commit to anything.',
   },
   {
     q: 'Which platforms does it work with?',
@@ -30,18 +30,18 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="bg-primary">
+    <section id="faq" className="bg-[#1a237e]">
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="text-center">
-          <p className="text-sm font-bold uppercase tracking-wider text-brand-orange">
+          <p className="text-sm font-bold uppercase tracking-wider text-[#ff9800]">
             FAQ
           </p>
-          <h2 className="mt-3 text-balance text-3xl font-extrabold text-foreground sm:text-4xl">
+          <h2 className="mt-3 text-balance text-3xl font-extrabold text-white sm:text-4xl">
             Frequently asked questions
           </h2>
         </div>
 
-        <div className="mt-10 divide-y divide-border rounded-2xl border border-border bg-card">
+        <div className="mt-10 divide-y divide-white/10 rounded-2xl border border-white/10 bg-[#283593]">
           {FAQS.map((faq, i) => {
             const isOpen = openIndex === i
             return (
@@ -52,15 +52,15 @@ export function Faq() {
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base font-bold text-foreground">{faq.q}</span>
+                  <span className="text-base font-bold text-white">{faq.q}</span>
                   <ChevronDown
-                    className={`h-5 w-5 shrink-0 text-primary transition-transform ${
+                    className={`h-5 w-5 shrink-0 text-[#ff9800] transition-transform ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <p className="px-6 pb-5 text-pretty leading-relaxed text-muted-foreground">
+                  <p className="px-6 pb-5 text-pretty leading-relaxed text-gray-300">
                     {faq.a}
                   </p>
                 )}
@@ -71,4 +71,4 @@ export function Faq() {
       </div>
     </section>
   )
-}
+                    }
