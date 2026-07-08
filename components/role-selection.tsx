@@ -3,7 +3,7 @@ export function RoleSelection() {
     { title: 'Buyer', desc: 'Secure your payment' },
     { title: 'Seller', desc: 'Verify your deal' },
     { title: 'Agent', desc: 'Manage safe transactions' },
-  ]
+  ];
 
   return (
     <section className="py-16 bg-[#1a237e] text-white">
@@ -23,5 +23,5 @@ export function RoleSelection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
