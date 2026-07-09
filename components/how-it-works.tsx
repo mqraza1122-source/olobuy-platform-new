@@ -25,10 +25,11 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-white py-20 sm:py-32">
+    <section id="how-it-works" className="bg-[#1a237e] py-20 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
+        {/* ہیڈنگ اب سادہ اور سفید ہے */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-[#1a237e] sm:text-6xl">
+          <h2 className="text-4xl font-extrabold text-white sm:text-6xl">
             How It Works
           </h2>
         </div>
@@ -39,20 +40,21 @@ export function HowItWorks() {
             return (
               <div
                 key={step.title}
-                className="group relative flex flex-col rounded-[2rem] bg-[#ff9800] p-8 shadow-2xl transition-transform hover:-translate-y-2"
+                className="flex flex-col rounded-[2rem] bg-[#283593] p-8 border border-white/10 shadow-xl"
               >
-                <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-[#1a237e]/10 border-2 border-[#1a237e]/20">
-                  <Icon className="h-10 w-10 text-[#1a237e]" />
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1a237e]/50 border border-white/10">
+                  <Icon className="h-8 w-8 text-[#ff9800]" />
                 </div>
                 
-                <div className="mb-4 text-4xl font-black text-[#1a237e]/30">
+                <div className="mb-4 text-3xl font-black text-white/20">
                   0{i + 1}
                 </div>
 
-                <h3 className="text-2xl font-bold text-[#1a237e] mb-4 leading-tight">
+                {/* کارڈ کے اندر ہیڈنگ اب سفید ہے */}
+                <h3 className="text-xl font-bold text-white mb-3">
                   {step.title}
                 </h3>
-                <p className="text-base font-medium text-[#1a237e]/80 leading-relaxed">
+                <p className="text-sm font-medium text-gray-300 leading-relaxed">
                   {step.desc}
                 </p>
               </div>
