@@ -1,4 +1,6 @@
-import { ChevronDown } from 'lucide-react'
+'use client';
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 const FAQS = [
   {
@@ -13,40 +15,54 @@ const FAQS = [
     q: 'Which platforms does it work with?',
     a: 'We work with all major marketplaces in Pakistan, including OLX, Facebook Marketplace, and Instagram sellers. As long as it is a legal transaction, we can secure it.',
   },
-]
+];
 
 export function Faq() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // پہلا سوال بائی ڈیفالٹ کھلا رہے گا
+
   return (
-    <section className="bg-white py-16 sm:py-24">
-      <div className="mx-auto max-w-3xl px-4">
-        {/* اورینج کیپسول ہیڈر */}
-        <div className="text-center mb-12">
-          <div className="inline-block rounded-full bg-[#ff9800] px-8 py-3 text-lg font-bold uppercase tracking-widest text-white mb-6">
+    <section className="bg-white py-20 sm:py-32">
+      <div className="mx-auto max-w-4xl px-6">
+        <div className="text-center mb-16">
+          <div className="inline-block rounded-full bg-[#ff9800] px-8 py-3 text-sm font-black uppercase tracking-widest text-[#1a237e] mb-6 shadow-xl">
             Frequently Asked Questions
           </div>
-          <h2 className="text-3xl font-extrabold text-[#1a237e]">
+          <h2 className="text-4xl font-extrabold text-[#1a237e] sm:text-5xl">
             Need more clarity?
           </h2>
         </div>
 
-        {/* سوالات کا ڈیزائن */}
-        <div className="space-y-4">
+        <div className="space-y-6">
           {FAQS.map((faq, i) => (
             <div 
               key={i} 
-              className="group rounded-2xl border border-gray-100 bg-gray-50 p-6 transition-all hover:border-[#ff9800]/30"
+              className={`rounded-[2rem] border-2 transition-all duration-300 ${
+                openIndex === i ? 'border-[#ff9800] bg-[#fffaf5]' : 'border-gray-200 bg-gray-50'
+              } p-8`}
             >
-              <button className="flex w-full items-center justify-between text-left">
-                <span className="text-lg font-bold text-[#1a237e]">{faq.q}</span>
-                <ChevronDown className="h-5 w-5 text-[#ff9800] transition-transform group-hover:rotate-180" />
+              <button 
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                className="flex w-full items-center justify-between text-left"
+              >
+                <span className="text-xl font-bold text-[#1a237e]">{faq.q}</span>
+                <ChevronDown 
+                  className={`h-7 w-7 text-[#ff9800] transition-transform duration-300 ${
+                    openIndex === i ? 'rotate-180' : ''
+                  }`} 
+                />
               </button>
-              <p className="mt-4 text-sm leading-relaxed text-gray-600">
-                {faq.a}
-              </p>
+              
+              {openIndex === i && (
+                <div className="mt-4 pt-4 border-t border-[#ff9800]/20">
+                  <p className="text-base font-medium text-[#1a237e]/80 leading-relaxed">
+                    {faq.a}
+                  </p>
+                </div>
+              )}
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
