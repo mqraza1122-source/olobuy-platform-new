@@ -25,14 +25,11 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-[#1a237e] py-20 sm:py-32">
+    <section id="how-it-works" className="bg-white py-20 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center mb-16">
-          <div className="inline-block rounded-full bg-[#ff9800] px-8 py-3 text-sm font-black uppercase tracking-widest text-[#1a237e] mb-6 shadow-xl">
+          <h2 className="text-4xl font-extrabold text-[#1a237e] sm:text-6xl">
             How It Works
-          </div>
-          <h2 className="text-4xl font-extrabold text-white sm:text-6xl">
-            Secure Your Deal in 4 Steps
           </h2>
         </div>
 
