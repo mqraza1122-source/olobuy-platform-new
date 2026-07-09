@@ -28,18 +28,17 @@ export function Testimonials() {
   return (
     <section className="bg-[#1a237e] py-20 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        {/* ہیڈر - اب سادہ اور کلین ہے */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-extrabold text-white sm:text-5xl">
             Real Stories, Real Trust
           </h2>
         </div>
 
-        {/* سٹیٹس (Stats) */}
+        {/* سٹیٹس (Stats) - یہاں ویلیو کا رنگ اب سفید ہے */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {STATS.map((stat) => (
             <div key={stat.label} className="rounded-[2rem] bg-[#283593] p-8 text-center border border-white/10">
-              <div className="text-5xl font-black text-[#ff9800] mb-2">{stat.value}</div>
+              <div className="text-5xl font-black text-white mb-2">{stat.value}</div>
               <div className="text-lg font-bold text-gray-300 uppercase tracking-widest">{stat.label}</div>
             </div>
           ))}
