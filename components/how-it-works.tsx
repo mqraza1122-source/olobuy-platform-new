@@ -39,13 +39,13 @@ export function HowItWorks() {
           </p>
         </div>
 
-        <ol className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
           {STEPS.map((step, i) => {
             const Icon = step.icon
             return (
-              <li
+              <div
                 key={step.title}
-                className="relative flex flex-col h-full min-h-[320px] rounded-2xl border border-white/10 bg-[#283593] p-6 shadow-sm"
+                className="relative flex flex-col h-full rounded-2xl border border-white/10 bg-[#283593] p-6 shadow-sm"
               >
                 <span className="absolute right-6 top-6 text-5xl font-black text-[#ff9800]/20">
                   {i + 1}
@@ -59,11 +59,11 @@ export function HowItWorks() {
                 <p className="mt-2 flex-grow text-sm leading-relaxed text-gray-300">
                   {step.desc}
                 </p>
-              </li>
+              </div>
             )
           })}
-        </ol>
+        </div>
       </div>
     </section>
   )
-    }
+}
