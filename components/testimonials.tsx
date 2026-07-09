@@ -28,7 +28,7 @@ export function Testimonials() {
   return (
     <section className="bg-[#1a237e] py-20 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        {/* ہیڈر - اورنج کیپسول ہٹا دیا گیا */}
+        {/* ہیڈر - اب سادہ اور کلین ہے */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-extrabold text-white sm:text-5xl">
             Real Stories, Real Trust
@@ -68,4 +68,4 @@ export function Testimonials() {
       </div>
     </section>
   );
-              }
+}
