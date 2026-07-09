@@ -1,74 +1,52 @@
-'use client'
-
-import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 
 const FAQS = [
   {
     q: 'What is OloBuy exactly?',
-    a: 'OloBuy is a manual escrow service. We act as a trusted middleman that holds the buyer’s payment securely until the item is received or deal approved by both parties, protecting both buyer and seller from fraud.',
+    a: 'OloBuy is a manual escrow service. We act as a trusted middleman that holds the buyer\'s payment securely until the item is received and approved by both parties, protecting everyone from fraud.',
   },
   {
     q: 'How much does it cost?',
-    a: 'We charge a small, transparent escrow fee per deal. The exact fee depends on the item value — message us on WhatsApp and we’ll share the fee before you commit to anything.',
+    a: 'Our service fee is very minimal and transparent. You can check our latest rates by messaging us directly on our WhatsApp channel.',
   },
   {
     q: 'Which platforms does it work with?',
-    a: 'Any of them. Whether you found the deal on OLX, Facebook Marketplace, Instagram, or WhatsApp groups, OloBuy can secure the transaction.',
-  },
-  {
-    q: 'What happens if the item is not as described?',
-    a: 'If the item does not match what was agreed, the buyer can decline it during inspection. In that case the payment is not released to the seller and we help resolve the return.',
-  },
-  {
-    q: 'How do I start a deal?',
-    a: 'Just tap any "Start Safe Deal" button to open WhatsApp. Tell us about the item and price, and our team will guide both parties through the process.',
+    a: 'We work with all major marketplaces in Pakistan, including OLX, Facebook Marketplace, and Instagram sellers. As long as it is a legal transaction, we can secure it.',
   },
 ]
 
 export function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
-
   return (
-    <section id="faq" className="bg-[#1a237e]">
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
-        <div className="text-center">
-          <p className="text-sm font-bold uppercase tracking-wider text-[#ff9800]">
-            FAQ
-          </p>
-          <h2 className="mt-3 text-balance text-3xl font-extrabold text-white sm:text-4xl">
-            Frequently asked questions
+    <section className="bg-white py-16 sm:py-24">
+      <div className="mx-auto max-w-3xl px-4">
+        {/* اورینج کیپسول ہیڈر */}
+        <div className="text-center mb-12">
+          <div className="inline-block rounded-full bg-[#ff9800] px-8 py-3 text-lg font-bold uppercase tracking-widest text-white mb-6">
+            Frequently Asked Questions
+          </div>
+          <h2 className="text-3xl font-extrabold text-[#1a237e]">
+            Need more clarity?
           </h2>
         </div>
 
-        <div className="mt-10 divide-y divide-white/10 rounded-2xl border border-white/10 bg-[#283593]">
-          {FAQS.map((faq, i) => {
-            const isOpen = openIndex === i
-            return (
-              <div key={faq.q}>
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-                  aria-expanded={isOpen}
-                >
-                  <span className="text-base font-bold text-white">{faq.q}</span>
-                  <ChevronDown
-                    className={`h-5 w-5 shrink-0 text-[#ff9800] transition-transform ${
-                      isOpen ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-                {isOpen && (
-                  <p className="px-6 pb-5 text-pretty leading-relaxed text-gray-300">
-                    {faq.a}
-                  </p>
-                )}
-              </div>
-            )
-          })}
+        {/* سوالات کا ڈیزائن */}
+        <div className="space-y-4">
+          {FAQS.map((faq, i) => (
+            <div 
+              key={i} 
+              className="group rounded-2xl border border-gray-100 bg-gray-50 p-6 transition-all hover:border-[#ff9800]/30"
+            >
+              <button className="flex w-full items-center justify-between text-left">
+                <span className="text-lg font-bold text-[#1a237e]">{faq.q}</span>
+                <ChevronDown className="h-5 w-5 text-[#ff9800] transition-transform group-hover:rotate-180" />
+              </button>
+              <p className="mt-4 text-sm leading-relaxed text-gray-600">
+                {faq.a}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   )
-                    }
+}
