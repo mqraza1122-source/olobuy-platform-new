@@ -28,11 +28,8 @@ export function Testimonials() {
   return (
     <section className="bg-[#1a237e] py-20 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        {/* ہیڈر */}
+        {/* ہیڈر - اورنج کیپسول ہٹا دیا گیا */}
         <div className="text-center mb-16">
-          <div className="inline-block rounded-full bg-[#ff9800] px-8 py-3 text-sm font-black uppercase tracking-widest text-[#1a237e] mb-6 shadow-xl">
-            Trusted by Users
-          </div>
           <h2 className="text-4xl font-extrabold text-white sm:text-5xl">
             Real Stories, Real Trust
           </h2>
@@ -71,4 +68,4 @@ export function Testimonials() {
       </div>
     </section>
   );
-                  }
+              }
