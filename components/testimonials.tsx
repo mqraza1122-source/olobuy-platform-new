@@ -1,74 +1,74 @@
-import { Star, Quote } from 'lucide-react'
+import { Star, Quote } from 'lucide-react';
 
 const REVIEWS = [
   {
-    name: 'Luxe Branded fashion .',
+    name: 'Luxe Branded fashion',
     role: 'Buyer, Hyderabad',
-    text: 'Bought branded clothes in bulk from faislabad through OloBuy. My money was safe until the parcel reached me.',
+    text: 'Bought branded clothes in bulk from Faislabad through OloBuy. My money was safe until the parcel reached me.',
   },
   {
-    name: 'Sana jewelery.',
+    name: 'Sana Jewelry',
     role: 'Seller, Karachi',
     text: 'As a seller I was always scared of fake buyers. OloBuy held the payment before I shipped, so I finally felt secure.',
   },
   {
-    name: 'Bilal Cosmetics.',
+    name: 'Bilal Cosmetics',
     role: 'Buyer, Islamabad',
     text: 'Super simple over WhatsApp. Inspected the item first, approved it, and only then the seller got paid.',
   },
-]
+];
 
 const STATS = [
-  { value: '1000+', label: 'Safe deals' },
+  { value: '1000+', label: 'Safe Deals' },
   { value: 'PKR 9.5M+', label: 'Protected' },
-  { value: '4.9/5', label: 'Rating' },
-]
+  { value: '4.9/5', label: 'User Rating' },
+];
 
 export function Testimonials() {
   return (
-    <section id="reviews" className="bg-[#1a237e]">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center mb-10">
-          <p className="text-xs font-bold uppercase tracking-wider text-[#ff9800]">
-            Reviews
-          </p>
-          <h2 className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">
-            Trusted by users
+    <section className="bg-[#1a237e] py-20 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        {/* ہیڈر */}
+        <div className="text-center mb-16">
+          <div className="inline-block rounded-full bg-[#ff9800] px-8 py-3 text-sm font-black uppercase tracking-widest text-[#1a237e] mb-6 shadow-xl">
+            Trusted by Users
+          </div>
+          <h2 className="text-4xl font-extrabold text-white sm:text-5xl">
+            Real Stories, Real Trust
           </h2>
         </div>
 
-        <dl className="mx-auto grid grid-cols-3 gap-3">
+        {/* سٹیٹس (Stats) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {STATS.map((stat) => (
-            <div key={stat.label} className="rounded-xl border border-white/10 bg-[#283593] p-4 text-center">
-              <dt className="text-xl font-extrabold text-[#ff9800]">{stat.value}</dt>
-              <dd className="text-[10px] uppercase font-bold text-gray-300">{stat.label}</dd>
+            <div key={stat.label} className="rounded-[2rem] bg-[#283593] p-8 text-center border border-white/10">
+              <div className="text-5xl font-black text-[#ff9800] mb-2">{stat.value}</div>
+              <div className="text-lg font-bold text-gray-300 uppercase tracking-widest">{stat.label}</div>
             </div>
           ))}
-        </dl>
+        </div>
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
-          {REVIEWS.map((review) => (
-            <figure
-              key={review.name}
-              className="flex flex-col rounded-xl border border-white/10 bg-[#283593] p-5 shadow-sm"
-            >
-              <Quote className="h-5 w-5 text-[#ff9800]/40" />
-              <div className="mt-2 flex items-center gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-3 w-3 fill-[#ff9800] text-[#ff9800]" />
+        {/* ریویو کارڈز */}
+        <div className="grid gap-8 lg:grid-cols-3">
+          {REVIEWS.map((review, i) => (
+            <div key={i} className="flex flex-col rounded-[2rem] bg-white p-8 shadow-2xl">
+              <Quote className="h-10 w-10 text-[#ff9800] mb-6" />
+              <div className="flex gap-1 mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-[#ff9800] text-[#ff9800]" />
                 ))}
               </div>
-              <blockquote className="mt-3 text-xs leading-relaxed text-white/90 flex-grow">
-                {review.text}
-              </blockquote>
-              <figcaption className="mt-4 border-t border-white/10 pt-3">
-                <span className="block text-sm font-bold text-white">{review.name}</span>
-                <span className="block text-[10px] text-gray-400">{review.role}</span>
-              </figcaption>
-            </figure>
+              <p className="text-base font-medium text-[#1a237e]/80 leading-relaxed flex-grow mb-8 italic">
+                "{review.text}"
+              </p>
+              <div className="border-t border-gray-100 pt-6">
+                <span className="block text-xl font-bold text-[#1a237e]">{review.name}</span>
+                <span className="block text-sm font-bold text-[#ff9800]">{review.role}</span>
+              </div>
+            </div>
           ))}
         </div>
       </div>
     </section>
-  )
-              }
+  );
+                  }
