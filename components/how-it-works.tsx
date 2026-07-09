@@ -4,58 +4,58 @@ const STEPS = [
   {
     icon: MessageSquareText,
     title: 'Agree on the Deal',
-    desc: 'Buyer and seller agree on the item, then message us on WhatsApp.',
+    desc: 'Buyer and seller agree on the item details, price, and terms, then initiate the process by messaging us on our official WhatsApp.',
   },
   {
     icon: Landmark,
     title: 'Buyer Pays OloBuy',
-    desc: 'Buyer sends payment to OloBuy. We hold funds in manual escrow.',
+    desc: 'The buyer transfers the agreed amount to OloBuy. We safely hold these funds in our secure manual escrow account.',
   },
   {
     icon: Truck,
     title: 'Seller Ships',
-    desc: 'Seller ships with confidence knowing payment is already secured.',
+    desc: 'Once we verify the payment, we instruct the seller to ship the item. The seller ships with full confidence as funds are secured.',
   },
   {
     icon: ShieldCheck,
     title: 'Inspect & Release',
-    desc: 'Buyer inspects the item. Once approved, we release the payment.',
+    desc: 'The buyer receives and inspects the item. Upon their approval, we instantly release the payment to the seller.',
   },
 ]
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-[#1a237e] py-12 sm:py-24">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="text-center mb-12">
-          <div className="inline-block rounded-full bg-[#ff9800] px-6 py-1.5 text-xs font-bold uppercase tracking-widest text-white mb-3">
+    <section id="how-it-works" className="bg-[#1a237e] py-20 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="text-center mb-16">
+          <div className="inline-block rounded-full bg-[#ff9800] px-8 py-3 text-sm font-black uppercase tracking-widest text-[#1a237e] mb-6 shadow-xl">
             How It Works
           </div>
-          <h2 className="text-2xl font-extrabold text-white sm:text-4xl">
-            A safe deal in 4 simple steps
+          <h2 className="text-4xl font-extrabold text-white sm:text-6xl">
+            Secure Your Deal in 4 Steps
           </h2>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((step, i) => {
             const Icon = step.icon
             return (
               <div
                 key={step.title}
-                className="relative flex flex-col rounded-2xl border border-white/10 bg-[#283593] p-5 shadow-sm"
+                className="group relative flex flex-col rounded-[2rem] bg-[#ff9800] p-8 shadow-2xl transition-transform hover:-translate-y-2"
               >
-                <div className="absolute top-4 right-5 text-3xl font-black text-white/5">
+                <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-[#1a237e]/10 border-2 border-[#1a237e]/20">
+                  <Icon className="h-10 w-10 text-[#1a237e]" />
+                </div>
+                
+                <div className="mb-4 text-4xl font-black text-[#1a237e]/30">
                   0{i + 1}
                 </div>
-                
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/10">
-                  <Icon className="h-5 w-5 text-[#ff9800] stroke-[1.5]" />
-                </div>
-                
-                <h3 className="text-lg font-bold text-white mb-2 leading-tight">
+
+                <h3 className="text-2xl font-bold text-[#1a237e] mb-4 leading-tight">
                   {step.title}
                 </h3>
-                <p className="text-xs text-gray-300 leading-relaxed">
+                <p className="text-base font-medium text-[#1a237e]/80 leading-relaxed">
                   {step.desc}
                 </p>
               </div>
