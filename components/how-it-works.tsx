@@ -27,7 +27,6 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="bg-[#1a237e] py-20 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        {/* ہیڈنگ اب سادہ اور سفید ہے */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-extrabold text-white sm:text-6xl">
             How It Works
@@ -42,15 +41,17 @@ export function HowItWorks() {
                 key={step.title}
                 className="flex flex-col rounded-[2rem] bg-[#283593] p-8 border border-white/10 shadow-xl"
               >
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1a237e]/50 border border-white/10">
-                  <Icon className="h-8 w-8 text-[#ff9800]" />
+                {/* نمبر اور آئیکون ایک ہی لائن میں */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="text-3xl font-black text-[#ff9800]">
+                    0{i + 1}
+                  </div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1a237e]/50 border border-white/10">
+                    <Icon className="h-6 w-6 text-[#ff9800]" />
+                  </div>
                 </div>
                 
-                <div className="mb-4 text-3xl font-black text-white/20">
-                  0{i + 1}
-                </div>
-
-                {/* کارڈ کے اندر ہیڈنگ اب سفید ہے */}
+                {/* ہیڈنگ اور تفصیل نیچے */}
                 <h3 className="text-xl font-bold text-white mb-3">
                   {step.title}
                 </h3>
