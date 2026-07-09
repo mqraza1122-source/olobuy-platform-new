@@ -19,8 +19,8 @@ const REVIEWS = [
 ]
 
 const STATS = [
-  { value: '10,00+', label: 'Safe deals completed' },
-  { value: 'PKR 25M+', label: 'Payments protected' },
+  { value: '1000+', label: 'Safe deals completed' },
+  { value: 'PKR 9.5M+', label: 'Payments protected' },
   { value: '4.9/5', label: 'Average rating' },
 ]
 
