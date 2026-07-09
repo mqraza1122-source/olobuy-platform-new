@@ -45,7 +45,7 @@ export function HowItWorks() {
             return (
               <li
                 key={step.title}
-                className="relative flex flex-col rounded-2xl border border-white/10 bg-[#283593] p-6 shadow-sm"
+                className="relative flex flex-col h-full rounded-2xl border border-white/10 bg-[#283593] p-6 shadow-sm"
               >
                 <span className="absolute right-6 top-6 text-5xl font-black text-[#ff9800]/20">
                   {i + 1}
@@ -56,7 +56,7 @@ export function HowItWorks() {
                 <h3 className="mt-5 text-lg font-bold text-white">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-300">
+                <p className="mt-2 flex-grow text-sm leading-relaxed text-gray-300">
                   {step.desc}
                 </p>
               </li>
@@ -66,4 +66,4 @@ export function HowItWorks() {
       </div>
     </section>
   )
-                    }
+}
