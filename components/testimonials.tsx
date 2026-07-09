@@ -53,7 +53,7 @@ export function Testimonials() {
           {REVIEWS.map((review) => (
             <figure
               key={review.name}
-              className="flex flex-col rounded-2xl border border-white/10 bg-[#283593] p-6 shadow-sm"
+              className="flex flex-col h-full rounded-2xl border border-white/10 bg-[#283593] p-6 shadow-sm"
             >
               <Quote className="h-8 w-8 text-[#ff9800]/40" aria-hidden />
               <div className="mt-3 flex items-center gap-1" aria-label="Rated 5 out of 5 stars">
@@ -61,7 +61,7 @@ export function Testimonials() {
                   <Star key={i} className="h-4 w-4 fill-[#ff9800] text-[#ff9800]" />
                 ))}
               </div>
-              <blockquote className="mt-4 flex-1 text-pretty leading-relaxed text-white/90">
+              <blockquote className="mt-4 flex-grow text-pretty leading-relaxed text-white/90">
                 {review.text}
               </blockquote>
               <figcaption className="mt-5 border-t border-white/10 pt-4">
@@ -74,4 +74,4 @@ export function Testimonials() {
       </div>
     </section>
   )
-      }
+}
