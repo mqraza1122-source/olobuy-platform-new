@@ -1,10 +1,10 @@
-import { ShieldCheck, MessageSquareText, Landmark, Truck } from 'lucide-react'
+import { ShieldCheck, MessageSquareText, Landmark, Package } from 'lucide-react'
 
 const STEPS = [
   {
     icon: MessageSquareText,
     title: 'Agree on the Deal',
-    desc: 'Buyer and seller agree on the item details, price, and terms, then initiate the process by messaging us on our official WhatsApp.',
+    desc: 'Buyer and provider agree on the details, price, and terms, then initiate the process by messaging us on our official WhatsApp.',
   },
   {
     icon: Landmark,
@@ -12,14 +12,14 @@ const STEPS = [
     desc: 'The buyer transfers the agreed amount to OloBuy. We safely hold these funds in our secure manual escrow account.',
   },
   {
-    icon: Truck,
-    title: 'Seller Ships',
-    desc: 'Once we verify the payment, we instruct the seller to ship the item. The seller ships with full confidence as funds are secured.',
+    icon: Package,
+    title: 'Provider Delivers',
+    desc: 'Once we verify the payment, we instruct the provider to ship the item or deliver the digital service. Everything is secured.',
   },
   {
     icon: ShieldCheck,
     title: 'Inspect & Release',
-    desc: 'The buyer receives and inspects the item. Upon their approval, we instantly release the payment to the seller.',
+    desc: 'The buyer receives and inspects the item or work. Upon their approval, we instantly release the payment.',
   },
 ]
 
@@ -65,4 +65,4 @@ export function HowItWorks() {
       </div>
     </section>
   )
-          }
+}
