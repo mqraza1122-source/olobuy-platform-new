@@ -23,7 +23,6 @@ export function Faq() {
   return (
     <section className="bg-white py-20 sm:py-32">
       <div className="mx-auto max-w-4xl px-6">
-        {/* ہیڈنگ کو آپ کی خواہش کے مطابق اورنج پٹی اور نیلے فونٹ میں کر دیا ہے */}
         <div className="flex justify-center mb-16">
           <div className="inline-flex rounded-full bg-[#ff9800] px-8 py-3 text-center shadow-lg">
             <h2 className="text-xl font-black text-[#1a237e] uppercase tracking-widest">
@@ -65,4 +64,4 @@ export function Faq() {
       </div>
     </section>
   );
-}
+      }
