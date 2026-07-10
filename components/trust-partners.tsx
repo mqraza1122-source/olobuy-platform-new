@@ -26,13 +26,18 @@ export function TrustPartners() {
     <section className="bg-[#1a237e]">
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
         <SectionHeading>Trusted &amp; Compliant</SectionHeading>
+        
+        {/* Professional Trust Line */}
+        <p className="mt-4 text-center text-[11px] font-medium text-gray-300 opacity-80 leading-relaxed max-w-lg mx-auto">
+          OloBuy is legally registered and strictly follows local financial safety regulations to ensure secure transactions.
+        </p>
+
         <div className="mt-8 grid grid-cols-3 gap-4">
           {COMPLIANCE.map((item) => (
             <div
               key={item.name}
               className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white p-4 shadow-sm"
             >
-              {/* لوگو کا فکسڈ سائز کنٹینر */}
               <div className="relative h-12 w-12 sm:h-16 sm:w-16">
                 <Image
                   src={item.src || "/placeholder.svg"}
@@ -83,4 +88,4 @@ export function TrustPartners() {
       </div>
     </section>
   )
-                        }
+                          }
