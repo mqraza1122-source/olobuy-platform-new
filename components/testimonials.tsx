@@ -1,4 +1,6 @@
-import { Star, Quote } from 'lucide-react';
+'use client';
+import { useState } from 'react';
+import { Star, Quote, ChevronDown } from 'lucide-react';
 
 const REVIEWS = [
   {
@@ -25,10 +27,11 @@ const STATS = [
 ];
 
 export function Testimonials() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
     <section className="bg-[#1a237e] py-20 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6">
-        {/* اورنج پٹی والی ہیڈنگ */}
+      <div className="mx-auto max-w-4xl px-6">
         <div className="flex justify-center mb-16">
           <div className="inline-flex rounded-full bg-[#ff9800] px-8 py-3 text-center shadow-lg">
             <h2 className="text-xl font-black text-[#1a237e] uppercase tracking-widest">
@@ -52,26 +55,48 @@ export function Testimonials() {
           ))}
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-3">
+        <div className="space-y-6">
           {REVIEWS.map((review, i) => (
-            <div key={i} className="flex flex-col rounded-[2rem] bg-white p-8 shadow-2xl">
-              <Quote className="h-10 w-10 text-[#ff9800] mb-6" />
-              <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-[#ff9800] text-[#ff9800]" />
-                ))}
-              </div>
-              <p className="text-base font-medium text-[#1a237e]/80 leading-relaxed flex-grow mb-8 italic">
-                "{review.text}"
-              </p>
-              <div className="border-t border-gray-100 pt-6">
-                <span className="block text-xl font-bold text-[#1a237e]">{review.name}</span>
-                <span className="block text-sm font-bold text-[#ff9800]">{review.role}</span>
-              </div>
+            <div 
+              key={i} 
+              className={`rounded-[2rem] border-2 transition-all duration-300 ${
+                openIndex === i ? 'border-[#ff9800] bg-white' : 'border-white/10 bg-[#283593]'
+              } p-8`}
+            >
+              <button 
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                className="flex w-full items-center justify-between text-left"
+              >
+                <div>
+                  <span className={`text-xl font-bold ${openIndex === i ? 'text-[#1a237e]' : 'text-white'}`}>
+                    {review.name}
+                  </span>
+                  <span className="block text-sm font-bold text-[#ff9800]">{review.role}</span>
+                </div>
+                <ChevronDown 
+                  className={`h-7 w-7 transition-transform duration-300 ${
+                    openIndex === i ? 'rotate-180 text-[#ff9800]' : 'text-white'
+                  }`} 
+                />
+              </button>
+              
+              {openIndex === i && (
+                <div className="mt-6 pt-6 border-t border-[#ff9800]/20">
+                  <Quote className="h-8 w-8 text-[#ff9800] mb-4" />
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 fill-[#ff9800] text-[#ff9800]" />
+                    ))}
+                  </div>
+                  <p className="text-base font-medium text-[#1a237e]/80 leading-relaxed italic">
+                    "{review.text}"
+                  </p>
+                </div>
+              )}
             </div>
           ))}
         </div>
       </div>
     </section>
   );
-          }
+}
