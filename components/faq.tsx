@@ -18,18 +18,18 @@ const FAQS = [
 ];
 
 export function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // پہلا سوال بائی ڈیفالٹ کھلا رہے گا
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section className="bg-white py-20 sm:py-32">
       <div className="mx-auto max-w-4xl px-6">
-        <div className="text-center mb-16">
-          <div className="inline-block rounded-full bg-[#ff9800] px-8 py-3 text-sm font-black uppercase tracking-widest text-[#1a237e] mb-6 shadow-xl">
-            Frequently Asked Questions
+        {/* ہیڈنگ کو آپ کی خواہش کے مطابق اورنج پٹی اور نیلے فونٹ میں کر دیا ہے */}
+        <div className="flex justify-center mb-16">
+          <div className="inline-flex rounded-full bg-[#ff9800] px-8 py-3 text-center shadow-lg">
+            <h2 className="text-xl font-black text-[#1a237e] uppercase tracking-widest">
+              Frequently Asked Questions
+            </h2>
           </div>
-          <h2 className="text-4xl font-extrabold text-[#1a237e] sm:text-5xl">
-            Need more clarity?
-          </h2>
         </div>
 
         <div className="space-y-6">
