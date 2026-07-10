@@ -45,7 +45,7 @@ export function Hero() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-[#ff9800] px-8 py-5 text-xl font-bold text-[#1a237e] shadow-lg transition-all hover:bg-orange-400"
+              className="group flex h-16 w-full items-center justify-center gap-3 rounded-2xl bg-[#ff9800] px-8 text-xl font-bold text-[#1a237e] shadow-lg transition-all hover:bg-orange-400 active:scale-95"
             >
               Start a Safe Deal (WhatsApp)
               <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
