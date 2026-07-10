@@ -1,5 +1,6 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
+import { StartSafeDeal } from '@/components/seller/StartSafeDeal' // Import Added
 import { HowItWorks } from '@/components/how-it-works'
 import { Features } from '@/components/features'
 import { Testimonials } from '@/components/testimonials'
@@ -14,6 +15,12 @@ export default function HomePage() {
       <SiteHeader />
       <main className="flex-1">
         <Hero />
+        
+        {/* Start Safe Deal Section added here */}
+        <section className="container mx-auto px-4 py-8">
+          <StartSafeDeal />
+        </section>
+
         <HowItWorks />
         <Features />
         <Testimonials />
