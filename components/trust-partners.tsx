@@ -15,7 +15,7 @@ const PAYMENTS = [
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-gray-300">
+    <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-[#ff9800]">
       {children}
     </p>
   )
@@ -26,55 +26,53 @@ export function TrustPartners() {
     <section className="bg-[#1a237e]">
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
         <SectionHeading>Trusted &amp; Compliant</SectionHeading>
-        <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-5">
+        <div className="mt-8 grid grid-cols-3 gap-4">
           {COMPLIANCE.map((item) => (
             <div
               key={item.name}
-              className="flex h-32 flex-col items-center justify-center rounded-2xl border border-white/10 bg-white p-4 text-center shadow-sm"
+              className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white p-4 shadow-sm"
             >
-              <div className="relative h-12 w-full">
+              {/* لوگو کا فکسڈ سائز کنٹینر */}
+              <div className="relative h-12 w-12 sm:h-16 sm:w-16">
                 <Image
                   src={item.src || "/placeholder.svg"}
                   alt={`${item.name} logo`}
                   fill
-                  sizes="120px"
                   className="object-contain"
                 />
               </div>
-              <span className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-[#ff9800]">
+              <span className="mt-3 text-[10px] font-black uppercase tracking-widest text-[#ff9800]">
                 {item.note}
               </span>
             </div>
           ))}
         </div>
 
-        <div className="mt-14">
+        <div className="mt-16">
           <SectionHeading>Payment Partners</SectionHeading>
-          <div className="mt-6 grid grid-cols-3 gap-3 sm:gap-5">
+          <div className="mt-8 grid grid-cols-3 gap-4">
             {PAYMENTS.map((item) => {
               const Icon = item.icon
               return (
                 <div
                   key={item.name}
-                  className="flex h-32 flex-col items-center justify-center gap-1.5 rounded-2xl border border-white/10 bg-white p-4 text-center shadow-sm"
+                  className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white p-4 shadow-sm"
                 >
-                  {Icon ? (
-                    <>
-                      <Icon className="h-9 w-9 text-[#1a237e]" strokeWidth={1.75} />
-                      <span className="text-[10px] font-bold text-[#1a237e]">{item.name}</span>
-                    </>
-                  ) : (
-                    <div className="relative h-12 w-full">
-                      <Image
-                        src={item.src || "/placeholder.svg"}
-                        alt={`${item.name} logo`}
-                        fill
-                        sizes="120px"
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
-                  <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
+                  <div className="flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center">
+                    {Icon ? (
+                      <Icon className="h-8 w-8 text-[#1a237e]" strokeWidth={2} />
+                    ) : (
+                      <div className="relative h-full w-full">
+                        <Image
+                          src={item.src || "/placeholder.svg"}
+                          alt={`${item.name} logo`}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <span className="mt-2 text-[10px] font-bold uppercase tracking-wider text-gray-500">
                     {item.note}
                   </span>
                 </div>
@@ -85,4 +83,4 @@ export function TrustPartners() {
       </div>
     </section>
   )
-                  }
+                        }
