@@ -14,16 +14,14 @@ export function StartSafeDeal() {
   }
 
   return (
-    <div className="relative z-10 w-full rounded-3xl border border-gray-100 bg-[#1a237e] p-6 shadow-xl mb-8">
-      {/* Header */}
+    <div className="w-full bg-[#1a237e] rounded-3xl border border-gray-100 p-8 shadow-2xl mb-12">
       <div className="flex items-center gap-3 mb-6">
         <ShieldCheck className="h-8 w-8 text-[#ff9800]" />
         <h3 className="text-2xl font-bold text-white">Start a Safe Deal</h3>
       </div>
 
-      {/* Referral Link Section */}
-      <div className="mb-6 rounded-2xl bg-white/5 p-4 border border-white/10">
-        <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-2">Quick Share Link</p>
+      <div className="mb-8 rounded-2xl bg-white/5 p-4 border border-white/10">
+        <p className="text-xs text-gray-400 uppercase tracking-widest mb-2">Quick Share Link</p>
         <div className="flex items-center gap-2">
           <span className="flex-1 text-sm text-white truncate font-mono">{referralLink}</span>
           <button 
@@ -36,9 +34,8 @@ export function StartSafeDeal() {
         </div>
       </div>
 
-      {/* Role Selection Options */}
-      <p className="text-white text-sm font-medium mb-4 text-center">I am starting this deal as:</p>
-      <div className="grid grid-cols-3 gap-2">
+      <p className="text-white font-medium mb-4 text-center">I am starting this deal as:</p>
+      <div className="grid grid-cols-3 gap-3">
         {[
           { name: 'Seller', icon: Briefcase },
           { name: 'Buyer', icon: User },
@@ -46,9 +43,9 @@ export function StartSafeDeal() {
         ].map((role) => (
           <button
             key={role.name}
-            className="flex flex-col items-center justify-center gap-1 rounded-2xl bg-white/10 p-3 hover:bg-white/20 transition-all border border-white/5"
+            className="flex flex-col items-center justify-center gap-2 rounded-2xl bg-white/10 p-4 hover:bg-white/20 transition-all border border-white/5"
           >
-            <role.icon className="h-5 w-5 text-[#ff9800]" />
+            <role.icon className="h-6 w-6 text-[#ff9800]" />
             <span className="text-[10px] font-bold text-white uppercase">{role.name}</span>
           </button>
         ))}
