@@ -1,7 +1,19 @@
-import { ArrowRight, Lock, Star, ShieldCheck } from 'lucide-react'
+'use client'
+
+import { useState } from 'react'
+import { ArrowRight, Lock, Star, ShieldCheck, Copy, Check } from 'lucide-react'
 import { WHATSAPP_URL } from '@/lib/constants'
 
 export function Hero() {
+  const [copied, setCopied] = useState(false)
+  const referralLink = "https://olobuy.pk/deal/start"
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(referralLink)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
   return (
     <section id="top" className="relative overflow-hidden bg-[#1a237e]">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
@@ -50,9 +62,24 @@ export function Hero() {
               Start a Safe Deal
               <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
             </a>
-            <p className="mt-3 text-xs font-medium text-gray-400 uppercase tracking-widest">
+            <p className="mt-3 mb-6 text-xs font-medium text-gray-400 uppercase tracking-widest">
               No signup required • Instant WhatsApp chat
             </p>
+
+            {/* Quick Copy Link Box */}
+            <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-4">
+              <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-2 text-left">Quick Share Link</p>
+              <div className="flex items-center gap-2">
+                <span className="flex-1 text-sm text-white truncate font-mono text-left">{referralLink}</span>
+                <button 
+                  onClick={handleCopy}
+                  className="flex items-center gap-2 rounded-xl bg-[#ff9800] px-4 py-2 text-sm font-bold text-[#1a237e] hover:bg-orange-400 transition-all shrink-0"
+                >
+                  {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                  {copied ? "Copied" : "Copy"}
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="mt-8 flex flex-col items-center gap-2">
@@ -69,4 +96,4 @@ export function Hero() {
       </div>
     </section>
   )
-}
+            }
