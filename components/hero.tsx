@@ -33,11 +33,11 @@ export function Hero() {
           </h1>
 
           <p className="mt-8 max-w-2xl text-pretty text-lg leading-relaxed text-gray-200 sm:text-xl">
-            Stop risking money on OLX or Facebook Marketplace.{' '}
+            Stop risking money on marketplace deals or freelance services. {' '}
             <span className="font-bold text-white">
               OloBuy holds your payment securely
             </span>{' '}
-            until you inspect and approve the item.
+            for physical items, digital products, and freelance work until you approve it.
           </p>
 
           <div className="mt-10 w-full max-w-xl px-2">
@@ -59,11 +59,11 @@ export function Hero() {
               ))}
             </div>
             <p className="text-sm font-medium text-gray-300">
-              Trusted by thousands of buyers &amp; sellers
+              Trusted by thousands of buyers, sellers & freelancers
             </p>
           </div>
         </div>
       </div>
     </section>
   )
-      }
+}
