@@ -17,12 +17,14 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <a href="#top" className="flex flex-col">
-          <div className="flex items-center text-2xl font-bold">
+        
+        {/* Global Brand Logo Design */}
+        <a href="#top" className="flex flex-col group">
+          <div className="flex items-center text-3xl font-extrabold tracking-tight">
             <span className="text-[#ff9800]">Olo</span>
             <span className="text-[#1a237e]">Buy</span>
           </div>
-          <span className="text-[9px] font-medium uppercase tracking-wider text-gray-500">
+          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 group-hover:text-[#1a237e] transition-colors">
             Original Life, Original Buy
           </span>
         </a>
@@ -59,6 +61,7 @@ export function SiteHeader() {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {open && (
         <div className="absolute left-0 w-full border-b border-gray-100 bg-white shadow-xl md:hidden">
           <nav className="flex flex-col px-4 py-6 gap-2">
@@ -85,4 +88,4 @@ export function SiteHeader() {
       )}
     </header>
   )
-            }
+}
