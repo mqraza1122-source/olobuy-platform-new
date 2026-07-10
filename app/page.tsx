@@ -1,6 +1,5 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
-// یہاں فائل کا نام درست کیا گیا ہے
 import { StartSafeDeal } from '@/components/seller/sellerreferral' 
 import { HowItWorks } from '@/components/how-it-works'
 import { Features } from '@/components/features'
@@ -17,7 +16,6 @@ export default function HomePage() {
       <main className="flex-1">
         <Hero />
         
-        {/* اب یہ کارڈ یہاں نظر آئے گا */}
         <section className="container mx-auto px-4 py-8">
           <StartSafeDeal />
         </section>
