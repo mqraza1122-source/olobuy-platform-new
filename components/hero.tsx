@@ -40,16 +40,19 @@ export function Hero() {
             for physical items, digital products, and freelance work until you approve it.
           </p>
 
-          <div className="mt-10 w-full max-w-xl px-2">
+          <div className="mt-10 w-full max-w-xl px-2 flex flex-col items-center">
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex h-16 w-full items-center justify-center gap-3 rounded-2xl bg-[#ff9800] px-8 text-xl font-bold text-[#1a237e] shadow-lg transition-all hover:bg-orange-400 active:scale-95"
             >
-              Start a Safe Deal (WhatsApp)
+              Start a Safe Deal
               <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
             </a>
+            <p className="mt-3 text-xs font-medium text-gray-400 uppercase tracking-widest">
+              No signup required • Instant WhatsApp chat
+            </p>
           </div>
 
           <div className="mt-8 flex flex-col items-center gap-2">
