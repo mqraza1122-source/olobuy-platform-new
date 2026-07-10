@@ -1,15 +1,15 @@
-import { ShieldCheck, Eye, MessageCircle, Banknote, Truck, Users } from 'lucide-react'
+import { ShieldCheck, Eye, MessageCircle, Banknote, Package, Users } from 'lucide-react'
 
 const FEATURES = [
   {
     icon: ShieldCheck,
     title: 'No Advance Fraud',
-    desc: 'Sellers never receive money upfront. Buyers never lose an advance to a fake listing.',
+    desc: 'Providers never receive money upfront. Buyers never lose an advance to a fake service or listing.',
   },
   {
     icon: Eye,
-    title: 'Inspect Before You Pay Out',
-    desc: 'Payment is only released after the buyer receives and approves the item.',
+    title: 'Inspect Before Release',
+    desc: 'Payment is only released after you inspect the product or verify the digital service provided.',
   },
   {
     icon: MessageCircle,
@@ -19,17 +19,17 @@ const FEATURES = [
   {
     icon: Banknote,
     title: 'Money Held Securely',
-    desc: 'OloBuy holds funds in a neutral, manual escrow until both sides are satisfied.',
+    desc: 'OloBuy holds funds in a neutral, manual escrow until both sides are completely satisfied.',
   },
   {
-    icon: Truck,
-    title: 'Safe Nationwide Delivery',
-    desc: 'Works with any courier across Pakistan so buyers and sellers stay protected.',
+    icon: Package,
+    title: 'Versatile Escrow',
+    desc: 'Whether it is a physical product or a digital service, we keep your transactions protected.',
   },
   {
     icon: Users,
     title: 'Fair for Both Sides',
-    desc: 'A trusted middleman that protects the buyer and the seller equally.',
+    desc: 'A trusted middleman that protects the buyer and the provider equally.',
   },
 ]
 
@@ -50,7 +50,7 @@ export function Features() {
             Built to end online buying &amp; selling fraud
           </h2>
           <p className="mt-4 text-pretty text-lg leading-relaxed text-gray-200">
-            Everything you need to trade safely with strangers online.
+            Everything you need to trade safely with strangers online, whether it's goods or services.
           </p>
         </div>
 
@@ -78,4 +78,4 @@ export function Features() {
       </div>
     </section>
   )
-                    }
+      }
