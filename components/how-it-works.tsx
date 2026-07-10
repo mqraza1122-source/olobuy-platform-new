@@ -27,10 +27,12 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="bg-[#1a237e] py-20 sm:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-white sm:text-6xl">
-            How It Works
-          </h2>
+        <div className="flex justify-center mb-16">
+          <div className="inline-flex rounded-full bg-[#ff9800] px-8 py-3 text-center shadow-lg">
+            <h2 className="text-xl font-black text-[#1a237e] uppercase tracking-widest">
+              How It Works
+            </h2>
+          </div>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -41,7 +43,6 @@ export function HowItWorks() {
                 key={step.title}
                 className="flex flex-col rounded-[2rem] bg-[#283593] p-8 border border-white/10 shadow-xl"
               >
-                {/* نمبر اور آئیکون ایک ہی لائن میں */}
                 <div className="flex items-center gap-4 mb-6">
                   <div className="text-3xl font-black text-[#ff9800]">
                     0{i + 1}
@@ -51,7 +52,6 @@ export function HowItWorks() {
                   </div>
                 </div>
                 
-                {/* ہیڈنگ اور تفصیل نیچے */}
                 <h3 className="text-xl font-bold text-white mb-3">
                   {step.title}
                 </h3>
@@ -65,4 +65,4 @@ export function HowItWorks() {
       </div>
     </section>
   )
-}
+          }
