@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Copy, Check, Share2, ShieldCheck, User, Briefcase, UserCircle } from 'lucide-react'
+import { Copy, Check, ShieldCheck, User, Briefcase, UserCircle } from 'lucide-react'
 
 export function StartSafeDeal() {
   const [copied, setCopied] = useState(false)
@@ -15,6 +15,7 @@ export function StartSafeDeal() {
 
   return (
     <div className="rounded-3xl border border-gray-100 bg-[#1a237e] p-8 shadow-xl">
+      {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <ShieldCheck className="h-8 w-8 text-[#ff9800]" />
         <h3 className="text-2xl font-bold text-white">Start a Safe Deal</h3>
@@ -54,4 +55,4 @@ export function StartSafeDeal() {
       </div>
     </div>
   )
-          }
+}
