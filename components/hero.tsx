@@ -11,14 +11,15 @@ export function Hero() {
   const [amount, setAmount] = useState("")
   const referralLink = "https://olobuy.pk/deal/start"
 
-  // واٹس ایپ میسج کا درست فارمیٹ
   const getWhatsAppLink = () => {
+    const baseUrl = WHATSAPP_URL.split('?')[0]
     const message = `Hi OloBuy! I'd like to start a Safe Deal (escrow).
     
-    Role: ${role}
-    Item: ${product}
-    Amount: Rs ${amount}`
-    return `${WHATSAPP_URL}?text=${encodeURIComponent(message)}`
+Role: ${role}
+Item: ${product}
+Amount: Rs ${amount}`
+    
+    return `${baseUrl}?text=${encodeURIComponent(message)}`
   }
 
   const handleCopy = () => {
@@ -112,4 +113,4 @@ export function Hero() {
       </div>
     </section>
   )
-}
+                    }
