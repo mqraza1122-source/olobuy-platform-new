@@ -21,76 +21,62 @@ const REVIEWS = [
 ];
 
 const STATS = [
-  { value: '1000+', label: 'Safe Deals' },
-  { value: 'PKR 9.5M+', label: 'Protected' },
-  { value: '4.9/5', label: 'User Rating' },
+  { value: '1000+', label: 'Deals' },
+  { value: '9.5M+', label: 'PKR' },
+  { value: '4.9/5', label: 'Rating' },
 ];
 
 export function Testimonials() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-[#1a237e] py-20 sm:py-32">
-      <div className="mx-auto max-w-4xl px-6">
-        <div className="flex justify-center mb-16">
-          <div className="inline-flex rounded-full bg-[#ff9800] px-8 py-3 text-center shadow-lg">
-            <h2 className="text-xl font-black text-[#1a237e] uppercase tracking-widest">
-              Reviews
-            </h2>
-          </div>
-        </div>
-
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-white sm:text-5xl leading-tight">
-            Real Stories, <br /> Real Trust
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+    <section className="bg-[#1a237e] py-12 sm:py-20">
+      <div className="mx-auto max-w-4xl px-4">
+        
+        {/* اسٹیٹسٹکس: اب یہ 3 چھوٹے بٹن نما باکسز ہیں */}
+        <div className="grid grid-cols-3 gap-2 mb-12">
           {STATS.map((stat) => (
-            <div key={stat.label} className="rounded-[2rem] bg-[#283593] p-8 text-center border border-white/10">
-              <div className={`font-black text-[#ff9800] mb-2 ${stat.value === '1000+' ? 'text-6xl' : 'text-5xl'}`}>
-                {stat.value}
-              </div>
-              <div className="text-lg font-bold text-gray-300 uppercase tracking-widest">{stat.label}</div>
+            <div key={stat.label} className="bg-white/10 border border-white/20 rounded-xl py-3 px-1 text-center">
+              <div className="text-lg sm:text-xl font-black text-[#ff9800]">{stat.value}</div>
+              <div className="text-[10px] sm:text-xs font-bold text-white uppercase">{stat.label}</div>
             </div>
           ))}
         </div>
 
-        <div className="space-y-6">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-extrabold text-white leading-tight">
+            Real Stories, Real Trust
+          </h2>
+        </div>
+
+        <div className="space-y-4">
           {REVIEWS.map((review, i) => (
             <div 
               key={i} 
-              className={`rounded-[2rem] border-2 transition-all duration-300 ${
+              className={`rounded-2xl border transition-all duration-300 ${
                 openIndex === i ? 'border-[#ff9800] bg-white' : 'border-white/10 bg-[#283593]'
-              } p-8`}
+              } p-5`}
             >
               <button 
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="flex w-full items-center justify-between text-left"
               >
                 <div>
-                  <span className={`text-xl font-bold ${openIndex === i ? 'text-[#1a237e]' : 'text-white'}`}>
+                  <span className={`text-lg font-bold ${openIndex === i ? 'text-[#1a237e]' : 'text-white'}`}>
                     {review.name}
                   </span>
-                  <span className="block text-sm font-bold text-[#ff9800]">{review.role}</span>
+                  <span className="block text-xs font-bold text-[#ff9800]">{review.role}</span>
                 </div>
                 <ChevronDown 
-                  className={`h-7 w-7 transition-transform duration-300 ${
+                  className={`h-5 w-5 transition-transform duration-300 ${
                     openIndex === i ? 'rotate-180 text-[#ff9800]' : 'text-white'
                   }`} 
                 />
               </button>
               
               {openIndex === i && (
-                <div className="mt-6 pt-6 border-t border-[#ff9800]/20">
-                  <Quote className="h-8 w-8 text-[#ff9800] mb-4" />
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-[#ff9800] text-[#ff9800]" />
-                    ))}
-                  </div>
-                  <p className="text-base font-medium text-[#1a237e]/80 leading-relaxed italic">
+                <div className="mt-4 pt-4 border-t border-[#ff9800]/20">
+                  <p className="text-sm font-medium text-[#1a237e]/80 italic">
                     "{review.text}"
                   </p>
                 </div>
@@ -101,4 +87,4 @@ export function Testimonials() {
       </div>
     </section>
   );
-                                       }
+          }
