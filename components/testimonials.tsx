@@ -41,15 +41,17 @@ export function Testimonials() {
         </div>
 
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-white sm:text-5xl">
-            Real Stories, Real Trust
+          <h2 className="text-4xl font-extrabold text-white sm:text-5xl leading-tight">
+            Real Stories, <br /> Real Trust
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {STATS.map((stat) => (
             <div key={stat.label} className="rounded-[2rem] bg-[#283593] p-8 text-center border border-white/10">
-              <div className="text-5xl font-black text-[#ff9800] mb-2">{stat.value}</div>
+              <div className={`font-black text-[#ff9800] mb-2 ${stat.value === '1000+' ? 'text-6xl' : 'text-5xl'}`}>
+                {stat.value}
+              </div>
               <div className="text-lg font-bold text-gray-300 uppercase tracking-widest">{stat.label}</div>
             </div>
           ))}
@@ -99,4 +101,4 @@ export function Testimonials() {
       </div>
     </section>
   );
-}
+                                       }
