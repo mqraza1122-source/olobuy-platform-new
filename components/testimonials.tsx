@@ -1,90 +1,103 @@
-'use client';
-import { useState } from 'react';
-import { Star, Quote, ChevronDown } from 'lucide-react';
+'use client'
 
-const REVIEWS = [
-  {
-    name: 'Luxe Branded fashion',
-    role: 'Buyer, Hyderabad',
-    text: 'Bought branded clothes in bulk from Faislabad through OloBuy. My money was safe until the parcel reached me.',
-  },
-  {
-    name: 'Sana Jewelry',
-    role: 'Seller, Karachi',
-    text: 'As a seller I was always scared of fake buyers. OloBuy held the payment before I shipped, so I finally felt secure.',
-  },
-  {
-    name: 'Bilal Cosmetics',
-    role: 'Buyer, Islamabad',
-    text: 'Super simple over WhatsApp. Inspected the item first, approved it, and only then the seller got paid.',
-  },
-];
+import { useState } from 'react'
+import { Copy, Check, ChevronDown, MessageCircle } from 'lucide-react'
+import { WHATSAPP_URL } from '@/lib/constants'
 
-const STATS = [
-  { value: '1000+', label: 'Deals' },
-  { value: '9.5M+', label: 'PKR' },
-  { value: '4.9/5', label: 'Rating' },
-];
+export function Hero() {
+  const [copied, setCopied] = useState(false)
+  const [role, setRole] = useState("Buyer")
+  const [product, setProduct] = useState("")
+  const [amount, setAmount] = useState("")
+  const referralLink = "https://olobuy.pk/deal/start"
 
-export function Testimonials() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const getWhatsAppLink = () => {
+    const baseUrl = WHATSAPP_URL.split('?')[0]
+    const message = `Hi OloBuy! I'd like to start a Safe Deal (escrow).
+    
+Role: ${role}
+Item: ${product}
+Amount: Rs ${amount}`
+    
+    return `${baseUrl}?text=${encodeURIComponent(message)}`
+  }
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(referralLink)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
-    <section className="bg-[#1a237e] py-12 sm:py-20">
-      <div className="mx-auto max-w-4xl px-4">
-        
-        {/* اسٹیٹسٹکس: اب یہ 3 چھوٹے بٹن نما باکسز ہیں */}
-        <div className="grid grid-cols-3 gap-2 mb-12">
-          {STATS.map((stat) => (
-            <div key={stat.label} className="bg-white/10 border border-white/20 rounded-xl py-3 px-1 text-center">
-              <div className="text-lg sm:text-xl font-black text-[#ff9800]">{stat.value}</div>
-              <div className="text-[10px] sm:text-xs font-bold text-white uppercase">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+    <section id="top" className="relative overflow-hidden bg-[#1a237e] py-6 sm:py-20">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="flex flex-col items-center text-center">
+          
+          <h1 dir="rtl" lang="ur" className="mb-4 font-urdu leading-[2.0]">
+            <span className="block text-3xl font-bold text-white sm:text-6xl">نہ ایڈوانس کا ڈر،</span>
+            <span className="mt-1 block text-3xl font-bold text-[#ff9800] sm:text-6xl">نہ پارسل کا فراڈ!</span>
+          </h1>
 
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-extrabold text-white leading-tight">
-            Real Stories, Real Trust
-          </h2>
-        </div>
-
-        <div className="space-y-4">
-          {REVIEWS.map((review, i) => (
-            <div 
-              key={i} 
-              className={`rounded-2xl border transition-all duration-300 ${
-                openIndex === i ? 'border-[#ff9800] bg-white' : 'border-white/10 bg-[#283593]'
-              } p-5`}
-            >
-              <button 
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="flex w-full items-center justify-between text-left"
-              >
-                <div>
-                  <span className={`text-lg font-bold ${openIndex === i ? 'text-[#1a237e]' : 'text-white'}`}>
-                    {review.name}
-                  </span>
-                  <span className="block text-xs font-bold text-[#ff9800]">{review.role}</span>
+          <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl mt-2 text-left">
+            <h2 className="text-md font-bold text-[#1a237e] mb-4 text-center">
+              Never buy or sell online without OloBuy in Pakistan
+            </h2>
+            
+            <div className="space-y-3 mb-4">
+              <div>
+                <label className="text-xs font-bold text-gray-500 ml-1">Select Role</label>
+                <div className="relative mt-1">
+                  <select 
+                    value={role} 
+                    onChange={(e) => setRole(e.target.value)}
+                    className="w-full p-3 rounded-xl border border-gray-300 bg-white text-gray-900 font-bold appearance-none"
+                  >
+                    <option>Buyer</option>
+                    <option>Seller</option>
+                    <option>Olo Agent</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-4 h-5 w-5 text-gray-400" />
                 </div>
-                <ChevronDown 
-                  className={`h-5 w-5 transition-transform duration-300 ${
-                    openIndex === i ? 'rotate-180 text-[#ff9800]' : 'text-white'
-                  }`} 
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-gray-500 ml-1">Product Name</label>
+                <input 
+                  type="text" 
+                  placeholder="e.g. Mobile, Gaming Account" 
+                  value={product}
+                  onChange={(e) => setProduct(e.target.value)}
+                  className="w-full p-3 mt-1 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 font-medium" 
                 />
-              </button>
-              
-              {openIndex === i && (
-                <div className="mt-4 pt-4 border-t border-[#ff9800]/20">
-                  <p className="text-sm font-medium text-[#1a237e]/80 italic">
-                    "{review.text}"
-                  </p>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-gray-500 ml-1">Amount</label>
+                <div className="flex gap-2 mt-1">
+                  <div className="flex items-center justify-center px-4 rounded-xl bg-gray-100 border border-gray-300 font-bold text-gray-600">Rs</div>
+                  <input 
+                    type="number" 
+                    placeholder="50000" 
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    className="w-full p-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 font-medium" 
+                  />
                 </div>
-              )}
+              </div>
             </div>
-          ))}
+
+            <a
+              href={getWhatsAppLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between w-full bg-[#ff9800] text-[#1a237e] font-bold py-4 px-6 rounded-xl hover:bg-orange-400 transition-all text-md shadow-lg"
+            >
+              <span>Start safe online deal now</span>
+              <MessageCircle className="h-6 w-6" />
+            </a>
+          </div>
         </div>
       </div>
     </section>
-  );
-          }
+  )
+                  }
