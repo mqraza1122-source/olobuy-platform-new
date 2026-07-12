@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Copy, Check, ChevronDown } from 'lucide-react'
+import { Copy, Check, ChevronDown, MessageCircle } from 'lucide-react'
 import { WHATSAPP_URL } from '@/lib/constants'
 
 export function Hero() {
@@ -33,9 +33,9 @@ Amount: Rs ${amount}`
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center">
           
-          {/* یہ ہے وہ کوڈ جو آپ کی ہیڈنگ کو ایک لائن میں کرتا ہے۔ */}
-          <h1 dir="rtl" lang="ur" className="mb-6 sm:mb-12 font-urdu text-2xl sm:text-6xl font-bold text-white whitespace-nowrap leading-tight">
-            نہ ایڈوانس کا ڈر، نہ پارسل کا فراڈ
+          <h1 dir="rtl" lang="ur" className="mb-4 font-urdu leading-[2.0]">
+            <span className="block text-3xl font-bold text-white sm:text-6xl">نہ ایڈوانس کا ڈر،</span>
+            <span className="mt-1 block text-3xl font-bold text-[#ff9800] sm:text-6xl">نہ پارسل کا فراڈ!</span>
           </h1>
 
           <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl mt-2 text-left">
@@ -86,32 +86,18 @@ Amount: Rs ${amount}`
               </div>
             </div>
 
-            {/* یہ آپ کا اصل اورنج بٹن ہے، جو اب صحیح پوزیشن میں ہے۔ */}
             <a
               href={getWhatsAppLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-[#ff9800] text-[#1a237e] text-center font-bold py-3 rounded-xl hover:bg-orange-400 transition-all text-md shadow-lg"
+              className="flex items-center justify-center gap-3 w-full bg-[#ff9800] text-[#1a237e] font-bold py-4 rounded-xl hover:bg-orange-400 transition-all text-sm shadow-lg"
             >
-              Start safe online deal now
+              <span>Start safe online deal now</span>
+              <MessageCircle className="h-5 w-5 shrink-0" />
             </a>
-          </div>
-
-          <div className="mt-4 w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-3">
-            <p className="text-[9px] text-gray-400 uppercase tracking-widest mb-1 text-center">Quick Share Link</p>
-            <div className="flex items-center gap-2">
-              <span className="flex-1 text-xs text-white truncate font-mono text-center">{referralLink}</span>
-              <button 
-                onClick={handleCopy}
-                className="flex items-center gap-2 rounded-xl bg-[#ff9800] px-3 py-1.5 text-xs font-bold text-[#1a237e] hover:bg-orange-400 transition-all shrink-0"
-              >
-                {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                {copied ? "Copied" : "Copy"}
-              </button>
-            </div>
           </div>
         </div>
       </div>
     </section>
   )
-                }
+            }
