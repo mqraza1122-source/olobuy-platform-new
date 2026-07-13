@@ -10,32 +10,21 @@ export function Hero() {
   const [amount, setAmount] = useState("")
   const referralLink = "https://olobuy.pk/deal/start"
   
-  // WhatsApp Number directly defined
-  const WHATSAPP_NUMBER = "923043031572"
-
   const getWhatsAppLink = () => {
     const message = `Hi OloBuy! I'd like to start a Safe Deal (escrow).\n\nRole: ${role}\nItem: ${product}\nAmount: Rs ${amount}`
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
-  }
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(referralLink)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    return `https://wa.me/923043031572?text=${encodeURIComponent(message)}`
   }
 
   return (
     <section id="top" className="relative overflow-hidden bg-[#1a237e] py-6 sm:py-20">
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center">
-          
-          {/* Urdu Heading: Professional Size & Alignment */}
           <h1 className="mb-8 font-bold leading-[1.6]">
             <span className="block text-3xl text-white sm:text-5xl">نہ ایڈوانس کا ڈر،</span>
             <span className="mt-2 block text-3xl text-[#ff9800] sm:text-5xl">نہ پارسل کا فراڈ!</span>
           </h1>
 
-          <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl mt-2 text-left">
+          <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl text-left">
             <h2 className="text-md font-bold text-[#1a237e] mb-4 text-center">
               Never buy or sell online without OloBuy in Pakistan
             </h2>
@@ -83,7 +72,6 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Green WhatsApp Button */}
             <a
               href={getWhatsAppLink()}
               target="_blank"
@@ -94,22 +82,8 @@ export function Hero() {
               <span>Start deal on WhatsApp</span>
             </a>
           </div>
-
-          <div className="mt-4 w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-3">
-            <p className="text-[9px] text-gray-400 uppercase tracking-widest mb-1 text-center">Quick Share Link</p>
-            <div className="flex items-center gap-2">
-              <span className="flex-1 text-xs text-white truncate font-mono text-center">{referralLink}</span>
-              <button 
-                onClick={handleCopy}
-                className="flex items-center gap-2 rounded-xl bg-[#ff9800] px-3 py-1.5 text-xs font-bold text-[#1a237e] hover:bg-orange-400 transition-all shrink-0"
-              >
-                {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                {copied ? "Copied" : "Copy"}
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </section>
   )
-                    }
+              }
