@@ -7,19 +7,20 @@ export function Hero() {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   
-  // WhatsApp Number updated
+  // WhatsApp number direct yahan set hai taake kisi file par depend na ho
   const WHATSAPP_NUMBER = "923043031572"; 
 
   const getWhatsAppLink = () => {
-    const message = `Hi OloBuy! I'd like to start a Safe Deal (escrow).\n\nRole: ${role}\nItem: ${product}\nAmount: Rs ${amount}`;
+    const message = `Hi OloBuy! I'd like to start a Safe Deal.\n\nRole: ${role}\nItem: ${product}\nAmount: Rs ${amount}`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
   return (
-    <section id="top" className="relative overflow-hidden bg-[#1a237e] py-6 sm:py-20">
+    <section className="relative overflow-hidden bg-[#1a237e] py-6 sm:py-20">
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center">
           
+          {/* Urdu Heading */}
           <h1 className="mb-8 font-bold leading-[1.6]">
             <span className="block text-3xl text-white sm:text-6xl">نہ ایڈوانس کا ڈر،</span>
             <span className="mt-2 block text-3xl text-[#ff9800] sm:text-6xl">نہ پارسل کا فراڈ!</span>
@@ -63,8 +64,8 @@ export function Hero() {
                 <div className="flex gap-2 mt-1">
                   <div className="flex items-center justify-center px-4 rounded-xl bg-gray-100 border border-gray-300 font-bold text-gray-600">Rs</div>
                   <input 
-                    type="words" 
-                    placeholder="2000" 
+                    type="number" 
+                    placeholder="50000" 
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     className="w-full p-3 rounded-xl border border-gray-300 bg-white text-gray-900 font-medium" 
@@ -87,4 +88,4 @@ export function Hero() {
       </div>
     </section>
   );
-      }
+                    }
