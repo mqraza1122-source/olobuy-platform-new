@@ -63,8 +63,8 @@ export function Hero() {
                 <div className="flex gap-2 mt-1">
                   <div className="flex items-center justify-center px-4 rounded-xl bg-gray-100 border border-gray-300 font-bold text-gray-600">Rs</div>
                   <input 
-                    type="number" 
-                    placeholder="50000" 
+                    type="words" 
+                    placeholder="2000" 
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     className="w-full p-3 rounded-xl border border-gray-300 bg-white text-gray-900 font-medium" 
