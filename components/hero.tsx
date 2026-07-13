@@ -7,12 +7,12 @@ export function Hero() {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   
-  // WhatsApp URL direct define kr di hai taake import error na ho
-  const WHATSAPP_URL = "https://wa.me/923000000000"; 
+  // WhatsApp Number updated
+  const WHATSAPP_NUMBER = "923043031572"; 
 
   const getWhatsAppLink = () => {
     const message = `Hi OloBuy! I'd like to start a Safe Deal (escrow).\n\nRole: ${role}\nItem: ${product}\nAmount: Rs ${amount}`;
-    return `${WHATSAPP_URL}?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
   return (
@@ -20,7 +20,6 @@ export function Hero() {
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center">
           
-          {/* Urdu Heading Fix */}
           <h1 className="mb-8 font-bold leading-[1.6]">
             <span className="block text-3xl text-white sm:text-6xl">نہ ایڈوانس کا ڈر،</span>
             <span className="mt-2 block text-3xl text-[#ff9800] sm:text-6xl">نہ پارسل کا فراڈ!</span>
@@ -32,7 +31,6 @@ export function Hero() {
             </h2>
             
             <div className="space-y-3 mb-4">
-              {/* Select Role */}
               <div>
                 <label className="text-xs font-bold text-gray-500 ml-1">Select Role</label>
                 <div className="relative mt-1">
@@ -49,7 +47,6 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Product Name */}
               <div>
                 <label className="text-xs font-bold text-gray-500 ml-1">Product Name</label>
                 <input 
@@ -61,7 +58,6 @@ export function Hero() {
                 />
               </div>
 
-              {/* Amount */}
               <div>
                 <label className="text-xs font-bold text-gray-500 ml-1">Amount</label>
                 <div className="flex gap-2 mt-1">
@@ -77,7 +73,6 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Start Deal Button - Fixed for mobile */}
             <a
               href={getWhatsAppLink()}
               target="_blank"
@@ -92,4 +87,4 @@ export function Hero() {
       </div>
     </section>
   );
-                    }
+      }
