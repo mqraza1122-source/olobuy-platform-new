@@ -1,13 +1,11 @@
 'use client'
 import { useState } from 'react'
 import { Menu } from 'lucide-react'
-import { WHATSAPP_URL } from '@/lib/constants'
 
 const NAV_LINKS = [
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Why OloBuy', href: '#why' },
   { label: 'Reviews', href: '#reviews' },
-  { label: 'FAQ', href: '#faq' },
 ]
 
 export function SiteHeader() {
@@ -15,12 +13,11 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <a href="#top" className="flex flex-col group">
+        <div className="flex flex-col">
           <div className="flex items-center text-3xl font-extrabold tracking-tight">
             <span className="text-[#ff9800]">Olo</span><span className="text-[#1a237e]">Buy</span>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 group-hover:text-[#1a237e] transition-colors">Original Life, Original Buy</span>
-        </a>
+        </div>
         <nav className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (<a key={link.href} href={link.href} className="text-sm font-bold text-[#1a237e] hover:text-[#ff9800]">{link.label}</a>))}
         </nav>
@@ -33,4 +30,4 @@ export function SiteHeader() {
       )}
     </header>
   )
-                                       }
+}
