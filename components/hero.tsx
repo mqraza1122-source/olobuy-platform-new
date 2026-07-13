@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Copy, Check, ChevronDown } from 'lucide-react'
-import { WHATSAPP_URL } from '@/lib/constants'
+import { Copy, Check, ChevronDown, MessageCircle } from 'lucide-react'
 
 export function Hero() {
   const [copied, setCopied] = useState(false)
@@ -10,16 +9,13 @@ export function Hero() {
   const [product, setProduct] = useState("")
   const [amount, setAmount] = useState("")
   const referralLink = "https://olobuy.pk/deal/start"
+  
+  // WhatsApp Number directly defined
+  const WHATSAPP_NUMBER = "923043031572"
 
   const getWhatsAppLink = () => {
-    const baseUrl = WHATSAPP_URL.split('?')[0]
-    const message = `Hi OloBuy! I'd like to start a Safe Deal (escrow).
-    
-Role: ${role}
-Item: ${product}
-Amount: Rs ${amount}`
-    
-    return `${baseUrl}?text=${encodeURIComponent(message)}`
+    const message = `Hi OloBuy! I'd like to start a Safe Deal (escrow).\n\nRole: ${role}\nItem: ${product}\nAmount: Rs ${amount}`
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
   }
 
   const handleCopy = () => {
@@ -33,9 +29,10 @@ Amount: Rs ${amount}`
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center">
           
-          <h1 dir="rtl" lang="ur" className="mb-4 font-urdu leading-[2.0]">
-            <span className="block text-3xl font-bold text-white sm:text-6xl">نہ ایڈوانس کا ڈر،</span>
-            <span className="mt-1 block text-3xl font-bold text-[#ff9800] sm:text-6xl">نہ پارسل کا فراڈ!</span>
+          {/* Urdu Heading: Professional Size & Alignment */}
+          <h1 className="mb-8 font-bold leading-[1.6]">
+            <span className="block text-3xl text-white sm:text-5xl">نہ ایڈوانس کا ڈر،</span>
+            <span className="mt-2 block text-3xl text-[#ff9800] sm:text-5xl">نہ پارسل کا فراڈ!</span>
           </h1>
 
           <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl mt-2 text-left">
@@ -86,13 +83,15 @@ Amount: Rs ${amount}`
               </div>
             </div>
 
+            {/* Green WhatsApp Button */}
             <a
               href={getWhatsAppLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-[#ff9800] text-[#1a237e] text-center font-bold py-3 rounded-xl hover:bg-orange-400 transition-all text-md shadow-lg"
+              className="flex items-center justify-center gap-3 w-full bg-[#25D366] text-white font-bold py-4 rounded-xl hover:bg-[#20bd5a] transition-all text-md shadow-lg"
             >
-              Start safe online deal now
+              <MessageCircle className="h-6 w-6" />
+              <span>Start deal on WhatsApp</span>
             </a>
           </div>
 
@@ -113,8 +112,4 @@ Amount: Rs ${amount}`
       </div>
     </section>
   )
-}
-
-
-
-Update now with green button and in line urud heading with best size and professional website designer
+                    }
