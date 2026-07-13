@@ -7,20 +7,19 @@ export function Hero() {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   
-  // WhatsApp number direct yahan set hai taake kisi file par depend na ho
+  // WhatsApp number direct yahan define kar diya hai taake koi external error na aaye
   const WHATSAPP_NUMBER = "923043031572"; 
 
   const getWhatsAppLink = () => {
-    const message = `Hi OloBuy! I'd like to start a Safe Deal.\n\nRole: ${role}\nItem: ${product}\nAmount: Rs ${amount}`;
+    const message = `Hi OloBuy! I'd like to start a Safe Deal (escrow).\n\nRole: ${role}\nItem: ${product}\nAmount: Rs ${amount}`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#1a237e] py-6 sm:py-20">
+    <section id="top" className="relative overflow-hidden bg-[#1a237e] py-6 sm:py-20">
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center">
           
-          {/* Urdu Heading */}
           <h1 className="mb-8 font-bold leading-[1.6]">
             <span className="block text-3xl text-white sm:text-6xl">نہ ایڈوانس کا ڈر،</span>
             <span className="mt-2 block text-3xl text-[#ff9800] sm:text-6xl">نہ پارسل کا فراڈ!</span>
@@ -88,4 +87,4 @@ export function Hero() {
       </div>
     </section>
   );
-                    }
+                }
