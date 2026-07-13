@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Copy, Check, ChevronDown, MessageCircle } from 'lucide-react'
+import { ChevronDown, MessageCircle } from 'lucide-react'
 
-// Constants ko manually handle kr rhy hain taake import error na ho
-const WHATSAPP_URL = "https://wa.me/923000000000" 
+// Constants import ki jagah direct URL use kr rhy hain taake deployment error na ho
+const WHATSAPP_URL = "https://wa.me/923000000000" // Yahan apna WhatsApp number likhen
 
 export function Hero() {
   const [role, setRole] = useState("Buyer")
@@ -49,6 +49,8 @@ export function Hero() {
 
           <a
             href={getWhatsAppLink()}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full bg-[#ff9800] text-[#1a237e] font-bold py-4 rounded-xl"
           >
             Start safe online deal now
@@ -58,4 +60,4 @@ export function Hero() {
       </div>
     </section>
   )
-          }
+}
