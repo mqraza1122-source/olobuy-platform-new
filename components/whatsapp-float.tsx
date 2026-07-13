@@ -1,3 +1,4 @@
+'use client'
 import { WHATSAPP_URL } from '@/lib/constants'
 
 export function WhatsAppFloat() {
