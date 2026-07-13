@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu } from 'lucide-react'
+import { WHATSAPP_URL } from '@/lib/constants'
 
 const NAV_LINKS = [
   { label: 'How It Works', href: '#how-it-works' },
@@ -11,8 +12,6 @@ const NAV_LINKS = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
-  const WHATSAPP_URL = "https://wa.me/923043031572"
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
@@ -34,4 +33,4 @@ export function SiteHeader() {
       )}
     </header>
   )
-}
+                                       }
