@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import { WHATSAPP_URL } from '@/lib/constants'
 
 const NAV_LINKS = [
   { label: 'How It Works', href: '#how-it-works' },
@@ -13,12 +12,12 @@ const NAV_LINKS = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
+  const WHATSAPP_NUMBER = "923043031572" // Fix: Directly defined here
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         
-        {/* Global Brand Logo Design */}
         <a href="#top" className="flex flex-col group">
           <div className="flex items-center text-3xl font-extrabold tracking-tight">
             <span className="text-[#ff9800]">Olo</span>
@@ -43,7 +42,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <a
-            href={WHATSAPP_URL}
+            href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden h-12 items-center rounded-xl bg-[#ff9800] px-6 text-sm font-bold text-white transition-all hover:bg-orange-600 sm:inline-flex"
@@ -61,7 +60,6 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {open && (
         <div className="absolute left-0 w-full border-b border-gray-100 bg-white shadow-xl md:hidden">
           <nav className="flex flex-col px-4 py-6 gap-2">
@@ -76,7 +74,7 @@ export function SiteHeader() {
               </a>
             ))}
             <a
-              href={WHATSAPP_URL}
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 flex h-14 w-full items-center justify-center rounded-xl bg-[#ff9800] text-base font-bold text-white"
@@ -88,4 +86,4 @@ export function SiteHeader() {
       )}
     </header>
   )
-}
+            }
