@@ -1,81 +1,29 @@
 import { ShieldCheck, Eye, MessageCircle, Banknote, Package, Users } from 'lucide-react'
 
 const FEATURES = [
-  {
-    icon: ShieldCheck,
-    title: 'No Advance Fraud',
-    desc: 'Providers never receive money upfront. Buyers never lose an advance to a fake service or listing.',
-  },
-  {
-    icon: Eye,
-    title: 'Inspect Before Release',
-    desc: 'Payment is only released after you inspect the product or verify the digital service provided.',
-  },
-  {
-    icon: MessageCircle,
-    title: 'Simple WhatsApp Process',
-    desc: 'No complicated apps or sign-ups. Start and manage your deal entirely on WhatsApp.',
-  },
-  {
-    icon: Banknote,
-    title: 'Money Held Securely',
-    desc: 'OloBuy holds funds in a neutral, manual escrow until both sides are completely satisfied.',
-  },
-  {
-    icon: Package,
-    title: 'Versatile Escrow',
-    desc: 'Whether it is a physical product or a digital service, we keep your transactions protected.',
-  },
-  {
-    icon: Users,
-    title: 'Fair for Both Sides',
-    desc: 'A trusted middleman that protects the buyer and the provider equally.',
-  },
+  { icon: ShieldCheck, title: 'No Advance Fraud', desc: 'Providers never receive money upfront.' },
+  { icon: Eye, title: 'Inspect Before Release', desc: 'Payment is released after inspection.' },
+  { icon: MessageCircle, title: 'Simple WhatsApp', desc: 'Manage deals on WhatsApp.' },
+  { icon: Banknote, title: 'Secure Money', desc: 'Funds held in neutral escrow.' },
+  { icon: Package, title: 'Versatile', desc: 'Goods or digital services.' },
+  { icon: Users, title: 'Fair for All', desc: 'Middleman protection.' },
 ]
 
 export function Features() {
   return (
-    <section id="why" className="bg-[#1a237e] py-20 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex justify-center mb-16">
-          <div className="inline-flex rounded-full bg-[#ff9800] px-8 py-3 text-center shadow-lg">
-            <h2 className="text-xl font-black text-[#1a237e] uppercase tracking-widest">
-              Why OloBuy
-            </h2>
-          </div>
-        </div>
-
-        <div className="mx-auto max-w-2xl text-center mb-14">
-          <h2 className="text-balance text-4xl font-extrabold text-white sm:text-5xl">
-            Built to end online buying &amp; selling fraud
-          </h2>
-          <p className="mt-4 text-pretty text-lg leading-relaxed text-gray-200">
-            Everything you need to trade safely with strangers online, whether it's goods or services.
-          </p>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((feature) => {
-            const Icon = feature.icon
-            return (
-              <div
-                key={feature.title}
-                className="flex gap-4 rounded-[2rem] border border-white/10 bg-[#283593] p-6 shadow-xl"
-              >
-                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#1a237e]/50 text-[#ff9800]">
-                  <Icon className="h-6 w-6" />
-                </span>
-                <div>
-                  <h3 className="text-base font-bold text-white">{feature.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-gray-300">
-                    {feature.desc}
-                  </p>
-                </div>
-              </div>
-            )
-          })}
+    <section id="why" className="bg-[#1a237e] py-20">
+      <div className="mx-auto max-w-6xl px-4">
+        <h2 className="text-center text-4xl font-extrabold text-white mb-12">Why OloBuy</h2>
+        <div className="grid gap-6 sm:grid-cols-3">
+          {FEATURES.map((f) => (
+            <div key={f.title} className="bg-[#283593] p-6 rounded-2xl border border-white/10">
+              <f.icon className="text-[#ff9800] h-8 w-8 mb-4" />
+              <h3 className="font-bold text-white text-lg">{f.title}</h3>
+              <p className="text-sm text-gray-300 mt-2">{f.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   )
-      }
+                        }
