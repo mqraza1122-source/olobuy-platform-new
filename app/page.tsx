@@ -1,7 +1,7 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
-import { Features } from '@/components/features'
 import { HowItWorks } from '@/components/how-it-works'
+import { Features } from '@/components/features'
 import { Testimonials } from '@/components/testimonials'
 import { Faq } from '@/components/faq'
 import { TrustPartners } from '@/components/trust-partners'
