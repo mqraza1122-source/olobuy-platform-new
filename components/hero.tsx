@@ -60,7 +60,7 @@ export function Hero() {
                     type="number" 
                     placeholder="5000" 
                     value={amount} 
-                    onChange={(e) => etAmount(e.target.value)} 
+                    onChange={(e) => setAmount(e.target.value)} 
                     className="w-full p-3 rounded-r-xl border border-gray-300 bg-white text-gray-900 font-medium" 
                   />
                 </div>
@@ -71,7 +71,7 @@ export function Hero() {
               href={getWhatsAppLink()} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="flex items-center justify-center gap-3 w-full bg-[#25D366] text-white font-bold py-4 rounded-xl hover:bg-[#20bd5a] transition-all text-sm shadow-lg"
+              className="flex items-center justify-center gap-3 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 rounded-xl hover:bg-[#e68900] transition-all text-sm shadow-lg"
             >
               <MessageCircle className="h-5 w-5" /> <span>Start deal on WhatsApp</span>
             </a>
@@ -80,4 +80,4 @@ export function Hero() {
       </div>
     </section>
   )
-              }
+}
