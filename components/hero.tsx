@@ -13,17 +13,19 @@ export function Hero() {
   }
 
   return (
-    <section id="top" className="relative overflow-hidden bg-[#1a237e] py-6 sm:py-20">
+    <section id="top" className="relative overflow-hidden bg-[#1a237e] pt-6 pb-20 sm:py-16">
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center">
           
-          <h1 className="mb-8 font-bold leading-[1.6]">
-            <span className="block text-3xl text-white sm:text-6xl">نہ ایڈوانس کا ڈر،</span>
-            <span className="mt-2 block text-3xl text-[#ff9800] sm:text-6xl">نہ پارسل کا فراڈ!</span>
+          {/* سلوگن ایک لائن میں */}
+          <h1 className="mb-6 font-bold text-2xl sm:text-4xl">
+            <span className="text-white">نہ ایڈوانس کا ڈر </span>
+            <span className="text-[#ff9800]">نہ پارسل کا فراڈ</span>
           </h1>
 
-          <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl text-left">
-            <p className="text-center text-[#1a237e] font-bold mb-6 text-sm sm:text-base">
+          {/* کارڈ کو تھوڑا اوپر شفٹ کیا گیا ہے */}
+          <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl text-left -mt-2">
+            <p className="text-center text-[#1a237e] font-bold mb-4 text-sm">
               Never buy or sell online without OloBuy in Pakistan
             </p>
             
@@ -38,6 +40,7 @@ export function Hero() {
                   >
                     <option>Buyer</option>
                     <option>Seller</option>
+                    <option>Agent</option>
                   </select>
                   <ChevronDown className="absolute right-4 top-4 h-5 w-5 text-gray-400" />
                 </div>
@@ -80,4 +83,4 @@ export function Hero() {
       </div>
     </section>
   )
-}
+                  }
