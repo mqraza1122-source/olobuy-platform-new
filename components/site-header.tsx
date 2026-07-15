@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Menu } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 const NAV_LINKS = [
   { label: 'How It Works', href: '#how-it-works' },
@@ -17,28 +17,28 @@ export function SiteHeader() {
           <div className="flex items-center text-3xl font-extrabold tracking-tight">
             <span className="text-[#ff9800]">Olo</span><span className="text-[#1a237e]">Buy</span>
           </div>
-          <p className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">
             Original Life, Original Buy
           </p>
         </div>
         
-        <nav className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="text-sm font-bold text-[#1a237e] hover:text-[#ff9800]">
-              {link.label}
-            </a>
-          ))}
-        </nav>
-        
-        <button onClick={() => setOpen(!open)} className="md:hidden p-3">
-          <Menu className="h-7 w-7 text-[#1a237e]" />
+        <button 
+          onClick={() => setOpen(!open)} 
+          className="p-2 border border-gray-200 rounded-xl"
+        >
+          {open ? <X className="h-7 w-7 text-[#1a237e]" /> : <Menu className="h-7 w-7 text-[#1a237e]" />}
         </button>
       </div>
       
       {open && (
-        <div className="absolute w-full bg-white border-b p-4 md:hidden shadow-lg">
+        <div className="absolute w-full bg-white border-b p-4 shadow-lg animate-in slide-in-from-top-2">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="block py-3 font-bold text-[#1a237e] border-b">
+            <a 
+              key={link.href} 
+              href={link.href} 
+              onClick={() => setOpen(false)} 
+              className="block py-4 font-bold text-[#1a237e] border-b border-gray-100"
+            >
               {link.label}
             </a>
           ))}
