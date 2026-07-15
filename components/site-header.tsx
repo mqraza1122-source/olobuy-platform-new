@@ -17,15 +17,31 @@ export function SiteHeader() {
           <div className="flex items-center text-3xl font-extrabold tracking-tight">
             <span className="text-[#ff9800]">Olo</span><span className="text-[#1a237e]">Buy</span>
           </div>
+          <p className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">
+            Original Life, Original Buy
+          </p>
         </div>
+        
         <nav className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (<a key={link.href} href={link.href} className="text-sm font-bold text-[#1a237e] hover:text-[#ff9800]">{link.label}</a>))}
+          {NAV_LINKS.map((link) => (
+            <a key={link.href} href={link.href} className="text-sm font-bold text-[#1a237e] hover:text-[#ff9800]">
+              {link.label}
+            </a>
+          ))}
         </nav>
-        <button onClick={() => setOpen(!open)} className="md:hidden p-3"><Menu className="h-7 w-7" /></button>
+        
+        <button onClick={() => setOpen(!open)} className="md:hidden p-3">
+          <Menu className="h-7 w-7 text-[#1a237e]" />
+        </button>
       </div>
+      
       {open && (
-        <div className="absolute w-full bg-white border-b p-4 md:hidden">
-          {NAV_LINKS.map((link) => (<a key={link.href} href={link.href} onClick={() => setOpen(false)} className="block py-3 font-bold text-[#1a237e]">{link.label}</a>))}
+        <div className="absolute w-full bg-white border-b p-4 md:hidden shadow-lg">
+          {NAV_LINKS.map((link) => (
+            <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="block py-3 font-bold text-[#1a237e] border-b">
+              {link.label}
+            </a>
+          ))}
         </div>
       )}
     </header>
