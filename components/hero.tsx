@@ -17,14 +17,12 @@ export function Hero() {
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center">
           
-          {/* اردو سلوگن */}
           <h1 className="mb-8 font-bold leading-[1.6]">
             <span className="block text-3xl text-white sm:text-6xl">نہ ایڈوانس کا ڈر،</span>
             <span className="mt-2 block text-3xl text-[#ff9800] sm:text-6xl">نہ پارسل کا فراڈ!</span>
           </h1>
 
           <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl text-left">
-            {/* انگلش لائن */}
             <p className="text-center text-[#1a237e] font-bold mb-6 text-sm sm:text-base">
               Never buy or sell online without OloBuy in Pakistan
             </p>
@@ -48,7 +46,7 @@ export function Hero() {
                 <label className="text-xs font-bold text-gray-500 ml-1">Product Name</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. Mobile, Gaming Account" 
+                  placeholder="e.g. E-commerce, Gaming Account" 
                   value={product} 
                   onChange={(e) => setProduct(e.target.value)} 
                   className="w-full p-3 mt-1 rounded-xl border border-gray-300 bg-white text-gray-900 font-medium" 
@@ -60,9 +58,9 @@ export function Hero() {
                   <div className="flex items-center px-4 bg-gray-100 border border-r-0 border-gray-300 rounded-l-xl font-bold text-gray-500">Rs</div>
                   <input 
                     type="number" 
-                    placeholder="50000" 
+                    placeholder="5000" 
                     value={amount} 
-                    onChange={(e) => setAmount(e.target.value)} 
+                    onChange={(e) => etAmount(e.target.value)} 
                     className="w-full p-3 rounded-r-xl border border-gray-300 bg-white text-gray-900 font-medium" 
                   />
                 </div>
@@ -82,4 +80,4 @@ export function Hero() {
       </div>
     </section>
   )
-                  }
+              }
