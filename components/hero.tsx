@@ -1,12 +1,16 @@
 'use client'
 import { useState } from 'react'
 import { ChevronDown, MessageCircle } from 'lucide-react'
-import { WHATSAPP_URL } from '@/lib/constants'
 
 export function Hero() {
   const [role, setRole] = useState("Buyer")
   const [product, setProduct] = useState("")
   const [amount, setAmount] = useState("")
+
+  const getWhatsAppLink = () => {
+    const message = `Hi, I would like to start a deal. Role: ${role}, Product: ${product}, Amount: ${amount}`
+    return `https://wa.me/923043031572?text=${encodeURIComponent(message)}`
+  }
 
   return (
     <section id="top" className="relative overflow-hidden bg-[#1a237e] py-6 sm:py-20">
@@ -16,12 +20,17 @@ export function Hero() {
             <span className="block text-3xl text-white sm:text-6xl">No Advance Fear,</span>
             <span className="mt-2 block text-3xl text-[#ff9800] sm:text-6xl">No Parcel Fraud!</span>
           </h1>
+          
           <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl text-left">
             <div className="space-y-3 mb-4">
               <div>
                 <label className="text-xs font-bold text-gray-500 ml-1">Role</label>
                 <div className="relative mt-1">
-                  <select value={role} onChange={(e) => setRole(e.target.value)} className="w-full p-3 rounded-xl border border-gray-300 bg-white text-gray-900 font-bold appearance-none">
+                  <select 
+                    value={role} 
+                    onChange={(e) => setRole(e.target.value)} 
+                    className="w-full p-3 rounded-xl border border-gray-300 bg-white text-gray-900 font-bold appearance-none"
+                  >
                     <option>Buyer</option>
                     <option>Seller</option>
                   </select>
@@ -30,14 +39,32 @@ export function Hero() {
               </div>
               <div>
                 <label className="text-xs font-bold text-gray-500 ml-1">Product</label>
-                <input type="text" placeholder="Item Name" value={product} onChange={(e) => setProduct(e.target.value)} className="w-full p-3 mt-1 rounded-xl border border-gray-300 bg-white text-gray-900 font-medium" />
+                <input 
+                  type="text" 
+                  placeholder="Item Name" 
+                  value={product} 
+                  onChange={(e) => setProduct(e.target.value)} 
+                  className="w-full p-3 mt-1 rounded-xl border border-gray-300 bg-white text-gray-900 font-medium" 
+                />
               </div>
               <div>
                 <label className="text-xs font-bold text-gray-500 ml-1">Amount</label>
-                <input type="number" placeholder="Rs" value={amount} onChange={(e) => setAmount(e.target.value)} className="w-full p-3 mt-1 rounded-xl border border-gray-300 bg-white text-gray-900 font-medium" />
+                <input 
+                  type="number" 
+                  placeholder="Rs" 
+                  value={amount} 
+                  onChange={(e) => setAmount(e.target.value)} 
+                  className="w-full p-3 mt-1 rounded-xl border border-gray-300 bg-white text-gray-900 font-medium" 
+                />
               </div>
             </div>
-            <a href={`${WHATSAPP_URL}&text=Role: ${role}, Item: ${product}, Amount: ${amount}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 w-full bg-[#25D366] text-white font-bold py-4 rounded-xl hover:bg-[#20bd5a] transition-all text-sm shadow-lg">
+            
+            <a 
+              href={getWhatsAppLink()} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center justify-center gap-3 w-full bg-[#25D366] text-white font-bold py-4 rounded-xl hover:bg-[#20bd5a] transition-all text-sm shadow-lg"
+            >
               <MessageCircle className="h-5 w-5" /> <span>Start Deal</span>
             </a>
           </div>
@@ -45,4 +72,4 @@ export function Hero() {
       </div>
     </section>
   )
-                    }
+                  }
