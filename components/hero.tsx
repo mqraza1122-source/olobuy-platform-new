@@ -16,15 +16,22 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden bg-[#1a237e] py-6 sm:py-20">
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center">
-          <h1 className="mb-8 font-bold leading-[1.6]">
-            <span className="block text-3xl text-white sm:text-6xl">No Advance Fear,</span>
-            <span className="mt-2 block text-3xl text-[#ff9800] sm:text-6xl">No Parcel Fraud!</span>
-          </h1>
           
+          {/* اردو سلوگن */}
+          <h1 className="mb-8 font-bold leading-[1.6]">
+            <span className="block text-3xl text-white sm:text-6xl">نہ ایڈوانس کا ڈر،</span>
+            <span className="mt-2 block text-3xl text-[#ff9800] sm:text-6xl">نہ پارسل کا فراڈ!</span>
+          </h1>
+
           <div className="w-full max-w-md bg-white p-5 rounded-3xl shadow-2xl text-left">
+            {/* انگلش لائن */}
+            <p className="text-center text-[#1a237e] font-bold mb-6 text-sm sm:text-base">
+              Never buy or sell online without OloBuy in Pakistan
+            </p>
+            
             <div className="space-y-3 mb-4">
               <div>
-                <label className="text-xs font-bold text-gray-500 ml-1">Role</label>
+                <label className="text-xs font-bold text-gray-500 ml-1">Select Role</label>
                 <div className="relative mt-1">
                   <select 
                     value={role} 
@@ -38,10 +45,10 @@ export function Hero() {
                 </div>
               </div>
               <div>
-                <label className="text-xs font-bold text-gray-500 ml-1">Product</label>
+                <label className="text-xs font-bold text-gray-500 ml-1">Product Name</label>
                 <input 
                   type="text" 
-                  placeholder="Item Name" 
+                  placeholder="e.g. Mobile, Gaming Account" 
                   value={product} 
                   onChange={(e) => setProduct(e.target.value)} 
                   className="w-full p-3 mt-1 rounded-xl border border-gray-300 bg-white text-gray-900 font-medium" 
@@ -49,13 +56,16 @@ export function Hero() {
               </div>
               <div>
                 <label className="text-xs font-bold text-gray-500 ml-1">Amount</label>
-                <input 
-                  type="number" 
-                  placeholder="Rs" 
-                  value={amount} 
-                  onChange={(e) => setAmount(e.target.value)} 
-                  className="w-full p-3 mt-1 rounded-xl border border-gray-300 bg-white text-gray-900 font-medium" 
-                />
+                <div className="flex mt-1">
+                  <div className="flex items-center px-4 bg-gray-100 border border-r-0 border-gray-300 rounded-l-xl font-bold text-gray-500">Rs</div>
+                  <input 
+                    type="number" 
+                    placeholder="50000" 
+                    value={amount} 
+                    onChange={(e) => setAmount(e.target.value)} 
+                    className="w-full p-3 rounded-r-xl border border-gray-300 bg-white text-gray-900 font-medium" 
+                  />
+                </div>
               </div>
             </div>
             
@@ -65,7 +75,7 @@ export function Hero() {
               rel="noopener noreferrer" 
               className="flex items-center justify-center gap-3 w-full bg-[#25D366] text-white font-bold py-4 rounded-xl hover:bg-[#20bd5a] transition-all text-sm shadow-lg"
             >
-              <MessageCircle className="h-5 w-5" /> <span>Start Deal</span>
+              <MessageCircle className="h-5 w-5" /> <span>Start deal on WhatsApp</span>
             </a>
           </div>
         </div>
