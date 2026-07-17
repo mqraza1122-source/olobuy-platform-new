@@ -1,4 +1,4 @@
-import { ArrowRight, Lock } from 'lucide-react'
+import { ArrowRight, Lock, MapPin } from 'lucide-react'
 import { WHATSAPP_URL } from '@/lib/constants'
 
 export function CtaFooter() {
@@ -29,37 +29,48 @@ export function CtaFooter() {
 
       <footer className="border-t border-white/10 bg-[#1a237e]">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-          <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            
+            {/* OloBuy Info */}
             <div className="max-w-sm">
               <span className="text-2xl font-extrabold tracking-tight">
                 <span className="text-white">Olo</span>
                 <span className="text-[#ff9800]">Buy</span>
               </span>
-              <p className="mt-1 text-sm font-medium text-gray-300">
-                Original Life, Original Buy
-              </p>
+              <p className="mt-1 text-sm font-medium text-gray-300">Original Life, Original Buy</p>
               <p className="mt-4 text-sm leading-relaxed text-gray-300">
-                Pakistan&apos;s #1 secure manual escrow service. We hold your payment safely
-                until you inspect and approve your item.
+                Pakistan&apos;s #1 secure manual escrow service. We hold your payment safely until you inspect and approve your item.
               </p>
             </div>
 
+            {/* Quick Links */}
             <nav className="flex flex-col gap-3" aria-label="Footer">
-              <span className="text-sm font-bold text-white">Quick Links</span>
+              <span className="text-sm font-bold text-white uppercase tracking-wider">Quick Links</span>
               <a href="#how-it-works" className="text-sm text-gray-300 hover:text-[#ff9800]">How It Works</a>
               <a href="#why" className="text-sm text-gray-300 hover:text-[#ff9800]">Why OloBuy</a>
               <a href="#reviews" className="text-sm text-gray-300 hover:text-[#ff9800]">Reviews</a>
               <a href="#faq" className="text-sm text-gray-300 hover:text-[#ff9800]">FAQ</a>
-              <a href="/privacy" className="text-sm text-gray-300 hover:text-[#ff9800]">Privacy Policy</a>
-              <a href="/terms" className="text-sm text-gray-300 hover:text-[#ff9800]">Terms of Service</a>
             </nav>
+
+            {/* Address Section */}
+            <div className="space-y-3">
+              <span className="text-sm font-bold text-white uppercase tracking-wider">Head Office</span>
+              <div className="flex items-start gap-2 text-gray-300">
+                <MapPin className="h-5 w-5 text-[#ff9800] shrink-0" />
+                <p className="text-sm leading-relaxed">
+                  25 Sea View Rd, Block 4 <br />
+                  Clifton, Karachi, 74400 <br />
+                  Pakistan
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-gray-400">
+          <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-gray-400">
             &copy; {new Date().getFullYear()} OloBuy. All rights reserved. Secure Manual Escrow Network Pakistan.
           </div>
         </div>
       </footer>
     </>
   )
-}
+              }
