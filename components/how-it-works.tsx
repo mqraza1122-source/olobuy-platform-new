@@ -25,11 +25,11 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-[#1a237e] py-20 sm:py-32">
+    <section id="how-it-works" className="bg-[#1a237e] py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex justify-center mb-16">
-          <div className="inline-flex rounded-full bg-[#ff9800] px-8 py-3 text-center shadow-lg">
-            <h2 className="text-xl font-black text-[#1a237e] uppercase tracking-widest">
+          <div className="inline-flex rounded-full bg-[#ff9800] px-10 py-4 text-center shadow-[0_0_30px_rgba(255,152,0,0.4)]">
+            <h2 className="text-xl md:text-2xl font-black text-[#1a237e] uppercase tracking-widest">
               How It Works
             </h2>
           </div>
@@ -41,21 +41,21 @@ export function HowItWorks() {
             return (
               <div
                 key={step.title}
-                className="flex flex-col rounded-[2rem] bg-[#283593] p-8 border border-white/10 shadow-xl"
+                className="group flex flex-col rounded-[2.5rem] bg-[#283593] p-8 border border-white/10 shadow-2xl transition-all duration-300 hover:bg-[#303f9f] hover:-translate-y-2 hover:border-[#ff9800]/50"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="text-3xl font-black text-[#ff9800]">
+                  <div className="text-4xl font-black text-[#ff9800]/30 group-hover:text-[#ff9800] transition-colors">
                     0{i + 1}
                   </div>
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1a237e]/50 border border-white/10">
-                    <Icon className="h-6 w-6 text-[#ff9800]" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#1a237e] border border-white/10 group-hover:border-[#ff9800]/50 transition-colors">
+                    <Icon className="h-7 w-7 text-[#ff9800]" />
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-bold text-white mb-3">
+                <h3 className="text-xl font-bold text-white mb-4">
                   {step.title}
                 </h3>
-                <p className="text-sm font-medium text-gray-300 leading-relaxed">
+                <p className="text-sm font-medium text-gray-300 leading-relaxed group-hover:text-white transition-colors">
                   {step.desc}
                 </p>
               </div>
