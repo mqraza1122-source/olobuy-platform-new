@@ -55,7 +55,7 @@ export function CtaFooter() {
               
               <div className="w-full h-40 rounded-2xl overflow-hidden shadow-lg border border-white/10 bg-gray-800">
                 <img 
-                  src="/page/olobuy-hq.jpg" 
+                  src="/image/olobuy-hq.jpg" 
                   alt="OloBuy Corporate Headquarters" 
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -82,4 +82,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-                }
+                                            }
