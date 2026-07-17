@@ -58,9 +58,6 @@ export function CtaFooter() {
                   src="/image/olobuy-hq.jpg" 
                   alt="OloBuy Corporate Headquarters" 
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://placehold.co/400x160?text=OloBuy+HQ";
-                  }}
                 />
               </div>
 
@@ -82,4 +79,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-                                            }
+              }
