@@ -53,10 +53,9 @@ export function CtaFooter() {
             <div className="space-y-4">
               <span className="text-sm font-bold text-white uppercase tracking-wider">Head Office</span>
               
-              {/* یہاں تصویر کا کنٹینر */}
               <div className="w-full h-40 rounded-2xl overflow-hidden shadow-lg border border-white/10 bg-gray-800">
                 <img 
-                  src="/image/olobuy-hq.jpg" 
+                  src="/page/olobuy-hq.jpg" 
                   alt="OloBuy Corporate Headquarters" 
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -83,4 +82,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-              }
+                }
