@@ -7,12 +7,19 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 const notoUrdu = Noto_Nastaliq_Urdu({ subsets: ['arabic'], weight: ['400', '700'], variable: '--font-noto-urdu', display: 'swap' })
 
 export const metadata: Metadata = {
-  title: "OloBuy | Pakistan's #1 Secure Manual Escrow Service",
+  metadataBase: new URL('https://olobuy.pk'),
+  title: {
+    default: "OloBuy | Pakistan's #1 Secure Manual Escrow Service",
+    template: "%s | OloBuy"
+  },
   description: "Stop online parcel fraud in Pakistan. OloBuy securely holds your payment until you inspect and approve your items. The safest way to trade on Facebook & OLX.",
   keywords: ["OloBuy", "Olo Research Institute", "Escrow Pakistan", "Safe Online Shopping", "Anti-Fraud Service", "Parcel Security Pakistan"],
   authors: [{ name: "Olo Research Institute" }],
-  metadataBase: new URL('https://olobuy.pk'),
-  alternates: { canonical: '/' },
+  alternates: { canonical: 'https://olobuy.pk' },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "OloBuy | Pakistan's #1 Secure Manual Escrow Service",
     description: "No advance payment fear, no parcel fraud. OloBuy provides secure manual escrow for Pakistani buyers and sellers.",
@@ -51,4 +58,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   )
-}
+  }
