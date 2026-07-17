@@ -52,9 +52,18 @@ export function CtaFooter() {
               <a href="#faq" className="text-sm text-gray-300 hover:text-[#ff9800]">FAQ</a>
             </nav>
 
-            {/* Address Section */}
-            <div className="space-y-3">
+            {/* Address Section with HQ Image */}
+            <div className="space-y-4">
               <span className="text-sm font-bold text-white uppercase tracking-wider">Head Office</span>
+              
+              <div className="rounded-2xl overflow-hidden shadow-lg border border-white/10">
+                <img 
+                  src="/image/olobuy-hq.jpg" 
+                  alt="OloBuy Corporate Headquarters" 
+                  className="w-full h-40 object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
               <div className="flex items-start gap-2 text-gray-300">
                 <MapPin className="h-5 w-5 text-[#ff9800] shrink-0" />
                 <p className="text-sm leading-relaxed">
