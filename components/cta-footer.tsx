@@ -31,7 +31,6 @@ export function CtaFooter() {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             
-            {/* OloBuy Info */}
             <div className="max-w-sm">
               <span className="text-2xl font-extrabold tracking-tight">
                 <span className="text-white">Olo</span>
@@ -43,7 +42,6 @@ export function CtaFooter() {
               </p>
             </div>
 
-            {/* Quick Links */}
             <nav className="flex flex-col gap-3" aria-label="Footer">
               <span className="text-sm font-bold text-white uppercase tracking-wider">Quick Links</span>
               <a href="#how-it-works" className="text-sm text-gray-300 hover:text-[#ff9800]">How It Works</a>
@@ -52,15 +50,18 @@ export function CtaFooter() {
               <a href="#faq" className="text-sm text-gray-300 hover:text-[#ff9800]">FAQ</a>
             </nav>
 
-            {/* Address Section with HQ Image */}
             <div className="space-y-4">
               <span className="text-sm font-bold text-white uppercase tracking-wider">Head Office</span>
               
-              <div className="rounded-2xl overflow-hidden shadow-lg border border-white/10">
+              {/* یہاں تصویر کا کنٹینر */}
+              <div className="w-full h-40 rounded-2xl overflow-hidden shadow-lg border border-white/10 bg-gray-800">
                 <img 
                   src="/image/olobuy-hq.jpg" 
                   alt="OloBuy Corporate Headquarters" 
-                  className="w-full h-40 object-cover hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://placehold.co/400x160?text=OloBuy+HQ";
+                  }}
                 />
               </div>
 
