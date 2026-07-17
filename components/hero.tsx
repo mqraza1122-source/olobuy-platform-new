@@ -13,61 +13,59 @@ export function Hero() {
   }
 
   return (
-    <section id="top" className="relative overflow-hidden bg-[#1a237e] pt-12 pb-20 sm:pt-20 sm:pb-24">
+    <section id="top" className="relative overflow-hidden bg-[#1a237e] pt-4 pb-10 sm:pt-16">
       <div className="mx-auto max-w-5xl px-4">
         <div className="flex flex-col items-center text-center">
           
-          {/* بہتر ویژول ہیرارکی کے لیے ہیڈنگ */}
-          <h1 className="mb-10 font-black text-3xl sm:text-5xl leading-tight">
-            <span className="block text-white mb-2">نہ ایڈوانس کا ڈر</span>
+          {/* ہیڈنگ کو اوپر کر دیا ہے تاکہ کارڈ اسکرین پر فٹ آئے */}
+          <h1 className="mb-6 font-black text-2xl sm:text-5xl leading-tight">
+            <span className="block text-white mb-1">نہ ایڈوانس کا ڈر</span>
             <span className="block text-[#ff9800]">نہ پارسل کا فراڈ</span>
           </h1>
 
-          {/* کارڈ ڈیزائن: موبائل پرفیکٹ اور پریمیم لُک */}
-          <div className="w-full max-w-md bg-white p-6 sm:p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] text-left">
-            <p className="text-center text-[#1a237e] font-bold mb-6 text-sm tracking-wide uppercase">
+          {/* کارڈ ڈیزائن: اب یہ اسکرین پر اوپر کی طرف رہے گا */}
+          <div className="w-full max-w-md bg-white p-5 sm:p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] text-left">
+            <p className="text-center text-[#1a237e] font-bold mb-4 text-[10px] sm:text-sm tracking-wide uppercase">
               Secure Manual Escrow for Pakistan
             </p>
             
-            <div className="space-y-4 mb-6">
+            <div className="space-y-3 mb-4">
               <div>
-                <label className="text-xs font-bold text-gray-400 ml-1 uppercase">Select Role</label>
+                <label className="text-[10px] font-bold text-gray-400 ml-1 uppercase">Select Role</label>
                 <div className="relative mt-1">
                   <select 
                     value={role} 
                     onChange={(e) => setRole(e.target.value)} 
-                    className="w-full p-4 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 font-bold appearance-none focus:ring-2 focus:ring-[#ff9800] outline-none"
+                    className="w-full p-3 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 font-bold appearance-none focus:ring-2 focus:ring-[#ff9800] outline-none"
                   >
                     <option>Buyer</option>
                     <option>Seller</option>
                     <option>Agent</option>
                   </select>
-                  <ChevronDown className="absolute right-4 top-4.5 h-5 w-5 text-gray-400" />
+                  <ChevronDown className="absolute right-4 top-3.5 h-5 w-5 text-gray-400" />
                 </div>
               </div>
               
               <div>
-                <label className="text-xs font-bold text-gray-400 ml-1 uppercase">Product Name</label>
+                <label className="text-[10px] font-bold text-gray-400 ml-1 uppercase">Product Name</label>
                 <input 
                   type="text" 
                   placeholder="e.g. Gaming Account, Cloth" 
                   value={product} 
                   onChange={(e) => setProduct(e.target.value)} 
-                  className="w-full p-4 mt-1 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 font-semibold focus:ring-2 focus:ring-[#ff9800] outline-none" 
+                  className="w-full p-3 mt-1 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 font-semibold focus:ring-2 focus:ring-[#ff9800] outline-none" 
                 />
               </div>
               
               <div>
-                <label className="text-xs font-bold text-gray-400 ml-1 uppercase">Amount (Rs)</label>
-                <div className="flex mt-1">
-                  <input 
-                    type="number" 
-                    placeholder="5000" 
-                    value={amount} 
-                    onChange={(e) => setAmount(e.target.value)} 
-                    className="w-full p-4 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 font-semibold focus:ring-2 focus:ring-[#ff9800] outline-none" 
-                  />
-                </div>
+                <label className="text-[10px] font-bold text-gray-400 ml-1 uppercase">Amount (Rs)</label>
+                <input 
+                  type="number" 
+                  placeholder="5000" 
+                  value={amount} 
+                  onChange={(e) => setAmount(e.target.value)} 
+                  className="w-full p-3 mt-1 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 font-semibold focus:ring-2 focus:ring-[#ff9800] outline-none" 
+                />
               </div>
             </div>
             
@@ -75,7 +73,7 @@ export function Hero() {
               href={getWhatsAppLink()} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="flex items-center justify-center gap-3 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 rounded-2xl hover:bg-[#ffb347] transition-all transform hover:scale-[1.02] text-base shadow-lg"
+              className="flex items-center justify-center gap-2 w-full bg-[#ff9800] text-[#1a237e] font-black py-3.5 rounded-2xl hover:bg-[#ffb347] transition-all transform hover:scale-[1.02] text-sm shadow-lg"
             >
               <MessageCircle className="h-5 w-5" /> <span>Start deal on WhatsApp</span>
             </a>
@@ -84,4 +82,4 @@ export function Hero() {
       </div>
     </section>
   )
-}
+                  }
