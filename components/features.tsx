@@ -2,35 +2,44 @@
 import { ShieldCheck, Eye, MessageCircle, Banknote, Package, Users } from 'lucide-react'
 
 const FEATURES = [
-  { icon: ShieldCheck, title: 'No Advance Fraud', desc: 'Providers never receive money upfront.' },
-  { icon: Eye, title: 'Inspect Before Release', desc: 'Payment is released after inspection.' },
-  { icon: MessageCircle, title: 'Simple WhatsApp', desc: 'Manage deals on WhatsApp.' },
-  { icon: Banknote, title: 'Secure Money', desc: 'Funds held in neutral escrow.' },
-  { icon: Package, title: 'Versatile', desc: 'Goods or digital services.' },
-  { icon: Users, title: 'Fair for All', desc: 'Middleman protection.' },
+  { icon: ShieldCheck, title: 'No Advance Fraud', desc: 'Providers never receive money upfront. We hold it securely.' },
+  { icon: Eye, title: 'Inspect Before Release', desc: 'Buyer inspects the goods/service before payment is released.' },
+  { icon: MessageCircle, title: 'Simple WhatsApp Deals', desc: 'Easily manage and initiate all your deals through WhatsApp.' },
+  { icon: Banknote, title: 'Secure Escrow Holding', desc: 'Funds are held in a neutral, secure account until deal completion.' },
+  { icon: Package, title: 'Versatile Usage', desc: 'Perfect for physical goods, digital products, and services alike.' },
+  { icon: Users, title: 'Fair for Both Parties', desc: 'Equal protection and peace of mind for both buyers and sellers.' },
 ]
 
 export function Features() {
   return (
-    <section id="why" className="bg-[#1a237e] py-16 px-4">
-      <div className="mx-auto max-w-4xl flex flex-col items-center">
+    <section id="why" className="bg-[#1a237e] py-20 px-4 sm:py-28">
+      <div className="mx-auto max-w-5xl flex flex-col items-center">
         
-        <div className="mb-12 bg-[#ff9800] text-[#1a237e] font-black py-3 px-8 rounded-full text-2xl shadow-lg">
-          WHY OLOBUY
+        {/* بہتر ہیڈنگ اسٹائل */}
+        <div className="mb-16 bg-[#ff9800] text-[#1a237e] font-black py-4 px-10 rounded-full text-xl md:text-2xl shadow-xl tracking-wider uppercase text-center">
+          Why Choose OloBuy?
         </div>
 
-        <div className="w-full grid gap-6 sm:grid-cols-2">
-          {FEATURES.map((f) => (
-            <div key={f.title} className="bg-[#283593] p-8 rounded-3xl border border-[#3949ab] shadow-xl">
-              <div className="mb-4 text-[#ff9800]">
-                <f.icon className="h-10 w-10" />
+        {/* موبائل کے لیے سنگل کالم (grid-cols-1) اور ڈیسک ٹاپ کے لیے ڈبل کالم (sm:grid-cols-2) */}
+        <div className="w-full grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((f) => {
+            const Icon = f.icon
+            return (
+              <div key={f.title} className="bg-[#283593] p-8 rounded-[2.5rem] border border-white/10 shadow-2xl transition-all hover:border-[#ff9800]/30 hover:bg-[#303f9f]">
+                <div className="mb-6 inline-flex rounded-3xl bg-[#1a237e] p-4 border border-white/10">
+                  <Icon className="h-8 w-8 text-[#ff9800]" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3 leading-snug">
+                  {f.title}
+                </h3>
+                <p className="text-blue-100/90 text-base leading-relaxed">
+                  {f.desc}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{f.title}</h3>
-              <p className="text-blue-100 text-sm">{f.desc}</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
   )
-}
+   }
