@@ -17,18 +17,18 @@ export function Hero() {
       <div className="mx-auto max-w-lg px-4">
         <div className="flex flex-col items-center text-center">
           
-          {/* اردو ہیڈنگ: اب ایک لائن میں */}
+          {/* اردو ہیڈنگ */}
           <h1 className="mb-6 font-black text-2xl sm:text-4xl text-white">
             نہ ایڈوانس کا ڈر، <span className="text-[#ff9800]">نہ پارسل کا فراڈ</span>
           </h1>
 
-          {/* ٹرسٹ بیج: کارڈ سے باہر اوپر الگ */}
+          {/* اپ ڈیٹ شدہ ٹرسٹ بیج: گرین آئیکون اور ٹک */}
           <div className="w-full mb-4 flex items-center justify-center gap-2 bg-white/10 border border-white/20 text-white py-3 rounded-2xl">
-            <ShieldCheck className="h-5 w-5 text-[#ff9800]" />
+            <ShieldCheck className="h-5 w-5 text-[#25d366]" />
             <span className="text-[11px] font-bold uppercase tracking-widest">100% Secure Transactions</span>
           </div>
 
-          {/* کارڈ ڈیزائن: بہتر پیڈنگ کے ساتھ */}
+          {/* کارڈ ڈیزائن */}
           <div className="w-full bg-white p-5 sm:p-6 rounded-[2rem] shadow-2xl text-left">
             <p className="text-center text-[#1a237e]/60 font-bold mb-4 text-[10px] uppercase tracking-widest">
               Secure Manual Escrow for Pakistan
@@ -87,4 +87,4 @@ export function Hero() {
       </div>
     </section>
   )
-}
+                  }
