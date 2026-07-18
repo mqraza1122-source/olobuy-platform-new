@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     title: "OloBuy | Pakistan's #1 Secure Manual Escrow Service",
     description: "No advance payment fear, no parcel fraud. OloBuy provides secure manual escrow for Pakistani buyers and sellers.",
@@ -58,4 +63,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   )
-  }
+             }
