@@ -13,25 +13,25 @@ export function Hero() {
   }
 
   return (
-    <section id="top" className="relative overflow-hidden bg-[#1a237e] pt-4 pb-10 sm:pt-16">
+    <section id="top" className="relative overflow-hidden bg-[#1a237e] py-8 sm:pt-16">
       <div className="mx-auto max-w-5xl px-4">
         <div className="flex flex-col items-center text-center">
           
-          <h1 className="mb-8 font-black text-2xl sm:text-5xl leading-tight">
+          <h1 className="mb-8 font-black text-3xl sm:text-5xl leading-tight">
             <span className="block text-white mb-1">نہ ایڈوانس کا ڈر</span>
             <span className="block text-[#ff9800]">نہ پارسل کا فراڈ</span>
           </h1>
 
-          {/* کارڈ ڈیزائن: VIP اور کلین لُک */}
+          {/* کارڈ ڈیزائن: فکسڈ سائز اور بہتر کلر کنٹراسٹ */}
           <div className="w-full max-w-md bg-white p-6 sm:p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] text-left">
             
-            {/* پریمیم گرین ٹرسٹ بیج */}
-            <div className="flex items-center justify-center gap-2 bg-[#25d366]/10 text-[#25d366] py-3 rounded-2xl mb-6 border border-[#25d366]/20">
-              <ShieldCheck className="h-5 w-5" />
-              <span className="text-xs font-black uppercase tracking-widest">100% Secure Transactions</span>
+            {/* بہتر ٹرسٹ بیج: سفید بیک گراؤنڈ اور ڈارک ٹیکسٹ */}
+            <div className="flex items-center justify-center gap-2 bg-white border-2 border-[#25d366] text-[#1a237e] py-3 rounded-2xl mb-6 shadow-sm">
+              <ShieldCheck className="h-5 w-5 text-[#25d366]" />
+              <span className="text-[11px] font-black uppercase tracking-widest text-[#1a237e]">100% Secure Transactions</span>
             </div>
 
-            <p className="text-center text-[#1a237e] font-bold mb-6 text-[10px] sm:text-sm tracking-wide uppercase">
+            <p className="text-center text-[#1a237e]/60 font-bold mb-6 text-[10px] sm:text-sm tracking-wide uppercase">
               Secure Manual Escrow for Pakistan
             </p>
             
@@ -42,7 +42,7 @@ export function Hero() {
                   <select 
                     value={role} 
                     onChange={(e) => setRole(e.target.value)} 
-                    className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50 text-gray-900 font-bold appearance-none focus:ring-2 focus:ring-[#ff9800] outline-none transition-all"
+                    className="w-full p-4 rounded-2xl border border-gray-100 bg-gray-50 text-gray-900 font-bold appearance-none focus:ring-2 focus:ring-[#ff9800] outline-none"
                   >
                     <option>Buyer</option>
                     <option>Seller</option>
@@ -59,7 +59,7 @@ export function Hero() {
                   placeholder="e.g. Gaming Account, Cloth" 
                   value={product} 
                   onChange={(e) => setProduct(e.target.value)} 
-                  className="w-full p-4 mt-1 rounded-2xl border border-gray-100 bg-gray-50 text-gray-900 font-semibold focus:ring-2 focus:ring-[#ff9800] outline-none transition-all" 
+                  className="w-full p-4 mt-1 rounded-2xl border border-gray-100 bg-gray-50 text-gray-900 font-semibold focus:ring-2 focus:ring-[#ff9800] outline-none" 
                 />
               </div>
               
@@ -70,7 +70,7 @@ export function Hero() {
                   placeholder="5000" 
                   value={amount} 
                   onChange={(e) => setAmount(e.target.value)} 
-                  className="w-full p-4 mt-1 rounded-2xl border border-gray-100 bg-gray-50 text-gray-900 font-semibold focus:ring-2 focus:ring-[#ff9800] outline-none transition-all" 
+                  className="w-full p-4 mt-1 rounded-2xl border border-gray-100 bg-gray-50 text-gray-900 font-semibold focus:ring-2 focus:ring-[#ff9800] outline-none" 
                 />
               </div>
             </div>
@@ -88,4 +88,4 @@ export function Hero() {
       </div>
     </section>
   )
-          }
+            }
