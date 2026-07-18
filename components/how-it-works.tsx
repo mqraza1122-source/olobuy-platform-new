@@ -1,5 +1,5 @@
 'use client'
-import { MessageSquareText, Landmark, Package, ShieldCheck, CheckCircle2 } from 'lucide-react'
+import { MessageSquareText, Landmark, Package, ShieldCheck } from 'lucide-react'
 
 const STEPS = [
   { icon: MessageSquareText, title: 'Agree on the Deal', desc: 'Buyer and provider agree on the terms and initiate via our official WhatsApp.' },
@@ -10,48 +10,35 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-[#1a237e] py-20 sm:py-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="how-it-works" className="bg-[#1a237e] py-20 px-4">
+      <div className="mx-auto max-w-lg">
         
         <div className="flex justify-center mb-16">
-          <div className="inline-flex rounded-full bg-[#ff9800] px-10 py-4 text-center shadow-[0_0_30px_rgba(255,152,0,0.4)]">
-            <h2 className="text-xl md:text-2xl font-black text-[#1a237e] uppercase tracking-widest">
-              How It Works
-            </h2>
+          <div className="bg-[#ff9800] text-[#1a237e] font-black py-4 px-10 rounded-full text-xl shadow-xl uppercase tracking-widest text-center">
+            How It Works
           </div>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="space-y-6">
           {STEPS.map((step, i) => {
             const Icon = step.icon
-            const isLast = i === STEPS.length - 1
-            
             return (
-              <div
-                key={step.title}
-                className="relative flex flex-col rounded-[2.5rem] bg-[#283593] p-8 border border-white/10 shadow-2xl transition-all duration-300 hover:border-[#ff9800]/50 hover:-translate-y-2"
-              >
-                {/* سٹیپ اور نمبر */}
-                <div className="flex items-center justify-between mb-8">
-                  <div className="text-4xl font-black text-white">0{i + 1}</div>
-                  <div className="text-[10px] font-black text-[#ff9800] uppercase tracking-widest bg-[#ff9800]/10 px-3 py-1 rounded-full">
-                    STEP {i + 1}
+              <div key={i} className="bg-[#283593] p-8 rounded-[2rem] border border-white/10 shadow-2xl">
+                {/* STEP 1 اور آئیکون کی ترتیب */}
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-[#ff9800] font-black text-sm uppercase tracking-widest">
+                    Step {i + 1}
+                  </span>
+                  <div className={`p-3 rounded-2xl bg-[#1a237e] ${i === 3 ? 'text-[#25d366]' : 'text-[#ff9800]'}`}>
+                    <Icon className="h-8 w-8" />
                   </div>
-                </div>
-
-                {/* آئیکون */}
-                <div className="mb-6 flex items-center justify-between">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#1a237e] border border-white/10">
-                    <Icon className="h-7 w-7 text-[#ff9800]" />
-                  </div>
-                  {/* سٹیپ 4 کے لیے گرین ٹک */}
-                  {isLast && <CheckCircle2 className="h-8 w-8 text-[#25d366]" />}
                 </div>
                 
-                <h3 className="text-lg font-bold text-white mb-3">
+                {/* ٹائٹل اور تفصیل */}
+                <h3 className="text-2xl font-bold text-white mb-3">
                   {step.title}
                 </h3>
-                <p className="text-xs font-medium text-gray-300 leading-relaxed">
+                <p className="text-blue-100/90 text-base leading-relaxed">
                   {step.desc}
                 </p>
               </div>
