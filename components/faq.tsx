@@ -18,14 +18,17 @@ const FAQS = [
 ];
 
 export function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  // پہلا سوال خود بخود اوپن نہ ہو، اس لیے null رکھا ہے
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-white py-20 sm:py-32">
-      <div className="mx-auto max-w-4xl px-6">
+    <section className="bg-[#1a237e] py-20 px-4">
+      <div className="mx-auto max-w-4xl">
+        
+        {/* ہیڈنگ: اورینج بٹن اسٹائل */}
         <div className="flex justify-center mb-16">
-          <div className="inline-flex rounded-full bg-[#ff9800] px-8 py-3 text-center shadow-lg">
-            <h2 className="text-xl font-black text-[#1a237e] uppercase tracking-widest">
+          <div className="inline-flex rounded-full bg-[#ff9800] px-10 py-4 text-center shadow-[0_0_30px_rgba(255,152,0,0.4)]">
+            <h2 className="text-xl md:text-2xl font-black text-[#1a237e] uppercase tracking-widest">
               Frequently Asked Questions
             </h2>
           </div>
@@ -35,15 +38,15 @@ export function Faq() {
           {FAQS.map((faq, i) => (
             <div 
               key={i} 
-              className={`rounded-[2rem] border-2 transition-all duration-300 ${
-                openIndex === i ? 'border-[#ff9800] bg-[#fffaf5]' : 'border-gray-200 bg-gray-50'
+              className={`rounded-[2rem] border border-white/10 transition-all duration-300 ${
+                openIndex === i ? 'bg-[#303f9f]' : 'bg-[#283593]'
               } p-8`}
             >
               <button 
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="flex w-full items-center justify-between text-left"
               >
-                <span className="text-xl font-bold text-[#1a237e]">{faq.q}</span>
+                <span className="text-lg md:text-xl font-bold text-white">{faq.q}</span>
                 <ChevronDown 
                   className={`h-7 w-7 text-[#ff9800] transition-transform duration-300 ${
                     openIndex === i ? 'rotate-180' : ''
@@ -52,8 +55,8 @@ export function Faq() {
               </button>
               
               {openIndex === i && (
-                <div className="mt-4 pt-4 border-t border-[#ff9800]/20">
-                  <p className="text-base font-medium text-[#1a237e]/80 leading-relaxed">
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <p className="text-base font-medium text-blue-100 leading-relaxed">
                     {faq.a}
                   </p>
                 </div>
@@ -64,4 +67,4 @@ export function Faq() {
       </div>
     </section>
   );
-      }
+          }
