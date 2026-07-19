@@ -9,7 +9,7 @@ const REVIEWS = [
     text: 'I was worried about non serious buyers, but OloBuy verified the buyer first. Smooth payment release after delivery.',
   },
   {
-    name: 'علی ٹریڈرز',
+    name: 'اتفاق ٹریڈرز',
     role: 'الیکٹرانکس ڈیلر، لاہور',
     text: 'استعمال کرنے کے بعد مجھے فراڈ کا کوئی ڈر نہیں رہا۔ سیلر اور کسٹمر دونوں کے لیے یہ سسٹم 100٪ محفوظ اور بہترین Olobuy',
   },
@@ -21,19 +21,15 @@ const REVIEWS = [
 ]
 
 export function Testimonials() {
-  // اب اسے null رکھا ہے تاکہ کوئی بھی ریویو آٹو اوپن نہ ہو
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section id="reviews" className="bg-[#1a237e] py-20 px-4">
-      <div className="mx-auto max-w-2xl">
+    <section id="reviews" className="bg-[#1a237e] py-12 px-4">
+      <div className="mx-auto max-w-5xl">
         
-        <div className="flex justify-center mb-16">
-          <div className="inline-flex rounded-full bg-[#ff9800] px-10 py-4 text-center shadow-[0_0_30px_rgba(255,152,0,0.4)]">
-            <h2 className="text-xl md:text-2xl font-black text-[#1a237e] uppercase tracking-widest">
-              What Our Users Say
-            </h2>
-          </div>
+        {/* یکساں اسٹائل والا بٹن */}
+        <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
+          What Our Users Say
         </div>
         
         <div className="space-y-6">
@@ -53,7 +49,6 @@ export function Testimonials() {
                 <ChevronDown className={`text-[#ff9800] transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* یہ حصہ تبھی کھلے گا جب یوزر کلک کرے گا */}
               {openIndex === index && (
                 <div className="mt-4 pt-4 border-t border-white/10">
                   <div className="flex text-[#ff9800] mb-3">
@@ -72,4 +67,4 @@ export function Testimonials() {
       </div>
     </section>
   )
-                                                                                            }
+                        }
