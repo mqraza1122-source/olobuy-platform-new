@@ -6,7 +6,6 @@ export function CtaFooter() {
     <>
       <section className="bg-[#1a237e]">
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
-          {/* Big Card اب سفید ہے */}
           <div className="rounded-3xl bg-white px-6 py-14 text-center sm:px-12 shadow-lg">
             <Lock className="mx-auto h-10 w-10 text-[#1a237e]/80" />
             <h2 className="mt-5 text-balance text-3xl font-extrabold text-[#1a237e] sm:text-4xl">
@@ -34,29 +33,30 @@ export function CtaFooter() {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             
+            {/* اپڈیٹڈ لوگو اور سلوگن کارڈ */}
             <div className="max-w-sm">
-              <div className="inline-flex items-center px-4 py-2 rounded-2xl bg-white mb-4 shadow-sm">
-                <span className="text-2xl font-black">
+              <div className="bg-white p-6 rounded-[2rem] shadow-lg mb-4 text-center">
+                <span className="text-3xl font-black block leading-none">
                   <span className="text-[#fcc21b]">Olo</span>
                   <span className="text-[#1a237e]">Buy</span>
                 </span>
+                <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-2 block">
+                  Original Life, Original Buy
+                </span>
               </div>
-              <p className="text-sm font-medium text-gray-300">Original Life, Original Buy</p>
-              <p className="mt-4 text-sm leading-relaxed text-gray-300">
+              <p className="text-sm leading-relaxed text-gray-300">
                 Pakistan&apos;s #1 secure manual escrow service. We hold your payment safely until you inspect and approve your item.
               </p>
             </div>
 
             <div className="space-y-6">
               <div>
-                {/* ہیڈنگ اورینج کر دی گئی ہے */}
                 <span className="text-sm font-bold text-[#ff9800] uppercase tracking-wider block mb-3">About Us</span>
                 <p className="text-sm text-gray-300 leading-relaxed">
                   OloBuy is a neutral third-party service dedicated to making online trade in Pakistan safe and fraud-free by holding payments securely.
                 </p>
               </div>
               <div>
-                {/* ہیڈنگ اورینج کر دی گئی ہے */}
                 <span className="text-sm font-bold text-[#ff9800] uppercase tracking-wider block mb-3">Contact</span>
                 <p className="text-sm text-gray-300">olobuyinfo@gmail.com</p>
                 <p className="text-lg font-bold text-white mt-1">0304-3031572</p>
@@ -64,7 +64,6 @@ export function CtaFooter() {
             </div>
 
             <div className="space-y-4">
-              {/* ہیڈنگ اورینج کر دی گئی ہے */}
               <span className="text-sm font-bold text-[#ff9800] uppercase tracking-wider">Head Office</span>
               <div className="w-full h-40 rounded-2xl overflow-hidden shadow-lg border border-white/10 bg-gray-800">
                 <img 
@@ -91,4 +90,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-                  }
+        }
