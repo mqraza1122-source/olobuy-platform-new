@@ -36,14 +36,14 @@ export function Features() {
         </div>
       </div>
 
-      {/* 2. ORIGINAL LIFE, ORIGINAL BUY BUTTON */}
+      {/* 2. ORIGINAL LIFE, ORIGINAL BUY BUTTON (Single Line) */}
       <div className="mx-auto max-w-5xl mb-6">
-        <div className="w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-6 rounded-[2rem] text-xl uppercase text-center shadow-lg">
+        <div className="w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
           Original Life, Original Buy
         </div>
       </div>
 
-      {/* 3. STATS SECTION */}
+      {/* 3. CLEAN STATS SECTION (White Background) */}
       <div className="mx-auto max-w-5xl text-center">
         <div className="grid grid-cols-3 gap-3">
           {[
@@ -51,8 +51,8 @@ export function Features() {
             { title: "9.5M+", subtitle: "PROTECTED" },
             { title: "4.9/5", subtitle: "RATING" },
           ].map((stat, i) => (
-            <div key={i} className="bg-[#ff9800] p-4 rounded-[1.5rem] shadow-lg flex flex-col items-center justify-center">
-              <h3 className="text-xl font-black text-[#1a237e]">{stat.title}</h3>
+            <div key={i} className="bg-white p-4 rounded-[1.5rem] shadow-lg flex flex-col items-center justify-center">
+              <h3 className="text-xl font-black text-[#ff9800]">{stat.title}</h3>
               <p className="text-[10px] text-[#1a237e] font-bold tracking-widest mt-1">{stat.subtitle}</p>
             </div>
           ))}
@@ -60,4 +60,4 @@ export function Features() {
       </div>
     </section>
   )
-      }
+          }
