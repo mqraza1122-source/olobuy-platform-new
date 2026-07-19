@@ -13,8 +13,8 @@ export function HowItWorks() {
     <section id="how-it-works" className="bg-[#1a237e] py-12 px-4">
       <div className="mx-auto max-w-5xl">
         
-        {/* یکساں اسٹائل والا How It Works بٹن */}
-        <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
+        {/* اپڈیٹ شدہ بٹن کا رنگ */}
+        <div className="mb-12 w-full bg-[#fcc21b] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
           How It Works
         </div>
 
@@ -22,21 +22,22 @@ export function HowItWorks() {
           {STEPS.map((step, i) => {
             const Icon = step.icon
             return (
-              <div key={i} className="bg-[#283593] p-8 rounded-[2rem] border border-white/10 shadow-2xl">
+              // کارڈ اب سفید ہیں اور ٹیکسٹ گہرا نیلا
+              <div key={i} className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-lg">
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-[#ff9800] font-black text-sm uppercase tracking-widest">
+                  <span className="text-[#fcc21b] font-black text-sm uppercase tracking-widest">
                     Step {i + 1}
                   </span>
-                  {/* تمام آئیکونز کے لیے گرین کلر */}
-                  <div className="p-3 rounded-2xl bg-[#1a237e] text-[#25d366]">
+                  {/* آئیکون کا بیک گراؤنڈ بھی اب وائٹ/لائٹ ہے تاکہ سفید کارڈ پر اچھا لگے */}
+                  <div className="p-3 rounded-2xl bg-[#f0f4f8] text-[#1a237e]">
                     <Icon className="h-8 w-8" />
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-3">
+                <h3 className="text-2xl font-bold text-[#1a237e] mb-3">
                   {step.title}
                 </h3>
-                <p className="text-blue-100/90 text-base leading-relaxed">
+                <p className="text-gray-600 text-base leading-relaxed">
                   {step.desc}
                 </p>
               </div>
