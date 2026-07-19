@@ -12,32 +12,59 @@ const FEATURES = [
 
 export function Features() {
   return (
-    <section id="why" className="bg-[#1a237e] py-20 px-4 sm:py-28">
-      <div className="mx-auto max-w-5xl flex flex-col items-center">
-        
-        {/* بہتر ہیڈنگ اسٹائل */}
-        <div className="mb-16 bg-[#ff9800] text-[#1a237e] font-black py-4 px-10 rounded-full text-xl md:text-2xl shadow-xl tracking-wider uppercase text-center">
+    <section id="why" className="bg-[#1a237e] py-12 px-4">
+      {/* 1. WHY CHOOSE SECTION */}
+      <div className="mx-auto max-w-5xl flex flex-col items-center mb-12">
+        <div className="mb-12 bg-[#ff9800] text-[#1a237e] font-black py-3 px-8 rounded-full text-xl shadow-xl uppercase text-center">
           Why Choose OloBuy?
         </div>
 
-        {/* موبائل کے لیے سنگل کالم (grid-cols-1) اور ڈیسک ٹاپ کے لیے ڈبل کالم (sm:grid-cols-2) */}
-        <div className="w-full grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="w-full grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f) => {
             const Icon = f.icon
             return (
-              <div key={f.title} className="bg-[#283593] p-8 rounded-[2.5rem] border border-white/10 shadow-2xl transition-all hover:border-[#ff9800]/30 hover:bg-[#303f9f]">
-                <div className="mb-6 inline-flex rounded-3xl bg-[#1a237e] p-4 border border-white/10">
-                  <Icon className="h-8 w-8 text-[#ff9800]" />
+              <div key={f.title} className="bg-[#283593] p-6 rounded-[2rem] border border-white/10 shadow-lg hover:border-[#ff9800]/30 transition-all">
+                <div className="mb-4 inline-flex rounded-2xl bg-[#1a237e] p-3 border border-white/10">
+                  <Icon className="h-6 w-6 text-[#ff9800]" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3 leading-snug">
-                  {f.title}
-                </h3>
-                <p className="text-blue-100/90 text-base leading-relaxed">
-                  {f.desc}
-                </p>
+                <h3 className="text-xl font-bold text-white mb-2">{f.title}</h3>
+                <p className="text-blue-100/80 text-sm leading-relaxed">{f.desc}</p>
               </div>
             )
           })}
+        </div>
+      </div>
+
+      {/* 2. TESTIMONIALS SECTION (Directly connected) */}
+      <div className="mx-auto max-w-5xl text-center mt-0 pt-0">
+        <h2 className="text-orange-500 font-bold uppercase tracking-widest text-xs mb-1">Testimonials</h2>
+        <h1 className="text-white text-3xl font-bold mb-8">What Our Users Say</h1>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-3 gap-3 mb-8">
+          {[
+            { title: "1000+", subtitle: "SAFE DEALS" },
+            { title: "PKR 9.5M+", subtitle: "PROTECTED" },
+            { title: "4.9/5", subtitle: "RATING" },
+          ].map((stat, i) => (
+            <div key={i} className="bg-[#283593] p-4 rounded-2xl border border-white/10">
+              <h3 className="text-lg font-bold text-white">{stat.title}</h3>
+              <p className="text-[9px] text-gray-300 font-semibold">{stat.subtitle}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Review Card */}
+        <div className="bg-[#283593] p-6 rounded-3xl border border-white/10 text-left">
+          <span className="text-orange-500 text-4xl leading-none">"</span>
+          <div className="flex text-orange-400 mb-2">★★★★★</div>
+          <p className="text-white text-sm mb-4">
+            Bought branded clothes in bulk from Faisalabad through OloBuy. My money was safe until the parcel reached me.
+          </p>
+          <div className="border-t border-white/10 pt-4">
+            <p className="font-bold text-white text-sm">Luxe Branded fashion</p>
+            <p className="text-xs text-gray-400">Buyer, Hyderabad</p>
+          </div>
         </div>
       </div>
     </section>
