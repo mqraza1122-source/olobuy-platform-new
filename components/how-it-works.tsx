@@ -10,13 +10,12 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-[#1a237e] py-20 px-4">
-      <div className="mx-auto max-w-lg">
+    <section id="how-it-works" className="bg-[#1a237e] py-12 px-4">
+      <div className="mx-auto max-w-5xl">
         
-        <div className="flex justify-center mb-16">
-          <div className="bg-[#ff9800] text-[#1a237e] font-black py-4 px-10 rounded-full text-xl shadow-xl uppercase tracking-widest text-center">
-            How It Works
-          </div>
+        {/* یکساں اسٹائل والا How It Works بٹن */}
+        <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
+          How It Works
         </div>
 
         <div className="space-y-6">
@@ -24,7 +23,6 @@ export function HowItWorks() {
             const Icon = step.icon
             return (
               <div key={i} className="bg-[#283593] p-8 rounded-[2rem] border border-white/10 shadow-2xl">
-                {/* STEP 1 اور آئیکون کی ترتیب */}
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-[#ff9800] font-black text-sm uppercase tracking-widest">
                     Step {i + 1}
@@ -34,7 +32,6 @@ export function HowItWorks() {
                   </div>
                 </div>
                 
-                {/* ٹائٹل اور تفصیل */}
                 <h3 className="text-2xl font-bold text-white mb-3">
                   {step.title}
                 </h3>
@@ -48,4 +45,4 @@ export function HowItWorks() {
       </div>
     </section>
   )
-                }
+                      }
