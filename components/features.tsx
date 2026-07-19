@@ -24,13 +24,13 @@ export function Features() {
           {FEATURES.map((f) => {
             const Icon = f.icon
             return (
-              <div key={f.title} className="bg-[#1a237e] p-6 rounded-[2rem] border border-[#ff9800]/50 shadow-lg">
-                {/* یہاں آئیکون کا رنگ گرین کر دیا گیا ہے */}
-                <div className="mb-4 inline-flex rounded-2xl bg-[#283593] p-3 border border-white/10">
+              // کارڈ اب سفید ہیں اور ٹیکسٹ نیلا
+              <div key={f.title} className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-lg">
+                <div className="mb-4 inline-flex rounded-2xl bg-[#f0f4f8] p-3 border border-gray-100">
                   <Icon className="h-6 w-6 text-[#25d366]" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{f.title}</h3>
-                <p className="text-blue-100/80 text-sm leading-relaxed">{f.desc}</p>
+                <h3 className="text-xl font-bold text-[#1a237e] mb-2">{f.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{f.desc}</p>
               </div>
             )
           })}
@@ -61,4 +61,4 @@ export function Features() {
       </div>
     </section>
   )
-              }
+                }
