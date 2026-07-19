@@ -18,20 +18,15 @@ const FAQS = [
 ];
 
 export function Faq() {
-  // پہلا سوال خود بخود اوپن نہ ہو، اس لیے null رکھا ہے
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-[#1a237e] py-20 px-4">
-      <div className="mx-auto max-w-4xl">
+    <section className="bg-[#1a237e] py-12 px-4">
+      <div className="mx-auto max-w-5xl">
         
-        {/* ہیڈنگ: اورینج بٹن اسٹائل */}
-        <div className="flex justify-center mb-16">
-          <div className="inline-flex rounded-full bg-[#ff9800] px-10 py-4 text-center shadow-[0_0_30px_rgba(255,152,0,0.4)]">
-            <h2 className="text-xl md:text-2xl font-black text-[#1a237e] uppercase tracking-widest">
-              Frequently Asked Questions
-            </h2>
-          </div>
+        {/* یکساں اسٹائل والا FAQ بٹن */}
+        <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
+          Frequently Asked Questions
         </div>
 
         <div className="space-y-6">
@@ -67,4 +62,4 @@ export function Faq() {
       </div>
     </section>
   );
-          }
+    }
