@@ -6,7 +6,8 @@ export function CtaFooter() {
     <>
       <section className="bg-[#1a237e]">
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
-          <div className="rounded-3xl bg-[#ff9800] px-6 py-14 text-center sm:px-12 shadow-lg">
+          {/* یہاں بھی اورینج کو ییلو میں تبدیل کر دیا گیا ہے */}
+          <div className="rounded-3xl bg-[#fcc21b] px-6 py-14 text-center sm:px-12 shadow-lg">
             <Lock className="mx-auto h-10 w-10 text-[#1a237e]/80" />
             <h2 className="mt-5 text-balance text-3xl font-extrabold text-[#1a237e] sm:text-4xl">
               Never buy or sell online without OloBuy in Pakistan
@@ -36,7 +37,8 @@ export function CtaFooter() {
             <div className="max-w-sm">
               <div className="inline-flex items-center px-4 py-2 rounded-2xl bg-white mb-4 shadow-sm">
                 <span className="text-2xl font-black">
-                  <span className="text-[#ff9800]">Olo</span>
+                  {/* یہاں 'Olo' کا رنگ فائنل ییلو میں تبدیل کر دیا گیا ہے */}
+                  <span className="text-[#fcc21b]">Olo</span>
                   <span className="text-[#1a237e]">Buy</span>
                 </span>
               </div>
@@ -70,7 +72,8 @@ export function CtaFooter() {
                 />
               </div>
               <div className="flex items-start gap-2 text-gray-300">
-                <MapPin className="h-5 w-5 text-[#ff9800] shrink-0" />
+                {/* یہاں میپ پن کا رنگ بھی ییلو کر دیا ہے */}
+                <MapPin className="h-5 w-5 text-[#fcc21b] shrink-0" />
                 <p className="text-sm leading-relaxed">
                   25 Sea View Rd, Block 4 <br />
                   Clifton, Karachi, 74400 <br />
@@ -87,4 +90,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-}
+                }
