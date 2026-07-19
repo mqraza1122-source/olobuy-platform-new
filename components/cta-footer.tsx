@@ -8,12 +8,19 @@ export function CtaFooter() {
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
           <div className="rounded-3xl bg-[#ff9800] px-6 py-14 text-center sm:px-12 shadow-lg">
             <Lock className="mx-auto h-10 w-10 text-[#1a237e]/80" />
+            
+            {/* اپڈیٹ شدہ ہیڈنگ */}
             <h2 className="mt-5 text-balance text-3xl font-extrabold text-[#1a237e] sm:text-4xl">
-              Ready to buy or sell without the fear?
+              Never buy or sell online without OloBuy in Pakistan
             </h2>
+            
+            {/* اپڈیٹ شدہ تفصیل */}
             <p className="mx-auto mt-4 max-w-xl text-pretty text-lg leading-relaxed text-[#1a237e]/90">
-              Start your first Safe Deal on WhatsApp today. No advance fear, no parcel fraud.
+              OloBuy holds your payment till your deal is finalized. <br />
+              Start your first safe deal on WhatsApp today. <br />
+              No advance, no fraud.
             </p>
+            
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -82,4 +89,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-              }
+                }
