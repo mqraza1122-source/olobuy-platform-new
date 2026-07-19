@@ -24,7 +24,7 @@ export function Faq() {
     <section className="bg-[#1a237e] py-12 px-4">
       <div className="mx-auto max-w-5xl">
         
-        {/* یکساں اسٹائل والا FAQ بٹن */}
+        {/* بٹن کا رنگ اورینج ہی ہے */}
         <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
           Frequently Asked Questions
         </div>
@@ -33,15 +33,15 @@ export function Faq() {
           {FAQS.map((faq, i) => (
             <div 
               key={i} 
-              className={`rounded-[2rem] border border-white/10 transition-all duration-300 ${
-                openIndex === i ? 'bg-[#303f9f]' : 'bg-[#283593]'
-              } p-8`}
+              // کارڈ اب سفید ہیں اور بارڈر گرے
+              className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-lg transition-all duration-300"
             >
               <button 
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="flex w-full items-center justify-between text-left"
               >
-                <span className="text-lg md:text-xl font-bold text-white">{faq.q}</span>
+                {/* ہیڈنگ اب گہرے نیلے رنگ میں ہے */}
+                <span className="text-lg md:text-xl font-bold text-[#1a237e]">{faq.q}</span>
                 <ChevronDown 
                   className={`h-7 w-7 text-[#ff9800] transition-transform duration-300 ${
                     openIndex === i ? 'rotate-180' : ''
@@ -50,8 +50,9 @@ export function Faq() {
               </button>
               
               {openIndex === i && (
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <p className="text-base font-medium text-blue-100 leading-relaxed">
+                <div className="mt-4 pt-4 border-t border-gray-100">
+                  {/* جواب کا متن بھی گہرا نیلا */}
+                  <p className="text-base font-medium text-gray-600 leading-relaxed">
                     {faq.a}
                   </p>
                 </div>
@@ -62,4 +63,4 @@ export function Faq() {
       </div>
     </section>
   );
-    }
+}
