@@ -32,11 +32,14 @@ export function CtaFooter() {
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             
             <div className="max-w-sm">
-              <span className="text-2xl font-extrabold tracking-tight">
-                <span className="text-white">Olo</span>
-                <span className="text-[#ff9800]">Buy</span>
-              </span>
-              <p className="mt-1 text-sm font-medium text-gray-300">Original Life, Original Buy</p>
+              {/* اپڈیٹ شدہ لوگو باکس */}
+              <div className="inline-flex items-center px-4 py-2 rounded-2xl bg-white mb-4 shadow-sm">
+                <span className="text-2xl font-black">
+                  <span className="text-[#ff9800]">Olo</span>
+                  <span className="text-[#1a237e]">Buy</span>
+                </span>
+              </div>
+              <p className="text-sm font-medium text-gray-300">Original Life, Original Buy</p>
               <p className="mt-4 text-sm leading-relaxed text-gray-300">
                 Pakistan&apos;s #1 secure manual escrow service. We hold your payment safely until you inspect and approve your item.
               </p>
