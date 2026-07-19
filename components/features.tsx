@@ -14,14 +14,7 @@ export function Features() {
   return (
     <section id="why" className="bg-[#1a237e] py-12 px-4">
       
-      {/* 1. ORIGINAL LIFE, ORIGINAL BUY HEADING */}
-      <div className="mx-auto max-w-5xl mb-12">
-        <div className="w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-6 rounded-[2rem] text-xl uppercase text-center shadow-lg">
-          Original Life, Original Buy
-        </div>
-      </div>
-
-      {/* 2. WHY CHOOSE SECTION */}
+      {/* 1. WHY CHOOSE SECTION */}
       <div className="mx-auto max-w-5xl flex flex-col items-center mb-12">
         <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-6 rounded-[2rem] text-xl uppercase text-center shadow-lg">
           Why Choose OloBuy?
@@ -43,6 +36,13 @@ export function Features() {
         </div>
       </div>
 
+      {/* 2. ORIGINAL LIFE, ORIGINAL BUY BUTTON */}
+      <div className="mx-auto max-w-5xl mb-6">
+        <div className="w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-6 rounded-[2rem] text-xl uppercase text-center shadow-lg">
+          Original Life, Original Buy
+        </div>
+      </div>
+
       {/* 3. STATS SECTION */}
       <div className="mx-auto max-w-5xl text-center">
         <div className="grid grid-cols-3 gap-3">
@@ -60,4 +60,4 @@ export function Features() {
       </div>
     </section>
   )
-            }
+      }
