@@ -27,7 +27,8 @@ export function HowItWorks() {
                   <span className="text-[#ff9800] font-black text-sm uppercase tracking-widest">
                     Step {i + 1}
                   </span>
-                  <div className={`p-3 rounded-2xl bg-[#1a237e] ${i === 3 ? 'text-[#25d366]' : 'text-[#ff9800]'}`}>
+                  {/* تمام آئیکونز کے لیے گرین کلر */}
+                  <div className="p-3 rounded-2xl bg-[#1a237e] text-[#25d366]">
                     <Icon className="h-8 w-8" />
                   </div>
                 </div>
@@ -45,4 +46,4 @@ export function HowItWorks() {
       </div>
     </section>
   )
-                      }
+}
