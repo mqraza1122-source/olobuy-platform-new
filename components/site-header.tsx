@@ -2,12 +2,13 @@
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 
-// یہاں صرف وہی لنکس ہیں جو ویب سائٹ پر موجود سیکشنز سے جڑے ہوئے ہیں
 const NAV_LINKS = [
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Why OloBuy', href: '#why' },
   { label: 'Reviews', href: '#reviews' },
   { label: 'FAQs', href: '#faq' },
+  { label: 'About Us', href: '#about' },
+  { label: 'Contact Us', href: '#contact' }
 ]
 
 export function SiteHeader() {
@@ -48,4 +49,4 @@ export function SiteHeader() {
       )}
     </header>
   )
-}
+      }
