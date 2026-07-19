@@ -6,8 +6,8 @@ export function CtaFooter() {
     <>
       <section className="bg-[#1a237e]">
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
-          {/* یہاں بھی اورینج کو ییلو میں تبدیل کر دیا گیا ہے */}
-          <div className="rounded-3xl bg-[#fcc21b] px-6 py-14 text-center sm:px-12 shadow-lg">
+          {/* Big Card اب سفید ہے */}
+          <div className="rounded-3xl bg-white px-6 py-14 text-center sm:px-12 shadow-lg">
             <Lock className="mx-auto h-10 w-10 text-[#1a237e]/80" />
             <h2 className="mt-5 text-balance text-3xl font-extrabold text-[#1a237e] sm:text-4xl">
               Never buy or sell online without OloBuy in Pakistan
@@ -21,7 +21,7 @@ export function CtaFooter() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-8 inline-flex items-center justify-center gap-3 rounded-2xl bg-[#1a237e] px-8 py-4 text-lg font-bold text-white shadow-lg transition-colors hover:bg-[#283593]"
+              className="group mt-8 inline-flex items-center justify-center gap-3 rounded-2xl bg-[#ff9800] px-8 py-4 text-lg font-bold text-[#1a237e] shadow-lg transition-colors hover:bg-[#e68900]"
             >
               Start a Safe Deal
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -37,7 +37,6 @@ export function CtaFooter() {
             <div className="max-w-sm">
               <div className="inline-flex items-center px-4 py-2 rounded-2xl bg-white mb-4 shadow-sm">
                 <span className="text-2xl font-black">
-                  {/* یہاں 'Olo' کا رنگ فائنل ییلو میں تبدیل کر دیا گیا ہے */}
                   <span className="text-[#fcc21b]">Olo</span>
                   <span className="text-[#1a237e]">Buy</span>
                 </span>
@@ -50,20 +49,23 @@ export function CtaFooter() {
 
             <div className="space-y-6">
               <div>
-                <span className="text-sm font-bold text-white uppercase tracking-wider block mb-3">About Us</span>
+                {/* ہیڈنگ اورینج کر دی گئی ہے */}
+                <span className="text-sm font-bold text-[#ff9800] uppercase tracking-wider block mb-3">About Us</span>
                 <p className="text-sm text-gray-300 leading-relaxed">
                   OloBuy is a neutral third-party service dedicated to making online trade in Pakistan safe and fraud-free by holding payments securely.
                 </p>
               </div>
               <div>
-                <span className="text-sm font-bold text-white uppercase tracking-wider block mb-3">Contact</span>
+                {/* ہیڈنگ اورینج کر دی گئی ہے */}
+                <span className="text-sm font-bold text-[#ff9800] uppercase tracking-wider block mb-3">Contact</span>
                 <p className="text-sm text-gray-300">olobuyinfo@gmail.com</p>
                 <p className="text-lg font-bold text-white mt-1">0304-3031572</p>
               </div>
             </div>
 
             <div className="space-y-4">
-              <span className="text-sm font-bold text-white uppercase tracking-wider">Head Office</span>
+              {/* ہیڈنگ اورینج کر دی گئی ہے */}
+              <span className="text-sm font-bold text-[#ff9800] uppercase tracking-wider">Head Office</span>
               <div className="w-full h-40 rounded-2xl overflow-hidden shadow-lg border border-white/10 bg-gray-800">
                 <img 
                   src="/image/olobuy-hq.jpg" 
@@ -72,8 +74,7 @@ export function CtaFooter() {
                 />
               </div>
               <div className="flex items-start gap-2 text-gray-300">
-                {/* یہاں میپ پن کا رنگ بھی ییلو کر دیا ہے */}
-                <MapPin className="h-5 w-5 text-[#fcc21b] shrink-0" />
+                <MapPin className="h-5 w-5 text-[#ff9800] shrink-0" />
                 <p className="text-sm leading-relaxed">
                   25 Sea View Rd, Block 4 <br />
                   Clifton, Karachi, 74400 <br />
@@ -90,4 +91,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-                }
+                  }
