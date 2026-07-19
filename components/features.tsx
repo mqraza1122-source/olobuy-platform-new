@@ -25,8 +25,9 @@ export function Features() {
             const Icon = f.icon
             return (
               <div key={f.title} className="bg-[#1a237e] p-6 rounded-[2rem] border border-[#ff9800]/50 shadow-lg">
+                {/* یہاں آئیکون کا رنگ گرین کر دیا گیا ہے */}
                 <div className="mb-4 inline-flex rounded-2xl bg-[#283593] p-3 border border-white/10">
-                  <Icon className="h-6 w-6 text-[#ff9800]" />
+                  <Icon className="h-6 w-6 text-[#25d366]" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">{f.title}</h3>
                 <p className="text-blue-100/80 text-sm leading-relaxed">{f.desc}</p>
@@ -60,4 +61,4 @@ export function Features() {
       </div>
     </section>
   )
-          }
+              }
