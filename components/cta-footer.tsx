@@ -8,19 +8,14 @@ export function CtaFooter() {
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-24">
           <div className="rounded-3xl bg-[#ff9800] px-6 py-14 text-center sm:px-12 shadow-lg">
             <Lock className="mx-auto h-10 w-10 text-[#1a237e]/80" />
-            
-            {/* اپڈیٹ شدہ ہیڈنگ */}
             <h2 className="mt-5 text-balance text-3xl font-extrabold text-[#1a237e] sm:text-4xl">
               Never buy or sell online without OloBuy in Pakistan
             </h2>
-            
-            {/* اپڈیٹ شدہ تفصیل */}
             <p className="mx-auto mt-4 max-w-xl text-pretty text-lg leading-relaxed text-[#1a237e]/90">
               OloBuy holds your payment till your deal is finalized. <br />
               Start your first safe deal on WhatsApp today. <br />
               No advance, no fraud.
             </p>
-            
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -36,10 +31,9 @@ export function CtaFooter() {
 
       <footer className="border-t border-white/10 bg-[#1a237e]">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             
             <div className="max-w-sm">
-              {/* اپڈیٹ شدہ لوگو باکس */}
               <div className="inline-flex items-center px-4 py-2 rounded-2xl bg-white mb-4 shadow-sm">
                 <span className="text-2xl font-black">
                   <span className="text-[#ff9800]">Olo</span>
@@ -52,17 +46,22 @@ export function CtaFooter() {
               </p>
             </div>
 
-            <nav className="flex flex-col gap-3" aria-label="Footer">
-              <span className="text-sm font-bold text-white uppercase tracking-wider">Quick Links</span>
-              <a href="#how-it-works" className="text-sm text-gray-300 hover:text-[#ff9800]">How It Works</a>
-              <a href="#why" className="text-sm text-gray-300 hover:text-[#ff9800]">Why OloBuy</a>
-              <a href="#reviews" className="text-sm text-gray-300 hover:text-[#ff9800]">Reviews</a>
-              <a href="#faq" className="text-sm text-gray-300 hover:text-[#ff9800]">FAQ</a>
-            </nav>
+            <div className="space-y-6">
+              <div>
+                <span className="text-sm font-bold text-white uppercase tracking-wider block mb-3">About Us</span>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  OloBuy is a neutral third-party service dedicated to making online trade in Pakistan safe and fraud-free by holding payments securely.
+                </p>
+              </div>
+              <div>
+                <span className="text-sm font-bold text-white uppercase tracking-wider block mb-3">Contact</span>
+                <p className="text-sm text-gray-300">olobuyinfo@gmail.com</p>
+                <p className="text-lg font-bold text-white mt-1">0304-3031572</p>
+              </div>
+            </div>
 
             <div className="space-y-4">
               <span className="text-sm font-bold text-white uppercase tracking-wider">Head Office</span>
-              
               <div className="w-full h-40 rounded-2xl overflow-hidden shadow-lg border border-white/10 bg-gray-800">
                 <img 
                   src="/image/olobuy-hq.jpg" 
@@ -70,7 +69,6 @@ export function CtaFooter() {
                   className="w-full h-full object-cover"
                 />
               </div>
-
               <div className="flex items-start gap-2 text-gray-300">
                 <MapPin className="h-5 w-5 text-[#ff9800] shrink-0" />
                 <p className="text-sm leading-relaxed">
@@ -89,4 +87,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-                }
+}
