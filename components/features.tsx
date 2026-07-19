@@ -14,47 +14,50 @@ export function Features() {
   return (
     <section id="why" className="bg-[#1a237e] py-12 px-4">
       
-      {/* نئی ہیڈنگ اور کارڈ */}
-      <div className="mx-auto max-w-5xl flex flex-col items-center mb-16">
-        <h1 className="text-white text-3xl font-bold mb-6 text-center">Original Life, Original Data</h1>
-        <div className="w-full bg-gradient-to-r from-[#ff9800] to-[#1a237e] p-[2px] rounded-[2rem]">
-          <div className="bg-[#1a237e] py-6 px-8 rounded-[2rem] text-center">
-            <h2 className="text-[#ff9800] text-2xl font-black uppercase tracking-widest">Why Choose OloBuy?</h2>
-          </div>
+      {/* 1. ORIGINAL LIFE, ORIGINAL BUY HEADING */}
+      <div className="mx-auto max-w-5xl mb-12">
+        <div className="w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-6 rounded-[2rem] text-xl uppercase text-center shadow-lg">
+          Original Life, Original Buy
         </div>
       </div>
 
-      {/* Features Grid */}
-      <div className="mx-auto max-w-5xl grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
-        {FEATURES.map((f) => {
-          const Icon = f.icon
-          return (
-            <div key={f.title} className="bg-[#283593] p-6 rounded-[2rem] border border-white/10 shadow-lg hover:border-[#ff9800]/30 transition-all">
-              <div className="mb-4 inline-flex rounded-2xl bg-[#1a237e] p-3 border border-white/10">
-                <Icon className="h-6 w-6 text-[#ff9800]" />
+      {/* 2. WHY CHOOSE SECTION */}
+      <div className="mx-auto max-w-5xl flex flex-col items-center mb-12">
+        <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-6 rounded-[2rem] text-xl uppercase text-center shadow-lg">
+          Why Choose OloBuy?
+        </div>
+
+        <div className="w-full grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((f) => {
+            const Icon = f.icon
+            return (
+              <div key={f.title} className="bg-[#1a237e] p-6 rounded-[2rem] border border-[#ff9800]/50 shadow-lg">
+                <div className="mb-4 inline-flex rounded-2xl bg-[#283593] p-3 border border-white/10">
+                  <Icon className="h-6 w-6 text-[#ff9800]" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">{f.title}</h3>
+                <p className="text-blue-100/80 text-sm leading-relaxed">{f.desc}</p>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{f.title}</h3>
-              <p className="text-blue-100/80 text-sm leading-relaxed">{f.desc}</p>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
 
-      {/* Stats Section */}
+      {/* 3. STATS SECTION */}
       <div className="mx-auto max-w-5xl text-center">
         <div className="grid grid-cols-3 gap-3">
           {[
             { title: "1000+", subtitle: "SAFE DEALS" },
-            { title: "9.5M+", subtitle: "PROTECTED (PKR)" },
+            { title: "9.5M+", subtitle: "PROTECTED" },
             { title: "4.9/5", subtitle: "RATING" },
           ].map((stat, i) => (
-            <div key={i} className="bg-[#ff9800] p-4 rounded-2xl border border-white/10 shadow-lg">
+            <div key={i} className="bg-[#ff9800] p-4 rounded-[1.5rem] shadow-lg flex flex-col items-center justify-center">
               <h3 className="text-xl font-black text-[#1a237e]">{stat.title}</h3>
-              <p className="text-[9px] text-[#1a237e] font-bold tracking-wider">{stat.subtitle}</p>
+              <p className="text-[10px] text-[#1a237e] font-bold tracking-widest mt-1">{stat.subtitle}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
   )
-              }
+            }
