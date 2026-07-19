@@ -13,32 +13,34 @@ export function HowItWorks() {
     <section id="how-it-works" className="bg-[#1a237e] py-12 px-4">
       <div className="mx-auto max-w-5xl">
         
-        {/* بٹن کا رنگ واپس اورینج (#ff9800) کر دیا ہے */}
         <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
           How It Works
         </div>
 
-        <div className="space-y-6">
+        <div className="grid gap-4 sm:grid-cols-2">
           {STEPS.map((step, i) => {
             const Icon = step.icon
             return (
-              // کارڈز سفید ہیں اور ٹیکسٹ نیلا
-              <div key={i} className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-lg">
-                <div className="flex items-center justify-between mb-6">
-                  <span className="text-[#fcc21b] font-black text-sm uppercase tracking-widest">
-                    Step {i + 1}
-                  </span>
-                  <div className="p-3 rounded-2xl bg-[#f0f4f8] text-[#1a237e]">
-                    <Icon className="h-8 w-8" />
+              <div key={i} className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-lg">
+                {/* آئیکون اور ہیڈنگ ایک لائن میں */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="rounded-xl bg-[#f0f4f8] p-2 shrink-0">
+                    <Icon className="h-5 w-5 text-[#25d366]" />
                   </div>
+                  <h3 className="text-lg font-bold text-[#1a237e] leading-tight">
+                    {step.title}
+                  </h3>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-[#1a237e] mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-gray-600 text-base leading-relaxed">
-                  {step.desc}
-                </p>
+                {/* سٹیپ اور تفصیل */}
+                <div className="pl-1">
+                  <span className="text-[#ff9800] font-black text-xs uppercase tracking-widest block mb-1">
+                    Step {i + 1}
+                  </span>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
               </div>
             )
           })}
@@ -46,4 +48,4 @@ export function HowItWorks() {
       </div>
     </section>
   )
-}
+                }
