@@ -33,13 +33,12 @@ export function CtaFooter() {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             
-            {/* یہاں سے سفید کارڈ والا ڈبہ مکمل ختم کر دیا گیا ہے */}
             <div className="max-w-sm">
-              <div className="mb-6">
+              <div className="mb-6 flex justify-center sm:justify-start">
                 <img 
                   src="/logo.jpg" 
                   alt="OloBuy Logo" 
-                  className="w-48 h-auto object-contain block mx-auto sm:mx-0 rounded-xl"
+                  className="w-44 h-auto object-contain"
                 />
               </div>
               <p className="text-sm leading-relaxed text-gray-300 text-center sm:text-left">
@@ -93,4 +92,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-            }
+}
