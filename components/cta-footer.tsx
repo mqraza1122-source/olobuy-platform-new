@@ -33,13 +33,12 @@ export function CtaFooter() {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             
-            {/* فکسڈ لوگو کارڈ */}
             <div className="max-w-sm">
-              <div className="bg-white px-6 py-5 rounded-[2rem] shadow-lg mb-4 flex items-center justify-center">
+              <div className="bg-white p-4 rounded-2xl shadow-lg mb-4 flex items-center justify-center">
                 <img 
                   src="/logo.png" 
                   alt="OloBuy Logo" 
-                  className="w-40 h-auto object-contain block mx-auto"
+                  className="w-36 h-auto object-contain block mx-auto bg-white rounded-xl p-2"
                 />
               </div>
               <p className="text-sm leading-relaxed text-gray-300">
@@ -93,4 +92,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-      }
+}
