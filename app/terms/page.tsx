@@ -3,7 +3,7 @@ export default function TermsOfService() {
     <div className="mx-auto max-w-4xl px-6 py-20 text-gray-200">
       <h1 className="text-4xl font-bold text-[#ff9800] mb-8">Terms of Service</h1>
       
-      <p className="mb-6">Effective Date: July 08, 2026. By using OloBuy, you agree to these binding terms.</p>
+      <p className="mb-6">Effective Date: july 2022. By using OloBuy, you agree to these binding terms.</p>
 
       <h2 className="text-2xl font-bold text-white mt-8">1. Escrow Service Agreement</h2>
       <p className="mt-4">OloBuy operates as a neutral third-party manual escrow service. We facilitate trust by holding funds until the buyer validates the receipt and quality of the item.</p>
