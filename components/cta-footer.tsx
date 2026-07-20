@@ -36,7 +36,7 @@ export function CtaFooter() {
             <div className="max-w-sm">
               <div className="bg-white p-4 rounded-2xl shadow-lg mb-4 flex items-center justify-center">
                 <img 
-                  src="/logo.png" 
+                  src="/logo.jpg" 
                   alt="OloBuy Logo" 
                   className="w-36 h-auto object-contain block mx-auto bg-white rounded-xl p-2"
                 />
