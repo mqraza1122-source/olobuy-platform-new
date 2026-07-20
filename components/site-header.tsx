@@ -16,16 +16,15 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <div className="flex flex-col">
-          <div className="flex items-center text-3xl font-extrabold tracking-tight">
-            {/* یہاں رنگ تبدیل کر دیا گیا ہے */}
-            <span className="text-[#fcc21b]">Olo</span>
-            <span className="text-[#1a237e]">Buy</span>
-          </div>
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">
-            Original Life, Original Buy
-          </p>
-        </div>
+        
+        {/* یہاں ٹیکسٹ ہٹا کر پرفیکٹ لوگو امیج لگا دی گئی ہے */}
+        <a href="#" className="flex items-center">
+          <img 
+            src="/logo.jpg" 
+            alt="OloBuy Logo" 
+            className="h-10 w-auto object-contain"
+          />
+        </a>
         
         <button 
           onClick={() => setOpen(!open)} 
@@ -51,4 +50,4 @@ export function SiteHeader() {
       )}
     </header>
   )
-      }
+              }
