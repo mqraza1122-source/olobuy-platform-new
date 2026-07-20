@@ -58,7 +58,7 @@ export function CtaFooter() {
               </div>
               <div>
                 <span className="text-sm font-bold text-[#ff9800] uppercase tracking-wider block mb-3">Contact</span>
-                <p className="text-sm text-gray-300">olobuyinfo@gmail.com</p>
+                <p className="text-sm bold text-white mt-1">support@olobuy.pk</p>
                 <p className="text-lg font-bold text-white mt-1">0304-3031572</p>
               </div>
             </div>
