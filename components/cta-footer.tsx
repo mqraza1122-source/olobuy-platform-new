@@ -33,15 +33,16 @@ export function CtaFooter() {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             
+            {/* پرفیکٹ برانڈ سائز کارڈ */}
             <div className="max-w-sm">
-              <div className="bg-white p-4 rounded-2xl shadow-lg mb-4 flex items-center justify-center">
+              <div className="bg-white p-3 rounded-2xl shadow-lg mb-4 w-32 h-32 mx-auto flex items-center justify-center overflow-hidden">
                 <img 
                   src="/logo.jpg" 
                   alt="OloBuy Logo" 
-                  className="w-36 h-auto object-contain block mx-auto bg-white rounded-xl p-2"
+                  className="w-full h-full object-cover rounded-xl"
                 />
               </div>
-              <p className="text-sm leading-relaxed text-gray-300">
+              <p className="text-sm leading-relaxed text-gray-300 text-center sm:text-left">
                 Pakistan&apos;s #1 secure manual escrow service. We hold your payment safely until you inspect and approve your item.
               </p>
             </div>
