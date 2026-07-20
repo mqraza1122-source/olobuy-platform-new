@@ -33,7 +33,6 @@ export function CtaFooter() {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             
-            {/* پرفیکٹ برانڈ سائز کارڈ */}
             <div className="max-w-sm">
               <div className="bg-white p-3 rounded-2xl shadow-lg mb-4 w-32 h-32 mx-auto flex items-center justify-center overflow-hidden">
                 <img 
