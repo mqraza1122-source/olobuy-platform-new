@@ -33,16 +33,14 @@ export function CtaFooter() {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             
-            {/* اپڈیٹڈ لوگو اور سلوگن کارڈ */}
+            {/* اپڈیٹڈ فائنل لوگو کارڈ */}
             <div className="max-w-sm">
-              <div className="bg-white p-6 rounded-[2rem] shadow-lg mb-4 text-center">
-                <span className="text-3xl font-black block leading-none">
-                  <span className="text-[#fcc21b]">Olo</span>
-                  <span className="text-[#1a237e]">Buy</span>
-                </span>
-                <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-2 block">
-                  Original Life, Original Buy
-                </span>
+              <div className="bg-white p-6 rounded-[2rem] shadow-lg mb-4 text-center flex items-center justify-center">
+                <img 
+                  src="/olobuy-logo.png" 
+                  alt="OloBuy Logo" 
+                  className="w-full max-h-16 object-contain"
+                />
               </div>
               <p className="text-sm leading-relaxed text-gray-300">
                 Pakistan&apos;s #1 secure manual escrow service. We hold your payment safely until you inspect and approve your item.
@@ -83,7 +81,6 @@ export function CtaFooter() {
             </div>
           </div>
 
-          {/* گلوبل اسٹینڈرڈ پروفیشنل باٹم بار (Legal Links کے ساتھ) */}
           <div className="mt-12 border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
             <p>&copy; {new Date().getFullYear()} OloBuy. All rights reserved. Secure Manual Escrow Network Pakistan.</p>
             <div className="flex items-center gap-6 font-medium">
@@ -96,4 +93,4 @@ export function CtaFooter() {
       </footer>
     </>
   )
-            }
+                                                                                                                      }
