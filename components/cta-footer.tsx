@@ -83,11 +83,17 @@ export function CtaFooter() {
             </div>
           </div>
 
-          <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} OloBuy. All rights reserved. Secure Manual Escrow Network Pakistan.
+          {/* گلوبل اسٹینڈرڈ پروفیشنل باٹم بار (Legal Links کے ساتھ) */}
+          <div className="mt-12 border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+            <p>&copy; {new Date().getFullYear()} OloBuy. All rights reserved. Secure Manual Escrow Network Pakistan.</p>
+            <div className="flex items-center gap-6 font-medium">
+              <a href="/terms" className="hover:text-[#ff9800] transition-colors">Terms & Conditions</a>
+              <span className="text-white/20">•</span>
+              <a href="/privacy" className="hover:text-[#ff9800] transition-colors">Privacy Policy</a>
+            </div>
           </div>
         </div>
       </footer>
     </>
   )
-        }
+            }
