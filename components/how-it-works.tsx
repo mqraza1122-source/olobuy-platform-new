@@ -1,52 +1,71 @@
-'use client'
-import { MessageSquareText, Landmark, Package, ShieldCheck } from 'lucide-react'
+'use client';
+import { MessageSquareText, Landmark, Package, ShieldCheck } from 'lucide-react';
 
 const STEPS = [
-  { icon: MessageSquareText, title: 'Agree on the Deal', desc: 'Buyer and provider agree on the terms and initiate via our official WhatsApp.' },
-  { icon: Landmark, title: 'Secure Payment', desc: 'Buyer transfers the agreed amount to OloBuy. We hold funds in our secure escrow.' },
-  { icon: Package, title: 'Delivery & Inspection', desc: 'Provider delivers the product/service. Buyer verifies the quality.' },
-  { icon: ShieldCheck, title: 'Deal Finalized', desc: 'Upon buyer approval, we release payment to the seller. Deal closed successfully!' },
-]
+  { 
+    icon: MessageSquareText, 
+    title: 'Agree on the Deal', 
+    desc: 'Buyer and seller agree on terms and start the deal via our official WhatsApp.' 
+  },
+  { 
+    icon: Landmark, 
+    title: 'Secure Payment', 
+    desc: 'Buyer sends payment to OloBuy. We hold the money safely in escrow.' 
+  },
+  { 
+    icon: Package, 
+    title: 'Delivery & Inspection', 
+    desc: 'Seller delivers the item. Buyer inspects and confirms satisfaction.' 
+  },
+  { 
+    icon: ShieldCheck, 
+    title: 'Payment Released', 
+    desc: 'Once approved, we instantly release payment to the seller. Deal completed safely!' 
+  },
+];
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-[#1a237e] py-12 px-4">
+    <section id="how-it-works" className="bg-[#0f172a] py-16 px-4">
       <div className="mx-auto max-w-5xl">
         
-        {/* بٹن کا سائز اور اسٹائل اب Why Choose OloBuy جیسا ہے */}
-        <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-6 rounded-[2rem] text-xl uppercase text-center shadow-lg">
-          How It Works
+        <div className="text-center mb-12">
+          <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-8 py-4 rounded-[2rem] text-2xl mb-4 shadow-lg">
+            HOW IT WORKS
+          </div>
+          <p className="text-white/80 max-w-md mx-auto">
+            4 Simple Steps to Complete Your Safe Transaction
+          </p>
         </div>
 
-        <div className="w-full grid gap-4 sm:grid-cols-2">
+        <div className="grid md:grid-cols-2 gap-6">
           {STEPS.map((step, i) => {
-            const Icon = step.icon
+            const Icon = step.icon;
             return (
-              <div key={i} className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-lg">
-                {/* آئیکون اور ہیڈنگ ایک لائن میں */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="rounded-xl bg-[#f0f4f8] p-2 shrink-0">
-                    <Icon className="h-5 w-5 text-[#25d366]" />
+              <div 
+                key={i} 
+                className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all group"
+              >
+                <div className="flex items-start gap-5">
+                  <div className="mt-1 w-12 h-12 rounded-2xl bg-[#ff9800]/10 flex items-center justify-center group-hover:bg-[#ff9800]/20 transition-colors">
+                    <Icon className="h-7 w-7 text-[#ff9800]" />
                   </div>
-                  <h3 className="text-lg font-bold text-[#1a237e] leading-tight">
-                    {step.title}
-                  </h3>
-                </div>
-                
-                {/* سٹیپ اور تفصیل */}
-                <div className="pl-1">
-                  <span className="text-[#ff9800] font-black text-xs uppercase tracking-widest block mb-1">
-                    Step {i + 1}
-                  </span>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {step.desc}
-                  </p>
+                  
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-[#ff9800] font-black text-xl">0{i+1}</span>
+                      <h3 className="text-xl font-bold text-white">{step.title}</h3>
+                    </div>
+                    <p className="text-white/70 leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </div>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
-          }
+  );
+}
