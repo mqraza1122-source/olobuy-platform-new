@@ -29,63 +29,131 @@
   --color-brand-orange: var(--brand-orange);
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-foreground: var(--whatsapp-foreground);
+  --color-gold: #ffd700;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-urdu: var(--font-noto-urdu), serif;
 
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   
-  /* Navy Blue Theme */
-  --background: #1a237e;
-  --foreground: #ffffff;
+  /* === Main Theme Colors === */
+  --background: #0f172a;           /* Deep Navy */
+  --foreground: #f8fafc;
   
-  /* Card Setup: White background with Navy text */
   --card: #ffffff;
-  --card-foreground: #1a237e;
+  --card-foreground: #0f172a;
   
   --popover: #ffffff;
-  --popover-foreground: #1a237e;
+  --popover-foreground: #0f172a;
 
-  --primary: #ffffff;
-  --primary-foreground: #1a237e;
+  --primary: #1e40af;
+  --primary-foreground: #ffffff;
 
-  --secondary: #f3f4f6;
-  --secondary-foreground: #1a237e;
+  --secondary: #e2e8f0;
+  --secondary-foreground: #0f172a;
   
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
 
-  /* Orange accent */
   --accent: #ff9800;
   --accent-foreground: #ffffff;
 
   --destructive: #ef4444;
-  --border: rgba(0, 0, 0, 0.1);
-  --input: rgba(0, 0, 0, 0.1);
+  --border: #e2e8f0;
+  --input: #e2e8f0;
   --ring: #ff9800;
-  --radius: 0.75rem;
 
-  --navy: #1a237e;
-  --navy-foreground: #ffffff;
+  /* Brand Colors */
+  --navy: #0f172a;
+  --navy-foreground: #f8fafc;
   --brand-orange: #ff9800;
+  --gold: #ffd700;
   --whatsapp: #25d366;
   --whatsapp-foreground: #ffffff;
+
+  --radius: 0.75rem;
+}
+
+/* Dark Mode Support (Future Ready) */
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e2937;
+  --card-foreground: #f8fafc;
+  --border: #334155;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "kern" 1, "liga" 1, "tnum" 1;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
   }
+
+  .urdu-text {
+    @apply font-urdu leading-relaxed;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism Effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    background: linear-gradient(90deg, #ff9800, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Smooth Scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Card Hover Effect */
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
+                0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+
+  /* WhatsApp Floating Button */
+  .whatsapp-float {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  /* Trust Badge */
+  .trust-badge {
+    box-shadow: 0 10px 15px -3px rgb(255 152 0 / 0.2);
+  }
+}
