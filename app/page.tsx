@@ -1,3 +1,4 @@
+'use client'
 import SiteHeader from '@/components/site-header';
 import Hero from '@/components/hero';
 import TrustPartners from '@/components/trust-partners';
@@ -18,35 +19,20 @@ export default function HomePage() {
 
       {/* Main Content */}
       <main className="flex-1">
-        {/* Hero Section - سب سے اہم */}
         <Hero />
-
-        {/* Trust Signals */}
         <TrustPartners />
-
-        {/* Features / Why Choose Us */}
         <Features />
-
-        {/* How It Works */}
         <HowItWorks />
-
-        {/* Testimonials */}
         <Testimonials />
-
-        {/* FAQ */}
         <FAQ />
-
-        {/* About & Contact */}
         <AboutContact />
-
-        {/* Final Strong CTA */}
         <CTABanner />
       </main>
 
       {/* Footer */}
       <Footer />
 
-      {/* Floating WhatsApp Button */}
+      {/* Floating WhatsApp */}
       <WhatsAppFloat />
     </div>
   );
