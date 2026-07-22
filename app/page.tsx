@@ -25,6 +25,4 @@ export default function HomePage() {
       <CtaFooter />
       <WhatsAppFloat />
     </div>
-  );
   )
-}
