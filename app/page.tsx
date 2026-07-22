@@ -1,27 +1,53 @@
-import { SiteHeader } from '@/components/site-header'
-import { Hero } from '@/components/hero'
-import { HowItWorks } from '@/components/how-it-works'
-import { Features } from '@/components/features'
-import { Testimonials } from '@/components/testimonials'
-import { Faq } from '@/components/faq'
-import { TrustPartners } from '@/components/trust-partners'
-import { CtaFooter } from '@/components/cta-footer'
-import { WhatsAppFloat } from '@/components/whatsapp-float'
+import SiteHeader from '@/components/site-header';
+import Hero from '@/components/hero';
+import TrustPartners from '@/components/trust-partners';
+import Features from '@/components/features';
+import HowItWorks from '@/components/how-it-works';
+import Testimonials from '@/components/testimonials';
+import FAQ from '@/components/faq';
+import AboutContact from '@/components/aboutcontact';
+import CTABanner from '@/components/cta-banner';
+import Footer from '@/components/footer';
+import WhatsAppFloat from '@/components/whatsapp-float';
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="flex min-h-screen flex-col bg-[#0f172a] overflow-hidden">
+      {/* Header */}
       <SiteHeader />
+
+      {/* Main Content */}
       <main className="flex-1">
+        {/* Hero Section - سب سے اہم */}
         <Hero />
-        <HowItWorks />
-        <Features />
-        <Testimonials />
-        <Faq />
+
+        {/* Trust Signals */}
         <TrustPartners />
+
+        {/* Features / Why Choose Us */}
+        <Features />
+
+        {/* How It Works */}
+        <HowItWorks />
+
+        {/* Testimonials */}
+        <Testimonials />
+
+        {/* FAQ */}
+        <FAQ />
+
+        {/* About & Contact */}
+        <AboutContact />
+
+        {/* Final Strong CTA */}
+        <CTABanner />
       </main>
-      <CtaFooter />
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Floating WhatsApp Button */}
       <WhatsAppFloat />
     </div>
-  )
+  );
 }
