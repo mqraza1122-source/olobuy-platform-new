@@ -19,7 +19,7 @@ export function TrustPartners() {
     <section className="bg-[#0f172a] py-16 px-4">
       <div className="mx-auto max-w-5xl">
         
-        {/* Trusted & Compliant */}
+        {/* Trusted & Compliant Header */}
         <div className="text-center mb-12">
           <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-10 py-4 rounded-[2rem] text-2xl shadow-lg mb-4">
             TRUSTED & COMPLIANT
@@ -29,14 +29,14 @@ export function TrustPartners() {
           </p>
         </div>
 
-        {/* Compliance Logos */}
-        <div className="grid grid-cols-3 gap-6 mb-16">
+        {/* Compliance Cards - Restored to Original White Look & Size */}
+        <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-16">
           {COMPLIANCE.map((item) => (
             <div
               key={item.name}
-              className="flex flex-col items-center justify-center bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all"
+              className="flex flex-col items-center justify-center bg-white rounded-[2rem] p-5 sm:p-7 shadow-2xl transition-all transform hover:scale-105"
             >
-              <div className="relative h-16 w-16 mb-4">
+              <div className="relative h-14 w-14 sm:h-16 sm:w-16 mb-3">
                 <Image
                   src={item.src}
                   alt={item.name}
@@ -44,33 +44,34 @@ export function TrustPartners() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-[#ff9800] font-bold text-sm tracking-widest uppercase text-center">
+              <span className="text-[#ff9800] font-black text-xs sm:text-sm tracking-wider uppercase text-center">
                 {item.note}
               </span>
             </div>
           ))}
         </div>
 
-        {/* Payment Partners */}
+        {/* Payment Partners Header */}
         <div className="text-center mb-8">
           <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-10 py-4 rounded-[2rem] text-2xl shadow-lg">
             PAYMENT PARTNERS
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-6">
+        {/* Payment Cards - Restored to Original White Look & Size */}
+        <div className="grid grid-cols-3 gap-4 sm:gap-6">
           {PAYMENTS.map((item, index) => {
             const Icon = item.icon;
             return (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all"
+                className="flex flex-col items-center justify-center bg-white rounded-[2rem] p-5 sm:p-7 shadow-2xl transition-all transform hover:scale-105"
               >
-                <div className="h-16 w-16 flex items-center justify-center mb-4">
+                <div className="h-14 w-14 sm:h-16 sm:w-16 flex items-center justify-center mb-3">
                   {Icon ? (
-                    <Icon className="h-12 w-12 text-white" strokeWidth={1.5} />
+                    <Icon className="h-10 w-10 sm:h-12 sm:w-12 text-[#1a237e]" strokeWidth={1.5} />
                   ) : (
-                    <div className="relative h-16 w-16">
+                    <div className="relative h-14 w-14 sm:h-16 sm:w-16">
                       <Image
                         src={item.src || "/placeholder.svg"}
                         alt={item.name}
@@ -80,14 +81,15 @@ export function TrustPartners() {
                     </div>
                   )}
                 </div>
-                <span className="text-white/80 font-medium text-sm tracking-wider text-center">
+                <span className="text-[#1a237e]/80 font-bold text-[11px] sm:text-xs tracking-wider uppercase text-center">
                   {item.note}
                 </span>
               </div>
             );
           })}
         </div>
+
       </div>
     </section>
   );
-        }
+}
