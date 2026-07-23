@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { ShieldCheck, Eye, MessageCircle, Banknote, Package, Users } from 'lucide-react';
 
 const FEATURES = [
@@ -51,16 +51,16 @@ export function Features() {
           })}
         </div>
 
-        {/* Stats Section */}
+        {/* Compact Stats - پرانے جیسا */}
         <div className="grid grid-cols-3 gap-4 text-center">
           {[
             { number: "1000+", label: "SAFE DEALS" },
             { number: "9.5M+", label: "PROTECTED" },
             { number: "4.9/5", label: "RATING" },
           ].map((stat, i) => (
-            <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl py-8">
-              <div className="text-4xl font-black text-[#ff9800] mb-1">{stat.number}</div>
-              <div className="text-white/70 text-sm font-medium tracking-widest">{stat.label}</div>
+            <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl py-6 px-2">
+              <div className="text-3xl font-black text-[#ff9800]">{stat.number}</div>
+              <div className="text-white/70 text-xs font-medium tracking-widest mt-1 uppercase">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -68,4 +68,4 @@ export function Features() {
       </div>
     </section>
   );
-} 
+                }
