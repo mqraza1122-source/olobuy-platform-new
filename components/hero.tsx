@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { MessageCircle, ShieldCheck } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 export function Hero() {
   const [role, setRole] = useState("Buyer")
@@ -16,8 +17,13 @@ export function Hero() {
     <section className="relative min-h-[90dvh] flex items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#1a237e] to-[#0f172a] overflow-hidden px-4 pt-4 pb-12">
       <div className="absolute inset-0 bg-[radial-gradient(at_top,#ff9800_0%,transparent_60%)] opacity-10" />
 
-      <div className="relative z-10 max-w-lg w-full text-center">
-        {/* Trust Badge - Attached closer to header with optimized spacing */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-10 max-w-lg w-full text-center"
+      >
+        {/* Trust Badge */}
         <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 mb-3">
           <ShieldCheck className="h-4 w-4 text-[#25d366]" />
           <span className="text-xs sm:text-sm font-bold tracking-widest text-white">100% SECURE TRANSACTIONS</span>
@@ -29,7 +35,7 @@ export function Hero() {
           <span className="text-[#ff9800]">نہ پارسل کا فراڈ</span>
         </h1>
 
-        {/* Form Card (Compact & Fully Visible on Load) */}
+        {/* Form Card */}
         <div className="bg-white rounded-[2rem] shadow-2xl p-5 sm:p-7 text-left">
           <p className="uppercase text-center text-xs tracking-widest font-bold text-gray-500 mb-4">
             Start Your Secure Deal
@@ -89,7 +95,7 @@ export function Hero() {
             <span>Start Deal on WhatsApp</span>
           </a>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
-                                            }
+              }
