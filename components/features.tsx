@@ -1,5 +1,5 @@
 'use client'
-import { ShieldCheck, Eye, MessageCircle, Banknote, Package, Users } from 'lucide-react'
+import { ShieldCheck, Eye, MessageCircle, Banknote, Package, Users } from 'lucide-react';
 
 const FEATURES = [
   { icon: ShieldCheck, title: 'No Advance Fraud', desc: 'Providers never receive money upfront. We hold it securely.' },
@@ -8,62 +8,64 @@ const FEATURES = [
   { icon: Banknote, title: 'Secure Escrow Holding', desc: 'Funds are held in a neutral, secure account until deal completion.' },
   { icon: Package, title: 'Versatile Usage', desc: 'Perfect for physical goods, digital products, and services alike.' },
   { icon: Users, title: 'Fair for Both Parties', desc: 'Equal protection and peace of mind for both buyers and sellers.' },
-]
+];
 
 export function Features() {
   return (
-    <section id="why" className="bg-[#1a237e] py-12 px-4">
-      
-      {/* 1. WHY CHOOSE SECTION */}
-      <div className="mx-auto max-w-5xl flex flex-col items-center mb-12">
-        <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-6 rounded-[2rem] text-xl uppercase text-center shadow-lg">
-          Why Choose OloBuy?
+    <section id="why" className="bg-[#0f172a] py-16 px-4">
+      <div className="mx-auto max-w-5xl">
+        
+        {/* Why Choose Header */}
+        <div className="text-center mb-12">
+          <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-10 py-4 rounded-[2rem] text-2xl shadow-lg mb-4">
+            WHY CHOOSE OLOBY?
+          </div>
+          <p className="text-white/80 max-w-md mx-auto">
+            Trusted by thousands for safe online transactions across Pakistan
+          </p>
         </div>
 
-        <div className="w-full grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {FEATURES.map((f) => {
-            const Icon = f.icon
+            const Icon = f.icon;
             return (
-              <div key={f.title} className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-lg">
-                {/* آئیکون اور ہیڈنگ اب ایک لائن میں ہیں */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="rounded-xl bg-[#f0f4f8] p-2 shrink-0">
-                    <Icon className="h-5 w-5 text-[#25d366]" />
+              <div 
+                key={f.title} 
+                className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all group"
+              >
+                <div className="flex items-start gap-5">
+                  <div className="mt-1 w-12 h-12 rounded-2xl bg-[#ff9800]/10 flex items-center justify-center group-hover:bg-[#ff9800]/20 transition-colors">
+                    <Icon className="h-7 w-7 text-[#ff9800]" />
                   </div>
-                  <h3 className="text-lg font-bold text-[#1a237e] leading-tight">{f.title}</h3>
+                  
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-3">{f.title}</h3>
+                    <p className="text-white/70 leading-relaxed">
+                      {f.desc}
+                    </p>
+                  </div>
                 </div>
-                {/* تفصیل ہیڈنگ کے نیچے */}
-                <p className="text-gray-600 text-sm leading-relaxed pl-1">
-                  {f.desc}
-                </p>
               </div>
-            )
+            );
           })}
         </div>
-      </div>
 
-      {/* 2. ORIGINAL LIFE, ORIGINAL BUY BUTTON */}
-      <div className="mx-auto max-w-5xl mb-6">
-        <div className="w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
-          Original Life, Original Buy
-        </div>
-      </div>
-
-      {/* 3. CLEAN STATS SECTION */}
-      <div className="mx-auto max-w-5xl text-center">
-        <div className="grid grid-cols-3 gap-3">
+        {/* Stats Section */}
+        <div className="grid grid-cols-3 gap-4 text-center">
           {[
-            { title: "1000+", subtitle: "SAFE DEALS" },
-            { title: "9.5M+", subtitle: "PROTECTED" },
-            { title: "4.9/5", subtitle: "RATING" },
+            { number: "1000+", label: "SAFE DEALS" },
+            { number: "9.5M+", label: "PROTECTED" },
+            { number: "4.9/5", label: "RATING" },
           ].map((stat, i) => (
-            <div key={i} className="bg-white p-4 rounded-[1.5rem] shadow-lg flex flex-col items-center justify-center">
-              <h3 className="text-xl font-black text-[#ff9800]">{stat.title}</h3>
-              <p className="text-[10px] text-[#1a237e] font-bold tracking-widest mt-1">{stat.subtitle}</p>
+            <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl py-8">
+              <div className="text-4xl font-black text-[#ff9800] mb-1">{stat.number}</div>
+              <div className="text-white/70 text-sm font-medium tracking-widest">{stat.label}</div>
             </div>
           ))}
         </div>
+
       </div>
     </section>
-  )
-        }
+  );
+} 
