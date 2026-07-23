@@ -21,26 +21,26 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-[#1a237e] py-12 px-4">
+    <section className="bg-[#0f172a] py-16 px-4">
       <div className="mx-auto max-w-5xl">
         
-        {/* بٹن کا رنگ اورینج ہی ہے */}
-        <div className="mb-12 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 px-2 rounded-[2rem] text-[15px] uppercase text-center shadow-lg whitespace-nowrap">
-          Frequently Asked Questions
+        {/* Section Header */}
+        <div className="text-center mb-12">
+          <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-10 py-4 rounded-[2rem] text-2xl shadow-lg">
+            FREQUENTLY ASKED QUESTIONS
+          </div>
         </div>
 
         <div className="space-y-6">
           {FAQS.map((faq, i) => (
             <div 
               key={i} 
-              // کارڈ اب سفید ہیں اور بارڈر گرے
-              className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-lg transition-all duration-300"
+              className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-2xl transition-all duration-300"
             >
               <button 
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="flex w-full items-center justify-between text-left"
               >
-                {/* ہیڈنگ اب گہرے نیلے رنگ میں ہے */}
                 <span className="text-lg md:text-xl font-bold text-[#1a237e]">{faq.q}</span>
                 <ChevronDown 
                   className={`h-7 w-7 text-[#ff9800] transition-transform duration-300 ${
@@ -51,7 +51,6 @@ export function Faq() {
               
               {openIndex === i && (
                 <div className="mt-4 pt-4 border-t border-gray-100">
-                  {/* جواب کا متن بھی گہرا نیلا */}
                   <p className="text-base font-medium text-gray-600 leading-relaxed">
                     {faq.a}
                   </p>
