@@ -51,16 +51,16 @@ export function Features() {
           })}
         </div>
 
-        {/* Compact Stats - پرانے جیسا */}
+        {/* Stats Section - Restored to Original Old White Cards Style */}
         <div className="grid grid-cols-3 gap-4 text-center">
           {[
             { number: "1000+", label: "SAFE DEALS" },
             { number: "9.5M+", label: "PROTECTED" },
             { number: "4.9/5", label: "RATING" },
           ].map((stat, i) => (
-            <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl py-6 px-2">
-              <div className="text-3xl font-black text-[#ff9800]">{stat.number}</div>
-              <div className="text-white/70 text-xs font-medium tracking-widest mt-1 uppercase">{stat.label}</div>
+            <div key={i} className="bg-white rounded-[2rem] py-8 px-2 shadow-2xl flex flex-col items-center justify-center transition-all transform hover:scale-105">
+              <div className="text-2xl sm:text-4xl font-black text-[#ff9800] mb-1">{stat.number}</div>
+              <div className="text-[#1a237e] text-[10px] sm:text-xs font-bold tracking-widest uppercase">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -68,4 +68,4 @@ export function Features() {
       </div>
     </section>
   );
-                }
+}
