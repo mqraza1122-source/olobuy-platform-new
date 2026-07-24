@@ -149,4 +149,4 @@ export default function DealPage() {
       </div>
     </div>
   )
-      }
+          }
