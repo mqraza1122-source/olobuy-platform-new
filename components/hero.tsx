@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { MessageCircle, ShieldCheck, Loader2, ArrowRight } from 'lucide-react'
+import { MessageCircle, ShieldCheck, Loader2 } from 'lucide-react'
 import { createClient } from '@/utils/supabase/client'
 
 export function Hero() {
@@ -17,7 +17,7 @@ export function Hero() {
   const handleStartDeal = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!product || !amount || !buyerName || !sellerName) {
-      alert("Please fill in all fields (Product, Amount, Buyer & Seller names)!")
+      alert("Please fill in all fields!")
       return
     }
 
@@ -42,7 +42,8 @@ export function Hero() {
     if (error) {
       alert("Error creating deal: " + error.message)
     } else {
-      router.push(`/deal/${dealCode}`)
+      alert(`Deal Created Successfully! Your Deal Code is: ${dealCode}`)
+      router.push('/deal')
     }
   }
 
@@ -51,19 +52,16 @@ export function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(at_top,#ff9800_0%,transparent_60%)] opacity-10" />
 
       <div className="relative z-10 max-w-lg w-full text-center">
-        {/* Trust Badge */}
         <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 mb-3">
           <ShieldCheck className="h-4 w-4 text-[#25d366]" />
           <span className="text-xs sm:text-sm font-bold tracking-widest text-white">100% SECURE TRANSACTIONS</span>
         </div>
 
-        {/* Heading */}
         <h1 className="text-3xl sm:text-4xl font-black leading-tight text-white mb-5">
           نہ ایڈوانس کا ڈر<br />
-          <span className="text-[#ff9800]">نہ پارسل کا فراড</span>
+          <span className="text-[#ff9800]">نہ پارسل کا فراڈ</span>
         </h1>
 
-        {/* Form Card */}
         <div className="bg-white rounded-[2rem] shadow-2xl p-5 sm:p-7 text-left">
           <p className="uppercase text-center text-xs tracking-widest font-bold text-gray-500 mb-4">
             Start Your Secure Deal
@@ -158,4 +156,4 @@ export function Hero() {
       </div>
     </section>
   )
-            }
+      }
