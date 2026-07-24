@@ -42,8 +42,7 @@ export function Hero() {
     if (error) {
       alert("Error creating deal: " + error.message)
     } else {
-      alert(`Deal Created Successfully! Your Deal Code is: ${dealCode}`)
-      router.push('/deal')
+      router.push(`/deal/${dealCode}`)
     }
   }
 
@@ -156,4 +155,4 @@ export function Hero() {
       </div>
     </section>
   )
-      }
+    }
