@@ -1,6 +1,6 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { ShieldCheck, CheckCircle2, Clock, AlertCircle, Loader2, Search } from 'lucide-react'
+import { useState } from 'react'
+import { ShieldCheck, CheckCircle2, Clock, Loader2, Search } from 'lucide-react'
 import { createClient } from '@/utils/supabase/client'
 
 export default function DealPage() {
@@ -53,12 +53,10 @@ export default function DealPage() {
     <div className="min-h-screen bg-[#0f172a] text-white py-12 px-4 flex flex-col items-center justify-center">
       <div className="max-w-md w-full bg-white text-gray-900 rounded-[2.5rem] shadow-2xl p-6 sm:p-8 space-y-6">
         
-        {/* Header Branding */}
         <div className="text-center">
           <span className="text-xs font-black tracking-widest text-gray-400 uppercase">OloBuy Live Deal Tracker</span>
         </div>
 
-        {/* Search Deal Form */}
         <form onSubmit={handleSearchDeal} className="space-y-3">
           <label className="text-[11px] font-extrabold text-gray-500 uppercase tracking-wider block">ENTER DEAL CODE</label>
           <div className="flex gap-2">
@@ -80,9 +78,8 @@ export default function DealPage() {
           </div>
         </form>
 
-        {/* Deal Details Card (Shown if deal found) */}
         {deal && (
-          <div className="space-y-5 pt-4 border-t border-gray-100 animate-fadeIn">
+          <div className="space-y-5 pt-4 border-t border-gray-100">
             <div className="bg-[#1a237e] text-white p-5 rounded-2xl text-center space-y-1 shadow-lg">
               <div className="flex justify-center items-center gap-1.5 text-xs font-bold text-[#ff9800]">
                 <ShieldCheck className="h-4 w-4" />
@@ -152,4 +149,4 @@ export default function DealPage() {
       </div>
     </div>
   )
-                 }
+      }
