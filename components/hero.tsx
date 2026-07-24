@@ -1,15 +1,49 @@
 'use client'
 import { useState } from 'react'
-import { MessageCircle, ShieldCheck } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { MessageCircle, ShieldCheck, Loader2, ArrowRight } from 'lucide-react'
+import { createClient } from '@/utils/supabase/client'
 
 export function Hero() {
   const [role, setRole] = useState("Buyer")
   const [product, setProduct] = useState("")
   const [amount, setAmount] = useState("")
+  const [buyerName, setBuyerName] = useState("")
+  const [sellerName, setSellerName] = useState("")
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  const supabase = createClient()
 
-  const getWhatsAppLink = () => {
-    const message = `Assalamualaikum, I want to start a safe deal on OloBuy.\nRole: ${role}\nProduct: ${product || "Not specified"}\nAmount: Rs ${amount || "Not specified"}`
-    return `https://wa.me/923043031572?text=${encodeURIComponent(message)}`
+  const handleStartDeal = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!product || !amount || !buyerName || !sellerName) {
+      alert("Please fill in all fields (Product, Amount, Buyer & Seller names)!")
+      return
+    }
+
+    setLoading(true)
+    const randomNum = Math.floor(1000 + Math.random() * 9000)
+    const dealCode = `OLO-${randomNum}`
+
+    const { error } = await supabase.from('deals').insert([
+      {
+        deal_code: dealCode,
+        product_name: product,
+        amount: parseFloat(amount),
+        buyer_name: buyerName,
+        seller_name: sellerName,
+        status: 'Payment Secured in Escrow',
+        status_type: 'secured'
+      }
+    ])
+
+    setLoading(false)
+
+    if (error) {
+      alert("Error creating deal: " + error.message)
+    } else {
+      router.push(`/deal/${dealCode}`)
+    }
   }
 
   return (
@@ -26,7 +60,7 @@ export function Hero() {
         {/* Heading */}
         <h1 className="text-3xl sm:text-4xl font-black leading-tight text-white mb-5">
           نہ ایڈوانس کا ڈر<br />
-          <span className="text-[#ff9800]">نہ پارسل کا فراڈ</span>
+          <span className="text-[#ff9800]">نہ پارسل کا فراড</span>
         </h1>
 
         {/* Form Card */}
@@ -35,7 +69,7 @@ export function Hero() {
             Start Your Secure Deal
           </p>
 
-          <div className="space-y-4">
+          <form onSubmit={handleStartDeal} className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase">I am a</label>
               <div className="grid grid-cols-3 gap-2">
@@ -63,6 +97,7 @@ export function Hero() {
                 placeholder="e.g. Gaming Account, iPhone" 
                 value={product} 
                 onChange={(e) => setProduct(e.target.value)} 
+                required
                 className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-sm" 
               />
             </div>
@@ -74,20 +109,51 @@ export function Hero() {
                 placeholder="5000" 
                 value={amount} 
                 onChange={(e) => setAmount(e.target.value)} 
+                required
                 className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-sm" 
               />
             </div>
-          </div>
 
-          <a 
-            href={getWhatsAppLink()} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="mt-6 flex items-center justify-center gap-2 w-full bg-[#ff9800] text-[#1a237e] font-black py-3.5 rounded-2xl hover:bg-[#ffb347] transition-all transform hover:scale-[1.02] shadow-lg text-sm sm:text-base"
-          >
-            <MessageCircle className="h-5 w-5" />
-            <span>Start Deal on WhatsApp</span>
-          </a>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Buyer Name</label>
+                <input 
+                  type="text" 
+                  placeholder="Qasim" 
+                  value={buyerName} 
+                  onChange={(e) => setBuyerName(e.target.value)} 
+                  required
+                  className="w-full px-3.5 py-3 rounded-2xl border border-gray-200 focus:border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-xs" 
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Seller Name</label>
+                <input 
+                  type="text" 
+                  placeholder="Ahmad" 
+                  value={sellerName} 
+                  onChange={(e) => setSellerName(e.target.value)} 
+                  required
+                  className="w-full px-3.5 py-3 rounded-2xl border border-gray-200 focus:border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-xs" 
+                />
+              </div>
+            </div>
+
+            <button 
+              type="submit"
+              disabled={loading}
+              className="mt-6 flex items-center justify-center gap-2 w-full bg-[#ff9800] text-[#1a237e] font-black py-3.5 rounded-2xl hover:bg-[#ffb347] transition-all transform hover:scale-[1.02] shadow-lg text-sm sm:text-base cursor-pointer disabled:opacity-50"
+            >
+              {loading ? (
+                <Loader2 className="h-5 w-5 animate-spin text-[#1a237e]" />
+              ) : (
+                <>
+                  <MessageCircle className="h-5 w-5" />
+                  <span>Start Live Escrow Deal</span>
+                </>
+              )}
+            </button>
+          </form>
         </div>
       </div>
     </section>
