@@ -1,12 +1,11 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useEffect, useState, use } from 'react'
 import { ShieldCheck, CheckCircle2, Clock, Loader2 } from 'lucide-react'
 import { createClient } from '@/utils/supabase/client'
 
-export default function DealDetailsPage() {
-  const params = useParams()
-  const dealCode = params.dealCode as string
+export default function DealDetailsPage({ params }: { params: Promise<{ dealCode: string }> }) {
+  const resolvedParams = use(params)
+  const dealCode = resolvedParams.dealCode
   
   const [deal, setDeal] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -16,7 +15,7 @@ export default function DealDetailsPage() {
   useEffect(() => {
     async function fetchDeal() {
       if (!dealCode) return
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from('deals')
         .select('*')
         .eq('deal_code', dealCode.toUpperCase())
@@ -28,7 +27,7 @@ export default function DealDetailsPage() {
       setLoading(false)
     }
     fetchDeal()
-  }, [dealCode])
+  }, [dealCode, supabase])
 
   const handleReleasePayment = async () => {
     if (!deal) return
@@ -145,4 +144,4 @@ export default function DealDetailsPage() {
       </div>
     </div>
   )
-               }
+      }
