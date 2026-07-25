@@ -5,9 +5,10 @@ import { supabase } from '@/lib/supabase';
 import { ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export default function DealPage() {
-  const { id } = useParams();
+  const params = useParams();
+  const id = params?.id;
   const [deal, setDeal] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (id) fetchDeal();
@@ -43,7 +44,7 @@ export default function DealPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0f172a] flex items-center justify-center text-white">
+      <div className="min-h-screen bg-[#0f172a] flex items-center justify-center text-white font-bold">
         Loading Deal...
       </div>
     );
@@ -51,15 +52,15 @@ export default function DealPage() {
 
   if (!deal) {
     return (
-      <div className="min-h-screen bg-[#0f172a] flex items-center justify-center text-white">
+      <div className="min-h-screen bg-[#0f172a] flex items-center justify-center text-white font-bold">
         Deal not found
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white p-6">
-      <div className="max-w-lg mx-auto">
+    <div className="min-h-screen bg-[#0f172a] text-white p-6 flex items-center justify-center">
+      <div className="max-w-lg w-full bg-slate-900 border border-slate-800 rounded-[2.5rem] p-6 shadow-2xl">
         
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-1.5 mb-4">
@@ -102,7 +103,7 @@ export default function DealPage() {
         {deal.status !== 'completed' && (
           <button
             onClick={releasePayment}
-            className="w-full bg-[#25d366] hover:bg-[#1da851] text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2"
+            className="w-full bg-[#25d366] hover:bg-[#1da851] text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer shadow-lg transition-all"
           >
             <CheckCircle2 className="h-5 w-5" />
             Release Payment to Seller
@@ -122,4 +123,4 @@ export default function DealPage() {
       </div>
     </div>
   );
-    }
+            }
