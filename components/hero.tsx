@@ -34,7 +34,7 @@ export function Hero() {
 
     if (error) {
       console.error(error);
-      alert("Error creating deal. Please try again.");
+      alert("Error: " + error.message);
       return;
     }
 
@@ -108,7 +108,7 @@ export function Hero() {
           <button 
             onClick={createDeal}
             disabled={loading}
-            className="mt-6 flex items-center justify-center gap-2 w-full bg-[#ff9800] text-[#1a237e] font-black py-3.5 rounded-2xl hover:bg-[#ffb347] transition-all transform hover:scale-[1.02] shadow-lg text-sm sm:text-base disabled:opacity-70"
+            className="mt-6 flex items-center justify-center gap-2 w-full bg-[#ff9800] text-[#1a237e] font-black py-3.5 rounded-2xl hover:bg-[#ffb347] transition-all transform hover:scale-[1.02] shadow-lg text-sm sm:text-base disabled:opacity-70 cursor-pointer"
           >
             <MessageCircle className="h-5 w-5" />
             <span>{loading ? "Creating Deal..." : "Start Secure Deal"}</span>
@@ -117,4 +117,4 @@ export function Hero() {
       </div>
     </section>
   );
-    }
+              }
