@@ -19,26 +19,31 @@ export function Hero() {
 
     setLoading(true);
 
-    const dealCode = "OLB" + Date.now().toString().slice(-6);
+    try {
+      const dealCode = "OLB" + Date.now().toString().slice(-6);
 
-    const { error } = await supabase.from("deals").insert({
-      deal_code: dealCode,
-      product_name: product,
-      amount: Number(amount),
-      status: "pending",
-      buyer_name: role === "Buyer" ? "Buyer" : "",
-      seller_name: role === "Seller" ? "Seller" : "",
-    });
+      const { data, error } = await supabase.from("deals").insert({
+        deal_code: dealCode,
+        product_name: product,
+        amount: Number(amount),
+        status: "pending",
+        buyer_name: role === "Buyer" ? "Buyer" : "",
+        seller_name: role === "Seller" ? "Seller" : "",
+      }).select();
 
-    setLoading(false);
+      if (error) {
+        console.error("Supabase Error:", error);
+        alert("Database Error: " + error.message);
+        setLoading(false);
+        return;
+      }
 
-    if (error) {
-      console.error(error);
-      alert("Error: " + error.message);
-      return;
+      router.push(`/deal/${dealCode}`);
+    } catch (err: any) {
+      console.error("Catch Error:", err);
+      alert("Network Error: " + (err.message || "Something went wrong"));
+      setLoading(false);
     }
-
-    router.push(`/deal/${dealCode}`);
   };
 
   return (
@@ -106,6 +111,7 @@ export function Hero() {
           </div>
 
           <button 
+            type="button"
             onClick={createDeal}
             disabled={loading}
             className="mt-6 flex items-center justify-center gap-2 w-full bg-[#ff9800] text-[#1a237e] font-black py-3.5 rounded-2xl hover:bg-[#ffb347] transition-all transform hover:scale-[1.02] shadow-lg text-sm sm:text-base disabled:opacity-70 cursor-pointer"
@@ -117,4 +123,4 @@ export function Hero() {
       </div>
     </section>
   );
-              }
+}
