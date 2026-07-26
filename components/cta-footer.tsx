@@ -57,7 +57,7 @@ export function CtaFooter() {
               <div>
                 <span className="text-[#ff9800] uppercase font-bold tracking-widest text-sm block mb-3">About Us</span>
                 <p className="text-white/70 leading-relaxed">
-                  OloBuy is a neutral third-party service dedicated to making online trade in Pakistan safe and fraud-free.
+                  OloBuy is a neutral third party service dedicated to making online trade in Pakistan safe and fraud free.
                 </p>
               </div>
 
@@ -93,7 +93,7 @@ export function CtaFooter() {
 
           {/* Bottom Bar */}
           <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/60">
-            <p>© {new Date().getFullYear()} OloBuy. All rights reserved. Secure Manual Escrow Network Pakistan.</p>
+            <p>© {new Date().getFullYear()} OloBuy ®. All rights reserved©. Secure Manual Escrow Network Pakistan.</p>
             
             <div className="flex items-center gap-6">
               <a href="/terms" className="hover:text-white transition-colors">Terms & Conditions</a>
