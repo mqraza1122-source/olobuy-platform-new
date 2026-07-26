@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, CheckCircle2, Copy, Wallet, ArrowRight, MessageSquare } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Copy, Wallet, KeyRound, MessageSquare, Send } from 'lucide-react';
 
 export default function DealPage() {
   const params = useParams();
@@ -10,6 +10,8 @@ export default function DealPage() {
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [copied, setCopied] = useState<string | null>(null);
+  const [adminPin, setAdminPin] = useState<string>('');
+  const [pinError, setPinError] = useState<string>('');
 
   useEffect(() => {
     if (id) fetchDeal();
@@ -31,6 +33,27 @@ export default function DealPage() {
     setLoading(false);
   };
 
+  // Verify Admin PIN to Secure Escrow
+  const verifyPinAndSecure = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // آپ کا سیک্রেট پن کوڈ یہاں '7860' رکھا گیا ہے، آپ اسے بدل بھی سکتے ہیں
+    if (adminPin.trim() === '7860') {
+      const { error } = await supabase
+        .from('deals')
+        .update({ status: 'secured' })
+        .eq('deal_code', id);
+
+      if (!error) {
+        setDeal({ ...deal, status: 'secured' });
+        setPinError('');
+        alert('Payment Successfully Secured in OloBuy Escrow!');
+      }
+    } else {
+      setPinError('Invalid PIN! Please get the correct PIN from OloBuy Admin on WhatsApp.');
+    }
+  };
+
+  // Release Payment to Seller
   const releasePayment = async () => {
     const { error } = await supabase
       .from('deals')
@@ -72,6 +95,7 @@ export default function DealPage() {
   }
 
   const isCompleted = deal.status === 'completed';
+  const isSecured = deal.status === 'secured' || deal.status === 'paid';
   const isPending = !deal.status || deal.status === 'pending';
 
   return (
@@ -99,7 +123,7 @@ export default function DealPage() {
           </div>
           <div className="grid grid-cols-3 gap-2">
             <div className="h-2 rounded-full bg-amber-500 shadow-sm"></div>
-            <div className={`h-2 rounded-full transition-all ${deal.status === 'paid' || isCompleted ? 'bg-amber-500 shadow-sm' : 'bg-slate-200'}`}></div>
+            <div className={`h-2 rounded-full transition-all ${isSecured || isCompleted ? 'bg-amber-500 shadow-sm' : 'bg-slate-200'}`}></div>
             <div className={`h-2 rounded-full transition-all ${isCompleted ? 'bg-emerald-500 shadow-sm' : 'bg-slate-200'}`}></div>
           </div>
           <div className="flex justify-between text-[11px] text-slate-400 mt-2 font-bold">
@@ -120,7 +144,7 @@ export default function DealPage() {
             <span className="text-slate-500 text-sm font-medium">Transaction Status</span>
             <span className={`px-3.5 py-1 rounded-xl text-xs font-black tracking-wider uppercase shadow-sm ${
               isCompleted ? 'bg-emerald-500/10 text-emerald-700 border border-emerald-500/30' :
-              deal.status === 'paid' ? 'bg-blue-500/10 text-blue-700 border border-blue-500/30' :
+              isSecured ? 'bg-blue-500/10 text-blue-700 border border-blue-500/30' :
               'bg-amber-500/10 text-amber-700 border border-amber-500/30'
             }`}>
               {deal.status || 'PENDING'}
@@ -128,59 +152,91 @@ export default function DealPage() {
           </div>
         </div>
 
-        {/* OFFICIAL ESCROW DEPOSIT ACCOUNTS (Only shows when pending) */}
+        {/* 1. PENDING STAGE: Show Official Accounts & PIN Input Box */}
         {isPending && (
-          <div className="bg-amber-500/10 border-2 border-amber-500/30 rounded-2xl p-5 mb-6 shadow-md">
-            <div className="flex items-center gap-2 mb-3">
-              <Wallet className="h-5 w-5 text-amber-600" />
-              <h3 className="font-black text-slate-900 text-sm">Send Payment to OloBuy Official Account</h3>
-            </div>
-            <p className="text-xs text-slate-600 mb-4 font-medium leading-relaxed">
-              Please transfer <span className="font-bold text-amber-600">Rs {Number(deal.amount || 0).toLocaleString()}</span> to any of the official accounts below and share the screenshot on WhatsApp.
-            </p>
+          <div className="space-y-4 mb-6">
+            <div className="bg-amber-500/10 border-2 border-amber-500/30 rounded-2xl p-5 shadow-md">
+              <div className="flex items-center gap-2 mb-3">
+                <Wallet className="h-5 w-5 text-amber-600" />
+                <h3 className="font-black text-slate-900 text-sm">Send Payment to OloBuy Official Account</h3>
+              </div>
+              <p className="text-xs text-slate-600 mb-4 font-medium leading-relaxed">
+                Please transfer <span className="font-bold text-amber-600">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account below and send screenshot on WhatsApp.
+              </p>
 
-            {/* JazzCash / Easypaisa Box */}
-            <div className="space-y-2.5">
-              <div className="bg-white border border-amber-200 rounded-xl p-3 flex items-center justify-between shadow-xs">
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Easypaisa / JazzCash</p>
-                  <p className="font-black text-slate-800 text-sm">0300-1234567 <span className="text-xs font-normal text-slate-500">(OloBuy Official)</span></p>
+              <div className="space-y-2.5">
+                <div className="bg-white border border-amber-200 rounded-xl p-3 flex items-center justify-between shadow-xs">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Easypaisa / JazzCash</p>
+                    <p className="font-black text-slate-800 text-sm">0300-1234567 <span className="text-xs font-normal text-slate-500">(OloBuy)</span></p>
+                  </div>
+                  <button 
+                    onClick={() => copyToClipboard('03001234567', 'ep')}
+                    className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 cursor-pointer"
+                  >
+                    <Copy className="h-3.5 w-3.5" />
+                    {copied === 'ep' ? 'Copied!' : 'Copy'}
+                  </button>
                 </div>
-                <button 
-                  onClick={() => copyToClipboard('03001234567', 'ep')}
-                  className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 cursor-pointer"
-                >
-                  <Copy className="h-3.5 w-3.5" />
-                  {copied === 'ep' ? 'Copied!' : 'Copy'}
-                </button>
               </div>
 
-              {/* Bank Account Box */}
-              <div className="bg-white border border-amber-200 rounded-xl p-3 flex items-center justify-between shadow-xs">
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Meezan Bank (IBAN)</p>
-                  <p className="font-black text-slate-800 text-xs">PK03MEZN0000001234567890</p>
-                </div>
-                <button 
-                  onClick={() => copyToClipboard('PK03MEZN0000001234567890', 'bank')}
-                  className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 cursor-pointer"
-                >
-                  <Copy className="h-3.5 w-3.5" />
-                  {copied === 'bank' ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
+              <a 
+                href={`https://wa.me/?text=Hello%20OloBuy%20Admin,%20I%20have%20sent%20payment%20for%20Deal%20%23${deal.deal_code}%20amounting%20to%20Rs%20${deal.amount}.%20Here%20is%20my%20screenshot.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
+              >
+                <MessageSquare className="h-4 w-4" />
+                Send Payment Proof on WhatsApp
+              </a>
             </div>
 
-            {/* WhatsApp Proof Button */}
-            <a 
-              href={`https://wa.me/?text=Hello%20OloBuy%20Admin,%20I%20have%20sent%20payment%20for%20Deal%20%23${deal.deal_code}%20amounting%20to%20Rs%20${deal.amount}.%20Here%20is%20my%20screenshot.`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
+            {/* Admin PIN Verification Form for Buyer */}
+            <div className="bg-slate-900 text-white rounded-2xl p-5 shadow-lg border border-slate-800">
+              <div className="flex items-center gap-2 mb-2">
+                <KeyRound className="h-4 w-4 text-amber-400" />
+                <h4 className="font-bold text-xs uppercase tracking-wider text-amber-400">Have you received PIN from Admin?</h4>
+              </div>
+              <p className="text-[11px] text-slate-400 mb-3">Enter the 4-digit verification PIN provided on WhatsApp after payment approval.</p>
+              
+              <form onSubmit={verifyPinAndSecure} className="flex gap-2">
+                <input 
+                  type="password"
+                  maxLength={4}
+                  placeholder="Enter PIN"
+                  value={adminPin}
+                  onChange={(e) => setAdminPin(e.target.value)}
+                  className="bg-slate-800 border border-slate-700 text-white text-center font-black tracking-widest px-4 py-2.5 rounded-xl w-full text-sm focus:outline-none focus:border-amber-500"
+                />
+                <button 
+                  type="submit"
+                  className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs transition-all flex items-center gap-1 cursor-pointer shrink-0"
+                >
+                  <Send className="h-4 w-4" />
+                  Verify
+                </button>
+              </form>
+              {pinError && <p className="text-red-400 text-[11px] mt-2 font-medium">{pinError}</p>}
+            </div>
+          </div>
+        )}
+
+        {/* 2. SECURED STAGE: Show Success Box & Release Button */}
+        {isSecured && !isCompleted && (
+          <div className="space-y-4 mb-6">
+            <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-5 text-center shadow-sm">
+              <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto mb-2" />
+              <p className="font-black text-emerald-800 text-sm">You have successfully secured Rs {Number(deal.amount || 0).toLocaleString()} in OloBuy Escrow!</p>
+              <p className="text-xs text-emerald-600/80 mt-1 font-medium">Funds are 100% safe with OloBuy until you receive and inspect your product.</p>
+            </div>
+
+            <button
+              onClick={releasePayment}
+              className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer shadow-xl shadow-amber-500/25 transition-all active:scale-[0.98]"
             >
-              <MessageSquare className="h-4 w-4" />
-              Send Payment Proof on WhatsApp
-            </a>
+              <CheckCircle2 className="h-5 w-5" />
+              Release Payment to Seller
+            </button>
           </div>
         )}
 
@@ -196,19 +252,9 @@ export default function DealPage() {
           </div>
         </div>
 
-        {/* Action Button */}
-        {!isCompleted && !isPending && (
-          <button
-            onClick={releasePayment}
-            className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer shadow-xl shadow-amber-500/25 transition-all active:scale-[0.98]"
-          >
-            <CheckCircle2 className="h-5 w-5" />
-            Release Payment to Seller
-          </button>
-        )}
-
+        {/* Completed View */}
         {isCompleted && (
-          <div className="bg-emerald-50 border border-emerald-500/30 rounded-2xl p-5 text-center shadow-sm">
+          <div className="bg-emerald-50 border border-emerald-500/30 rounded-2xl p-5 text-center shadow-sm mb-6">
             <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto mb-2" />
             <p className="font-black text-emerald-800 text-sm">Deal Completed Successfully</p>
             <p className="text-xs text-emerald-600/80 mt-1 font-medium">Funds have been securely released to the seller.</p>
@@ -225,4 +271,4 @@ export default function DealPage() {
       </div>
     </div>
   );
-}
+        }
