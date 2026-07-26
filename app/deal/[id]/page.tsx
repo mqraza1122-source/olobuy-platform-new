@@ -36,7 +36,6 @@ export default function DealPage() {
   // Verify Admin PIN to Secure Escrow
   const verifyPinAndSecure = async (e: React.FormEvent) => {
     e.preventDefault();
-    // آپ کا سیک্রেট پن کوڈ یہاں '7860' رکھا گیا ہے، آپ اسے بدل بھی سکتے ہیں
     if (adminPin.trim() === '7860') {
       const { error } = await supabase
         .from('deals')
@@ -181,7 +180,7 @@ export default function DealPage() {
               </div>
 
               <a 
-                href={`https://wa.me/?text=Hello%20OloBuy%20Admin,%20I%20have%20sent%20payment%20for%20Deal%20%23${deal.deal_code}%20amounting%20to%20Rs%20${deal.amount}.%20Here%20is%20my%20screenshot.`}
+                href={`https://wa.me/923043031574?text=Hello%20OloBuy%20Admin,%20I%20have%20sent%20payment%20for%20Deal%20%23${deal.deal_code}%20amounting%20to%20Rs%20${deal.amount}.%20Here%20is%20my%20screenshot.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
@@ -271,4 +270,4 @@ export default function DealPage() {
       </div>
     </div>
   );
-        }
+  }
