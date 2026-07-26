@@ -19,7 +19,7 @@ const notoUrdu = Noto_Nastaliq_Urdu({
 export const metadata: Metadata = {
   metadataBase: new URL('https://olobuy.pk'),
   title: {
-    default: "OloBuy - Pakistan's #1 Secure Escrow Service | Safe OLX & Facebook Deals",
+    default: "OlOBUY Pakistan's #1 Secure Escrow Service | Safe online e-commerce OLX & Facebook Deals",
     template: "%s | OloBuy Pakistan"
   },
   description: "Protect yourself from parcel fraud in Pakistan. OloBuy securely holds your payment until you inspect and approve the item. Safest way to buy and sell on OLX, Facebook Marketplace & Daraz without scams.",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
   },
   openGraph: {
-    title: "OloBuy - Pakistan's #1 Secure Escrow Service",
+    title: "OlOBUY Pakistan's #1 Secure Escrow Service",
     description: "Stop parcel fraud & online scams. Secure manual escrow for safe buying and selling on OLX, Facebook & Daraz in Pakistan.",
     url: 'https://olobuy.pk',
     siteName: 'OloBuy',
@@ -81,8 +81,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "OloBuy - Secure Escrow Pakistan",
-    description: "Safe payments for OLX & Facebook deals. No more parcel scams.",
+    title: "OLoBuy Secure Escrow Pakistan",
+    description: "Safe payments for Only deals OLX & Facebook deals. No more parcel scams.",
     images: ['https://olobuy.pk/og-image.jpg'],
   },
 }
