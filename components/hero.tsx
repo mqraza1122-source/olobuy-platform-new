@@ -7,13 +7,17 @@ import { useRouter } from 'next/navigation';
 export function Hero() {
   const [role, setRole] = useState("Buyer");
   const [product, setProduct] = useState("");
+  const [customProduct, setCustomProduct] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const createDeal = async () => {
-    if (!product || !amount) {
-      alert("Please fill Product and Amount");
+    // اگر 'Other' سلیکٹ ہو تو کسٹم پروڈکٹ کا نام استعمال کریں، ورنہ ڈراپ ڈاؤن والی ویلیو
+    const finalProduct = product === "Other" ? customProduct : product;
+
+    if (!finalProduct || !amount) {
+      alert("Please select/enter Product and Amount");
       return;
     }
 
@@ -24,7 +28,7 @@ export function Hero() {
 
       const { data, error } = await supabase.from("deals").insert({
         deal_code: dealCode,
-        product_name: product,
+        product_name: finalProduct,
         amount: Number(amount),
         status: "pending",
         buyer_name: role === "Buyer" ? "Buyer" : "",
@@ -89,14 +93,34 @@ export function Hero() {
 
             <div>
               <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Product / Service</label>
-              <input 
-                type="text" 
-                placeholder="e.g. Gaming Account, iPhone" 
-                value={product} 
-                onChange={(e) => setProduct(e.target.value)} 
-                className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-sm" 
-              />
+              <select
+                value={product}
+                onChange={(e) => setProduct(e.target.value)}
+                className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-sm cursor-pointer"
+              >
+                <option value="" disabled>Select Product / Service</option>
+                <option value="Social accounts">Social accounts</option>
+                <option value="Gaming accounts">Gaming accounts</option>
+                <option value="E-commerce parcel">E-commerce parcel</option>
+                <option value="Freelancer service">Freelancer service</option>
+                <option value="Contract work">Contract work</option>
+                <option value="Other">Other add</option>
+              </select>
             </div>
+
+            {/* اگر یوزر 'Other' سلیکٹ کرے تو کسٹم نام لکھنے کے لیے ان پٹ باکس ظاہر ہو */}
+            {product === "Other" && (
+              <div>
+                <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Custom Product Name</label>
+                <input 
+                  type="text" 
+                  placeholder="Type your item name..." 
+                  value={customProduct} 
+                  onChange={(e) => setCustomProduct(e.target.value)} 
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-sm" 
+                />
+              </div>
+            )}
 
             <div>
               <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Amount (Rs)</label>
@@ -123,4 +147,4 @@ export function Hero() {
       </div>
     </section>
   );
-}
+                  }
