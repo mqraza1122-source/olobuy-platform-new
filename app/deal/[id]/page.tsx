@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, CheckCircle2, Copy, Wallet, MessageSquare, Send, Truck, UserCheck, Clock, Share2 } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Wallet, MessageSquare, Send, Truck, UserCheck, Clock, Share2 } from 'lucide-react';
 
 async function sendAdminNotification(dealCode: string, actionType: string, amount: number) {
   try {
@@ -38,7 +38,6 @@ export default function DealPage() {
   const searchParams = useSearchParams();
   const id = params?.id;
   
-  // URL se role detect karega (e.g., ?role=seller ya ?role=buyer), default 'Buyer' hoga agar na ho
   const roleQuery = searchParams.get('role');
   const [currentRole, setCurrentRole] = useState<string>(roleQuery ? roleQuery : 'Buyer');
 
@@ -242,7 +241,6 @@ export default function DealPage() {
     }
   };
 
-  // Invite Link Handler with exact requested text formatting
   const handleInvite = (targetRole: 'Buyer' | 'Seller') => {
     const baseUrl = window.location.origin + window.location.pathname;
     const inviteLink = `${baseUrl}?role=${targetRole.toLowerCase()}`;
@@ -251,7 +249,6 @@ export default function DealPage() {
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
 
-    // Optional: direct WhatsApp share prompt
     const message = encodeURIComponent(`AOA! Please join OloBuy Escrow secure deal chat here: ${inviteLink}`);
     window.open(`https://wa.me/?text=${message}`, '_blank');
   };
@@ -288,7 +285,7 @@ export default function DealPage() {
     <main className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-slate-900 p-4 sm:p-6 flex items-center justify-center font-sans">
       <div className="max-w-md w-full bg-white/95 backdrop-blur-2xl border border-white/40 rounded-[2.5rem] p-6 sm:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] relative overflow-hidden my-6">
         
-        {/* Top Header Badge */}
+        {/* Header Badge */}
         <header className="text-center mb-6">
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-3 shadow-sm">
             <ShieldCheck className="h-4 w-4 text-emerald-600" />
@@ -339,7 +336,7 @@ export default function DealPage() {
           </div>
         </section>
 
-        {/* LIVE P2P CHAT BOX WITH EXACT REQUESTED INVITE BUTTONS */}
+        {/* CHAT BOX & EXACT INVITE BUTTONS */}
         <section className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 shadow-sm">
           <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
             <div className="flex items-center gap-2">
@@ -347,8 +344,8 @@ export default function DealPage() {
               <h3 className="font-black text-slate-800 text-xs uppercase">Secure Deal Chat (P2P)</h3>
             </div>
             
-            {/* DYNAMIC INVITE BUTTON BASED ON ROLE */}
-            {currentRole === 'Buyer' ? (
+            {/* Buyer View Button */}
+            {currentRole === 'Buyer' && (
               <button 
                 onClick={() => handleInvite('Seller')}
                 className="bg-[#1a237e] hover:bg-indigo-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow transition-all cursor-pointer"
@@ -356,7 +353,10 @@ export default function DealPage() {
                 <Share2 className="h-3 w-3" />
                 Invite seller in chat
               </button>
-            ) : (
+            )}
+
+            {/* Seller View Button */}
+            {currentRole === 'Seller' && (
               <button 
                 onClick={() => handleInvite('Buyer')}
                 className="bg-[#ff9800] hover:bg-orange-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow transition-all cursor-pointer"
@@ -410,7 +410,7 @@ export default function DealPage() {
           </form>
         </section>
 
-        {/* CONDITION 1: SELLER VIEW */}
+        {/* SELLER VIEW CONTROLS */}
         {currentRole === 'Seller' && (
           <section className="space-y-4 mb-6">
             {!isAccepted ? (
@@ -463,14 +463,12 @@ export default function DealPage() {
               </div>
             ) : (
               <div className="bg-emerald-50 border border-emerald-500/30 rounded-2xl p-4 text-center">
-                <p className="text-xs font-black text-emerald-800 uppercase">Deal Active & In Prog
-                  <p className="text-[11px] text-emerald-600 mt-1">Inspection timer is running for the buyer.</p>
+                <p className="text-xs font-black text-emerald-800 uppercase">Deal Active & In Progress</p>
+                <p className="text-[11px] text-emerald-600 mt-1">Inspection timer is running for the buyer.</p>
               </div>
             )}
           </section>
-        )}
-
-        {/* CONDITION 2: BUYER VIEW */}
+   BUYER VIEW CONTROLS */}
         {currentRole === 'Buyer' && (
           <section className="space-y-4 mb-6">
             {!deal.buyer_phone && (
@@ -527,11 +525,11 @@ export default function DealPage() {
                   </div>
                   <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
                     <span className="block text-lg font-black text-[#1a237e]">{timeLeft.hours}</span>
-                    <span className="text-[9px] uppercase font-bold text-slate-400">Hours</span>
+                    <span className="text-[9px] uppercase font-bold text-slate-400">Mins</span>
                   </div>
                   <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
                     <span className="block text-lg font-black text-[#1a237e]">{timeLeft.minutes}</span>
-                    <span className="text-[9px] uppercase font-bold text-slate-400">Mins</span>
+                    <span className="text-[9px] uppercase font-bold text-slate-400">Secs</span>
                   </div>
                   <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
                     <span className="block text-lg font-black text-[#ff9800]">{timeLeft.seconds}</span>
@@ -562,4 +560,4 @@ export default function DealPage() {
       </div>
     </main>
   );
-            }
+                  }
