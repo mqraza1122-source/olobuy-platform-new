@@ -13,7 +13,6 @@ export function Hero() {
   const router = useRouter();
 
   const createDeal = async () => {
-    // اگر 'Other' سلیکٹ ہو تو کسٹم نام استعمال کریں، ورنہ ڈراپ ڈاؤن والی ویلیو
     const finalProduct = product === "Other" ? customProduct : product;
 
     if (!finalProduct || !amount) {
@@ -31,8 +30,11 @@ export function Hero() {
         product_name: finalProduct,
         amount: Number(amount),
         status: "pending",
+        creator_role: role,
         buyer_name: role === "Buyer" ? "Buyer" : "",
         seller_name: role === "Seller" ? "Seller" : "",
+        seller_accepted: role === "Seller" ? true : false,
+        buyer_paid: false,
       }).select();
 
       if (error) {
@@ -108,7 +110,6 @@ export function Hero() {
               </select>
             </div>
 
-            {/* اگر یوزر 'Other' سلیکٹ کرے تو کسٹم نام لکھنے کے لیے ان پٹ باکس ظاہر ہو */}
             {product === "Other" && (
               <div>
                 <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Type Product / Service Name</label>
@@ -147,4 +148,4 @@ export function Hero() {
       </div>
     </section>
   );
-                }
+    }
