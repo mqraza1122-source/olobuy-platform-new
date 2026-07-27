@@ -24,8 +24,8 @@ function DealContent() {
   const [newMessage, setNewMessage] = useState<string>('');
   const [paymentDone, setPaymentDone] = useState<boolean>(false);
 
-  // اپنا واٹس ایپ نمبر یہاں لکھیں (بغیر پلس کے، مثلاً 923001234567)
-  const adminWhatsApp = '923001234567';
+  // OloBuy Official WhatsApp Number
+  const adminWhatsApp = '923043031572';
 
   useEffect(() => {
     if (roleQuery) {
@@ -206,8 +206,8 @@ function DealContent() {
 
     setDeal({ ...deal, status: 'completed' });
     
-    // WhatsApp Auto Message to Team on Release Payment
-    const text = encodeURIComponent(`Hello OloBuy Team, I have confirmed the product for Deal #${deal.deal_code}. Please release the payment to the seller. Thank you!`);
+    // WhatsApp Auto Message to OloBuy Team on Release Payment
+    const text = encodeURIComponent(`Hello OloBuy Team, I have confirmed the product for Deal #${deal.deal_code}. I have confirmed payment release, please clear the funds to the seller. Thank you!`);
     window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
   };
 
@@ -299,7 +299,7 @@ function DealContent() {
               <p className="text-slate-400 font-medium">Transfer via JazzCash / EasyPaisa / Bank:</p>
               <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
               <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
-              <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">0300-1234567</span></p>
+              <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">0304-3031572</span></p>
             </div>
 
             <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed">
@@ -472,4 +472,4 @@ export default function DealPage() {
       <DealContent />
     </Suspense>
   );
-        }
+}
