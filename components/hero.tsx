@@ -13,7 +13,7 @@ export function Hero() {
   const router = useRouter();
 
   const createDeal = async () => {
-    // اگر 'Other' سلیکٹ ہو تو کسٹم پروڈکٹ کا نام استعمال کریں، ورنہ ڈراپ ڈاؤن والی ویلیو
+    // اگر 'Other' سلیکٹ ہو تو کسٹم نام استعمال کریں، ورنہ ڈراپ ڈاؤن والی ویلیو
     const finalProduct = product === "Other" ? customProduct : product;
 
     if (!finalProduct || !amount) {
@@ -104,17 +104,17 @@ export function Hero() {
                 <option value="E-commerce parcel">E-commerce parcel</option>
                 <option value="Freelancer service">Freelancer service</option>
                 <option value="Contract work">Contract work</option>
-                <option value="Other">Other add</option>
+                <option value="Other">Other (Type Custom Name)</option>
               </select>
             </div>
 
             {/* اگر یوزر 'Other' سلیکٹ کرے تو کسٹم نام لکھنے کے لیے ان پٹ باکس ظاہر ہو */}
             {product === "Other" && (
               <div>
-                <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Custom Product Name</label>
+                <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Type Product / Service Name</label>
                 <input 
                   type="text" 
-                  placeholder="Type your item name..." 
+                  placeholder="e.g. Smart Watch, Logo Design..." 
                   value={customProduct} 
                   onChange={(e) => setCustomProduct(e.target.value)} 
                   className="w-full px-4 py-3 rounded-2xl border-2 border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-sm" 
@@ -147,4 +147,4 @@ export function Hero() {
       </div>
     </section>
   );
-                  }
+                }
