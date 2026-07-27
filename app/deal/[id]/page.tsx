@@ -2,7 +2,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Headphones } from 'lucide-react';
+import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Headphones, Edit3, Check } from 'lucide-react';
 
 function DealContent() {
   const params = useParams();
@@ -15,8 +15,14 @@ function DealContent() {
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
-  const [detailsOpen, setDetailsOpen] = useState<boolean>(false);
+  const [detailsOpen, setDetailsOpen] = useState<boolean>(true);
+  const [isEditingSeller, setIsEditingSeller] = useState<boolean>(false);
   
+  // Seller editable fields
+  const [sellerName, setSellerName] = useState<string>('');
+  const [sellerContact, setSellerContact] = useState<string>('');
+  const [sellerAccount, setSellerAccount] = useState<string>('');
+
   const [trackingNumber, setTrackingNumber] = useState<string>('');
   const [inspectionDays, setInspectionDays] = useState<number>(2);
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
@@ -99,6 +105,10 @@ function DealContent() {
     } else {
       setDeal(data);
       if (data?.inspection_days) setInspectionDays(data.inspection_days);
+      if (data?.seller_name) setSellerName(data.seller_name);
+      if (data?.seller_contact) setSellerContact(data.seller_contact);
+      if (data?.seller_account) setSellerAccount(data.seller_account);
+
       if (data?.status === 'secured' || data?.status === 'paid' || data?.status === 'shipped' || data?.status === 'completed') {
         setPaymentDone(true);
       }
@@ -116,6 +126,27 @@ function DealContent() {
     if (!error && data) {
       setMessages(data);
     }
+  };
+
+  const saveSellerDetails = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const { error } = await supabase
+      .from('deals')
+      .update({
+        seller_name: sellerName,
+        seller_contact: sellerContact,
+        seller_account: sellerAccount,
+      })
+      .eq('deal_code', id);
+
+    if (error) {
+      alert('Error updating seller details: ' + error.message);
+      return;
+    }
+
+    setDeal({ ...deal, seller_name: sellerName, seller_contact: sellerContact, seller_account: sellerAccount });
+    setIsEditingSeller(false);
+    alert('Seller details updated successfully!');
   };
 
   const sendChatMessage = async (e: React.FormEvent) => {
@@ -207,7 +238,6 @@ function DealContent() {
 
     setDeal({ ...deal, status: 'completed' });
     
-    // WhatsApp Auto Message to OloBuy Team on Release Payment
     const text = encodeURIComponent(`Hello OloBuy Team, I have confirmed the product for Deal #${deal.deal_code}. I have confirmed payment release, please clear the funds to the seller. Thank you!`);
     window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
   };
@@ -225,12 +255,19 @@ function DealContent() {
   };
 
   const openWhatsAppForScreenshot = () => {
-    const text = encodeURIComponent(`Hello OloBuy Team, I have paid Rs ${Number(deal.amount || 0).toLocaleString()} for Deal #${deal.deal_code}. Here is my payment screenshot:`);
+    const text = encodeURIComponent(
+      `Hello OloBuy Team, I have paid Rs ${Number(deal.amount || 0).toLocaleString()} for Deal #${deal.deal_code}.\n\n` +
+      `📦 Product: ${deal.product_name || 'N/A'}\n` +
+      `👤 Seller Name: ${deal.seller_name || sellerName || 'N/A'}\n` +
+      `📞 Seller Contact: ${deal.seller_contact || sellerContact || 'N/A'}\n` +
+      `🏦 Seller Account #: ${deal.seller_account || sellerAccount || 'N/A'}\n\n` +
+      `Here is my payment screenshot:`
+    );
     window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
   };
 
   const openComplexDealWhatsApp = () => {
-    const text = encodeURIComponent(`Hello OloBuy Team, I need assistance with a complex deal for Deal #${deal.deal_code}. Please guide me.`);
+    const text = encodeURIComponent(`Hello OloBuy Team, I need assistance with a complex deal for Deal #${deal.deal_code} (${deal.product_name || 'General'}). Please guide me.`);
     window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
   };
 
@@ -269,7 +306,7 @@ function DealContent() {
           </div>
           <h1 className="text-3xl font-black tracking-tight text-white mb-2">Deal #{deal.deal_code}</h1>
           
-          {/* Brand Level Professional Accordion Button */}
+          {/* Brand Level Professional Accordion Button with Seller Details */}
           <div className="bg-slate-800/80 border border-slate-700/80 rounded-2xl overflow-hidden transition-all shadow-md">
             <button
               onClick={() => setDetailsOpen(!detailsOpen)}
@@ -289,23 +326,86 @@ function DealContent() {
             </button>
 
             {detailsOpen && (
-              <div className="px-4 pb-4 pt-1 border-t border-slate-700/60 bg-slate-900/60 text-left space-y-2 text-xs">
-                <div className="flex justify-between items-center">
+              <div className="px-4 pb-4 pt-1 border-t border-slate-700/60 bg-slate-900/60 text-left space-y-2.5 text-xs">
+                <div className="flex justify-between items-center pb-1 border-b border-slate-800">
                   <span className="text-slate-400 font-medium">Buying:</span>
                   <span className="font-bold text-white">{deal.product_name || 'Gaming accounts'}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-slate-400 font-medium">Seller Name:</span>
-                  <span className="font-bold text-slate-200">{deal.seller_name || 'Not Provided'}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-slate-400 font-medium">Seller Contact:</span>
-                  <span className="font-bold text-slate-200 select-all">{deal.seller_contact || 'Not Provided'}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-slate-400 font-medium">Seller Account #:</span>
-                  <span className="font-bold text-[#ff9800] select-all">{deal.seller_account || 'Not Provided'}</span>
-                </div>
+
+                {!isEditingSeller ? (
+                  <>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-400 font-medium">Seller Name:</span>
+                      <span className="font-bold text-slate-200">{deal.seller_name || 'Not Provided'}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-400 font-medium">Seller Contact:</span>
+                      <span className="font-bold text-slate-200 select-all">{deal.seller_contact || 'Not Provided'}</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-1">
+                      <span className="text-slate-400 font-medium">Seller Account #:</span>
+                      <span className="font-bold text-[#ff9800] select-all">{deal.seller_account || 'Not Provided'}</span>
+                    </div>
+                    <button
+                      onClick={() => setIsEditingSeller(true)}
+                      className="w-full mt-2 bg-slate-800 hover:bg-slate-700 text-indigo-400 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer border border-indigo-500/20"
+                    >
+                      <Edit3 className="h-3.5 w-3.5" />
+                      {deal.seller_name ? 'Update Seller Info' : 'Add Seller Details'}
+                    </button>
+                  </>
+                ) : (
+                  <form onSubmit={saveSellerDetails} className="space-y-2.5 pt-1">
+                    <div>
+                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Name</label>
+                      <input 
+                        type="text"
+                        placeholder="e.g. Ali Ahmed"
+                        value={sellerName}
+                        onChange={(e) => setSellerName(e.target.value)}
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white mt-0.5"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Contact</label>
+                      <input 
+                        type="text"
+                        placeholder="e.g. 0300-1234567"
+                        value={sellerContact}
+                        onChange={(e) => setSellerContact(e.target.value)}
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white mt-0.5"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Account # / IBAN</label>
+                      <input 
+                        type="text"
+                        placeholder="JazzCash / Bank Account #"
+                        value={sellerAccount}
+                        onChange={(e) => setSellerAccount(e.target.value)}
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white mt-0.5"
+                        required
+                      />
+                    </div>
+                    <div className="flex gap-2 pt-1">
+                      <button 
+                        type="submit" 
+                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-lg font-bold uppercase text-[10px] tracking-wider flex items-center justify-center gap-1 cursor-pointer"
+                      >
+                        <Check className="h-3 w-3" /> Save Details
+                      </button>
+                      <button 
+                        type="button" 
+                        onClick={() => setIsEditingSeller(false)}
+                        className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-lg font-bold uppercase text-[10px] cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
             )}
           </div>
@@ -455,7 +555,7 @@ function DealContent() {
                   className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-md cursor-pointer flex items-center justify-center gap-2 transition-all"
                 >
                   <ExternalLink className="h-4 w-4" />
-                  Send SS to Olobuy Team
+                  Send SS & Seller Details to WhatsApp
                 </button>
               </div>
             )}
@@ -470,7 +570,7 @@ function DealContent() {
                 <UserCheck className="h-8 w-8 text-indigo-400 mx-auto mb-2" />
                 <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-2">Seller Action Required</h3>
                 <input 
-              type="number"
+                  type="number"
                   min={1}
                   max={30}
                   value={inspectionDays}
@@ -535,4 +635,4 @@ export default function DealPage() {
       <DealContent />
     </Suspense>
   );
-                }
+                    }
