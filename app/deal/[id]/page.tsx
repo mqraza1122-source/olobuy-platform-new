@@ -4,35 +4,6 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink } from 'lucide-react';
 
-async function sendAdminNotification(dealCode: string, actionType: string, amount: number) {
-  try {
-    await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-      },
-      body: JSON.stringify({
-        from: 'OloBuy Escrow <onboarding@resend.dev>',
-        to: ['Support@olobuy.pk'],
-        subject: `🚨 OloBuy Alert: Deal #${dealCode} - ${actionType}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; padding: 25px; background: #0f172a; color: #ffffff; border-radius: 16px;">
-            <h2 style="color: #ff9800; margin-top: 0;">OloBuy Secure Escrow Activity</h2>
-            <p style="font-size: 16px;"><strong>Deal Code:</strong> #${dealCode}</p>
-            <p style="font-size: 16px;"><strong>Status / Action:</strong> <span style="color: #4ade80; font-weight: bold;">${actionType}</span></p>
-            <p style="font-size: 16px;"><strong>Escrow Amount:</strong> Rs ${amount.toLocaleString()}</p>
-            <hr style="border-color: #334155; margin: 20px 0;" />
-            <p style="font-size: 12px; color: #94a3b8;">This is an automated notification from OloBuy Fintech Infrastructure.</p>
-          </div>
-        `,
-      }),
-    });
-  } catch (error) {
-    console.error('Email sending failed:', error);
-  }
-}
-
 function DealContent() {
   const params = useParams();
   const searchParams = useSearchParams();
@@ -52,6 +23,9 @@ function DealContent() {
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const [paymentDone, setPaymentDone] = useState<boolean>(false);
+
+  // اپنا واٹس ایپ نمبر یہاں لکھیں (بغیر پلس کے، مثلاً 923001234567)
+  const adminWhatsApp = '923001234567';
 
   useEffect(() => {
     if (roleQuery) {
@@ -124,7 +98,7 @@ function DealContent() {
     } else {
       setDeal(data);
       if (data?.inspection_days) setInspectionDays(data.inspection_days);
-      if (data?.status === 'secured' || data?.status === 'paid') {
+      if (data?.status === 'secured' || data?.status === 'paid' || data?.status === 'shipped' || data?.status === 'completed') {
         setPaymentDone(true);
       }
     }
@@ -176,7 +150,6 @@ function DealContent() {
     }
 
     setDeal({ ...deal, seller_accepted: true, status: 'accepted', inspection_days: inspectionDays });
-    await sendAdminNotification(deal.deal_code, `Deal Accepted by Seller (${inspectionDays} Days Timer)`, deal.amount);
     alert('Deal accepted successfully!');
   };
 
@@ -198,7 +171,6 @@ function DealContent() {
     }
 
     setDeal({ ...deal, status: 'shipped' });
-    await sendAdminNotification(deal.deal_code, 'Item Shipped / Tracking Submitted', deal.amount);
     alert('Tracking submitted successfully!');
   };
 
@@ -210,14 +182,12 @@ function DealContent() {
         .eq('deal_code', id);
 
       if (error) {
-        alert('Database Update Failed: ' + error.message);
+        alert('Database Error: ' + error.message);
         return;
       }
 
       setDeal((prev: any) => ({ ...prev, status: 'secured' }));
       setPaymentDone(true);
-      await sendAdminNotification(deal.deal_code, 'Payment Secured by Buyer', deal.amount);
-      alert('Payment marked as secured successfully! Admin notified via email.');
     } catch (err: any) {
       alert('Unexpected Error: ' + err.message);
     }
@@ -235,8 +205,10 @@ function DealContent() {
     }
 
     setDeal({ ...deal, status: 'completed' });
-    await sendAdminNotification(deal.deal_code, 'Payment Released to Seller (Completed)', deal.amount);
-    alert('Payment Released Successfully!');
+    
+    // WhatsApp Auto Message to Team on Release Payment
+    const text = encodeURIComponent(`Hello OloBuy Team, I have confirmed the product for Deal #${deal.deal_code}. Please release the payment to the seller. Thank you!`);
+    window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
   };
 
   const handleInvite = (targetRole: 'Buyer' | 'Seller') => {
@@ -252,9 +224,8 @@ function DealContent() {
   };
 
   const openWhatsAppForScreenshot = () => {
-    const adminNumber = '923001234567'; // اپنا واٹس ایپ نمبر یہاں درج کریں
-    const text = encodeURIComponent(`Hello OloBuy Admin, I have paid Rs ${Number(deal.amount || 0).toLocaleString()} for Deal #${deal.deal_code}. Here is my payment screenshot:`);
-    window.open(`https://wa.me/${adminNumber}?text=${text}`, '_blank');
+    const text = encodeURIComponent(`Hello OloBuy Team, I have paid Rs ${Number(deal.amount || 0).toLocaleString()} for Deal #${deal.deal_code}. Here is my payment screenshot:`);
+    window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
   };
 
   if (loading) {
@@ -279,7 +250,6 @@ function DealContent() {
   const isSecured = deal.status === 'secured' || deal.status === 'paid';
   const isShipped = deal.status === 'shipped';
   const isAccepted = deal.seller_accepted || deal.status === 'accepted';
-  const isPending = !deal.status || deal.status === 'pending';
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#0b0f19] via-[#111827] to-[#0b0f19] text-slate-100 p-4 sm:p-6 flex items-center justify-center font-sans">
@@ -303,8 +273,8 @@ function DealContent() {
           </div>
           <div className="grid grid-cols-4 gap-1.5">
             <div className="h-2 rounded-full bg-[#ff9800]"></div>
-            <div className={`h-2 rounded-full ${isAccepted || isSecured || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-700'}`}></div>
-            <div className={`h-2 rounded-full ${isSecured || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-700'}`}></div>
+            <div className={`h-2 rounded-full ${isAccepted || isSecured || isShipped || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-700'}`}></div>
+            <div className={`h-2 rounded-full ${isSecured || isShipped || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-700'}`}></div>
             <div className={`h-2 rounded-full ${isCompleted ? 'bg-emerald-500' : 'bg-slate-700'}`}></div>
           </div>
         </section>
@@ -333,7 +303,7 @@ function DealContent() {
             </div>
 
             <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed">
-              Transfer <span className="font-bold text-white">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account above, then click below to secure.
+              Transfer <span className="font-bold text-white">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account above, then click below.
             </p>
 
             {!paymentDone ? (
@@ -347,7 +317,7 @@ function DealContent() {
             ) : (
               <div className="space-y-3">
                 <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-3 rounded-xl text-center">
-                  ✓ Payment marked as secured & admin notified!
+                  ✓ Payment recorded successfully!
                 </div>
                 <button 
                   type="button"
@@ -355,7 +325,7 @@ function DealContent() {
                   className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-md cursor-pointer flex items-center justify-center gap-2 transition-all"
                 >
                   <ExternalLink className="h-4 w-4" />
-                  Share Payment Screenshot on WhatsApp
+                  Send SS to Olobuy Team
                 </button>
               </div>
             )}
@@ -468,20 +438,27 @@ function DealContent() {
         )}
 
         {/* Buyer Release Controls */}
-        {currentRole === 'Buyer' && isShipped && timeLeft && (
+        {currentRole === 'Buyer' && (isShipped || isSecured) && !isCompleted && timeLeft && (
           <section className="space-y-4 mb-6">
             <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-5 text-center">
               <div className="grid grid-cols-4 gap-2 mb-4 text-xs">
-                <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800"><span className="block font-black text-white text-white text-sm">{timeLeft.days}</span>Days</div>
+                <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800"><span className="block font-black text-white text-sm">{timeLeft.days}</span>Days</div>
                 <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800"><span className="block font-black text-white text-sm">{timeLeft.hours}</span>Hours</div>
                 <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800"><span className="block font-black text-white text-sm">{timeLeft.minutes}</span>Mins</div>
                 <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800"><span className="block font-black text-white text-sm">{timeLeft.seconds}</span>Secs</div>
               </div>
-              <button onClick={releasePayment} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest cursor-pointer transition-all">
+              <button onClick={releasePayment} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest cursor-pointer flex items-center justify-center gap-2 transition-all">
+                <ExternalLink className="h-4 w-4" />
                 Release Payment to Seller
               </button>
             </div>
           </section>
+        )}
+
+        {isCompleted && (
+          <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-4 rounded-2xl text-center mb-6">
+            ✓ Deal Completed & Payment Released Successfully!
+          </div>
         )}
 
       </div>
@@ -495,4 +472,4 @@ export default function DealPage() {
       <DealContent />
     </Suspense>
   );
-}
+        }
