@@ -51,8 +51,36 @@ export default function DealPage() {
   // Countdown Timer State
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
 
+  // P2P Chat States
+  const [messages, setMessages] = useState<any[]>([]);
+  const [newMessage, setNewMessage] = useState<string>('');
+
   useEffect(() => {
-    if (id) fetchDeal();
+    if (id) {
+      fetchDeal();
+      fetchMessages();
+
+      // Supabase Realtime Subscription for Live P2P Chat
+      const channel = supabase
+        .channel(`room_${id}`)
+        .on(
+          'postgres_changes',
+          {
+            event: 'INSERT',
+            schema: 'public',
+            table: 'deal_chats',
+            filter: `deal_code=eq.${id}`,
+          },
+          (payload) => {
+            setMessages((prev) => [...prev, payload.new]);
+          }
+        )
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    }
   }, [id]);
 
   useEffect(() => {
@@ -96,6 +124,36 @@ export default function DealPage() {
       if (data?.inspection_days) setInspectionDays(data.inspection_days);
     }
     setLoading(false);
+  };
+
+  const fetchMessages = async () => {
+    const { data, error } = await supabase
+      .from('deal_chats')
+      .select('*')
+      .eq('deal_code', id)
+      .order('created_at', { ascending: true });
+
+    if (!error && data) {
+      setMessages(data);
+    }
+  };
+
+  const sendChatMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newMessage.trim()) return;
+
+    const creatorRole = deal?.creator_role || 'Buyer';
+    const { error } = await supabase.from('deal_chats').insert([
+      {
+        deal_code: id,
+        sender_role: creatorRole,
+        message: newMessage.trim(),
+      },
+    ]);
+
+    if (!error) {
+      setNewMessage('');
+    }
   };
 
   const saveBuyerDetails = async (e: React.FormEvent) => {
@@ -271,6 +329,50 @@ export default function DealPage() {
           </div>
         </div>
 
+        {/* LIVE P2P CHAT BOX (Binance Style) */}
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 shadow-sm">
+          <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-200">
+            <MessageSquare className="h-4 w-4 text-[#ff9800]" />
+            <h3 className="font-black text-slate-800 text-xs uppercase">Secure Deal Chat (P2P)</h3>
+          </div>
+
+          <div className="h-40 overflow-y-auto space-y-2 mb-3 pr-1 text-xs">
+            {messages.length === 0 ? (
+              <p className="text-center text-slate-400 py-8 font-medium">No messages yet. Start conversation below.</p>
+            ) : (
+              messages.map((msg, index) => {
+                const isMe = msg.sender_role === creatorRole;
+                return (
+                  <div key={index} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
+                    <span className="text-[9px] font-bold text-slate-400 mb-0.5">{msg.sender_role}</span>
+                    <div className={`p-2.5 rounded-2xl max-w-[80%] font-medium ${
+                      isMe ? 'bg-[#1a237e] text-white rounded-br-none' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none'
+                    }`}>
+                      {msg.message}
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          <form onSubmit={sendChatMessage} className="flex gap-2">
+            <input 
+              type="text"
+              placeholder="Type a message..."
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              className="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 w-full outline-none focus:border-[#ff9800]"
+            />
+            <button 
+              type="submit"
+              className="bg-[#ff9800] hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer shrink-0 flex items-center justify-center"
+            >
+              <Send className="h-3.5 w-3.5" />
+            </button>
+          </form>
+        </div>
+
         {/* CONDITION 1: SELLER VIEW */}
         {creatorRole === 'Seller' && (
           <div className="space-y-4 mb-6">
@@ -328,16 +430,6 @@ export default function DealPage() {
                 <p className="text-[11px] text-emerald-600 mt-1">Inspection timer is running for the buyer.</p>
               </div>
             )}
-
-            <a 
-              href={`https://wa.me/923043031572?text=Hello%20OloBuy%20Admin,%20I%20am%20the%20Seller%20for%20Deal%20%23${deal.deal_code}.%20I%20need%20support.`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full bg-[#25d366] hover:bg-[#20ba5a] text-white font-bold py-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
-            >
-              <MessageSquare className="h-4 w-4" />
-              Contact Admin on WhatsApp (Support)
-            </a>
           </div>
         )}
 
@@ -369,54 +461,4 @@ export default function DealPage() {
                   <h3 className="font-black text-slate-900 text-sm">Send Payment to OloBuy Official Account</h3>
                 </div>
                 <p className="text-xs text-slate-600 mb-4 font-medium leading-relaxed">
-                  Please transfer <span className="font-bold text-[#ff9800]">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account below and click confirmation.
-                </p>
-
-                <div className="space-y-2.5 mb-4">
-                  <div className="bg-white border border-amber-200 rounded-xl p-3 flex items-center justify-between shadow-xs">
-                    <div>
-                      <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Easypaisa / JazzCash</p>
-                      <p className="font-black text-slate-800 text-sm">0300-1234567 <span className="text-xs font-normal text-slate-500">(OloBuy)</span></p>
-                    </div>
-                    <button 
-                      onClick={() => copyToClipboard('03001234567', 'ep')}
-                      className="bg-[#ff9800] hover:bg-orange-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 cursor-pointer"
-                    >
-                      <Copy className="h-3.5 w-3.5" />
-                      {copied === 'ep' ? 'Copied!' : 'Copy'}
-                    </button>
-                  </div>
-                </div>
-
-                <button 
-                  onClick={markAsSecured}
-                  className="w-full bg-[#1a237e] hover:bg-indigo-900 text-white font-black py-3 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <CheckCircle2 className="h-4 w-4" />
-                  I Have Sent Payment (Secure Escrow)
-                </button>
-
-                <a 
-                  href={`https://wa.me/923043031572?text=Hello%20OloBuy%20Admin,%20I%20have%20sent%20payment%20for%20Deal%20%23${deal.deal_code}%20amounting%20to%20Rs%20${deal.amount}.%20Here%20is%20my%20screenshot.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 w-full bg-[#25d366] hover:bg-[#20ba5a] text-white font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
-                >
-                  <MessageSquare className="h-4 w-4" />
-                  Send Payment Proof on WhatsApp
-                </a>
-              </div>
-            )}
-
-            {isSecured && !isCompleted && (
-              <div className="space-y-4">
-                {/* Countdown Timer Board */}
-                <div className="bg-slate-900 text-white border border-slate-800 rounded-2xl p-5 text-center shadow-lg">
-                  <div className="flex items-center justify-center gap-2 text-amber-400 mb-2">
-                    <Clock className="h-5 w-5 animate-pulse" />
-                    <h3 className="font-black text-xs uppercase tracking-wider">Escrow Inspection Countdown</h3>
-                  </div>
-                  <p className="text-[11px] text-slate-400 mb-3">Inspection time set by seller ({deal.inspection_days || 2} Days)</p>
-                  
-                  {timeLeft ? (
-     
+                  Please transfer <span className="font-bold t
