@@ -2,7 +2,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, CheckCircle2, Wallet, MessageSquare, Send, Truck, UserCheck, Clock, Share2, Building2 } from 'lucide-react';
+import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2 } from 'lucide-react';
 
 async function sendAdminNotification(dealCode: string, actionType: string, amount: number) {
   try {
@@ -185,11 +185,14 @@ function DealContent() {
       })
       .eq('deal_code', id);
 
-    if (!error) {
-      setDeal({ ...deal, seller_accepted: true, status: 'accepted', inspection_days: inspectionDays });
-      await sendAdminNotification(deal.deal_code, `Deal Accepted by Seller (${inspectionDays} Days Timer)`, deal.amount);
-      alert('Deal accepted successfully!');
+    if (error) {
+      alert('Error: ' + error.message);
+      return;
     }
+
+    setDeal({ ...deal, seller_accepted: true, status: 'accepted', inspection_days: inspectionDays });
+    await sendAdminNotification(deal.deal_code, `Deal Accepted by Seller (${inspectionDays} Days Timer)`, deal.amount);
+    alert('Deal accepted successfully!');
   };
 
   const submitTracking = async (e: React.FormEvent) => {
@@ -204,31 +207,37 @@ function DealContent() {
       .update({ status: 'shipped', updated_at: new Date().toISOString() })
       .eq('deal_code', id);
 
-    if (!error) {
-      setDeal({ ...deal, status: 'shipped' });
-      await sendAdminNotification(deal.deal_code, 'Item Shipped / Tracking Submitted', deal.amount);
-      alert('Tracking submitted successfully!');
+    if (error) {
+      alert('Error: ' + error.message);
+      return;
     }
+
+    setDeal({ ...deal, status: 'shipped' });
+    await sendAdminNotification(deal.deal_code, 'Item Shipped / Tracking Submitted', deal.amount);
+    alert('Tracking submitted successfully!');
   };
 
-  // FIXED: 100% Working Button Handler for Securing Payment
+  // FULLY OPTIMIZED & FOOLPROOF SECURED HANDLER
   const markAsSecured = async () => {
     try {
       const { error } = await supabase
         .from('deals')
-        .update({ status: 'secured', buyer_paid: true, updated_at: new Date().toISOString() })
+        .update({ 
+          status: 'secured', 
+          updated_at: new Date().toISOString() 
+        })
         .eq('deal_code', id);
 
       if (error) {
-        alert('Error: ' + error.message);
+        alert('Database Update Failed: ' + error.message);
         return;
       }
 
-      setDeal({ ...deal, status: 'secured', buyer_paid: true });
+      setDeal((prev: any) => ({ ...prev, status: 'secured' }));
       await sendAdminNotification(deal.deal_code, 'Payment Secured by Buyer', deal.amount);
-      alert('Payment marked as secured successfully! Seller and Admin notified.');
+      alert('Payment marked as secured successfully!');
     } catch (err: any) {
-      alert('Something went wrong: ' + err.message);
+      alert('Unexpected Error: ' + err.message);
     }
   };
 
@@ -238,11 +247,14 @@ function DealContent() {
       .update({ status: 'completed', updated_at: new Date().toISOString() })
       .eq('deal_code', id);
 
-    if (!error) {
-      setDeal({ ...deal, status: 'completed' });
-      await sendAdminNotification(deal.deal_code, 'Payment Released to Seller (Completed)', deal.amount);
-      alert('Payment Released Successfully!');
+    if (error) {
+      alert('Error: ' + error.message);
+      return;
     }
+
+    setDeal({ ...deal, status: 'completed' });
+    await sendAdminNotification(deal.deal_code, 'Payment Released to Seller (Completed)', deal.amount);
+    alert('Payment Released Successfully!');
   };
 
   const handleInvite = (targetRole: 'Buyer' | 'Seller') => {
@@ -316,7 +328,7 @@ function DealContent() {
           </div>
         </section>
 
-        {/* Chat & Exact Invite Buttons */}
+        {/* Chat & Invite Buttons */}
         <section className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6">
           <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
             <div className="flex items-center gap-2">
@@ -340,7 +352,7 @@ function DealContent() {
                 className="bg-[#ff9800] hover:bg-orange-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 cursor-pointer"
               >
                 <Share2 className="h-3 w-3" />
-                Invite buyer in escrow chat
+                Invite buyer in chat
               </button>
             )}
           </div>
@@ -447,7 +459,7 @@ function DealContent() {
                   <h3 className="font-black text-slate-900 text-sm">OloBuy Official Escrow Account</h3>
                 </div>
                 
-                {/* OLOBUY BANK/EASYPAISA DETAILS BOX */}
+                {/* OLOBUY ACCOUNT DETAILS */}
                 <div className="bg-white border border-amber-200 rounded-xl p-3 mb-4 text-xs space-y-1.5 shadow-inner">
                   <p className="text-slate-500 font-semibold">Please transfer via JazzCash / EasyPaisa / Bank:</p>
                   <p className="font-bold text-slate-800">Account Title: <span className="text-[#1a237e]">OloBuy Escrow Services</span></p>
@@ -460,6 +472,7 @@ function DealContent() {
                 </p>
 
                 <button 
+                  type="button"
                   onClick={markAsSecured} 
                   className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-wider shadow-md cursor-pointer transition-all"
                 >
@@ -476,10 +489,10 @@ function DealContent() {
                   <div className="bg-white p-2 rounded-xl"><span className="block font-black">{timeLeft.minutes}</span>Mins</div>
                   <div className="bg-white p-2 rounded-xl"><span className="block font-black">{timeLeft.seconds}</span>Secs</div>
                 </div>
-                <button onClick={releasePayment} className="w-full bg-emerald-600 text-white py-3 rounded-xl text-xs uppercase font-black cursor-pointer">
+                <button onClick={releasePayment} className="w-full bg-emerald-600 text-white py-3 rounded-xl text-white py-3 rounded-xl text-xs uppercase font-black cursor-pointer">
                   Release Payment
-                </button
-                  /div>
+                </button>
+              </div>
             )}
           </section>
         )}
@@ -495,4 +508,4 @@ export default function DealPage() {
       <DealContent />
     </Suspense>
   );
-        }
+      }
