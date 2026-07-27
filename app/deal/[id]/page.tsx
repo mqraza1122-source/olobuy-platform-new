@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, CheckCircle2, Copy, Wallet, MessageSquare, Send, Truck, UserCheck, Clock, AlertTriangle } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Copy, Wallet, MessageSquare, Send, Truck, UserCheck, Clock, Share2 } from 'lucide-react';
 
 async function sendAdminNotification(dealCode: string, actionType: string, amount: number) {
   try {
@@ -35,10 +35,16 @@ async function sendAdminNotification(dealCode: string, actionType: string, amoun
 
 export default function DealPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const id = params?.id;
+  
+  // URL se role detect karega (e.g., ?role=seller ya ?role=buyer), default 'Buyer' hoga agar na ho
+  const roleQuery = searchParams.get('role');
+  const [currentRole, setCurrentRole] = useState<string>(roleQuery ? roleQuery : 'Buyer');
+
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [copied, setCopied] = useState<string | null>(null);
+  const [copied, setCopied] = useState<boolean>(false);
   
   const [buyerPhone, setBuyerPhone] = useState<string>('');
   const [trackingNumber, setTrackingNumber] = useState<string>('');
@@ -47,6 +53,12 @@ export default function DealPage() {
 
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
+
+  useEffect(() => {
+    if (roleQuery) {
+      setCurrentRole(roleQuery);
+    }
+  }, [roleQuery]);
 
   useEffect(() => {
     if (id) {
@@ -134,11 +146,10 @@ export default function DealPage() {
     e.preventDefault();
     if (!newMessage.trim()) return;
 
-    const creatorRole = deal?.creator_role || 'Buyer';
     const { error } = await supabase.from('deal_chats').insert([
       {
         deal_code: id,
-        sender_role: creatorRole,
+        sender_role: currentRole,
         message: newMessage.trim(),
       },
     ]);
@@ -231,10 +242,18 @@ export default function DealPage() {
     }
   };
 
-  const copyToClipboard = (text: string, type: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(type);
-    setTimeout(() => setCopied(null), 2000);
+  // Invite Link Handler with exact requested text formatting
+  const handleInvite = (targetRole: 'Buyer' | 'Seller') => {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const inviteLink = `${baseUrl}?role=${targetRole.toLowerCase()}`;
+    
+    navigator.clipboard.writeText(inviteLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+
+    // Optional: direct WhatsApp share prompt
+    const message = encodeURIComponent(`AOA! Please join OloBuy Escrow secure deal chat here: ${inviteLink}`);
+    window.open(`https://wa.me/?text=${message}`, '_blank');
   };
 
   if (loading) {
@@ -259,7 +278,6 @@ export default function DealPage() {
     );
   }
 
-  const creatorRole = deal.creator_role || 'Buyer';
   const isCompleted = deal.status === 'completed';
   const isSecured = deal.status === 'secured' || deal.status === 'paid';
   const isShipped = deal.status === 'shipped';
@@ -274,7 +292,7 @@ export default function DealPage() {
         <header className="text-center mb-6">
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-3 shadow-sm">
             <ShieldCheck className="h-4 w-4 text-emerald-600" />
-            <span className="text-xs font-bold tracking-wide uppercase text-emerald-700">OloBuy Secure Escrow ({creatorRole} View)</span>
+            <span className="text-xs font-bold tracking-wide uppercase text-emerald-700">OloBuy Secure Escrow ({currentRole} View)</span>
           </div>
           <h1 className="text-3xl font-black tracking-tight text-slate-900">
             Deal #{deal.deal_code}
@@ -321,19 +339,46 @@ export default function DealPage() {
           </div>
         </section>
 
-        {/* LIVE P2P CHAT BOX (Binance Style) */}
+        {/* LIVE P2P CHAT BOX WITH EXACT REQUESTED INVITE BUTTONS */}
         <section className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 shadow-sm">
-          <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-200">
-            <MessageSquare className="h-4 w-4 text-[#ff9800]" />
-            <h3 className="font-black text-slate-800 text-xs uppercase">Secure Deal Chat (P2P)</h3>
+          <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
+            <div className="flex items-center gap-2">
+              <MessageSquare className="h-4 w-4 text-[#ff9800]" />
+              <h3 className="font-black text-slate-800 text-xs uppercase">Secure Deal Chat (P2P)</h3>
+            </div>
+            
+            {/* DYNAMIC INVITE BUTTON BASED ON ROLE */}
+            {currentRole === 'Buyer' ? (
+              <button 
+                onClick={() => handleInvite('Seller')}
+                className="bg-[#1a237e] hover:bg-indigo-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow transition-all cursor-pointer"
+              >
+                <Share2 className="h-3 w-3" />
+                Invite seller in chat
+              </button>
+            ) : (
+              <button 
+                onClick={() => handleInvite('Buyer')}
+                className="bg-[#ff9800] hover:bg-orange-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow transition-all cursor-pointer"
+              >
+                <Share2 className="h-3 w-3" />
+                Invite buyer in escrow chat
+              </button>
+            )}
           </div>
+
+          {copied && (
+            <div className="mb-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 text-[10px] font-bold p-2 rounded-xl text-center">
+              ✓ Invite link copied & WhatsApp opened successfully!
+            </div>
+          )}
 
           <div className="h-40 overflow-y-auto space-y-2 mb-3 pr-1 text-xs">
             {messages.length === 0 ? (
               <p className="text-center text-slate-400 py-8 font-medium">No messages yet. Start conversation below.</p>
             ) : (
               messages.map((msg, index) => {
-                const isMe = msg.sender_role === creatorRole;
+                const isMe = msg.sender_role === currentRole;
                 return (
                   <div key={index} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
                     <span className="text-[9px] font-bold text-slate-400 mb-0.5">{msg.sender_role}</span>
@@ -366,7 +411,7 @@ export default function DealPage() {
         </section>
 
         {/* CONDITION 1: SELLER VIEW */}
-        {creatorRole === 'Seller' && (
+        {currentRole === 'Seller' && (
           <section className="space-y-4 mb-6">
             {!isAccepted ? (
               <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 text-center shadow-sm">
@@ -418,15 +463,15 @@ export default function DealPage() {
               </div>
             ) : (
               <div className="bg-emerald-50 border border-emerald-500/30 rounded-2xl p-4 text-center">
-                <p className="text-xs font-black text-emerald-800 uppercase">Deal Active & In Progress</p>
-                <p className="text-[11px] text-emerald-600 mt-1">Inspection timer is running for the buyer.</p>
+                <p className="text-xs font-black text-emerald-800 uppercase">Deal Active & In Prog
+                  <p className="text-[11px] text-emerald-600 mt-1">Inspection timer is running for the buyer.</p>
               </div>
             )}
           </section>
         )}
 
         {/* CONDITION 2: BUYER VIEW */}
-        {creatorRole === 'Buyer' && (
+        {currentRole === 'Buyer' && (
           <section className="space-y-4 mb-6">
             {!deal.buyer_phone && (
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4">
@@ -517,4 +562,4 @@ export default function DealPage() {
       </div>
     </main>
   );
-                  }
+            }
