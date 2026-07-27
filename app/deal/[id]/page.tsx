@@ -2,7 +2,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink } from 'lucide-react';
+import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Headphones } from 'lucide-react';
 
 function DealContent() {
   const params = useParams();
@@ -15,6 +15,7 @@ function DealContent() {
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
+  const [detailsOpen, setDetailsOpen] = useState<boolean>(false);
   
   const [trackingNumber, setTrackingNumber] = useState<string>('');
   const [inspectionDays, setInspectionDays] = useState<number>(2);
@@ -228,6 +229,11 @@ function DealContent() {
     window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
   };
 
+  const openComplexDealWhatsApp = () => {
+    const text = encodeURIComponent(`Hello OloBuy Team, I need assistance with a complex deal for Deal #${deal.deal_code}. Please guide me.`);
+    window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0b0f19] flex items-center justify-center text-[#ff9800] font-bold text-sm tracking-widest uppercase">
@@ -261,8 +267,48 @@ function DealContent() {
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
             <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">OloBuy Secure Escrow ({currentRole})</span>
           </div>
-          <h1 className="text-3xl font-black tracking-tight text-white">Deal #{deal.deal_code}</h1>
-          <p className="text-slate-400 text-xs mt-1 font-medium">{deal.product_name || 'Verified P2P Transaction'}</p>
+          <h1 className="text-3xl font-black tracking-tight text-white mb-2">Deal #{deal.deal_code}</h1>
+          
+          {/* Brand Level Professional Accordion Button */}
+          <div className="bg-slate-800/80 border border-slate-700/80 rounded-2xl overflow-hidden transition-all shadow-md">
+            <button
+              onClick={() => setDetailsOpen(!detailsOpen)}
+              className="w-full px-4 py-3 flex items-center justify-between text-left cursor-pointer hover:bg-slate-700/50 transition-all"
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#ff9800]"></span>
+                <span className="text-xs font-bold text-white tracking-wide uppercase truncate max-w-[220px]">
+                  {deal.product_name || 'Gaming accounts'}
+                </span>
+              </div>
+              {detailsOpen ? (
+                <ChevronUp className="h-4 w-4 text-[#ff9800]" />
+              ) : (
+                <ChevronDown className="h-4 w-4 text-[#ff9800]" />
+              )}
+            </button>
+
+            {detailsOpen && (
+              <div className="px-4 pb-4 pt-1 border-t border-slate-700/60 bg-slate-900/60 text-left space-y-2 text-xs">
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-400 font-medium">Buying:</span>
+                  <span className="font-bold text-white">{deal.product_name || 'Gaming accounts'}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-400 font-medium">Seller Name:</span>
+                  <span className="font-bold text-slate-200">{deal.seller_name || 'Not Provided'}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-400 font-medium">Seller Contact:</span>
+                  <span className="font-bold text-slate-200 select-all">{deal.seller_contact || 'Not Provided'}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-400 font-medium">Seller Account #:</span>
+                  <span className="font-bold text-[#ff9800] select-all">{deal.seller_account || 'Not Provided'}</span>
+                </div>
+              </div>
+            )}
+          </div>
         </header>
 
         {/* Progress Stage Bar */}
@@ -286,51 +332,6 @@ function DealContent() {
             <span className="text-2xl font-black text-[#ff9800]">Rs {Number(deal.amount || 0).toLocaleString()}</span>
           </div>
         </section>
-
-        {/* Buyer Payment Section */}
-        {currentRole === 'Buyer' && (
-          <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-lg mb-6">
-            <div className="flex items-center gap-2 mb-3">
-              <Building2 className="h-5 w-5 text-[#ff9800]" />
-              <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
-            </div>
-            
-            <div className="bg-slate-900/90 border border-amber-500/20 rounded-xl p-3.5 mb-4 text-xs space-y-2">
-              <p className="text-slate-400 font-medium">Transfer via JazzCash / EasyPaisa / Bank:</p>
-              <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
-              <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
-              <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">0304-3031572</span></p>
-            </div>
-
-            <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed">
-              Transfer <span className="font-bold text-white">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account above, then click below.
-            </p>
-
-            {!paymentDone ? (
-              <button 
-                type="button"
-                onClick={markAsSecured} 
-                className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-md cursor-pointer transition-all"
-              >
-                I Have Paid & Secured Amount
-              </button>
-            ) : (
-              <div className="space-y-3">
-                <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-3 rounded-xl text-center">
-                  ✓ Payment recorded successfully!
-                </div>
-                <button 
-                  type="button"
-                  onClick={openWhatsAppForScreenshot}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-md cursor-pointer flex items-center justify-center gap-2 transition-all"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  Send SS to Olobuy Team
-                </button>
-              </div>
-            )}
-          </section>
-        )}
 
         {/* Secure Chat & Invite Section */}
         <section className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 mb-6">
@@ -399,6 +400,68 @@ function DealContent() {
           </form>
         </section>
 
+        {/* Deal via OloBuy Team (For Complex Deal) */}
+        <section className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 mb-6 text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Headphones className="h-4 w-4 text-[#ff9800]" />
+            <h3 className="font-bold text-slate-200 text-xs uppercase tracking-wider">Deal via OloBuy Team</h3>
+          </div>
+          <p className="text-slate-400 text-[11px] mb-3 font-medium">For complex deals, custom escrow agreements, or specialized support.</p>
+          <button
+            type="button"
+            onClick={openComplexDealWhatsApp}
+            className="w-full bg-slate-900 hover:bg-slate-800 border border-emerald-500/30 text-emerald-400 py-3 rounded-xl text-xs uppercase font-black tracking-widest shadow-md cursor-pointer flex items-center justify-center gap-2 transition-all"
+          >
+            <ExternalLink className="h-4 w-4" />
+            WhatsApp OloBuy ({adminWhatsApp})
+          </button>
+        </section>
+
+        {/* OloBuy Official Escrow Account & Payment Section */}
+        {currentRole === 'Buyer' && (
+          <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-lg mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <Building2 className="h-5 w-5 text-[#ff9800]" />
+              <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
+            </div>
+            
+            <div className="bg-slate-900/90 border border-amber-500/20 rounded-xl p-3.5 mb-4 text-xs space-y-2">
+              <p className="text-slate-400 font-medium">Transfer via JazzCash / EasyPaisa / Bank:</p>
+              <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
+              <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
+              <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">{adminWhatsApp}</span></p>
+            </div>
+
+            <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed">
+              Transfer <span className="font-bold text-white">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account above, then click below.
+            </p>
+
+            {!paymentDone ? (
+              <button 
+                type="button"
+                onClick={markAsSecured} 
+                className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-md cursor-pointer transition-all"
+              >
+                I Have Paid & Secured Amount
+              </button>
+            ) : (
+              <div className="space-y-3">
+                <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-3 rounded-xl text-center">
+                  ✓ Payment recorded successfully!
+                </div>
+                <button 
+                  type="button"
+                  onClick={openWhatsAppForScreenshot}
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-md cursor-pointer flex items-center justify-center gap-2 transition-all"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Send SS to Olobuy Team
+                </button>
+              </div>
+            )}
+          </section>
+        )}
+
         {/* Seller Controls */}
         {currentRole === 'Seller' && (
           <section className="space-y-4 mb-6">
@@ -407,7 +470,7 @@ function DealContent() {
                 <UserCheck className="h-8 w-8 text-indigo-400 mx-auto mb-2" />
                 <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-2">Seller Action Required</h3>
                 <input 
-                  type="number"
+              type="number"
                   min={1}
                   max={30}
                   value={inspectionDays}
@@ -472,4 +535,4 @@ export default function DealPage() {
       <DealContent />
     </Suspense>
   );
-}
+                }
