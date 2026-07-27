@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, CheckCircle2, Copy, Wallet, KeyRound, MessageSquare, Send, Truck, UserCheck, ArrowRight } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Copy, Wallet, KeyRound, MessageSquare, Send, Truck, UserCheck } from 'lucide-react';
 
 export default function DealPage() {
   const params = useParams();
@@ -162,7 +162,6 @@ export default function DealPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-slate-900 p-4 sm:p-6 flex items-center justify-center font-sans">
-      
       <div className="max-w-md w-full bg-white/95 backdrop-blur-2xl border border-white/40 rounded-[2.5rem] p-6 sm:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] relative overflow-hidden my-6">
         
         {/* Top Header Badge */}
@@ -216,9 +215,7 @@ export default function DealPage() {
           </div>
         </div>
 
-        {/* ========================================= */}
         {/* CONDITION 1: IF CREATOR IS SELLER */}
-        {/* ========================================= */}
         {creatorRole === 'Seller' && (
           <div className="space-y-4 mb-6">
             {!isAccepted ? (
@@ -263,7 +260,6 @@ export default function DealPage() {
               </div>
             )}
 
-            {/* WhatsApp Support for Seller */}
             <a 
               href={`https://wa.me/923043031572?text=Hello%20OloBuy%20Admin,%20I%20am%20the%20Seller%20for%20Deal%20%23${deal.deal_code}.%20I%20need%20support.`}
               target="_blank"
@@ -276,13 +272,9 @@ export default function DealPage() {
           </div>
         )}
 
-        {/* ========================================= */}
         {/* CONDITION 2: IF CREATOR IS BUYER OR DEFAULT */}
-        {/* ========================================= */}
         {creatorRole === 'Buyer' && (
           <div className="space-y-4 mb-6">
-            
-            {/* Step A: Save Buyer Phone if not saved */}
             {!deal.buyer_phone && (
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4">
                 <h3 className="font-black text-slate-900 text-xs mb-2 uppercase">Step 1: Enter Your Phone Number</h3>
@@ -301,7 +293,6 @@ export default function DealPage() {
               </div>
             )}
 
-            {/* Step B: Payment Transfer & PIN Verification */}
             {isPending && (
               <div className="bg-amber-500/10 border-2 border-amber-500/30 rounded-2xl p-5 shadow-md">
                 <div className="flex items-center gap-2 mb-3">
@@ -340,7 +331,6 @@ export default function DealPage() {
               </div>
             )}
 
-            {/* Admin PIN Verification Form for Buyer */}
             {isPending && (
               <div className="bg-slate-900 text-white rounded-2xl p-5 shadow-lg border border-slate-800">
                 <div className="flex items-center gap-2 mb-2">
@@ -370,7 +360,6 @@ export default function DealPage() {
               </div>
             )}
 
-            {/* Secured Stage: Release Payment Button */}
             {isSecured && !isCompleted && (
               <div className="space-y-4">
                 <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-5 text-center shadow-sm">
@@ -388,7 +377,6 @@ export default function DealPage() {
                 </button>
               </div>
             )}
-
           </div>
         )}
 
@@ -409,4 +397,18 @@ export default function DealPage() {
           <div className="bg-emerald-50 border border-emerald-500/30 rounded-2xl p-5 text-center shadow-sm mb-6">
             <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto mb-2" />
             <p className="font-black text-emerald-800 text-sm">Deal Completed Successfully</p>
-            <p className="text
+            <p className="text-xs text-emerald-600/80 mt-1 font-medium">Funds have been securely released to the seller.</p>
+          </div>
+        )}
+
+        {/* Footer info */}
+        <div className="mt-8 pt-4 border-t border-slate-100 text-center">
+          <p className="text-slate-400 text-xs font-semibold">
+            Encrypted & Powered by <span className="text-slate-700 font-bold">OloBuy Financial Engine</span>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  );
+    }
