@@ -2,7 +2,37 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, CheckCircle2, Copy, Wallet, KeyRound, MessageSquare, Send, Truck, UserCheck } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Copy, Wallet, MessageSquare, Send, Truck, UserCheck, Clock, AlertTriangle } from 'lucide-react';
+
+// Email Notification Function via Resend API
+async function sendAdminNotification(dealCode: string, actionType: string, amount: number) {
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: 'OloBuy Escrow <onboarding@resend.dev>',
+        to: ['Support@olobuy.pk'],
+        subject: `🚨 OloBuy Alert: Deal #${dealCode} - ${actionType}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; padding: 20px; background: #f8fafc; border-radius: 10px;">
+            <h2 style="color: #1a237e;">OloBuy Escrow Activity Alert</h2>
+            <p><strong>Deal Code:</strong> #${dealCode}</p>
+            <p><strong>Action / Status:</strong> <span style="color: #ff9800; font-weight: bold;">${actionType}</span></p>
+            <p><strong>Amount:</strong> Rs ${amount.toLocaleString()}</p>
+            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #64748b;">This is an automated notification from OloBuy Financial Engine.</p>
+          </div>
+        `,
+      }),
+    });
+  } catch (error) {
+    console.error('Email sending failed:', error);
+  }
+}
 
 export default function DealPage() {
   const params = useParams();
@@ -12,16 +42,43 @@ export default function DealPage() {
   const [copied, setCopied] = useState<string | null>(null);
   
   // States for Buyer workflow
-  const [adminPin, setAdminPin] = useState<string>('');
-  const [pinError, setPinError] = useState<string>('');
   const [buyerPhone, setBuyerPhone] = useState<string>('');
 
   // States for Seller workflow
   const [trackingNumber, setTrackingNumber] = useState<string>('');
+  const [inspectionDays, setInspectionDays] = useState<number>(2);
+
+  // Countdown Timer State
+  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
 
   useEffect(() => {
     if (id) fetchDeal();
   }, [id]);
+
+  useEffect(() => {
+    if (!deal) return;
+
+    const baseTime = new Date(deal.updated_at || deal.created_at || Date.now()).getTime();
+    const daysAllowed = Number(deal.inspection_days || 2);
+    const targetTime = baseTime + daysAllowed * 24 * 60 * 60 * 1000;
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const difference = targetTime - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        setTimeLeft({ days, hours, minutes, seconds });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [deal]);
 
   const fetchDeal = async () => {
     const { data, error } = await supabase
@@ -36,11 +93,11 @@ export default function DealPage() {
     } else {
       setDeal(data);
       if (data?.buyer_phone) setBuyerPhone(data.buyer_phone);
+      if (data?.inspection_days) setInspectionDays(data.inspection_days);
     }
     setLoading(false);
   };
 
-  // Save Buyer Phone & Details
   const saveBuyerDetails = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!buyerPhone || buyerPhone.length < 10) {
@@ -61,20 +118,24 @@ export default function DealPage() {
     }
   };
 
-  // Seller Accepts Deal
   const sellerAcceptDeal = async () => {
     const { error } = await supabase
       .from('deals')
-      .update({ seller_accepted: true, status: 'accepted' })
+      .update({ 
+        seller_accepted: true, 
+        status: 'accepted',
+        inspection_days: inspectionDays,
+        updated_at: new Date().toISOString()
+      })
       .eq('deal_code', id);
 
     if (!error) {
-      setDeal({ ...deal, seller_accepted: true, status: 'accepted' });
-      alert('Deal accepted successfully! You can now ship the item.');
+      setDeal({ ...deal, seller_accepted: true, status: 'accepted', inspection_days: inspectionDays });
+      await sendAdminNotification(deal.deal_code, `Deal Accepted by Seller (${inspectionDays} Days Timer)`, deal.amount);
+      alert('Deal accepted successfully with ' + inspectionDays + ' days inspection timer!');
     }
   };
 
-  // Seller Submits Tracking
   const submitTracking = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!trackingNumber.trim()) {
@@ -84,43 +145,38 @@ export default function DealPage() {
 
     const { error } = await supabase
       .from('deals')
-      .update({ status: 'shipped' })
+      .update({ status: 'shipped', updated_at: new Date().toISOString() })
       .eq('deal_code', id);
 
     if (!error) {
       setDeal({ ...deal, status: 'shipped' });
+      await sendAdminNotification(deal.deal_code, 'Item Shipped / Tracking Submitted', deal.amount);
       alert('Tracking submitted successfully! Buyer notified.');
     }
   };
 
-  // Verify Admin PIN to Secure Escrow (Buyer flow)
-  const verifyPinAndSecure = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (adminPin.trim() === '7860') {
-      const { error } = await supabase
-        .from('deals')
-        .update({ status: 'secured', buyer_paid: true })
-        .eq('deal_code', id);
+  const markAsSecured = async () => {
+    const { error } = await supabase
+      .from('deals')
+      .update({ status: 'secured', buyer_paid: true, updated_at: new Date().toISOString() })
+      .eq('deal_code', id);
 
-      if (!error) {
-        setDeal({ ...deal, status: 'secured', buyer_paid: true });
-        setPinError('');
-        alert('Payment Successfully Secured in OloBuy Escrow!');
-      }
-    } else {
-      setPinError('Invalid PIN! Please get the correct PIN from OloBuy Admin on WhatsApp.');
+    if (!error) {
+      setDeal({ ...deal, status: 'secured', buyer_paid: true });
+      await sendAdminNotification(deal.deal_code, 'Payment Secured by Buyer', deal.amount);
+      alert('Payment marked as transferred & secured in OloBuy Escrow!');
     }
   };
 
-  // Release Payment to Seller
   const releasePayment = async () => {
     const { error } = await supabase
       .from('deals')
-      .update({ status: 'completed' })
+      .update({ status: 'completed', updated_at: new Date().toISOString() })
       .eq('deal_code', id);
 
     if (!error) {
       setDeal({ ...deal, status: 'completed' });
+      await sendAdminNotification(deal.deal_code, 'Payment Released to Seller (Completed)', deal.amount);
       alert('Payment Released Successfully to Seller!');
     }
   };
@@ -215,19 +271,32 @@ export default function DealPage() {
           </div>
         </div>
 
-        {/* CONDITION 1: IF CREATOR IS SELLER */}
+        {/* CONDITION 1: SELLER VIEW */}
         {creatorRole === 'Seller' && (
           <div className="space-y-4 mb-6">
             {!isAccepted ? (
               <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 text-center shadow-sm">
                 <UserCheck className="h-8 w-8 text-[#1a237e] mx-auto mb-2" />
                 <h3 className="font-black text-[#1a237e] text-sm mb-1">Seller Action Required</h3>
-                <p className="text-xs text-slate-600 mb-4">Review deal terms and click below to accept this order and start escrow protection.</p>
+                <p className="text-xs text-slate-600 mb-3">Set inspection/delivery duration (Days) and accept the deal.</p>
+                
+                <div className="mb-3 text-left">
+                  <label className="text-[11px] font-bold text-slate-600 uppercase">Set Delivery / Inspection Days:</label>
+                  <input 
+                    type="number"
+                    min={1}
+                    max={30}
+                    value={inspectionDays}
+                    onChange={(e) => setInspectionDays(Number(e.target.value))}
+                    className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-bold text-slate-800 mt-1 outline-none focus:border-[#ff9800]"
+                  />
+                </div>
+
                 <button
                   onClick={sellerAcceptDeal}
                   className="w-full bg-[#1a237e] hover:bg-indigo-900 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
                 >
-                  Accept Deal & Start Escrow
+                  Accept Deal & Start Timer
                 </button>
               </div>
             ) : !isShipped && !isCompleted ? (
@@ -255,8 +324,8 @@ export default function DealPage() {
               </div>
             ) : (
               <div className="bg-emerald-50 border border-emerald-500/30 rounded-2xl p-4 text-center">
-                <p className="text-xs font-black text-emerald-800 uppercase">Deal in Progress / Shipped</p>
-                <p className="text-[11px] text-emerald-600 mt-1">Waiting for buyer inspection and payment release.</p>
+                <p className="text-xs font-black text-emerald-800 uppercase">Deal Active & In Progress</p>
+                <p className="text-[11px] text-emerald-600 mt-1">Inspection timer is running for the buyer.</p>
               </div>
             )}
 
@@ -272,7 +341,7 @@ export default function DealPage() {
           </div>
         )}
 
-        {/* CONDITION 2: IF CREATOR IS BUYER OR DEFAULT */}
+        {/* CONDITION 2: BUYER VIEW */}
         {creatorRole === 'Buyer' && (
           <div className="space-y-4 mb-6">
             {!deal.buyer_phone && (
@@ -300,10 +369,10 @@ export default function DealPage() {
                   <h3 className="font-black text-slate-900 text-sm">Send Payment to OloBuy Official Account</h3>
                 </div>
                 <p className="text-xs text-slate-600 mb-4 font-medium leading-relaxed">
-                  Please transfer <span className="font-bold text-[#ff9800]">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account below and send screenshot on WhatsApp.
+                  Please transfer <span className="font-bold text-[#ff9800]">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account below and click confirmation.
                 </p>
 
-                <div className="space-y-2.5">
+                <div className="space-y-2.5 mb-4">
                   <div className="bg-white border border-amber-200 rounded-xl p-3 flex items-center justify-between shadow-xs">
                     <div>
                       <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Easypaisa / JazzCash</p>
@@ -319,11 +388,19 @@ export default function DealPage() {
                   </div>
                 </div>
 
+                <button 
+                  onClick={markAsSecured}
+                  className="w-full bg-[#1a237e] hover:bg-indigo-900 text-white font-black py-3 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <CheckCircle2 className="h-4 w-4" />
+                  I Have Sent Payment (Secure Escrow)
+                </button>
+
                 <a 
                   href={`https://wa.me/923043031572?text=Hello%20OloBuy%20Admin,%20I%20have%20sent%20payment%20for%20Deal%20%23${deal.deal_code}%20amounting%20to%20Rs%20${deal.amount}.%20Here%20is%20my%20screenshot.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 w-full bg-[#25d366] hover:bg-[#20ba5a] text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
+                  className="mt-3 w-full bg-[#25d366] hover:bg-[#20ba5a] text-white font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
                 >
                   <MessageSquare className="h-4 w-4" />
                   Send Payment Proof on WhatsApp
@@ -331,84 +408,15 @@ export default function DealPage() {
               </div>
             )}
 
-            {isPending && (
-              <div className="bg-slate-900 text-white rounded-2xl p-5 shadow-lg border border-slate-800">
-                <div className="flex items-center gap-2 mb-2">
-                  <KeyRound className="h-4 w-4 text-amber-400" />
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-amber-400">Have you received PIN from Admin?</h4>
-                </div>
-                <p className="text-[11px] text-slate-400 mb-3">Enter the 4-digit verification PIN provided on WhatsApp after payment approval.</p>
-                
-                <form onSubmit={verifyPinAndSecure} className="flex gap-2">
-                  <input 
-                    type="password"
-                    maxLength={4}
-                    placeholder="Enter PIN"
-                    value={adminPin}
-                    onChange={(e) => setAdminPin(e.target.value)}
-                    className="bg-slate-800 border border-slate-700 text-white text-center font-black tracking-widest px-4 py-2.5 rounded-xl w-full text-sm focus:outline-none focus:border-[#ff9800]"
-                  />
-                  <button 
-                    type="submit"
-                    className="bg-[#ff9800] hover:bg-orange-600 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs transition-all flex items-center gap-1 cursor-pointer shrink-0"
-                  >
-                    <Send className="h-4 w-4" />
-                    Verify
-                  </button>
-                </form>
-                {pinError && <p className="text-red-400 text-[11px] mt-2 font-medium">{pinError}</p>}
-              </div>
-            )}
-
             {isSecured && !isCompleted && (
               <div className="space-y-4">
-                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-5 text-center shadow-sm">
-                  <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto mb-2" />
-                  <p className="font-black text-emerald-800 text-sm">You have successfully secured Rs {Number(deal.amount || 0).toLocaleString()} in OloBuy Escrow!</p>
-                  <p className="text-xs text-emerald-600/80 mt-1 font-medium">Funds are 100% safe until you receive and inspect your item.</p>
-                </div>
-
-                <button
-                  onClick={releasePayment}
-                  className="w-full bg-gradient-to-r from-[#ff9800] to-orange-500 hover:from-orange-600 hover:to-orange-700 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer shadow-xl shadow-orange-500/25 transition-all active:scale-[0.98]"
-                >
-                  <CheckCircle2 className="h-5 w-5" />
-                  Release Payment to Seller
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Parties Involved Cards */}
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 text-center shadow-sm">
-            <p className="text-[11px] text-slate-400 mb-1 font-bold uppercase tracking-wider">Creator Role</p>
-            <p className="font-extrabold text-sm truncate text-[#1a237e]">{creatorRole}</p>
-          </div>
-          <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 text-center shadow-sm">
-            <p className="text-[11px] text-slate-400 mb-1 font-bold uppercase tracking-wider">Buyer Phone</p>
-            <p className="font-extrabold text-sm truncate text-slate-800">{deal.buyer_phone || 'Not Added'}</p>
-          </div>
-        </div>
-
-        {/* Completed View */}
-        {isCompleted && (
-          <div className="bg-emerald-50 border border-emerald-500/30 rounded-2xl p-5 text-center shadow-sm mb-6">
-            <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto mb-2" />
-            <p className="font-black text-emerald-800 text-sm">Deal Completed Successfully</p>
-            <p className="text-xs text-emerald-600/80 mt-1 font-medium">Funds have been securely released to the seller.</p>
-          </div>
-        )}
-
-        {/* Footer info */}
-        <div className="mt-8 pt-4 border-t border-slate-100 text-center">
-          <p className="text-slate-400 text-xs font-semibold">
-            Encrypted & Powered by <span className="text-slate-700 font-bold">OloBuy Financial Engine</span>
-          </p>
-        </div>
-
-      </div>
-    </div>
-  );
-    }
+                {/* Countdown Timer Board */}
+                <div className="bg-slate-900 text-white border border-slate-800 rounded-2xl p-5 text-center shadow-lg">
+                  <div className="flex items-center justify-center gap-2 text-amber-400 mb-2">
+                    <Clock className="h-5 w-5 animate-pulse" />
+                    <h3 className="font-black text-xs uppercase tracking-wider">Escrow Inspection Countdown</h3>
+                  </div>
+                  <p className="text-[11px] text-slate-400 mb-3">Inspection time set by seller ({deal.inspection_days || 2} Days)</p>
+                  
+                  {timeLeft ? (
+     
