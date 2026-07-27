@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { ShieldCheck, CheckCircle2, Wallet, MessageSquare, Send, Truck, UserCheck, Clock, Share2 } from 'lucide-react';
@@ -22,8 +22,6 @@ async function sendAdminNotification(dealCode: string, actionType: string, amoun
             <p><strong>Deal Code:</strong> #${dealCode}</p>
             <p><strong>Action / Status:</strong> <span style="color: #ff9800; font-weight: bold;">${actionType}</span></p>
             <p><strong>Amount:</strong> Rs ${amount.toLocaleString()}</p>
-            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
-            <p style="font-size: 12px; color: #64748b;">This is an automated notification from OloBuy Financial Engine.</p>
           </div>
         `,
       }),
@@ -33,7 +31,7 @@ async function sendAdminNotification(dealCode: string, actionType: string, amoun
   }
 }
 
-export default function DealPage() {
+function DealContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const id = params?.id;
@@ -173,8 +171,6 @@ export default function DealPage() {
     if (!error) {
       setDeal({ ...deal, buyer_phone: buyerPhone, buyer_name: 'Buyer' });
       alert('Buyer details saved successfully!');
-    } else {
-      alert('Error saving details: ' + error.message);
     }
   };
 
@@ -192,7 +188,7 @@ export default function DealPage() {
     if (!error) {
       setDeal({ ...deal, seller_accepted: true, status: 'accepted', inspection_days: inspectionDays });
       await sendAdminNotification(deal.deal_code, `Deal Accepted by Seller (${inspectionDays} Days Timer)`, deal.amount);
-      alert('Deal accepted successfully with ' + inspectionDays + ' days inspection timer!');
+      alert('Deal accepted successfully!');
     }
   };
 
@@ -211,7 +207,7 @@ export default function DealPage() {
     if (!error) {
       setDeal({ ...deal, status: 'shipped' });
       await sendAdminNotification(deal.deal_code, 'Item Shipped / Tracking Submitted', deal.amount);
-      alert('Tracking submitted successfully! Buyer notified.');
+      alert('Tracking submitted successfully!');
     }
   };
 
@@ -224,7 +220,7 @@ export default function DealPage() {
     if (!error) {
       setDeal({ ...deal, status: 'secured', buyer_paid: true });
       await sendAdminNotification(deal.deal_code, 'Payment Secured by Buyer', deal.amount);
-      alert('Payment marked as transferred & secured in OloBuy Escrow!');
+      alert('Payment marked as secured!');
     }
   };
 
@@ -237,7 +233,7 @@ export default function DealPage() {
     if (!error) {
       setDeal({ ...deal, status: 'completed' });
       await sendAdminNotification(deal.deal_code, 'Payment Released to Seller (Completed)', deal.amount);
-      alert('Payment Released Successfully to Seller!');
+      alert('Payment Released Successfully!');
     }
   };
 
@@ -255,11 +251,8 @@ export default function DealPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#0f172a] flex items-center justify-center text-[#ff9800] font-bold tracking-wider">
-        <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/10">
-          <div className="w-5 h-5 border-2 border-[#ff9800] border-t-transparent rounded-full animate-spin"></div>
-          LOADING SECURE ESCROW PORTAL...
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#0f172a] flex items-center justify-center text-[#ff9800] font-bold">
+        Loading Escrow Portal...
       </div>
     );
   }
@@ -267,9 +260,8 @@ export default function DealPage() {
   if (!deal) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#0f172a] flex items-center justify-center text-white p-4">
-        <div className="text-center bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-2xl max-w-sm w-full">
-          <h2 className="text-xl font-black text-red-400 mb-2">Deal Not Found</h2>
-          <p className="text-sm text-white/60">Please check your tracking link or deal code.</p>
+        <div className="text-center bg-white/10 p-8 rounded-3xl">
+          <h2 className="text-xl font-bold text-red-400">Deal Not Found</h2>
         </div>
       </div>
     );
@@ -283,83 +275,61 @@ export default function DealPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-slate-900 p-4 sm:p-6 flex items-center justify-center font-sans">
-      <div className="max-w-md w-full bg-white/95 backdrop-blur-2xl border border-white/40 rounded-[2.5rem] p-6 sm:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] relative overflow-hidden my-6">
+      <div className="max-w-md w-full bg-white/95 backdrop-blur-2xl border border-white/40 rounded-[2.5rem] p-6 sm:p-8 shadow-2xl relative my-6">
         
-        {/* Header Badge */}
         <header className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-3 shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-3">
             <ShieldCheck className="h-4 w-4 text-emerald-600" />
-            <span className="text-xs font-bold tracking-wide uppercase text-emerald-700">OloBuy Secure Escrow ({currentRole} View)</span>
+            <span className="text-xs font-bold uppercase text-emerald-700">OloBuy Secure Escrow ({currentRole} View)</span>
           </div>
-          <h1 className="text-3xl font-black tracking-tight text-slate-900">
-            Deal #{deal.deal_code}
-          </h1>
-          <p className="text-slate-500 text-sm mt-1 font-semibold">{deal.product_name || 'Verified Digital Transaction'}</p>
+          <h1 className="text-3xl font-black text-slate-900">Deal #{deal.deal_code}</h1>
+          <p className="text-slate-500 text-sm mt-1 font-semibold">{deal.product_name || 'Verified Transaction'}</p>
         </header>
 
-        {/* Progress Bar */}
-        <section className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 mb-6 shadow-inner">
+        {/* Escrow Status Bar */}
+        <section className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 mb-6">
           <div className="flex justify-between items-center text-xs font-bold text-slate-500 mb-3">
             <span>Escrow Stage</span>
-            <span className="text-[#ff9800] uppercase tracking-wider">{deal.status || 'pending'}</span>
+            <span className="text-[#ff9800] uppercase">{deal.status || 'pending'}</span>
           </div>
           <div className="grid grid-cols-4 gap-1.5">
-            <div className="h-2 rounded-full bg-[#ff9800] shadow-sm"></div>
-            <div className={`h-2 rounded-full transition-all ${isAccepted || isSecured || isCompleted ? 'bg-[#ff9800] shadow-sm' : 'bg-slate-200'}`}></div>
-            <div className={`h-2 rounded-full transition-all ${isSecured || isCompleted ? 'bg-[#ff9800] shadow-sm' : 'bg-slate-200'}`}></div>
-            <div className={`h-2 rounded-full transition-all ${isCompleted ? 'bg-emerald-500 shadow-sm' : 'bg-slate-200'}`}></div>
-          </div>
-          <div className="flex justify-between text-[10px] text-slate-400 mt-2 font-bold uppercase">
-            <span>Created</span>
-            <span>Accepted</span>
-            <span>Secured</span>
-            <span>Done</span>
+            <div className="h-2 rounded-full bg-[#ff9800]"></div>
+            <div className={`h-2 rounded-full ${isAccepted || isSecured || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-200'}`}></div>
+            <div className={`h-2 rounded-full ${isSecured || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-200'}`}></div>
+            <div className={`h-2 rounded-full ${isCompleted ? 'bg-emerald-500' : 'bg-slate-200'}`}></div>
           </div>
         </section>
 
-        {/* Amount & Status Card */}
-        <section className="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 mb-6 shadow-sm">
-          <div className="flex justify-between items-center mb-4 pb-4 border-b border-slate-200/60">
+        {/* Amount Card */}
+        <section className="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 mb-6">
+          <div className="flex justify-between items-center">
             <span className="text-slate-500 text-sm font-medium">Escrow Amount</span>
             <span className="text-2xl font-black text-[#ff9800]">Rs {Number(deal.amount || 0).toLocaleString()}</span>
           </div>
-          
-          <div className="flex justify-between items-center">
-            <span className="text-slate-500 text-sm font-medium">Transaction Status</span>
-            <span className={`px-3.5 py-1 rounded-xl text-xs font-black tracking-wider uppercase shadow-sm ${
-              isCompleted ? 'bg-emerald-500/10 text-emerald-700 border border-emerald-500/30' :
-              isSecured ? 'bg-blue-500/10 text-blue-700 border border-blue-500/30' :
-              'bg-[#ff9800]/10 text-[#ff9800] border border-[#ff9800]/30'
-            }`}>
-              {deal.status || 'PENDING'}
-            </span>
-          </div>
         </section>
 
-        {/* CHAT BOX & EXACT INVITE BUTTONS */}
-        <section className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 shadow-sm">
+        {/* Chat & Exact Invite Buttons */}
+        <section className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6">
           <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
             <div className="flex items-center gap-2">
               <MessageSquare className="h-4 w-4 text-[#ff9800]" />
               <h3 className="font-black text-slate-800 text-xs uppercase">Secure Deal Chat (P2P)</h3>
             </div>
             
-            {/* Buyer View Button */}
             {currentRole === 'Buyer' && (
               <button 
                 onClick={() => handleInvite('Seller')}
-                className="bg-[#1a237e] hover:bg-indigo-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow transition-all cursor-pointer"
+                className="bg-[#1a237e] hover:bg-indigo-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 cursor-pointer"
               >
                 <Share2 className="h-3 w-3" />
                 Invite seller in chat
               </button>
             )}
 
-            {/* Seller View Button */}
             {currentRole === 'Seller' && (
               <button 
                 onClick={() => handleInvite('Buyer')}
-                className="bg-[#ff9800] hover:bg-orange-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow transition-all cursor-pointer"
+                className="bg-[#ff9800] hover:bg-orange-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 cursor-pointer"
               >
                 <Share2 className="h-3 w-3" />
                 Invite buyer in escrow chat
@@ -368,23 +338,21 @@ export default function DealPage() {
           </div>
 
           {copied && (
-            <div className="mb-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 text-[10px] font-bold p-2 rounded-xl text-center">
-              ✓ Invite link copied & WhatsApp opened successfully!
+            <div className="mb-3 bg-emerald-500/10 text-emerald-700 text-[10px] font-bold p-2 rounded-xl text-center">
+              ✓ Invite link copied & WhatsApp opened!
             </div>
           )}
 
           <div className="h-40 overflow-y-auto space-y-2 mb-3 pr-1 text-xs">
             {messages.length === 0 ? (
-              <p className="text-center text-slate-400 py-8 font-medium">No messages yet. Start conversation below.</p>
+              <p className="text-center text-slate-400 py-8">No messages yet.</p>
             ) : (
               messages.map((msg, index) => {
                 const isMe = msg.sender_role === currentRole;
                 return (
                   <div key={index} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
-                    <span className="text-[9px] font-bold text-slate-400 mb-0.5">{msg.sender_role}</span>
-                    <div className={`p-2.5 rounded-2xl max-w-[80%] font-medium ${
-                      isMe ? 'bg-[#1a237e] text-white rounded-br-none' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none'
-                    }`}>
+                    <span className="text-[9px] font-bold text-slate-400">{msg.sender_role}</span>
+                    <div className={`p-2.5 rounded-2xl max-w-[80%] ${isMe ? 'bg-[#1a237e] text-white' : 'bg-white border text-slate-800'}`}>
                       {msg.message}
                     </div>
                   </div>
@@ -399,165 +367,107 @@ export default function DealPage() {
               placeholder="Type a message..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              className="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 w-full outline-none focus:border-[#ff9800]"
+              className="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs w-full outline-none focus:border-[#ff9800]"
             />
-            <button 
-              type="submit"
-              className="bg-[#ff9800] hover:bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer shrink-0 flex items-center justify-center"
-            >
+            <button type="submit" className="bg-[#ff9800] text-white px-4 py-2 rounded-xl cursor-pointer">
               <Send className="h-3.5 w-3.5" />
             </button>
           </form>
         </section>
 
-        {/* SELLER VIEW CONTROLS */}
+        {/* Seller Controls */}
         {currentRole === 'Seller' && (
           <section className="space-y-4 mb-6">
             {!isAccepted ? (
-              <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 text-center shadow-sm">
+              <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 text-center">
                 <UserCheck className="h-8 w-8 text-[#1a237e] mx-auto mb-2" />
-                <h3 className="font-black text-[#1a237e] text-sm mb-1">Seller Action Required</h3>
-                <p className="text-xs text-slate-600 mb-3">Set inspection/delivery duration (Days) and accept the deal.</p>
-                
-                <div className="mb-3 text-left">
-                  <label className="text-[11px] font-bold text-slate-600 uppercase">Set Delivery / Inspection Days:</label>
-                  <input 
-                    type="number"
-                    min={1}
-                    max={30}
-                    value={inspectionDays}
-                    onChange={(e) => setInspectionDays(Number(e.target.value))}
-                    className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-bold text-slate-800 mt-1 outline-none focus:border-[#ff9800]"
-                  />
-                </div>
-
-                <button
-                  onClick={sellerAcceptDeal}
-                  className="w-full bg-[#1a237e] hover:bg-indigo-900 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
-                >
+                <h3 className="font-black text-[#1a237e] text-sm mb-2">Seller Action Required</h3>
+                <input 
+                  type="number"
+                  min={1}
+                  max={30}
+                  value={inspectionDays}
+                  onChange={(e) => setInspectionDays(Number(e.target.value))}
+                  className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2 text-sm font-bold mb-3"
+                />
+                <button onClick={sellerAcceptDeal} className="w-full bg-[#1a237e] text-white py-3 rounded-xl text-xs uppercase font-black cursor-pointer">
                   Accept Deal & Start Timer
                 </button>
               </div>
             ) : !isShipped && !isCompleted ? (
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
-                <div className="flex items-center gap-2 mb-3">
-                  <Truck className="h-5 w-5 text-[#1a237e]" />
-                  <h3 className="font-black text-slate-900 text-sm">Submit Shipping / Service Delivery</h3>
-                </div>
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
                 <form onSubmit={submitTracking} className="space-y-3">
                   <input 
                     type="text"
-                    placeholder="Enter Courier Name / Tracking / Details"
+                    placeholder="Enter Tracking / Details"
                     value={trackingNumber}
                     onChange={(e) => setTrackingNumber(e.target.value)}
-                    className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-800 outline-none focus:border-[#ff9800]"
+                    className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm"
                   />
-                  <button 
-                    type="submit"
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 rounded-xl text-xs uppercase transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
-                  >
-                    <Send className="h-4 w-4" />
-                    Notify Buyer & Submit
+                  <button type="submit" className="w-full bg-emerald-600 text-white py-3 rounded-xl text-xs uppercase font-black cursor-pointer">
+                    Submit Tracking
                   </button>
                 </form>
               </div>
-            ) : (
-              <div className="bg-emerald-50 border border-emerald-500/30 rounded-2xl p-4 text-center">
-                <p className="text-xs font-black text-emerald-800 uppercase">Deal Active & In Progress</p>
-                <p className="text-[11px] text-emerald-600 mt-1">Inspection timer is running for the buyer.</p>
-              </div>
-            )}
+            ) : null}
           </section>
-   BUYER VIEW CONTROLS */}
+        )}
+
+        {/* Buyer Controls */}
         {currentRole === 'Buyer' && (
           <section className="space-y-4 mb-6">
             {!deal.buyer_phone && (
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4">
-                <h3 className="font-black text-slate-900 text-xs mb-2 uppercase">Step 1: Enter Your Phone Number</h3>
+                <h3 className="font-black text-xs mb-2 uppercase">Enter Your Phone</h3>
                 <form onSubmit={saveBuyerDetails} className="flex gap-2">
                   <input 
                     type="text"
                     placeholder="03001234567"
                     value={buyerPhone}
                     onChange={(e) => setBuyerPhone(e.target.value)}
-                    className="bg-white border border-slate-200 text-slate-800 px-3 py-2 rounded-xl text-sm font-semibold w-full outline-none focus:border-[#ff9800]"
+                    className="bg-white border px-3 py-2 rounded-xl text-sm w-full"
                   />
-                  <button type="submit" className="bg-[#1a237e] text-white px-4 py-2 rounded-xl text-xs font-bold cursor-pointer shrink-0">
-                    Save
-                  </button>
+                  <button type="submit" className="bg-[#1a237e] text-white px-4 py-2 rounded-xl text-xs font-bold">Save</button>
                 </form>
               </div>
             )}
 
             {isPending && (
-              <div className="bg-amber-500/10 border-2 border-amber-500/30 rounded-2xl p-5 shadow-md">
-                <div className="flex items-center gap-2 mb-3">
-                  <Wallet className="h-5 w-5 text-[#ff9800]" />
-                  <h3 className="font-black text-slate-900 text-sm">Send Payment to OloBuy Official Account</h3>
-                </div>
-                <p className="text-xs text-slate-600 mb-4 font-medium leading-relaxed">
-                  Please transfer <span className="font-bold text-slate-900">Rs {Number(deal.amount || 0).toLocaleString()}</span> to our official escrow bank or mobile account, then click below to secure.
-                </p>
-                <button
-                  onClick={markAsSecured}
-                  className="w-full bg-[#ff9800] hover:bg-orange-600 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
-                >
+              <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 text-center">
+                <Wallet className="h-6 w-6 text-[#ff9800] mx-auto mb-2" />
+                <p className="text-xs text-slate-600 mb-3">Transfer Rs {Number(deal.amount || 0).toLocaleString()} to OloBuy account.</p>
+                <button onClick={markAsSecured} className="w-full bg-[#ff9800] text-white py-3 rounded-xl text-xs uppercase font-black cursor-pointer">
                   I Have Paid & Secured Amount
                 </button>
               </div>
             )}
 
-            {isSecured && (
-              <div className="bg-blue-50 border border-blue-200 rounded-2xl p-5 text-center shadow-sm">
-                <Clock className="h-8 w-8 text-blue-600 mx-auto mb-2 animate-pulse" />
-                <h3 className="font-black text-blue-900 text-sm mb-1">Waiting for Seller Dispatch</h3>
-                <p className="text-xs text-slate-600">Payment is safely locked in OloBuy Escrow. Seller will ship the item soon.</p>
-              </div>
-            )}
-
             {isShipped && timeLeft && (
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
-                <h3 className="font-black text-slate-900 text-xs uppercase mb-2">Inspection Timer Active</h3>
-                <div className="grid grid-cols-4 gap-2 mb-4">
-                  <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
-                    <span className="block text-lg font-black text-[#1a237e]">{timeLeft.days}</span>
-                    <span className="text-[9px] uppercase font-bold text-slate-400">Days</span>
-                  </div>
-                  <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
-                    <span className="block text-lg font-black text-[#1a237e]">{timeLeft.hours}</span>
-                    <span className="text-[9px] uppercase font-bold text-slate-400">Mins</span>
-                  </div>
-                  <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
-                    <span className="block text-lg font-black text-[#1a237e]">{timeLeft.minutes}</span>
-                    <span className="text-[9px] uppercase font-bold text-slate-400">Secs</span>
-                  </div>
-                  <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
-                    <span className="block text-lg font-black text-[#ff9800]">{timeLeft.seconds}</span>
-                    <span className="text-[9px] uppercase font-bold text-slate-400">Secs</span>
-                  </div>
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center">
+                <div className="grid grid-cols-4 gap-2 mb-4 text-xs">
+                  <div className="bg-white p-2 rounded-xl"><span className="block font-black">{timeLeft.days}</span>Days</div>
+                  <div className="bg-white p-2 rounded-xl"><span className="block font-black">{timeLeft.hours}</span>Hours</div>
+                  <div className="bg-white p-2 rounded-xl"><span className="block font-black">{timeLeft.minutes}</span>Mins</div>
+                  <div className="bg-white p-2 rounded-xl"><span className="block font-black">{timeLeft.seconds}</span>Secs</div>
                 </div>
-                <button
-                  onClick={releasePayment}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <CheckCircle2 className="h-4 w-4" />
-                  Item Received & Release Payment
+                <button onClick={releasePayment} className="w-full bg-emerald-600 text-white py-3 rounded-xl text-xs uppercase font-black cursor-pointer">
+                  Release Payment
                 </button>
               </div>
             )}
           </section>
         )}
 
-        {/* Completed State */}
-        {isCompleted && (
-          <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-6 text-center">
-            <CheckCircle2 className="h-10 w-10 text-emerald-600 mx-auto mb-2" />
-            <h3 className="font-black text-emerald-900 text-base mb-1">Deal Successfully Completed!</h3>
-            <p className="text-xs text-emerald-700 font-medium">Funds have been released to the seller. Thank you for using OloBuy Escrow.</p>
-          </div>
-        )}
-
       </div>
     </main>
   );
-                  }
+}
+
+// FIX FOR VERCEL DEPLOYMENT BUILD ERROR (Suspense Wrapper)
+export default function DealPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0f172a] text-[#ff9800] flex items-center justify-center font-bold">Loading...</div>}>
+      <DealContent />
+    </Suspense>
+  );
+         }
