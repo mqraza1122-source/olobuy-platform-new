@@ -4,7 +4,6 @@ import { useParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { ShieldCheck, CheckCircle2, Copy, Wallet, MessageSquare, Send, Truck, UserCheck, Clock, AlertTriangle } from 'lucide-react';
 
-// Email Notification Function via Resend API
 async function sendAdminNotification(dealCode: string, actionType: string, amount: number) {
   try {
     await fetch('https://api.resend.com/emails', {
@@ -41,17 +40,11 @@ export default function DealPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [copied, setCopied] = useState<string | null>(null);
   
-  // States for Buyer workflow
   const [buyerPhone, setBuyerPhone] = useState<string>('');
-
-  // States for Seller workflow
   const [trackingNumber, setTrackingNumber] = useState<string>('');
   const [inspectionDays, setInspectionDays] = useState<number>(2);
-
-  // Countdown Timer State
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
 
-  // P2P Chat States
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
 
@@ -60,7 +53,6 @@ export default function DealPage() {
       fetchDeal();
       fetchMessages();
 
-      // Supabase Realtime Subscription for Live P2P Chat
       const channel = supabase
         .channel(`room_${id}`)
         .on(
@@ -275,11 +267,11 @@ export default function DealPage() {
   const isPending = !deal.status || deal.status === 'pending';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-slate-900 p-4 sm:p-6 flex items-center justify-center font-sans">
+    <main className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-slate-900 p-4 sm:p-6 flex items-center justify-center font-sans">
       <div className="max-w-md w-full bg-white/95 backdrop-blur-2xl border border-white/40 rounded-[2.5rem] p-6 sm:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] relative overflow-hidden my-6">
         
         {/* Top Header Badge */}
-        <div className="text-center mb-6">
+        <header className="text-center mb-6">
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-3 shadow-sm">
             <ShieldCheck className="h-4 w-4 text-emerald-600" />
             <span className="text-xs font-bold tracking-wide uppercase text-emerald-700">OloBuy Secure Escrow ({creatorRole} View)</span>
@@ -288,10 +280,10 @@ export default function DealPage() {
             Deal #{deal.deal_code}
           </h1>
           <p className="text-slate-500 text-sm mt-1 font-semibold">{deal.product_name || 'Verified Digital Transaction'}</p>
-        </div>
+        </header>
 
         {/* Progress Bar */}
-        <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 mb-6 shadow-inner">
+        <section className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 mb-6 shadow-inner">
           <div className="flex justify-between items-center text-xs font-bold text-slate-500 mb-3">
             <span>Escrow Stage</span>
             <span className="text-[#ff9800] uppercase tracking-wider">{deal.status || 'pending'}</span>
@@ -308,10 +300,10 @@ export default function DealPage() {
             <span>Secured</span>
             <span>Done</span>
           </div>
-        </div>
+        </section>
 
         {/* Amount & Status Card */}
-        <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 mb-6 shadow-sm">
+        <section className="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 mb-6 shadow-sm">
           <div className="flex justify-between items-center mb-4 pb-4 border-b border-slate-200/60">
             <span className="text-slate-500 text-sm font-medium">Escrow Amount</span>
             <span className="text-2xl font-black text-[#ff9800]">Rs {Number(deal.amount || 0).toLocaleString()}</span>
@@ -327,10 +319,10 @@ export default function DealPage() {
               {deal.status || 'PENDING'}
             </span>
           </div>
-        </div>
+        </section>
 
         {/* LIVE P2P CHAT BOX (Binance Style) */}
-        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 shadow-sm">
+        <section className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 shadow-sm">
           <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-200">
             <MessageSquare className="h-4 w-4 text-[#ff9800]" />
             <h3 className="font-black text-slate-800 text-xs uppercase">Secure Deal Chat (P2P)</h3>
@@ -371,11 +363,11 @@ export default function DealPage() {
               <Send className="h-3.5 w-3.5" />
             </button>
           </form>
-        </div>
+        </section>
 
         {/* CONDITION 1: SELLER VIEW */}
         {creatorRole === 'Seller' && (
-          <div className="space-y-4 mb-6">
+          <section className="space-y-4 mb-6">
             {!isAccepted ? (
               <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 text-center shadow-sm">
                 <UserCheck className="h-8 w-8 text-[#1a237e] mx-auto mb-2" />
@@ -430,12 +422,12 @@ export default function DealPage() {
                 <p className="text-[11px] text-emerald-600 mt-1">Inspection timer is running for the buyer.</p>
               </div>
             )}
-          </div>
+          </section>
         )}
 
         {/* CONDITION 2: BUYER VIEW */}
         {creatorRole === 'Buyer' && (
-          <div className="space-y-4 mb-6">
+          <section className="space-y-4 mb-6">
             {!deal.buyer_phone && (
               <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4">
                 <h3 className="font-black text-slate-900 text-xs mb-2 uppercase">Step 1: Enter Your Phone Number</h3>
@@ -461,4 +453,68 @@ export default function DealPage() {
                   <h3 className="font-black text-slate-900 text-sm">Send Payment to OloBuy Official Account</h3>
                 </div>
                 <p className="text-xs text-slate-600 mb-4 font-medium leading-relaxed">
-                  Please transfer <span className="font-bold t
+                  Please transfer <span className="font-bold text-slate-900">Rs {Number(deal.amount || 0).toLocaleString()}</span> to our official escrow bank or mobile account, then click below to secure.
+                </p>
+                <button
+                  onClick={markAsSecured}
+                  className="w-full bg-[#ff9800] hover:bg-orange-600 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
+                >
+                  I Have Paid & Secured Amount
+                </button>
+              </div>
+            )}
+
+            {isSecured && (
+              <div className="bg-blue-50 border border-blue-200 rounded-2xl p-5 text-center shadow-sm">
+                <Clock className="h-8 w-8 text-blue-600 mx-auto mb-2 animate-pulse" />
+                <h3 className="font-black text-blue-900 text-sm mb-1">Waiting for Seller Dispatch</h3>
+                <p className="text-xs text-slate-600">Payment is safely locked in OloBuy Escrow. Seller will ship the item soon.</p>
+              </div>
+            )}
+
+            {isShipped && timeLeft && (
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center shadow-sm">
+                <h3 className="font-black text-slate-900 text-xs uppercase mb-2">Inspection Timer Active</h3>
+                <div className="grid grid-cols-4 gap-2 mb-4">
+                  <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
+                    <span className="block text-lg font-black text-[#1a237e]">{timeLeft.days}</span>
+                    <span className="text-[9px] uppercase font-bold text-slate-400">Days</span>
+                  </div>
+                  <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
+                    <span className="block text-lg font-black text-[#1a237e]">{timeLeft.hours}</span>
+                    <span className="text-[9px] uppercase font-bold text-slate-400">Hours</span>
+                  </div>
+                  <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
+                    <span className="block text-lg font-black text-[#1a237e]">{timeLeft.minutes}</span>
+                    <span className="text-[9px] uppercase font-bold text-slate-400">Mins</span>
+                  </div>
+                  <div className="bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
+                    <span className="block text-lg font-black text-[#ff9800]">{timeLeft.seconds}</span>
+                    <span className="text-[9px] uppercase font-bold text-slate-400">Secs</span>
+                  </div>
+                </div>
+                <button
+                  onClick={releasePayment}
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <CheckCircle2 className="h-4 w-4" />
+                  Item Received & Release Payment
+                </button>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Completed State */}
+        {isCompleted && (
+          <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-6 text-center">
+            <CheckCircle2 className="h-10 w-10 text-emerald-600 mx-auto mb-2" />
+            <h3 className="font-black text-emerald-900 text-base mb-1">Deal Successfully Completed!</h3>
+            <p className="text-xs text-emerald-700 font-medium">Funds have been released to the seller. Thank you for using OloBuy Escrow.</p>
+          </div>
+        )}
+
+      </div>
+    </main>
+  );
+                  }
