@@ -15,27 +15,17 @@ export function Features() {
     <section id="why" className="bg-[#0f172a] py-16 px-4">
       <div className="mx-auto max-w-5xl">
         
-        {/* Binance Style Massive Header on Top of Features */}
-        <div className="text-center mb-14">
-          <h2 className="text-3xl sm:text-5xl font-black text-[#ff9800] uppercase tracking-tight mb-2 drop-shadow-md">
-            USERS TRUST US
-          </h2>
-          <p className="text-xl sm:text-2xl font-extrabold text-white tracking-wide uppercase">
-            The Pakistan's Leading Escrow Trade
-          </p>
-        </div>
-
-        {/* Why Choose Header Badge */}
+        {/* 1. Why Choose Header Badge */}
         <div className="text-center mb-12">
           <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-10 py-4 rounded-[2rem] text-2xl shadow-lg mb-4">
-            WHY CHOOSE OLOBY?
+            WHY CHOOSE OLABY?
           </div>
           <p className="text-white/80 max-w-md mx-auto">
             Trusted by thousands for safe online transactions across Pakistan
           </p>
         </div>
 
-        {/* Features Grid */}
+        {/* 2. Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {FEATURES.map((f) => {
             const Icon = f.icon;
@@ -61,11 +51,21 @@ export function Features() {
           })}
         </div>
 
-        {/* Stats Section - Restored to Original Old White Cards Style */}
+        {/* 3. Binance Style Massive Header - Placed right before Statistics */}
+        <div className="text-center mb-10 pt-6 border-t border-white/10">
+          <h2 className="text-3xl sm:text-5xl font-black text-[#ff9800] uppercase tracking-tight mb-2 drop-shadow-md">
+            USERS TRUST US
+          </h2>
+          <p className="text-xl sm:text-2xl font-extrabold text-white tracking-wide uppercase">
+            The Pakistan's Leading Escrow Trade
+          </p>
+        </div>
+
+        {/* 4. Stats Section - Restored to Original Old White Cards Style */}
         <div className="grid grid-cols-3 gap-4 text-center">
           {[
             { number: "1000+", label: "SAFE DEALS" },
-            { number: "19.5M+", label: "PROTECTED RUPEES" },
+            { number: "9.5M+", label: "PROTECTED" },
             { number: "4.9/5", label: "RATING" },
           ].map((stat, i) => (
             <div key={i} className="bg-white rounded-[2rem] py-8 px-2 shadow-2xl flex flex-col items-center justify-center transition-all transform hover:scale-105">
@@ -78,4 +78,4 @@ export function Features() {
       </div>
     </section>
   );
-}
+        }
