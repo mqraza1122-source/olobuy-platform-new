@@ -4,23 +4,23 @@ import { MessageSquareText, Landmark, Package, ShieldCheck } from 'lucide-react'
 const STEPS = [
   { 
     icon: MessageSquareText, 
-    title: 'Agree on the Deal', 
-    desc: 'Buyer and seller agree on terms and start the deal via our official WhatsApp.' 
+    title: 'Create Deal Code', 
+    desc: 'Buyer or seller sets the product and amount on OloBuy to instantly generate a secure, unique Deal Code.' 
   },
   { 
     icon: Landmark, 
-    title: 'Secure Payment', 
-    desc: 'Buyer sends payment to OloBuy. We hold the money safely in escrow.' 
+    title: 'Secure Escrow Payment', 
+    desc: 'Buyer transfers funds to OloBuy official escrow account. We hold the money safely and securely.' 
   },
   { 
     icon: Package, 
     title: 'Delivery & Inspection', 
-    desc: 'Seller delivers the item. Buyer inspects and confirms satisfaction.' 
+    desc: 'Seller delivers the item or service. Buyer inspects everything and confirms satisfaction on the deal page.' 
   },
   { 
     icon: ShieldCheck, 
     title: 'Payment Released', 
-    desc: 'Once approved, we instantly release payment to the seller. Deal completed safely!' 
+    desc: 'Once approved, we instantly release the payment to the seller. The deal is completed safely and transparently!' 
   },
 ];
 
@@ -34,7 +34,7 @@ export function HowItWorks() {
             HOW IT WORKS
           </div>
           <p className="text-white/80 max-w-md mx-auto">
-            4 Simple Steps to Complete Your Safe Transaction
+            4 Simple Steps to Complete Your Safe Transaction via Deal Code
           </p>
         </div>
 
