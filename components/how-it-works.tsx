@@ -29,8 +29,8 @@ export function HowItWorks() {
     <section id="how-it-works" className="bg-[#0f172a] py-16 px-4 overflow-hidden">
       <div className="mx-auto max-w-5xl">
         
-        {/* Header with Smooth Fade Up Animation */}
-        <div className="text-center mb-12 opacity-0 translate-y-6 animate-[fadeInUp_0.8s_ease-out_forwards]">
+        {/* Section Header */}
+        <div className="text-center mb-12 opacity-0 animate-[fadeInLeft_0.8s_ease-out_forwards]">
           <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-8 py-4 rounded-[2rem] text-2xl mb-4 shadow-lg">
             HOW IT WORKS
           </div>
@@ -39,15 +39,15 @@ export function HowItWorks() {
           </p>
         </div>
 
-        {/* Steps Grid with Staggered Swipe Up Effect */}
+        {/* Steps Grid with Brand Level Fade Left & Staggered Pop-up */}
         <div className="grid md:grid-cols-2 gap-6 mb-10">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
               <div 
                 key={i} 
-                className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-500 group opacity-0 translate-y-8 animate-[fadeInUp_0.8s_ease-out_forwards]"
-                style={{ animationDelay: `${i * 150}ms` }}
+                className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-500 group opacity-0 animate-[fadeInLeft_0.8s_cubic-bezier(0.16,1,0.3,1)_forwards]"
+                style={{ animationDelay: `${i * 200}ms` }}
               >
                 <div className="flex items-start gap-5">
                   <div className="mt-1 w-12 h-12 rounded-2xl bg-[#ff9800]/10 flex items-center justify-center group-hover:bg-[#ff9800]/20 transition-colors">
@@ -69,8 +69,8 @@ export function HowItWorks() {
           })}
         </div>
 
-        {/* Complex Deal / WhatsApp Support Box with Pop-up Animation */}
-        <div className="bg-gradient-to-r from-[#1a237e]/80 to-[#0f172a] border border-[#ff9800]/30 rounded-3xl p-6 sm:p-8 text-center shadow-xl opacity-0 translate-y-8 animate-[fadeInUp_1s_ease-out_0.5s_forwards]">
+        {/* WhatsApp Support Box */}
+        <div className="bg-gradient-to-r from-[#1a237e]/80 to-[#0f172a] border border-[#ff9800]/30 rounded-3xl p-6 sm:p-8 text-center shadow-xl opacity-0 animate-[fadeInLeft_1s_ease-out_0.6s_forwards]">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-[#25d366]/20 flex items-center justify-center shrink-0">
               <MessageCircle className="h-7 w-7 text-[#25d366]" />
@@ -94,16 +94,16 @@ export function HowItWorks() {
 
       </div>
 
-      {/* Tailwind Keyframe Injection for Smooth Swipe Up Animation */}
+      {/* Custom Brand Level Fade Left Keyframes */}
       <style jsx global>{`
-        @keyframes fadeInUp {
+        @keyframes fadeInLeft {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateX(-40px);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
           }
         }
       `}</style>
