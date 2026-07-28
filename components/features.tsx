@@ -1,12 +1,12 @@
 'use client';
-import { ShieldCheck, Eye, MessageCircle, Banknote, Package, Users } from 'lucide-react';
+import { ShieldCheck, Eye, Sparkles, Banknote, Package, Users } from 'lucide-react';
 
 const FEATURES = [
-  { icon: ShieldCheck, title: 'No Advance Fraud', desc: 'Providers never receive money upfront. We hold it securely.' },
-  { icon: Eye, title: 'Inspect Before Release', desc: 'Buyer inspects the goods/service before payment is released.' },
-  { icon: MessageCircle, title: 'Simple WhatsApp Deals', desc: 'Easily manage and initiate all your deals through WhatsApp.' },
+  { icon: ShieldCheck, title: 'No Advance Fraud', desc: 'Providers never receive money upfront. We hold it securely in escrow.' },
+  { icon: Eye, title: 'Inspect Before Release', desc: 'Buyer inspects the goods or service before payment is released.' },
+  { icon: Sparkles, title: 'Instant Deal Code', desc: 'Easily generate a unique, secure Deal Code via our platform instantly.' },
   { icon: Banknote, title: 'Secure Escrow Holding', desc: 'Funds are held in a neutral, secure account until deal completion.' },
-  { icon: Package, title: 'Versatile Usage', desc: 'Perfect for physical goods, digital products, and services alike.' },
+  { icon: Package, title: 'Versatile Usage', desc: 'Perfect for physical goods, digital accounts, and services alike.' },
   { icon: Users, title: 'Fair for Both Parties', desc: 'Equal protection and peace of mind for both buyers and sellers.' },
 ];
 
@@ -41,7 +41,7 @@ export function Features() {
                   
                   <div>
                     <h3 className="text-xl font-bold text-white mb-3">{f.title}</h3>
-                    <p className="text-white/70 leading-relaxed">
+                    <p className="text-white/70 leading-relaxed text-sm">
                       {f.desc}
                     </p>
                   </div>
@@ -68,4 +68,4 @@ export function Features() {
       </div>
     </section>
   );
-}
+                }
