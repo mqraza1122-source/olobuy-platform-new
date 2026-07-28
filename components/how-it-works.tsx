@@ -1,37 +1,49 @@
 'use client';
-import { ShieldCheck, Eye, Sparkles, Banknote, Package, Users } from 'lucide-react';
+import { MessageSquareText, Landmark, Package, ShieldCheck, MessageCircle } from 'lucide-react';
 
-const FEATURES = [
-  { icon: ShieldCheck, title: 'No Advance Fraud', desc: 'Providers never receive money upfront. We hold it securely in escrow.' },
-  { icon: Eye, title: 'Inspect Before Release', desc: 'Buyer inspects the goods or service before payment is released.' },
-  { icon: Sparkles, title: 'Instant Deal Code', desc: 'Easily generate a unique, secure Deal Code via our platform instantly.' },
-  { icon: Banknote, title: 'Secure Escrow Holding', desc: 'Funds are held in a neutral, secure account until deal completion.' },
-  { icon: Package, title: 'Versatile Usage', desc: 'Perfect for physical goods, digital accounts, and services alike.' },
-  { icon: Users, title: 'Fair for Both Parties', desc: 'Equal protection and peace of mind for both buyers and sellers.' },
+const STEPS = [
+  { 
+    icon: MessageSquareText, 
+    title: 'Start Deal & Get Code', 
+    desc: 'Select your role (Buyer/Seller), enter product details and amount, then click the "Start Secure Deal" button on top to instantly generate a unique Deal Code.' 
+  },
+  { 
+    icon: Landmark, 
+    title: 'Secure Escrow Payment', 
+    desc: 'The buyer transfers the payment to OloBuy official account. We lock and hold the money safely in escrow.' 
+  },
+  { 
+    icon: Package, 
+    title: 'Delivery & Inspection', 
+    desc: 'The seller delivers the product or service. The buyer inspects everything and confirms satisfaction on the deal page.' 
+  },
+  { 
+    icon: ShieldCheck, 
+    title: 'Payment Released', 
+    desc: 'Once approved, we instantly release the funds to the seller. The deal is completed safely and transparently!' 
+  },
 ];
 
-export function Features() {
+export function HowItWorks() {
   return (
-    <section id="why" className="bg-[#0f172a] py-16 px-4">
+    <section id="how-it-works" className="bg-[#0f172a] py-16 px-4">
       <div className="mx-auto max-w-5xl">
         
-        {/* 1. Why Choose Header Badge */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-10 py-4 rounded-[2rem] text-2xl shadow-lg mb-4">
-            WHY CHOOSE OLABY?
+          <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-8 py-4 rounded-[2rem] text-2xl mb-4 shadow-lg">
+            HOW IT WORKS
           </div>
           <p className="text-white/80 max-w-md mx-auto">
-            Trusted by thousands for safe online transactions across Pakistan
+            4 Simple Steps to Complete Your Safe Transaction via OloBuy Deal Code
           </p>
         </div>
 
-        {/* 2. Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {FEATURES.map((f) => {
-            const Icon = f.icon;
+        <div className="grid md:grid-cols-2 gap-6 mb-10">
+          {STEPS.map((step, i) => {
+            const Icon = step.icon;
             return (
               <div 
-                key={f.title} 
+                key={i} 
                 className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all group"
               >
                 <div className="flex items-start gap-5">
@@ -39,10 +51,13 @@ export function Features() {
                     <Icon className="h-7 w-7 text-[#ff9800]" />
                   </div>
                   
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-3">{f.title}</h3>
-                    <p className="text-white/70 leading-relaxed text-sm">
-                      {f.desc}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-[#ff9800] font-black text-xl">0{i+1}</span>
+                      <h3 className="text-xl font-bold text-white">{step.title}</h3>
+                    </div>
+                    <p className="text-white/70 leading-relaxed text-sm sm:text-base">
+                      {step.desc}
                     </p>
                   </div>
                 </div>
@@ -51,28 +66,27 @@ export function Features() {
           })}
         </div>
 
-        {/* 3. Binance Style Massive Header - Placed right before Statistics */}
-        <div className="text-center mb-10 pt-6 border-t border-white/10">
-          <h2 className="text-3xl sm:text-5xl font-black text-[#ff9800] uppercase tracking-tight mb-2 drop-shadow-md">
-            USERS TRUST US
-          </h2>
-          <p className="text-xl sm:text-2xl font-extrabold text-white tracking-wide uppercase">
-            The Pakistan's Leading Escrow Trade
-          </p>
-        </div>
-
-        {/* 4. Stats Section - Restored to Original Old White Cards Style */}
-        <div className="grid grid-cols-3 gap-4 text-center">
-          {[
-            { number: "1000+", label: "SAFE DEALS" },
-            { number: "9.5M+", label: "PROTECTED" },
-            { number: "4.9/5", label: "RATING" },
-          ].map((stat, i) => (
-            <div key={i} className="bg-white rounded-[2rem] py-8 px-2 shadow-2xl flex flex-col items-center justify-center transition-all transform hover:scale-105">
-              <div className="text-2xl sm:text-4xl font-black text-[#ff9800] mb-1">{stat.number}</div>
-              <div className="text-[#1a237e] text-[10px] sm:text-xs font-bold tracking-widest uppercase">{stat.label}</div>
+        {/* Complex Deal / WhatsApp Support Box */}
+        <div className="bg-gradient-to-r from-[#1a237e]/80 to-[#0f172a] border border-[#ff9800]/30 rounded-3xl p-6 sm:p-8 text-center shadow-xl">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#25d366]/20 flex items-center justify-center shrink-0">
+              <MessageCircle className="h-7 w-7 text-[#25d366]" />
             </div>
-          ))}
+            <div className="text-center sm:text-left">
+              <h4 className="text-lg sm:text-xl font-bold text-white mb-1">Have a Complex Deal or Custom Agreement?</h4>
+              <p className="text-white/70 text-sm">
+                Need manual assistance or special arrangements? Connect directly with our OloBuy team via WhatsApp for personalized handling.
+              </p>
+            </div>
+            <a 
+              href="https://wa.me/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="mt-2 sm:mt-0 shrink-0 bg-[#25d366] hover:bg-[#20ba5a] text-white font-bold px-6 py-3 rounded-2xl transition-all shadow-md text-sm flex items-center gap-2"
+            >
+              <span>Chat on WhatsApp</span>
+            </a>
+          </div>
         </div>
 
       </div>
