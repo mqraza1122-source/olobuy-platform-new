@@ -1,3 +1,4 @@
+
 'use client';
 import { MessageSquareText, Landmark, Package, ShieldCheck, MessageCircle } from 'lucide-react';
 
@@ -30,7 +31,7 @@ export function HowItWorks() {
       <div className="mx-auto max-w-5xl">
         
         {/* Section Header */}
-        <div className="text-center mb-12 opacity-0 animate-[fadeInLeft_0.8s_ease-out_forwards]">
+        <div className="text-center mb-12 transition-all duration-700 transform translate-y-0 opacity-100">
           <div className="inline-block bg-[#ff9800] text-[#1a237e] font-black px-8 py-4 rounded-[2rem] text-2xl mb-4 shadow-lg">
             HOW IT WORKS
           </div>
@@ -39,18 +40,17 @@ export function HowItWorks() {
           </p>
         </div>
 
-        {/* Steps Grid with Brand Level Fade Left & Staggered Pop-up */}
+        {/* Steps Grid */}
         <div className="grid md:grid-cols-2 gap-6 mb-10">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
               <div 
                 key={i} 
-                className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-500 group opacity-0 animate-[fadeInLeft_0.8s_cubic-bezier(0.16,1,0.3,1)_forwards]"
-                style={{ animationDelay: `${i * 200}ms` }}
+                className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-500 group shadow-xl hover:border-[#ff9800]/50"
               >
                 <div className="flex items-start gap-5">
-                  <div className="mt-1 w-12 h-12 rounded-2xl bg-[#ff9800]/10 flex items-center justify-center group-hover:bg-[#ff9800]/20 transition-colors">
+                  <div className="mt-1 w-12 h-12 rounded-2xl bg-[#ff9800]/10 flex items-center justify-center group-hover:bg-[#ff9800]/20 transition-colors shrink-0">
                     <Icon className="h-7 w-7 text-[#ff9800]" />
                   </div>
                   
@@ -70,7 +70,7 @@ export function HowItWorks() {
         </div>
 
         {/* WhatsApp Support Box */}
-        <div className="bg-gradient-to-r from-[#1a237e]/80 to-[#0f172a] border border-[#ff9800]/30 rounded-3xl p-6 sm:p-8 text-center shadow-xl opacity-0 animate-[fadeInLeft_1s_ease-out_0.6s_forwards]">
+        <div className="bg-gradient-to-r from-[#1a237e]/90 to-[#0f172a] border border-[#ff9800]/30 rounded-3xl p-6 sm:p-8 text-center shadow-2xl">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-[#25d366]/20 flex items-center justify-center shrink-0">
               <MessageCircle className="h-7 w-7 text-[#25d366]" />
@@ -93,20 +93,6 @@ export function HowItWorks() {
         </div>
 
       </div>
-
-      {/* Custom Brand Level Fade Left Keyframes */}
-      <style jsx global>{`
-        @keyframes fadeInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-      `}</style>
     </section>
   );
-}
+          }
