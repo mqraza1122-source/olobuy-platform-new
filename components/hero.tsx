@@ -44,7 +44,7 @@ export function Hero() {
         return;
       }
 
-      router.push(`/deal/${dealCode}`);
+      router.push(`/deal/${dealCode}?role=${role.toLowerCase()}`);
     } catch (err: any) {
       console.error("Catch Error:", err);
       alert("Network Error: " + (err.message || "Something went wrong"));
@@ -148,4 +148,4 @@ export function Hero() {
       </div>
     </section>
   );
-    }
+      }
