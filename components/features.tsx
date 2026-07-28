@@ -65,7 +65,7 @@ export function Features() {
         <div className="grid grid-cols-3 gap-4 text-center">
           {[
             { number: "1000+", label: "SAFE DEALS" },
-            { number: "9.5M+", label: "PROTECTED" },
+            { number: "9.5M+", label: "PKR PROTECTED" },
             { number: "4.9/5", label: "RATING" },
           ].map((stat, i) => (
             <div key={i} className="bg-white rounded-[2rem] py-8 px-2 shadow-2xl flex flex-col items-center justify-center transition-all transform hover:scale-105">
