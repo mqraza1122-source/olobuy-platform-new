@@ -1,8 +1,12 @@
 'use client';
 import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@supabase/supabase-js';
 import { ShieldCheck, MessageSquare, Send, Building2, ExternalLink, Check, AlertCircle, Copy, Key } from 'lucide-react';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 function DealContent() {
   const params = useParams();
@@ -12,7 +16,6 @@ function DealContent() {
   const roleQuery = searchParams.get('role');
   const [currentRole, setCurrentRole] = useState<string>(roleQuery ? roleQuery : 'Buyer');
 
-  const supabase = createClientComponentClient();
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   
@@ -441,11 +444,11 @@ function DealContent() {
           </div>
 
           <form onSubmit={sendChatMessage} className="flex gap-2">
-            <input 
+          <input 
               type="text"
               placeholder="Type a message..."
               value={newMessage}
-         onChange={(e) => setNewMessage(e.target.value)}
+              onChange={(e) => setNewMessage(e.target.value)}
               className="flex-1 bg-[#0a0f1c] border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-[#ff9800]"
             />
             <button type="submit" className="bg-[#ff9800] hover:bg-[#e08600] text-[#0f172a] px-4 rounded-xl font-bold cursor-pointer transition-all shadow-md">
