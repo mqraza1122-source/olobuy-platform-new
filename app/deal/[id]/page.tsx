@@ -1,10 +1,10 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { ShieldCheck, MessageSquare, Send, Building2, ExternalLink, ChevronDown, ChevronUp, Edit3, Check, Clock, AlertCircle } from 'lucide-react';
+import { ShieldCheck, MessageSquare, Send, Building2, ExternalLink, Check, AlertCircle, Copy, Key } from 'lucide-react';
 
-export default function DealDetailsPage() {
+function DealContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const id = params?.code || params?.id;
@@ -15,21 +15,17 @@ export default function DealDetailsPage() {
   const supabase = createClientComponentClient();
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [detailsOpen, setDetailsOpen] = useState<boolean>(true);
-  const [isEditingSeller, setIsEditingSeller] = useState<boolean>(false);
   
-  // Seller editable fields
-  const [sellerName, setSellerName] = useState<string>('');
-  const [sellerContact, setSellerContact] = useState<string>('');
-  const [sellerAccount, setSellerAccount] = useState<string>('');
-
+  const [buyerPhone, setBuyerPhone] = useState<string>('');
+  const [verificationPin, setVerificationPin] = useState<string>('');
+  const [courierInfo, setCourierInfo] = useState<string>('');
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
 
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
 
-  // OloBuy Official WhatsApp Number
   const adminWhatsApp = '923043031572';
+  const oloAccountNum = '03043031572';
 
   useEffect(() => {
     if (roleQuery) {
@@ -53,7 +49,9 @@ export default function DealDetailsPage() {
             filter: `deal_code=eq.${id}`,
           },
           (payload) => {
-            setMessages((prev) => [...prev, payload.new]);
+            if (payload && payload.new) {
+              setMessages((prev) => [...prev, payload.new]);
+            }
           }
         )
         .subscribe();
@@ -90,22 +88,25 @@ export default function DealDetailsPage() {
   }, [deal]);
 
   const fetchDeal = async () => {
-    const { data, error } = await supabase
-      .from('deals')
-      .select('*')
-      .eq('deal_code', id)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from('deals')
+        .select('*')
+        .eq('deal_code', id)
+        .single();
 
-    if (error) {
-      console.error(error);
-      setDeal(null);
-    } else {
-      setDeal(data);
-      if (data?.seller_name) setSellerName(data.seller_name);
-      if (data?.seller_contact) setSellerContact(data.seller_contact);
-      if (data?.seller_account) setSellerAccount(data.seller_account);
+      if (error) {
+        console.error('Supabase error:', error.message);
+        setDeal(null);
+      } else {
+        setDeal(data);
+        if (data?.buyer_phone) setBuyerPhone(data.buyer_phone);
+      }
+    } catch (err) {
+      console.error('Fetch exception:', err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const fetchMessages = async () => {
@@ -120,30 +121,66 @@ export default function DealDetailsPage() {
     }
   };
 
-  const saveSellerDetails = async (e: React.FormEvent) => {
+  const saveBuyerPhone = async (e: React.FormEvent) => {
     e.preventDefault();
     const { error } = await supabase
       .from('deals')
-      .update({
-        seller_name: sellerName,
-        seller_contact: sellerContact,
-        seller_account: sellerAccount,
-      })
+      .update({ buyer_phone: buyerPhone })
       .eq('deal_code', id);
 
     if (error) {
-      alert('Error updating seller details: ' + error.message);
+      alert('Error: ' + error.message);
       return;
     }
+    setDeal((prev: any) => ({ ...prev, buyer_phone: buyerPhone }));
+    alert('Phone number saved successfully!');
+  };
 
-    setDeal({ ...deal, seller_name: sellerName, seller_contact: sellerContact, seller_account: sellerAccount });
-    setIsEditingSeller(false);
-    alert('Seller details updated successfully!');
+  const sendPaymentProofWhatsApp = () => {
+    if (!deal) return;
+    const text = encodeURIComponent(`Hello OloBuy Admin, here is the payment screenshot/proof for Deal #${deal.deal_code}. Amount: Rs ${deal.amount}. Please verify and secure.`);
+    window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
+  };
+
+  const verifyPin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!verificationPin || verificationPin.length < 4) {
+      alert('Please enter a valid 4-digit PIN');
+      return;
+    }
+    const { error } = await supabase
+      .from('deals')
+      .update({ status: 'secured' })
+      .eq('deal_code', id);
+
+    if (error) {
+      alert('Error verifying: ' + error.message);
+      return;
+    }
+    setDeal((prev: any) => ({ ...prev, status: 'secured' }));
+    alert('Payment secured successfully!');
+  };
+
+  const submitShipping = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!courierInfo || !courierInfo.trim()) return;
+
+    const { error } = await supabase
+      .from('deals')
+      .update({ status: 'shipped', shipping_info: courierInfo })
+      .eq('deal_code', id);
+
+    if (error) {
+      alert('Error: ' + error.message);
+      return;
+    }
+    setDeal((prev: any) => ({ ...prev, status: 'shipped', shipping_info: courierInfo }));
+    alert('Shipping info submitted and buyer notified!');
   };
 
   const sendChatMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newMessage.trim()) return;
+    if (!newMessage || !newMessage.trim()) return;
 
     const { error } = await supabase.from('deal_chats').insert([
       {
@@ -159,6 +196,7 @@ export default function DealDetailsPage() {
   };
 
   const releasePayment = async () => {
+    if (!deal) return;
     const { error } = await supabase
       .from('deals')
       .update({ status: 'completed' })
@@ -169,9 +207,9 @@ export default function DealDetailsPage() {
       return;
     }
 
-    setDeal({ ...deal, status: 'completed' });
+    setDeal((prev: any) => ({ ...prev, status: 'completed' }));
     
-    const text = encodeURIComponent(`Hello OloBuy Team, I have confirmed the product for Deal #${deal.deal_code}. I have confirmed payment release, please clear the funds to the seller. Thank you!`);
+    const text = encodeURIComponent(`Hello OloBuy Team, I have confirmed the product for Deal #${deal.deal_code}. Payment released to seller. Thank you!`);
     window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
   };
 
@@ -194,10 +232,10 @@ export default function DealDetailsPage() {
     );
   }
 
-  const isCompleted = deal.status === 'completed';
-  const isSecured = deal.status === 'secured' || deal.status === 'paid';
-  const isShipped = deal.status === 'shipped';
-  const isAccepted = deal.seller_accepted || deal.status === 'accepted';
+  const dealStatus = deal?.status || 'pending';
+  const isCompleted = dealStatus === 'completed';
+  const isSecured = dealStatus === 'secured' || dealStatus === 'paid';
+  const isShipped = dealStatus === 'shipped';
 
   return (
     <main className="min-h-screen bg-[#07090e] text-slate-100 p-4 sm:p-6 flex items-center justify-center font-sans antialiased">
@@ -207,125 +245,139 @@ export default function DealDetailsPage() {
         <header className="text-center">
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-3 shadow-inner">
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">OloBuy Secure Escrow ({currentRole})</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">OloBuy Secure Escrow ({currentRole} View)</span>
           </div>
-          <h1 className="text-3xl font-black tracking-tight text-white mb-3">Deal #{deal.deal_code}</h1>
-          
-          {/* Seller Details Accordion */}
-          <div className="bg-[#121b2f] border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-lg">
-            <button
-              onClick={() => setDetailsOpen(!detailsOpen)}
-              className="w-full px-4 py-3.5 flex items-center justify-between text-left cursor-pointer hover:bg-slate-800/50 transition-all"
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ff9800] shadow-[0_0_8px_rgba(255,152,0,0.6)]"></span>
-                <span className="text-xs font-bold text-white tracking-wide uppercase truncate max-w-[210px]">
-                  {deal.product_name || 'Item'}
-                </span>
-              </div>
-              {detailsOpen ? <ChevronUp className="h-4 w-4 text-[#ff9800]" /> : <ChevronDown className="h-4 w-4 text-[#ff9800]" />}
-            </button>
-
-            {detailsOpen && (
-              <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 bg-[#0a0f1c] text-left space-y-3 text-xs">
-                <div className="flex justify-between items-center pb-1.5 border-b border-slate-800/60">
-                  <span className="text-slate-400 font-medium">Product:</span>
-                  <span className="font-bold text-white">{deal.product_name || 'N/A'}</span>
-                </div>
-
-                {!isEditingSeller ? (
-                  <>
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-400 font-medium">Seller Name:</span>
-                      <span className="font-bold text-slate-200">{deal.seller_name || 'Not Provided'}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-400 font-medium">Seller Contact:</span>
-                      <span className="font-bold text-slate-200 select-all">{deal.seller_contact || 'Not Provided'}</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-1">
-                      <span className="text-slate-400 font-medium">Seller Account #:</span>
-                      <span className="font-bold text-[#ff9800] select-all">{deal.seller_account || 'Not Provided'}</span>
-                    </div>
-                    <button
-                      onClick={() => setIsEditingSeller(true)}
-                      className="w-full mt-1 bg-[#121b2f] hover:bg-slate-800 text-indigo-400 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer border border-indigo-500/20 shadow-inner"
-                    >
-                      <Edit3 className="h-3.5 w-3.5" />
-                      {deal.seller_name ? 'Update Seller Info' : 'Add Seller Details'}
-                    </button>
-                  </>
-                ) : (
-                  <form onSubmit={saveSellerDetails} className="space-y-3 pt-1">
-                    <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Name</label>
-                      <input 
-                        type="text"
-                        placeholder="e.g. Ali Ahmed"
-                        value={sellerName}
-                        onChange={(e) => setSellerName(e.target.value)}
-                        className="w-full bg-[#07090e] border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none focus:border-[#ff9800]"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Contact</label>
-                      <input 
-                        type="text"
-                        placeholder="e.g. 0300-1234567"
-                        value={sellerContact}
-                        onChange={(e) => setSellerContact(e.target.value)}
-                        className="w-full bg-[#07090e] border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none focus:border-[#ff9800]"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Account # / IBAN</label>
-                      <input 
-                        type="text"
-                        placeholder="JazzCash / Bank Account #"
-                        value={sellerAccount}
-                        onChange={(e) => setSellerAccount(e.target.value)}
-                        className="w-full bg-[#07090e] border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none focus:border-[#ff9800]"
-                        required
-                      />
-                    </div>
-                    <div className="flex gap-2 pt-1">
-                      <button 
-                        type="submit" 
-                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-bold uppercase text-[10px] tracking-wider flex items-center justify-center gap-1 cursor-pointer shadow-md"
-                      >
-                        <Check className="h-3 w-3" /> Save Details
-                      </button>
-                      <button 
-                        type="button" 
-                        onClick={() => setIsEditingSeller(false)}
-                        className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2.5 rounded-xl font-bold uppercase text-[10px] cursor-pointer"
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
-                )}
-              </div>
-            )}
-          </div>
+          <h1 className="text-3xl font-black tracking-tight text-white mb-1">Deal #{deal?.deal_code}</h1>
+          <p className="text-xs text-slate-400 font-medium capitalize">{deal?.product_name || 'E-commerce parcel'}</p>
         </header>
 
-        {/* Timer & Release Payment Section */}
-        {currentRole === 'Buyer' && !isCompleted && timeLeft && (
+        {/* Progress Stage Bar */}
+        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg">
+          <div className="flex justify-between items-center text-xs font-bold text-slate-400 mb-3">
+            <span>Escrow Stage</span>
+            <span className="text-[#ff9800] uppercase tracking-wider">{dealStatus}</span>
+          </div>
+          <div className="grid grid-cols-4 gap-1.5">
+            <div className="h-2 rounded-full bg-[#ff9800] shadow-[0_0_6px_rgba(255,152,0,0.5)]"></div>
+            <div className={`h-2 rounded-full ${isSecured || isShipped || isCompleted ? 'bg-[#ff9800] shadow-[0_0_6px_rgba(255,152,0,0.5)]' : 'bg-slate-800'}`}></div>
+            <div className={`h-2 rounded-full ${isShipped || isCompleted ? 'bg-[#ff9800] shadow-[0_0_6px_rgba(255,152,0,0.5)]' : 'bg-slate-800'}`}></div>
+            <div className={`h-2 rounded-full ${isCompleted ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.5)]' : 'bg-slate-800'}`}></div>
+          </div>
+          <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 mt-2 uppercase">
+            <span>Created</span>
+            <span>Accepted</span>
+            <span>Secured</span>
+            <span>Done</span>
+          </div>
+        </section>
+
+        {/* Amount Card */}
+        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">Escrow Amount</span>
+            <span className="text-2xl font-black text-[#ff9800] drop-shadow-sm">Rs {Number(deal?.amount || 0).toLocaleString()}</span>
+          </div>
+          <div className="flex justify-between items-center pt-2 border-t border-slate-800/80">
+            <span className="text-slate-400 text-xs">Transaction Status</span>
+            <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${isCompleted ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : isSecured ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20' : 'bg-[#ff9800]/10 text-[#ff9800] border border-[#ff9800]/20'}`}>
+              {dealStatus}
+            </span>
+          </div>
+        </section>
+
+        {/* Buyer View */}
+        {currentRole === 'Buyer' && !isSecured && !isCompleted && (
+          <>
+            <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+              <div className="text-xs font-bold text-slate-300 uppercase tracking-wider">Step 1: Enter Your Phone Number</div>
+              <form onSubmit={saveBuyerPhone} className="flex gap-2">
+                <input 
+                  type="text"
+                  placeholder="03001234567"
+                  value={buyerPhone}
+                  onChange={(e) => setBuyerPhone(e.target.value)}
+                  className="flex-1 bg-[#0a0f1c] border border-slate-700/80 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-[#ff9800]"
+                  required
+                />
+                <button type="submit" className="bg-[#1a237e] hover:bg-[#283593] text-white px-5 rounded-xl font-bold text-xs uppercase cursor-pointer shadow-md">
+                  Save
+                </button>
+              </form>
+            </section>
+
+            <section className="bg-gradient-to-br from-[#121b2f] to-[#1a120b] border border-[#ff9800]/30 rounded-2xl p-5 shadow-xl space-y-4">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#ff9800] uppercase tracking-wider">
+                <Building2 className="h-4 w-4" />
+                <span>Send Payment to OloBuy Official Account</span>
+              </div>
+              <p className="text-slate-300 text-xs">
+                Please transfer <strong className="text-[#ff9800]">Rs {Number(deal?.amount || 0).toLocaleString()}</strong> to the account below and send screenshot on WhatsApp.
+              </p>
+              
+              <div className="bg-[#0a0f1c] p-3.5 rounded-xl border border-slate-800 flex items-center justify-between">
+                <div className="text-xs space-y-0.5">
+                  <span className="text-[10px] text-slate-400 font-bold uppercase block">Easypaisa / JazzCash</span>
+                  <strong className="text-white text-sm select-all">{oloAccountNum}</strong>
+                  <span className="text-[10px] text-slate-400 block">(OloBuy Escrow)</span>
+                </div>
+                <button 
+                  type="button"
+                  onClick={() => { navigator.clipboard.writeText(oloAccountNum); alert('Account number copied!'); }}
+                  className="bg-[#ff9800] hover:bg-[#e08600] text-[#0f172a] px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer transition-all shadow-md"
+                >
+                  <Copy className="h-3.5 w-3.5" /> Copy
+                </button>
+              </div>
+
+              <button 
+                type="button"
+                onClick={sendPaymentProofWhatsApp}
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-wider shadow-lg cursor-pointer flex items-center justify-center gap-2 transition-all"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Send Payment Proof on WhatsApp
+              </button>
+            </section>
+
+            <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+                <Key className="h-4 w-4 text-[#ff9800]" />
+                <span>Have you received PIN from Admin?</span>
+              </div>
+              <p className="text-[11px] text-slate-400">Enter the 4-digit verification PIN provided on WhatsApp after payment approval.</p>
+              <form onSubmit={verifyPin} className="flex gap-2">
+                <input 
+                  type="text"
+                  maxLength={4}
+                  placeholder="Enter PIN"
+                  value={verificationPin}
+                  onChange={(e) => setVerificationPin(e.target.value)}
+                  className="flex-1 bg-[#0a0f1c] border border-slate-700/80 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-[#ff9800] tracking-widest text-center font-bold"
+                  required
+                />
+                <button type="submit" className="bg-[#ff9800] hover:bg-[#e08600] text-[#0f172a] px-5 rounded-xl font-black text-xs uppercase cursor-pointer shadow-md">
+                  Verify
+                </button>
+              </form>
+            </section>
+          </>
+        )}
+
+        {/* Buyer Secured View */}
+        {currentRole === 'Buyer' && isSecured && !isCompleted && timeLeft && (
           <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-xl text-center space-y-4">
-            <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-              <Clock className="h-4 w-4 text-[#ff9800]" />
-              <span>Inspection Period Countdown</span>
+            <div className="flex items-center justify-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wider">
+              <Check className="h-4 w-4" />
+              <span>Funds Secured in Escrow</span>
             </div>
             <div className="grid grid-cols-4 gap-2 text-xs">
-              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800 shadow-inner"><span className="block font-black text-white text-sm">{timeLeft.days}</span>Days</div>
-              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800 shadow-inner"><span className="block font-black text-white text-sm">{timeLeft.hours}</span>Hours</div>
-              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800 shadow-inner"><span className="block font-black text-white text-sm">{timeLeft.minutes}</span>Mins</div>
-              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800 shadow-inner"><span className="block font-black text-white text-sm">{timeLeft.seconds}</span>Secs</div>
+              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800"><span className="block font-black text-white text-sm">{timeLeft.days}</span>Days</div>
+              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800"><span className="block font-black text-white text-sm">{timeLeft.hours}</span>Hours</div>
+              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800"><span className="block font-black text-white text-sm">{timeLeft.minutes}</span>Mins</div>
+              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800"><span className="block font-black text-white text-sm">{timeLeft.seconds}</span>Secs</div>
             </div>
             <button 
+              type="button"
               onClick={releasePayment} 
               className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer flex items-center justify-center gap-2 transition-all"
             >
@@ -335,47 +387,44 @@ export default function DealDetailsPage() {
           </section>
         )}
 
-        {/* Progress Stage Bar */}
-        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg">
-          <div className="flex justify-between items-center text-xs font-bold text-slate-400 mb-3">
-            <span>Escrow Stage</span>
-            <span className="text-[#ff9800] uppercase tracking-wider">{deal.status || 'pending'}</span>
-          </div>
-          <div className="grid grid-cols-4 gap-1.5">
-            <div className="h-2 rounded-full bg-[#ff9800] shadow-[0_0_6px_rgba(255,152,0,0.5)]"></div>
-            <div className={`h-2 rounded-full ${isAccepted || isSecured || isShipped || isCompleted ? 'bg-[#ff9800] shadow-[0_0_6px_rgba(255,152,0,0.5)]' : 'bg-slate-800'}`}></div>
-            <div className={`h-2 rounded-full ${isSecured || isShipped || isCompleted ? 'bg-[#ff9800] shadow-[0_0_6px_rgba(255,152,0,0.5)]' : 'bg-slate-800'}`}></div>
-            <div className={`h-2 rounded-full ${isCompleted ? 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.5)]' : 'bg-slate-800'}`}></div>
-          </div>
-        </section>
+        {/* Seller View */}
+        {currentRole === 'Seller' && isSecured && !isCompleted && (
+          <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+            <div className="text-xs font-bold text-slate-300 uppercase tracking-wider">Submit Shipping / Service Delivery</div>
+            <form onSubmit={submitShipping} className="space-y-2">
+              <input 
+                type="text"
+                placeholder="Enter Courier Name / Tracking / Details"
+                value={courierInfo}
+                onChange={(e) => setCourierInfo(e.target.value)}
+                className="w-full bg-[#0a0f1c] border border-slate-700/80 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-[#ff9800]"
+                required
+              />
+              <button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-xs uppercase cursor-pointer shadow-md">
+                Notify Buyer & Submit
+              </button>
+            </form>
+          </section>
+        )}
 
-        {/* Amount Card */}
-        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg">
-          <div className="flex justify-between items-center">
-            <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">Escrow Amount</span>
-            <span className="text-2xl font-black text-[#ff9800] drop-shadow-sm">Rs {Number(deal.amount || 0).toLocaleString()}</span>
-          </div>
-        </section>
+        {/* Completed Notice */}
+        {isCompleted && (
+          <section className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-5 text-center space-y-2">
+            <Check className="h-8 w-8 text-emerald-400 mx-auto" />
+            <h3 className="text-sm font-bold text-emerald-400 uppercase">Deal Completed Successfully</h3>
+            <p className="text-xs text-slate-300">Funds have been securely released to the seller.</p>
+          </section>
+        )}
 
-        {/* OloBuy Official Account Section */}
-        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-            <Building2 className="h-4 w-4 text-[#ff9800]" />
-            <span>Official Escrow Account</span>
-          </div>
-          <div className="bg-[#0a0f1c] p-3 rounded-xl border border-slate-800/80 text-xs space-y-1">
-            <p className="text-slate-400">Bank / Wallet: <strong className="text-white">JazzCash / Meezan Bank</strong></p>
-            <p className="text-slate-400">Title: <strong className="text-white">OloBuy Official Escrow</strong></p>
-            <p className="text-slate-400">Account #: <strong className="text-[#ff9800] select-all">0304-3031572</strong></p>
-          </div>
-        </section>
-
-        {/* Live Chat Section */}
+        {/* Live Chat */}
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-            <MessageSquare className="h-4 w-4 text-[#ff9800]" />
-            <span>Secure Deal Chat</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+              <MessageSquare className="h-4 w-4 text-[#ff9800]" />
+              <span>Secure Deal Chat (P2P)</span>
+            </div>
           </div>
+          
           <div className="bg-[#0a0f1c] h-40 overflow-y-auto rounded-xl p-3 border border-slate-800/80 space-y-2 text-xs">
             {messages.length === 0 ? (
               <p className="text-slate-500 text-center py-10">No messages yet. Start conversation below!</p>
@@ -390,12 +439,13 @@ export default function DealDetailsPage() {
               ))
             )}
           </div>
+
           <form onSubmit={sendChatMessage} className="flex gap-2">
             <input 
               type="text"
               placeholder="Type a message..."
               value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
+         onChange={(e) => setNewMessage(e.target.value)}
               className="flex-1 bg-[#0a0f1c] border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-[#ff9800]"
             />
             <button type="submit" className="bg-[#ff9800] hover:bg-[#e08600] text-[#0f172a] px-4 rounded-xl font-bold cursor-pointer transition-all shadow-md">
@@ -407,4 +457,12 @@ export default function DealDetailsPage() {
       </div>
     </main>
   );
-  }
+}
+
+export default function DealPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#07090e] text-[#ff9800] flex items-center justify-center font-bold text-xs uppercase tracking-widest">Loading...</div>}>
+      <DealContent />
+    </Suspense>
+  );
+}
