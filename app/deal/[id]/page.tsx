@@ -407,4 +407,4 @@ export default function DealDetailsPage() {
       </div>
     </main>
   );
-                  }
+    }
