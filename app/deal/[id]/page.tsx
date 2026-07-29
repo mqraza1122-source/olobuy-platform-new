@@ -1,10 +1,10 @@
 'use client';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Headphones, Edit3, Check, Clock, AlertCircle } from 'lucide-react';
 
-function DealContent() {
+export default function DealDetailsPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const id = params?.id;
@@ -185,27 +185,6 @@ function DealContent() {
     alert('Deal accepted successfully!');
   };
 
-  const submitTracking = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!trackingNumber.trim()) {
-      alert('Please enter courier/tracking details');
-      return;
-    }
-
-    const { error } = await supabase
-      .from('deals')
-      .update({ status: 'shipped' })
-      .eq('deal_code', id);
-
-    if (error) {
-      alert('Error: ' + error.message);
-      return;
-    }
-
-    setDeal({ ...deal, status: 'shipped' });
-    alert('Tracking submitted successfully!');
-  };
-
   const markAsSecured = async () => {
     try {
       const { error } = await supabase
@@ -253,25 +232,7 @@ function DealContent() {
     const message = encodeURIComponent(`AOA! Please join OloBuy Escrow secure deal chat here: ${inviteLink}`);
     window.open(`https://wa.me/?text=${message}`, '_blank');
   };
-
-  const openWhatsAppForScreenshot = () => {
-    const text = encodeURIComponent(
-      `Hello OloBuy Team, I have paid Rs ${Number(deal.amount || 0).toLocaleString()} for Deal #${deal.deal_code}.\n\n` +
-      `📦 Product: ${deal.product_name || 'N/A'}\n` +
-      `👤 Seller Name: ${deal.seller_name || sellerName || 'N/A'}\n` +
-      `📞 Seller Contact: ${deal.seller_contact || sellerContact || 'N/A'}\n` +
-      `🏦 Seller Account #: ${deal.seller_account || sellerAccount || 'N/A'}\n\n` +
-      `Here is my payment screenshot:`
-    );
-    window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
-  };
-
-  const openComplexDealWhatsApp = () => {
-    const text = encodeURIComponent(`Hello OloBuy Team, I need assistance with a complex deal for Deal #${deal.deal_code} (${deal.product_name || 'General'}). Please guide me.`);
-    window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
-  };
-
-  if (loading) {
+    if (loading) {
     return (
       <div className="min-h-screen bg-[#07090e] flex items-center justify-center text-[#ff9800] font-bold text-xs tracking-widest uppercase">
         Loading OloBuy Secure Escrow...
@@ -307,7 +268,7 @@ function DealContent() {
           </div>
           <h1 className="text-3xl font-black tracking-tight text-white mb-3">Deal #{deal.deal_code}</h1>
           
-          {/* Brand Level Professional Accordion Button with Seller Details */}
+          {/* Seller Details Accordion */}
           <div className="bg-[#121b2f] border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-lg">
             <button
               onClick={() => setDetailsOpen(!detailsOpen)}
@@ -316,21 +277,17 @@ function DealContent() {
               <div className="flex items-center gap-2.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#ff9800] shadow-[0_0_8px_rgba(255,152,0,0.6)]"></span>
                 <span className="text-xs font-bold text-white tracking-wide uppercase truncate max-w-[210px]">
-                  {deal.product_name || 'Gaming accounts'}
+                  {deal.product_name || 'Item'}
                 </span>
               </div>
-              {detailsOpen ? (
-                <ChevronUp className="h-4 w-4 text-[#ff9800]" />
-              ) : (
-                <ChevronDown className="h-4 w-4 text-[#ff9800]" />
-              )}
+              {detailsOpen ? <ChevronUp className="h-4 w-4 text-[#ff9800]" /> : <ChevronDown className="h-4 w-4 text-[#ff9800]" />}
             </button>
 
             {detailsOpen && (
               <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 bg-[#0a0f1c] text-left space-y-3 text-xs">
                 <div className="flex justify-between items-center pb-1.5 border-b border-slate-800/60">
-                  <span className="text-slate-400 font-medium">Buying:</span>
-                  <span className="font-bold text-white">{deal.product_name || 'Gaming accounts'}</span>
+                  <span className="text-slate-400 font-medium">Product:</span>
+                  <span className="font-bold text-white">{deal.product_name || 'N/A'}</span>
                 </div>
 
                 {!isEditingSeller ? (
@@ -412,7 +369,7 @@ function DealContent() {
           </div>
         </header>
 
-        {/* 🌟 MOVED: Timer & Escrow Stage / Action Controls to Top */}
+        {/* Timer & Release Payment Section */}
         {currentRole === 'Buyer' && (isShipped || isSecured) && !isCompleted && timeLeft && (
           <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-xl text-center space-y-4">
             <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
@@ -457,188 +414,55 @@ function DealContent() {
           </div>
         </section>
 
-        {/* Secure Chat & Invite Section */}
-        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg">
-          <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-slate-800/80">
-            <div className="flex items-center gap-2">
-              <MessageSquare className="h-4 w-4 text-[#ff9800]" />
-              <h3 className="font-bold text-slate-200 text-xs uppercase tracking-wider">Secure Deal Chat</h3>
-            </div>
-            
-            {currentRole === 'Buyer' && (
-              <button 
-                onClick={() => handleInvite('Seller')}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-xl flex items-center gap-1 cursor-pointer transition-all shadow-md"
-              >
-                <Share2 className="h-3 w-3" />
-                Invite seller
-              </button>
-            )}
-
-            {currentRole === 'Seller' && (
-              <button 
-                onClick={() => handleInvite('Buyer')}
-                className="bg-[#ff9800] hover:bg-orange-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-xl flex items-center gap-1 cursor-pointer transition-all shadow-md"
-              >
-                <Share2 className="h-3 w-3" />
-                Invite buyer
-              </button>
-            )}
+        {/* OloBuy Official Account Section */}
+        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+          <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+            <Building2 className="h-4 w-4 text-[#ff9800]" />
+            <span>Official Escrow Account</span>
           </div>
+          <div className="bg-[#0a0f1c] p-3 rounded-xl border border-slate-800/80 text-xs space-y-1">
+            <p className="text-slate-400">Bank / Wallet: <strong className="text-white">JazzCash / Meezan Bank</strong></p>
+            <p className="text-slate-400">Title: <strong className="text-white">OloBuy Official Escrow</strong></p>
+            <p className="text-slate-400">Account #: <strong className="text-[#ff9800] select-all">0304-3031572</strong></p>
+          </div>
+        </section>
 
-          {copied && (
-            <div className="mb-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold p-2.5 rounded-xl text-center shadow-inner">
-              ✓ Invite link copied & WhatsApp opened!
-            </div>
-          )}
-
-          <div className="h-44 overflow-y-auto space-y-2.5 mb-3 pr-1 text-xs scrollbar-thin">
+        {/* Live Chat Section */}
+        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
+          <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+            <MessageSquare className="h-4 w-4 text-[#ff9800]" />
+            <span>Secure Deal Chat</span>
+          </div>
+          <div className="bg-[#0a0f1c] h-40 overflow-y-auto rounded-xl p-3 border border-slate-800/80 space-y-2 text-xs">
             {messages.length === 0 ? (
-              <p className="text-center text-slate-500 py-10 font-medium">No messages yet.</p>
+              <p className="text-slate-500 text-center py-10">No messages yet. Start conversation below!</p>
             ) : (
-              messages.map((msg, index) => {
-                const isMe = msg.sender_role === currentRole;
-                return (
-                  <div key={index} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
-                    <span className="text-[9px] font-bold text-slate-500 mb-0.5">{msg.sender_role}</span>
-                    <div className={`p-3 rounded-2xl max-w-[85%] leading-relaxed ${isMe ? 'bg-indigo-600 text-white font-medium shadow-md' : 'bg-[#0a0f1c] border border-slate-800 text-slate-200'}`}>
-                      {msg.message}
-                    </div>
+              messages.map((msg, idx) => (
+                <div key={idx} className={`flex flex-col ${msg.sender_role === currentRole ? 'items-end' : 'items-start'}`}>
+                  <span className="text-[9px] text-slate-500 mb-0.5">{msg.sender_role}</span>
+                  <div className={`p-2.5 rounded-xl max-w-[85%] ${msg.sender_role === currentRole ? 'bg-[#ff9800] text-[#0f172a] font-medium' : 'bg-slate-800 text-slate-200'}`}>
+                    {msg.message}
                   </div>
-                );
-              })
+                </div>
+              ))
             )}
           </div>
-
           <form onSubmit={sendChatMessage} className="flex gap-2">
             <input 
               type="text"
-              placeholder="Type a secure message..."
+              placeholder="Type a message..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              className="bg-[#0a0f1c] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs w-full text-slate-100 placeholder-slate-500 outline-none focus:border-[#ff9800] shadow-inner"
+              className="flex-1 bg-[#0a0f1c] border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-[#ff9800]"
             />
-            <button type="submit" className="bg-[#ff9800] hover:bg-orange-600 text-white px-4 py-2.5 rounded-xl cursor-pointer transition-all shadow-md flex items-center justify-center">
-              <Send className="h-3.5 w-3.5" />
+            <button type="submit" className="bg-[#ff9800] hover:bg-[#e08600] text-[#0f172a] px-4 rounded-xl font-bold cursor-pointer transition-all shadow-md">
+              <Send className="h-4 w-4" />
             </button>
           </form>
         </section>
 
-        {/* Deal via OloBuy Team (For Complex Deal) */}
-        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Headphones className="h-4 w-4 text-[#ff9800]" />
-            <h3 className="font-bold text-slate-200 text-xs uppercase tracking-wider">Deal via OloBuy Team</h3>
-          </div>
-          <p className="text-slate-400 text-[11px] mb-3 font-medium">For complex deals, custom escrow agreements, or specialized support.</p>
-          <button
-            type="button"
-            onClick={openComplexDealWhatsApp}
-            className="w-full bg-[#0a0f1c] hover:bg-slate-900 border border-emerald-500/30 text-emerald-400 py-3 rounded-xl text-xs uppercase font-black tracking-widest shadow-md cursor-pointer flex items-center justify-center gap-2 transition-all"
-          >
-            <ExternalLink className="h-4 w-4" />
-            WhatsApp OloBuy ({adminWhatsApp})
-          </button>
-        </section>
-
-        {/* OloBuy Official Escrow Account & Payment Section */}
-        {currentRole === 'Buyer' && (
-          <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-xl">
-            <div className="flex items-center gap-2 mb-3">
-              <Building2 className="h-5 w-5 text-[#ff9800]" />
-              <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
-            </div>
-            
-            <div className="bg-[#0a0f1c] border border-amber-500/20 rounded-xl p-4 mb-4 text-xs space-y-2 shadow-inner">
-              <p className="text-slate-400 font-medium">Transfer via JazzCash / EasyPaisa / Bank:</p>
-              <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
-              <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
-              <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">{adminWhatsApp}</span></p>
-            </div>
-
-            <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed">
-              Transfer <span className="font-bold text-white">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account above, then click below.
-            </p>
-
-            {!paymentDone ? (
-              <button 
-                type="button"
-                onClick={markAsSecured} 
-                className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer transition-all"
-              >
-                I Have Paid & Secured Amount
-              </button>
-            ) : (
-              <div className="space-y-3">
-                <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-3 rounded-xl text-center shadow-inner">
-                  ✓ Payment recorded successfully!
-                </div>
-                <button 
-                  type="button"
-                  onClick={openWhatsAppForScreenshot}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer flex items-center justify-center gap-2 transition-all"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  Send SS & Seller Details to WhatsApp
-                </button>
-              </div>
-            )}
-          </section>
-        )}
-
-        {/* Seller Controls */}
-        {currentRole === 'Seller' && (
-          <section className="space-y-4">
-            {!isAccepted ? (
-              <div className="bg-[#121b2f] border border-indigo-500/30 rounded-2xl p-5 text-center shadow-xl">
-                <UserCheck className="h-8 w-8 text-indigo-400 mx-auto mb-2" />
-                <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-2">Seller Action Required</h3>
-                <input 
-                  type="number"
-                  min={1}
-                  max={30}
-                  value={inspectionDays}
-                  onChange={(e) => setInspectionDays(Number(e.target.value))}
-                  className="w-full bg-[#0a0f1c] border border-slate-700/80 text-white rounded-xl px-4 py-2.5 text-sm font-bold mb-3 text-center outline-none focus:border-indigo-500 shadow-inner"
-                />
-                <button onClick={sellerAcceptDeal} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest cursor-pointer transition-all shadow-md">
-                  Accept Deal & Start Timer
-                </button>
-              </div>
-            ) : !isShipped && !isCompleted ? (
-              <div className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-xl">
-                <form onSubmit={submitTracking} className="space-y-3">
-                  <input 
-                    type="text"
-                    placeholder="Enter Tracking / Courier Details"
-                    value={trackingNumber}
-                    onChange={(e) => setTrackingNumber(e.target.value)}
-                    className="w-full bg-[#0a0f1c] border border-slate-700/80 text-white placeholder-slate-500 rounded-xl px-4 py-3 text-xs outline-none focus:border-emerald-500 shadow-inner"
-                  />
-                  <button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest cursor-pointer transition-all shadow-md">
-                    Submit Tracking
-                  </button>
-                </form>
-              </div>
-            ) : null}
-          </section>
-        )}
-
-        {isCompleted && (
-          <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-4 rounded-2xl text-center shadow-inner">
-            ✓ Deal Completed & Payment Released Successfully!
-          </div>
-        )}
-
       </div>
     </main>
   );
-}
-
-export default function DealPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[#07090e] text-[#ff9800] flex items-center justify-center font-bold text-xs uppercase tracking-widest">Loading...</div>}>
-      <DealContent />
-    </Suspense>
-  );
-}
+                        }
+  
