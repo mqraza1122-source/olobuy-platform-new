@@ -1,20 +1,20 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
-import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Headphones, Edit3, Check, Clock, AlertCircle } from 'lucide-react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { ShieldCheck, MessageSquare, Send, Building2, ExternalLink, ChevronDown, ChevronUp, Edit3, Check, Clock, AlertCircle } from 'lucide-react';
 
 export default function DealDetailsPage() {
   const params = useParams();
   const searchParams = useSearchParams();
-  const id = params?.id;
+  const id = params?.code || params?.id;
   
   const roleQuery = searchParams.get('role');
   const [currentRole, setCurrentRole] = useState<string>(roleQuery ? roleQuery : 'Buyer');
 
+  const supabase = createClientComponentClient();
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [copied, setCopied] = useState<boolean>(false);
   const [detailsOpen, setDetailsOpen] = useState<boolean>(true);
   const [isEditingSeller, setIsEditingSeller] = useState<boolean>(false);
   
@@ -23,13 +23,10 @@ export default function DealDetailsPage() {
   const [sellerContact, setSellerContact] = useState<string>('');
   const [sellerAccount, setSellerAccount] = useState<string>('');
 
-  const [trackingNumber, setTrackingNumber] = useState<string>('');
-  const [inspectionDays, setInspectionDays] = useState<number>(2);
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
 
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
-  const [paymentDone, setPaymentDone] = useState<boolean>(false);
 
   // OloBuy Official WhatsApp Number
   const adminWhatsApp = '923043031572';
@@ -104,14 +101,9 @@ export default function DealDetailsPage() {
       setDeal(null);
     } else {
       setDeal(data);
-      if (data?.inspection_days) setInspectionDays(data.inspection_days);
       if (data?.seller_name) setSellerName(data.seller_name);
       if (data?.seller_contact) setSellerContact(data.seller_contact);
       if (data?.seller_account) setSellerAccount(data.seller_account);
-
-      if (data?.status === 'secured' || data?.status === 'paid' || data?.status === 'shipped' || data?.status === 'completed') {
-        setPaymentDone(true);
-      }
     }
     setLoading(false);
   };
@@ -166,44 +158,6 @@ export default function DealDetailsPage() {
     }
   };
 
-  const sellerAcceptDeal = async () => {
-    const { error } = await supabase
-      .from('deals')
-      .update({ 
-        seller_accepted: true, 
-        status: 'accepted',
-        inspection_days: inspectionDays
-      })
-      .eq('deal_code', id);
-
-    if (error) {
-      alert('Error: ' + error.message);
-      return;
-    }
-
-    setDeal({ ...deal, seller_accepted: true, status: 'accepted', inspection_days: inspectionDays });
-    alert('Deal accepted successfully!');
-  };
-
-  const markAsSecured = async () => {
-    try {
-      const { error } = await supabase
-        .from('deals')
-        .update({ status: 'secured' })
-        .eq('deal_code', id);
-
-      if (error) {
-        alert('Database Error: ' + error.message);
-        return;
-      }
-
-      setDeal((prev: any) => ({ ...prev, status: 'secured' }));
-      setPaymentDone(true);
-    } catch (err: any) {
-      alert('Unexpected Error: ' + err.message);
-    }
-  };
-
   const releasePayment = async () => {
     const { error } = await supabase
       .from('deals')
@@ -221,18 +175,7 @@ export default function DealDetailsPage() {
     window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
   };
 
-  const handleInvite = (targetRole: 'Buyer' | 'Seller') => {
-    const baseUrl = window.location.origin + window.location.pathname;
-    const inviteLink = `${baseUrl}?role=${targetRole.toLowerCase()}`;
-    
-    navigator.clipboard.writeText(inviteLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 3000);
-
-    const message = encodeURIComponent(`AOA! Please join OloBuy Escrow secure deal chat here: ${inviteLink}`);
-    window.open(`https://wa.me/?text=${message}`, '_blank');
-  };
-    if (loading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-[#07090e] flex items-center justify-center text-[#ff9800] font-bold text-xs tracking-widest uppercase">
         Loading OloBuy Secure Escrow...
@@ -370,7 +313,7 @@ export default function DealDetailsPage() {
         </header>
 
         {/* Timer & Release Payment Section */}
-        {currentRole === 'Buyer' && (isShipped || isSecured) && !isCompleted && timeLeft && (
+        {currentRole === 'Buyer' && !isCompleted && timeLeft && (
           <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-xl text-center space-y-4">
             <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
               <Clock className="h-4 w-4 text-[#ff9800]" />
@@ -464,5 +407,4 @@ export default function DealDetailsPage() {
       </div>
     </main>
   );
-                        }
-  
+                  }
