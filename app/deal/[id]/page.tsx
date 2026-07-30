@@ -442,8 +442,7 @@ function DealContent() {
               ))
             )}
           </div>
-
-                    <form onSubmit={sendChatMessage} className="flex gap-2">
+          <form onSubmit={sendChatMessage} className="flex gap-2">
             <input 
               type="text"
               placeholder="Type a message..."
