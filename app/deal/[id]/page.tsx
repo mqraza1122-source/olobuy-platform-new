@@ -444,7 +444,7 @@ function DealContent() {
           </div>
 
           <form onSubmit={sendChatMessage} className="flex gap-2">
-             <input 
+            <input 
               type="text"
               placeholder="Type a message..."
               value={newMessage}
@@ -465,7 +465,7 @@ function DealContent() {
 export default function DealPage() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#07090e] text-[#ff9800] flex items-center justify-center font-bold text-xs uppercase tracking-widest">Loading...</div>}>
-       <DealContent />
+      <DealContent />
     </Suspense>
   );
-}
+   }
