@@ -99,14 +99,13 @@ function DealContent() {
         .single();
 
       if (error) {
-        console.error('Supabase error:', error.message);
         setDeal(null);
       } else {
         setDeal(data);
         if (data?.buyer_phone) setBuyerPhone(data.buyer_phone);
       }
     } catch (err) {
-      console.error('Fetch exception:', err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -244,17 +243,15 @@ function DealContent() {
     <main className="min-h-screen bg-[#07090e] text-slate-100 p-4 sm:p-6 flex items-center justify-center font-sans antialiased">
       <div className="max-w-md w-full bg-[#0d1322]/95 backdrop-blur-xl border border-slate-800/80 rounded-[2.5rem] p-6 sm:p-8 shadow-2xl relative my-6 space-y-6">
         
-        {/* Header */}
         <header className="text-center">
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-3 shadow-inner">
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">OloBuy Secure Escrow ({currentRole} View)</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">OloBuy Escrow ({currentRole} View)</span>
           </div>
           <h1 className="text-3xl font-black tracking-tight text-white mb-1">Deal #{deal?.deal_code}</h1>
           <p className="text-xs text-slate-400 font-medium capitalize">{deal?.product_name || 'E-commerce parcel'}</p>
         </header>
 
-        {/* Progress Stage Bar */}
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg">
           <div className="flex justify-between items-center text-xs font-bold text-slate-400 mb-3">
             <span>Escrow Stage</span>
@@ -274,7 +271,6 @@ function DealContent() {
           </div>
         </section>
 
-        {/* Amount Card */}
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg space-y-2">
           <div className="flex justify-between items-center">
             <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">Escrow Amount</span>
@@ -288,7 +284,6 @@ function DealContent() {
           </div>
         </section>
 
-        {/* Buyer View */}
         {currentRole === 'Buyer' && !isSecured && !isCompleted && (
           <>
             <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
@@ -366,7 +361,6 @@ function DealContent() {
           </>
         )}
 
-        {/* Buyer Secured View */}
         {currentRole === 'Buyer' && isSecured && !isCompleted && timeLeft && (
           <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-xl text-center space-y-4">
             <div className="flex items-center justify-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wider">
@@ -390,7 +384,6 @@ function DealContent() {
           </section>
         )}
 
-        {/* Seller View */}
         {currentRole === 'Seller' && isSecured && !isCompleted && (
           <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
             <div className="text-xs font-bold text-slate-300 uppercase tracking-wider">Submit Shipping / Service Delivery</div>
@@ -410,7 +403,6 @@ function DealContent() {
           </section>
         )}
 
-        {/* Completed Notice */}
         {isCompleted && (
           <section className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-5 text-center space-y-2">
             <Check className="h-8 w-8 text-emerald-400 mx-auto" />
@@ -419,7 +411,6 @@ function DealContent() {
           </section>
         )}
 
-        {/* Live Chat */}
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
@@ -442,6 +433,7 @@ function DealContent() {
               ))
             )}
           </div>
+
           <form onSubmit={sendChatMessage} className="flex gap-2">
             <input 
               type="text"
@@ -449,7 +441,7 @@ function DealContent() {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               className="flex-1 bg-[#0a0f1c] border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-[#ff9800]"
-            />
+           />
             <button type="submit" className="bg-[#ff9800] hover:bg-[#e08600] text-[#0f172a] px-4 rounded-xl font-bold cursor-pointer transition-all shadow-md">
               <Send className="h-4 w-4" />
             </button>
