@@ -11,7 +11,8 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 function DealContent() {
   const params = useParams();
   const searchParams = useSearchParams();
-  const id = params?.code || params?.id;
+  const rawId = params?.code || params?.id;
+  const id = Array.isArray(rawId) ? rawId[0] : rawId;
   
   const roleQuery = searchParams.get('role');
   const [currentRole, setCurrentRole] = useState<string>(roleQuery ? roleQuery : 'Buyer');
@@ -150,6 +151,13 @@ function DealContent() {
       alert('Please enter a valid 4-digit PIN');
       return;
     }
+
+    // Real database PIN check
+    if (deal.verification_pin && deal.verification_pin !== verificationPin) {
+      alert('Invalid Verification PIN provided by Admin.');
+      return;
+    }
+
     const { error } = await supabase
       .from('deals')
       .update({ status: 'secured' })
