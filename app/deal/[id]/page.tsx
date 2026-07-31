@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import { ShieldCheck, MessageSquare, Send, Building2, ExternalLink, Check, AlertCircle, Copy, Key } from 'lucide-react';
@@ -8,7 +8,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-function DealContent() {
+export default function DealPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const id = params?.code || params?.id;
@@ -466,12 +466,4 @@ function DealContent() {
       </div>
     </main>
   );
-}
-
-export default function DealPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[#07090e] text-[#ff9800] flex items-center justify-center font-bold text-xs uppercase tracking-widest">Loading...</div>}>
-      <DealContent />
-    </Suspense>
-  );
-                          }
+            }
