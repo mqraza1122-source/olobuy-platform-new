@@ -439,9 +439,8 @@ function DealContent() {
               type="text"
               placeholder="Type a message..."
               value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              className="flex-1 bg-[#0a0f1c] border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-[#ff9800]"
-           />
+              onChange={(e) => setNewMessage(e.target.value)}focus:border-[#ff9800]"
+            />
             <button type="submit" className="bg-[#ff9800] hover:bg-[#e08600] text-[#0f172a] px-4 rounded-xl font-bold cursor-pointer transition-all shadow-md">
               <Send className="h-4 w-4" />
             </button>
@@ -460,3 +459,4 @@ export default function DealPage() {
     </Suspense>
   );
 }
+              className="flex-1 bg-[#0a0f1c] border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white outline-none 
