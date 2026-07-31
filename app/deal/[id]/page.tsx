@@ -255,15 +255,15 @@ function DealContent() {
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-2 text-xs">
           <div className="flex justify-between items-center text-slate-400 font-bold border-b border-slate-800 pb-2">
             <span>SELLER DETAILS</span>
-            <span className="text-[#ff9800]">{deal?.seller_name || 'Jaha'}</span>
+            <span className="text-[#ff9800]">{deal?.seller_name || 'Seller'}</span>
           </div>
           <div className="flex justify-between items-center text-slate-300 pt-1">
             <span>Contact:</span>
-            <span className="font-mono">{deal?.seller_contact || '0337282288'}</span>
+            <span className="font-mono">{deal?.seller_contact || 'N/A'}</span>
           </div>
           <div className="flex justify-between items-center text-slate-300">
             <span>Account #:</span>
-            <span className="font-mono text-[#ff9800]">{deal?.seller_account || '02032282888'}</span>
+            <span className="font-mono text-[#ff9800]">{deal?.seller_account || 'N/A'}</span>
           </div>
         </section>
 
@@ -474,4 +474,4 @@ export default function DealPage() {
       <DealContent />
     </Suspense>
   );
-}
+                          }
