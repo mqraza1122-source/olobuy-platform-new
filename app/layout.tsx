@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Noto_Nastaliq_Urdu } from 'next/font/google'
 import './globals.css'
@@ -82,8 +81,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${notoUrdu.variable}`}>
       <body className="font-sans bg-[#0b0f19] text-white antialiased">
         {children}
-        <Analytics />
       </body>
     </html>
   )
-                                                    }
+}
