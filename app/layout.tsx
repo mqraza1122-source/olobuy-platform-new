@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Noto_Nastaliq_Urdu } from 'next/font/google'
 import './globals.css'
@@ -102,6 +103,28 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "OloBuy",
+              "url": "https://olobuy.pk",
+              "logo": "https://olobuy.pk/logo.png",
+              "description": "Pakistan's premier secure manual escrow service for safe online transactions on OLX, Facebook Marketplace and Daraz.",
+              "brand": "Olo Research Institute",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "PK"
+              }
+            }),
+          }}
+        />
+      </head>
+      <body className="font-sans antialiased text-white">
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  )
+              }            __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "OloBuy",
