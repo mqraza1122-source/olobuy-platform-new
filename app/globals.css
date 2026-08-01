@@ -1,4 +1,6 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @custom-variant dark (&:is(.dark *));
 
@@ -154,4 +156,4 @@
   .trust-badge {
     box-shadow: 0 10px 15px -3px rgb(255 152 0 / 0.2);
   }
-}
+    }
