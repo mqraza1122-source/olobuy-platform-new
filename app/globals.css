@@ -1,87 +1,36 @@
-@import "tailwindcss";
-
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--color-card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  --color-navy: var(--navy);
-  --color-navy-foreground: var(--navy-foreground);
-  --color-brand-orange: var(--brand-orange);
-  --color-whatsapp: var(--whatsapp);
-  --color-whatsapp-foreground: var(--whatsapp-foreground);
-  --color-gold: #ffd700;
-
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-urdu: var(--font-noto-urdu), serif;
-
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
-  --radius-2xl: 1.5rem;
-  --radius-3xl: 2rem;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   color-scheme: light dark;
-  
-  /* === Main Theme Colors === */
-  --background: #0f172a;           /* Deep Navy */
+  --background: #0f172a;
   --foreground: #f8fafc;
-  
   --card: #ffffff;
   --card-foreground: #0f172a;
-  
   --popover: #ffffff;
   --popover-foreground: #0f172a;
-
   --primary: #1e40af;
   --primary-foreground: #ffffff;
-
   --secondary: #e2e8f0;
   --secondary-foreground: #0f172a;
-  
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
-
   --accent: #ff9800;
   --accent-foreground: #ffffff;
-
   --destructive: #ef4444;
   --border: #e2e8f0;
   --input: #e2e8f0;
   --ring: #ff9800;
-
-  /* Brand Colors */
   --navy: #0f172a;
   --navy-foreground: #f8fafc;
   --brand-orange: #ff9800;
   --gold: #ffd700;
   --whatsapp: #25d366;
   --whatsapp-foreground: #ffffff;
-
   --radius: 0.75rem;
 }
 
-/* Dark Mode Support (Future Ready) */
 .dark {
   --background: #0f172a;
   --foreground: #f8fafc;
@@ -90,75 +39,56 @@
   --border: #334155;
 }
 
-@layer base {
-  * {
-    border-color: var(--border);
-  }
-
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    margin: 0;
-    padding: 0;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
-    letter-spacing: -0.025em;
-  }
-
-  .urdu-text {
-    font-family: var(--font-urdu);
-    line-height: 1.75;
-  }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
-@layer utilities {
-  /* Glassmorphism Effect */
-  .glass {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
+/* Glassmorphism Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-  /* Gradient Text */
-  .gradient-text {
-    background: linear-gradient(90deg, #ff9800, #ffd700);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(90deg, #ff9800, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-  /* Smooth Scroll */
-  html {
-    scroll-behavior: smooth;
-  }
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
 
-  /* Card Hover Effect */
-  .card-hover {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .card-hover:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
-                0 8px 10px -6px rgb(0 0 0 / 0.1);
-  }
+/* Card Hover Effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  /* WhatsApp Floating Button */
-  .whatsapp-float {
-    animation: pulse 2s infinite;
-  }
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
+              0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-  }
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  animation: pulse 2s infinite;
+}
 
-  /* Trust Badge */
-  .trust-badge {
-    box-shadow: 0 10px 15px -3px rgb(255 152 0 / 0.2);
-  }
-  }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* Trust Badge */
+.trust-badge {
+  box-shadow: 0 10px 15px -3px rgb(255 152 0 / 0.2);
+}
