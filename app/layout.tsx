@@ -1,4 +1,4 @@
-import { Analytics } from '@vercel/analytics/next'
+import { Analytics } from '@vercel/analytics/react'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Noto_Nastaliq_Urdu } from 'next/font/google'
 import './globals.css'
