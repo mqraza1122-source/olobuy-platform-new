@@ -54,17 +54,17 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[90dvh] flex items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#1a237e] to-[#0f172a] overflow-hidden px-4 pt-4 pb-12">
-      {/* Background Glow Accents */}
+      {/* Background Glow Accent */}
       <div className="absolute inset-0 bg-[radial-gradient(at_top,#ff9800_0%,transparent_60%)] opacity-10" />
 
       <div className="relative z-10 max-w-lg w-full text-center">
-        {/* Secure Transaction Badge */}
+        {/* Secure Badge */}
         <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 mb-3 shadow-sm">
           <ShieldCheck className="h-4 w-4 text-[#25d366]" />
           <span className="text-xs sm:text-sm font-bold tracking-widest text-white">100% SECURE TRANSACTIONS</span>
         </div>
 
-        {/* Catchy Main Heading */}
+        {/* Main Heading */}
         <h1 className="text-3xl sm:text-4xl font-black leading-tight text-white mb-5">
           نہ ایڈوانس کا ڈر<br />
           <span className="text-[#ff9800]">نہ پارسل کا فراڈ</span>
@@ -98,7 +98,7 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Product Dropdown */}
+            {/* Product Selection */}
             <div>
               <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Product / Service</label>
               <select
@@ -157,4 +157,4 @@ export function Hero() {
       </div>
     </section>
   );
-  }
+    }
