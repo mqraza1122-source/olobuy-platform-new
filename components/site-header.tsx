@@ -46,11 +46,11 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
           
-          {/* Logo Brand */}
+          {/* Logo Brand matching logo colors: Olo in Yellow, Buy in Blue */}
           <a href="#" className="flex flex-col group">
             <div className="flex items-center text-2xl sm:text-3xl font-black tracking-tight">
               <span className="text-[#ff9800] group-hover:scale-105 transition-transform">Olo</span>
-              <span className="text-white group-hover:scale-105 transition-transform">Buy</span>
+              <span className="text-[#3b82f6] group-hover:scale-105 transition-transform">Buy</span>
             </div>
             <p className="text-[9px] sm:text-[10px] font-bold text-white/40 uppercase tracking-[0.22em]">
               Original Life, Original Buy
