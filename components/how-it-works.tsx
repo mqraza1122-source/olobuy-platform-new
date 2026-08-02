@@ -7,7 +7,7 @@ import {
   ShieldCheck,
   MessageCircle,
   X,
-  ArrowRight,
+  ChevronDown,
 } from 'lucide-react';
 
 const STEPS = [
@@ -133,11 +133,9 @@ export function HowItWorks() {
                     </p>
                   </div>
 
-                  <div className="shrink-0 hidden xs:flex sm:flex">
-                    <span className="text-[10px] sm:text-[11px] text-white/35 group-hover:text-[#ff9800] transition-colors flex items-center gap-1 font-medium bg-white/5 group-hover:bg-[#ff9800]/10 px-2.5 py-1.5 rounded-lg border border-white/10 group-hover:border-[#ff9800]/25">
-                      View
-                      <ArrowRight className="w-3 h-3" />
-                    </span>
+                  {/* Arrow Icon matching Why Choose OloBuy style */}
+                  <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 group-hover:bg-[#ff9800]/15 border border-white/10 group-hover:border-[#ff9800]/30 transition-all">
+                    <ChevronDown className="w-4 h-4 text-[#ff9800] transition-transform duration-300 group-hover:translate-y-0.5" />
                   </div>
                 </div>
               </button>
@@ -181,7 +179,7 @@ export function HowItWorks() {
       {/* Modal */}
       {selectedStep && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="bg-[#111827] border border-[#ff9800]/35 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.75)]">
+          <div className="bg-[#111827] border border-[#ff9800]/35 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.75)] animate-in fade-in zoom-in duration-200">
             <button
               type="button"
               onClick={() => setSelectedStep(null)}
@@ -204,7 +202,7 @@ export function HowItWorks() {
               </div>
             </div>
 
-            <div className="bg-white/5 rounded-2xl p-4 border border-white/10 mb-6 space-y-3">
+            <div className="bg-white/5 rounded-2xl p-4 sm:p-5 border border-white/10 mb-6 space-y-3">
               <p className="text-white/90 text-sm sm:text-base leading-relaxed">
                 {selectedStep.desc}
               </p>
@@ -216,7 +214,7 @@ export function HowItWorks() {
             <button
               type="button"
               onClick={() => setSelectedStep(null)}
-              className="w-full bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold px-6 py-3.5 rounded-xl hover:opacity-95 transition-opacity shadow-lg"
+              className="w-full bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold px-6 py-3.5 rounded-xl hover:opacity-95 transition-opacity shadow-lg cursor-pointer"
             >
               Got It, Close
             </button>
@@ -225,4 +223,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-            }
+}
