@@ -10,7 +10,9 @@ function DealContent() {
   const id = params?.id;
   
   const roleQuery = searchParams.get('role');
-  const [currentRole, setCurrentRole] = useState<string>(roleQuery ? roleQuery : 'Buyer');
+  const [currentRole, setCurrentRole] = useState<string>(
+  roleQuery ? roleQuery.charAt(0).toUpperCase() + roleQuery.slice(1).toLowerCase() : 'Buyer'
+);
 
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,10 +37,11 @@ function DealContent() {
   const adminWhatsApp = '923043031572';
 
   useEffect(() => {
-    if (roleQuery) {
-      setCurrentRole(roleQuery);
-    }
-  }, [roleQuery]);
+  if (roleQuery) {
+    const fixed = roleQuery.charAt(0).toUpperCase() + roleQuery.slice(1).toLowerCase();
+    setCurrentRole(fixed);
+  }
+}, [roleQuery]);
 
   useEffect(() => {
     if (id) {
