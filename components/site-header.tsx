@@ -1,6 +1,6 @@
-'use client'
-import { useState } from 'react'
-import { Menu, X, ShieldCheck, MessageCircle, Phone, Info } from 'lucide-react'
+'use client';
+import { useState, useEffect } from 'react';
+import { Menu, X, MessageCircle, Info, Phone } from 'lucide-react';
 
 const NAV_LINKS = [
   { label: 'How It Works', href: '#how-it-works', type: 'scroll' },
@@ -8,51 +8,92 @@ const NAV_LINKS = [
   { label: 'Reviews', href: '#reviews', type: 'scroll' },
   { label: 'FAQs', href: '#faq', type: 'scroll' },
   { label: 'About Us', href: 'about', type: 'modal' },
-  { label: 'Contact Us', href: 'contact', type: 'modal' }
-]
+  { label: 'Contact Us', href: 'contact', type: 'modal' },
+];
 
 export function SiteHeader() {
-  const [open, setOpen] = useState(false)
-  const [modalContent, setModalContent] = useState<null | 'about' | 'contact'>(null)
+  const [open, setOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<null | 'about' | 'contact'>(null);
+  const [scrolled, setScrolled] = useState(false);
 
-  const handleLinkClick = (link: typeof NAV_LINKS[0]) => {
-    setOpen(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleLinkClick = (link: (typeof NAV_LINKS)[0]) => {
+    setOpen(false);
     if (link.type === 'modal') {
-      setModalContent(link.href as 'about' | 'contact')
+      setModalContent(link.href as 'about' | 'contact');
     }
-  }
+  };
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-          <div className="flex flex-col">
-            <div className="flex items-center text-3xl font-extrabold tracking-tight">
-              <span className="text-[#fcc21b]">Olo</span>
-              <span className="text-[#1a237e]">Buy</span>
+      <header
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+          scrolled
+            ? 'bg-[#0f172a]/90 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+            : 'bg-[#0f172a] border-b border-white/5'
+        }`}
+      >
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
+          
+          {/* Logo Brand */}
+          <a href="#" className="flex flex-col group">
+            <div className="flex items-center text-2xl sm:text-3xl font-black tracking-tight">
+              <span className="text-[#ff9800] group-hover:scale-105 transition-transform">Olo</span>
+              <span className="text-white group-hover:scale-105 transition-transform">Buy</span>
             </div>
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">
+            <p className="text-[9px] sm:text-[10px] font-bold text-white/40 uppercase tracking-[0.22em]">
               Original Life, Original Buy
             </p>
+          </a>
+
+          {/* Desktop & Action Section */}
+          <div className="flex items-center gap-3">
+            <a
+              href="https://wa.me/923043031572"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-2 bg-[#25d366]/15 hover:bg-[#25d366]/25 border border-[#25d366]/30 text-[#25d366] font-bold px-4 py-2 rounded-xl text-xs transition-all shadow-sm"
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>Support</span>
+            </a>
+
+            {/* Menu Toggle Button */}
+            <button
+              onClick={() => setOpen(!open)}
+              className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white transition-colors cursor-pointer"
+              aria-label="Toggle Menu"
+            >
+              {open ? <X className="h-6 w-6 text-[#ff9800]" /> : <Menu className="h-6 w-6 text-[#ff9800]" />}
+            </button>
           </div>
-          
-          <button 
-            onClick={() => setOpen(!open)} 
-            className="p-2 border border-gray-200 rounded-xl"
-          >
-            {open ? <X className="h-7 w-7 text-[#1a237e]" /> : <Menu className="h-7 w-7 text-[#1a237e]" />}
-          </button>
         </div>
-        
-        {open && (
-          <div className="absolute w-full bg-white border-b p-4 shadow-lg animate-in slide-in-from-top-2">
-            {NAV_LINKS.map((link) => (
+
+        {/* Mobile Dropdown Menu */}
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-out bg-[#0f172a]/95 backdrop-blur-2xl border-b border-white/10 ${
+            open ? 'max-h-[450px] opacity-100 py-4 px-6' : 'max-h-0 opacity-0 py-0 px-6'
+          }`}
+        >
+          <div className="space-y-2 max-w-xl mx-auto">
+            {NAV_LINKS.map((link) =>
               link.type === 'scroll' ? (
-                <a 
-                  key={link.href} 
-                  href={link.href} 
-                  onClick={() => setOpen(false)} 
-                  className="block py-4 font-bold text-[#1a237e] border-b border-gray-100"
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="block py-3 px-4 rounded-xl font-bold text-white/80 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-base"
                 >
                   {link.label}
                 </a>
@@ -60,73 +101,85 @@ export function SiteHeader() {
                 <button
                   key={link.href}
                   onClick={() => handleLinkClick(link)}
-                  className="w-full text-left block py-4 font-bold text-[#1a237e] border-b border-gray-100"
+                  className="w-full text-left block py-3 px-4 rounded-xl font-bold text-white/80 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-base cursor-pointer"
                 >
                   {link.label}
                 </button>
               )
-            ))}
+            )}
+            
+            <div className="pt-2 border-t border-white/10 flex sm:hidden">
+              <a
+                href="https://wa.me/923043031572"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 bg-[#25d366] text-white font-bold py-3 rounded-xl text-sm shadow-md"
+              >
+                <MessageCircle className="h-5 w-5" />
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
           </div>
-        )}
+        </div>
       </header>
 
       {/* Popup Modal for About Us & Contact Us */}
       {modalContent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
-          <div className="bg-white w-full max-w-md rounded-[2rem] p-6 shadow-2xl relative border border-gray-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200">
+          <div className="bg-[#111827] border border-[#ff9800]/35 w-full max-w-md rounded-3xl p-6 sm:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.75)]">
             
             {/* Close Button */}
-            <button 
+            <button
               onClick={() => setModalContent(null)}
-              className="absolute top-5 right-5 p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
+              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
 
             {modalContent === 'about' ? (
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-[#1a237e]/10 rounded-2xl text-[#1a237e]">
+                <div className="flex items-center gap-3 mb-4 pr-10">
+                  <div className="p-3 bg-[#ff9800]/15 border border-[#ff9800]/30 rounded-2xl text-[#ff9800]">
                     <Info className="h-6 w-6" />
                   </div>
-                  <h3 className="text-2xl font-black text-[#1a237e]">About OloBuy</h3>
+                  <h3 className="text-2xl font-black text-white">About OloBuy</h3>
                 </div>
-                <p className="text-gray-600 leading-relaxed text-sm mb-6">
-                  OloBuy.pk is Pakistan's most trusted manual escrow platform designed to eliminate online shopping frauds and advance payment risks. We securely hold funds until the buyer safely receives and inspects their product or service.
+                <p className="text-white/80 leading-relaxed text-sm mb-6">
+                  OloBuy.pk is Pakistan&apos;s most trusted manual escrow platform designed to eliminate online shopping frauds and advance payment risks. We securely hold funds until the buyer safely receives and inspects their product or service.
                 </p>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 text-xs text-gray-500 font-medium">
+                <div className="bg-white/5 p-4 rounded-2xl border border-white/10 text-xs text-white/60 font-medium">
                   Original Life, Original Buy — Secure transactions for everyone across Pakistan.
                 </div>
               </div>
             ) : (
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-[#ff9800]/20 rounded-2xl text-[#1a237e]">
+                <div className="flex items-center gap-3 mb-4 pr-10">
+                  <div className="p-3 bg-[#25d366]/15 border border-[#25d366]/30 rounded-2xl text-[#25d366]">
                     <Phone className="h-6 w-6" />
                   </div>
-                  <h3 className="text-2xl font-black text-[#1a237e]">Contact Us</h3>
+                  <h3 className="text-2xl font-black text-white">Contact Us</h3>
                 </div>
-                <p className="text-gray-600 leading-relaxed text-sm mb-4">
+                <p className="text-white/80 leading-relaxed text-sm mb-4">
                   Have questions or want to initiate a secure deal directly? Reach out to us anytime on WhatsApp:
                 </p>
-                <a 
-                  href="https://wa.me/923043031572" 
-                  target="_blank" 
+                <a
+                  href="https://wa.me/923043031572"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full bg-[#25d366] text-white font-bold py-3.5 rounded-2xl shadow-lg hover:bg-[#20ba5a] transition-all mb-4 text-sm"
+                  className="flex items-center justify-center gap-2 w-full bg-[#25d366] text-white font-bold py-3.5 rounded-2xl shadow-[0_4px_20px_rgba(37,211,102,0.35)] hover:bg-[#20ba5a] transition-all mb-4 text-sm"
                 >
                   <MessageCircle className="h-5 w-5" />
                   <span>+92 304 3031572</span>
                 </a>
-                <div className="text-center text-xs text-gray-400 font-semibold">
+                <div className="text-center text-xs text-white/40 font-semibold">
                   Available 24/7 for support & safe deals verification.
                 </div>
               </div>
             )}
 
-            <button 
+            <button
               onClick={() => setModalContent(null)}
-              className="mt-6 w-full py-3 rounded-2xl bg-gray-100 font-bold text-gray-700 hover:bg-gray-200 transition-colors text-sm"
+              className="mt-6 w-full py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 font-bold text-white transition-colors text-sm cursor-pointer border border-white/10"
             >
               Close
             </button>
@@ -134,5 +187,5 @@ export function SiteHeader() {
         </div>
       )}
     </>
-  )
-                 }
+  );
+            }
