@@ -72,35 +72,19 @@ function useFadeUp(threshold = 0.12) {
 
 export function HowItWorks() {
   const [selectedStep, setSelectedStep] = useState<(typeof STEPS)[0] | null>(null);
-  const header = useFadeUp();
   const grid = useFadeUp(0.08);
   const support = useFadeUp(0.1);
 
   return (
     <section
       id="how-it-works"
-      className="bg-[#0f172a] py-16 sm:py-20 px-4 relative overflow-hidden"
+      className="bg-[#0f172a] pt-4 pb-16 sm:pt-6 sm:pb-20 px-4 relative overflow-hidden"
     >
       <div className="absolute top-1/4 left-0 w-64 h-64 bg-[#ff9800]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-[#1a237e]/30 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-5xl relative z-10">
-        {/* Header */}
-        <div
-          ref={header.ref}
-          className={`text-center mb-12 sm:mb-16 transition-all duration-700 ease-out ${
-            header.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black px-7 sm:px-8 py-3 rounded-full text-lg sm:text-2xl mb-4 shadow-[0_0_25px_rgba(255,152,0,0.3)] tracking-wide">
-            HOW IT WORKS
-          </div>
-          <p className="text-white/75 max-w-md mx-auto text-sm sm:text-lg leading-relaxed">
-            4 simple steps to complete your safe deal with OloBuy
-          </p>
-        </div>
-
-        {/* Steps */}
+     <div className="mx-auto max-w-5xl relative z-10">
+         {/* Steps */}
         <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-10 sm:mb-12">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
