@@ -72,7 +72,7 @@ function DealContent() {
     if (!deal) return;
 
     const baseTime = new Date(deal.created_at || Date.now()).getTime();
-    const daysAllowed = Number(deal.inspection_days || );
+    const daysAllowed = Number(deal.inspection_days || 2);
     const targetTime = baseTime + daysAllowed * 24 * 60 * 60 * 1000;
 
     const timer = setInterval(() => {
