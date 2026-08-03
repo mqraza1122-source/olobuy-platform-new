@@ -2,8 +2,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Headphones, Edit3, Check, Clock, AlertCircle } from 'lucide-react';
-import AdminVerifyBox from '@/components/adminverifybox';
+import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Headphones, Edit3, Check, Clock, AlertCircle, Lock } from 'lucide-react';
 
 function DealContent() {
   const params = useParams();
@@ -12,8 +11,8 @@ function DealContent() {
   
   const roleQuery = searchParams.get('role');
   const [currentRole, setCurrentRole] = useState<string>(
-  roleQuery ? roleQuery.charAt(0).toUpperCase() + roleQuery.slice(1).toLowerCase() : 'Buyer'
-);
+    roleQuery ? roleQuery.charAt(0).toUpperCase() + roleQuery.slice(1).toLowerCase() : 'Buyer'
+  );
 
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,11 +41,11 @@ function DealContent() {
   const adminWhatsApp = '923043031572';
 
   useEffect(() => {
-  if (roleQuery) {
-    const fixed = roleQuery.charAt(0).toUpperCase() + roleQuery.slice(1).toLowerCase();
-    setCurrentRole(fixed);
-  }
-}, [roleQuery]);
+    if (roleQuery) {
+      const fixed = roleQuery.charAt(0).toUpperCase() + roleQuery.slice(1).toLowerCase();
+      setCurrentRole(fixed);
+    }
+  }, [roleQuery]);
 
   useEffect(() => {
     if (id) {
@@ -426,7 +425,7 @@ function DealContent() {
           </div>
         </header>
 
-        {/* Timer & Escrow Stage Controls */}
+        {/* Timer Section */}
         {currentRole === 'Buyer' && (isShipped || isSecured) && !isCompleted && timeLeft && (
           <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-xl text-center space-y-4">
             <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
@@ -537,8 +536,8 @@ function DealContent() {
             </button>
           </form>
         </section>
-        
-                {/* Deal via OloBuy Team (For Complex Deal) */}
+
+        {/* Deal via OloBuy Team */}
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Headphones className="h-4 w-4 text-[#ff9800]" />
@@ -555,16 +554,34 @@ function DealContent() {
           </button>
         </section>
 
-        {/* OloBuy Official Escrow Account & Payment Section with Admin Verification Box */}
+        {/* Admin Verify Box & Payment Section */}
         {currentRole === 'Buyer' && (
           <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-xl">
             
             {!isCodeVerified ? (
-              <AdminVerifyBox
-                codeInput={adminCodeInput}
-                setCodeInput={setAdminCodeInput}
-                onVerify={verifyAdminCode}
-              />
+              <div className="space-y-3 text-center">
+                <div className="inline-flex p-2.5 bg-amber-500/20 rounded-full text-[#ff9800] mb-1">
+                  <Lock className="h-5 w-5" />
+                </div>
+                <h3 className="font-bold text-white text-xs uppercase tracking-wider">Admin Verification Required</h3>
+                <p className="text-slate-300 text-[11px] leading-relaxed">
+                  Please enter the secure verification code provided by OloBuy Admin to view official escrow accounts.
+                </p>
+                <input 
+                  type="password"
+                  placeholder="Enter Admin Code..."
+                  value={adminCodeInput}
+                  onChange={(e) => setAdminCodeInput(e.target.value)}
+                  className="w-full bg-[#0a0f1c] border border-amber-500/40 rounded-xl px-4 py-2.5 text-xs text-white text-center font-bold tracking-widest outline-none focus:border-[#ff9800]"
+                />
+                <button
+                  type="button"
+                  onClick={verifyAdminCode}
+                  className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3 rounded-xl text-xs uppercase font-black tracking-widest shadow-md cursor-pointer transition-all"
+                >
+                  Verify Code
+                </button>
+              </div>
             ) : (
               <>
                 <div className="flex items-center gap-2 mb-3">
