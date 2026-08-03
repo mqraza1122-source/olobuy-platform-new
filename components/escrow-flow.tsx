@@ -46,7 +46,7 @@ export function EscrowFlow() {
           </div>
 
           <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-2">
-            How Does Escrow Work?
+            How it Works
           </h3>
           <p className="text-white/55 text-sm leading-relaxed max-w-sm mx-auto mb-8">
             A neutral platform holding funds until both buyer and seller confirm satisfaction.
