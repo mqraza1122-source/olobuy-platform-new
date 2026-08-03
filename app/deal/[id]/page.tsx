@@ -72,7 +72,7 @@ function DealContent() {
     if (!deal) return;
 
     const baseTime = new Date(deal.created_at || Date.now()).getTime();
-    const daysAllowed = Number(deal.inspection_days || 2);
+    const daysAllowed = Number(deal.inspection_days || );
     const targetTime = baseTime + daysAllowed * 24 * 60 * 60 * 1000;
 
     const timer = setInterval(() => {
@@ -218,13 +218,25 @@ Here is my payment screenshot:`
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#07090e] flex items-center justify-center text-[#ff9800] font-bold text-xs tracking-widest uppercase">
-        Loading OloBuy Secure Escrow...
+  return (
+    <div className="min-h-screen bg-[#07090e] flex flex-col items-center justify-center px-6">
+      {/* Spinner */}
+      <div className="relative mb-6">
+        <div className="h-14 w-14 rounded-full border-[3px] border-white/10 border-t-[#ff9800] animate-spin" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="h-6 w-6 rounded-full bg-[#ff9800]/20" />
+        </div>
       </div>
-    );
-  }
 
+      <p className="text-[#ff9800] font-black text-sm tracking-[0.2em] uppercase">
+        OloBuy
+      </p>
+      <p className="mt-2 text-white/50 text-xs font-medium tracking-wide">
+        Preparing your secure deal...
+      </p>
+    </div>
+  );
+  }
   if (!deal) {
     return (
       <div className="min-h-screen bg-[#07090e] flex items-center justify-center text-white p-4">
