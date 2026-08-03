@@ -3,6 +3,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Headphones, Edit3, Check, Clock, AlertCircle } from 'lucide-react';
+import AdminVerifyBox from '@/components/adminverifybox';
 
 function DealContent() {
   const params = useParams();
@@ -32,6 +33,10 @@ function DealContent() {
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const [paymentDone, setPaymentDone] = useState<boolean>(false);
+  
+  // Admin Verification States
+  const [isCodeVerified, setIsCodeVerified] = useState<boolean>(false);
+  const [adminCodeInput, setAdminCodeInput] = useState<string>('');
 
   // OloBuy Official WhatsApp Number
   const adminWhatsApp = '923043031572';
@@ -228,6 +233,12 @@ function DealContent() {
     }
   };
 
+  const verifyAdminCode = () => {
+    if (adminCodeInput.trim().length > 0) {
+      setIsCodeVerified(true);
+    }
+  };
+
   const releasePayment = async () => {
     const { error } = await supabase
       .from('deals')
@@ -415,7 +426,7 @@ function DealContent() {
           </div>
         </header>
 
-        {/* 🌟 MOVED: Timer & Escrow Stage / Action Controls to Top */}
+        {/* Timer & Escrow Stage Controls */}
         {currentRole === 'Buyer' && (isShipped || isSecured) && !isCompleted && timeLeft && (
           <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-xl text-center space-y-4">
             <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
@@ -526,8 +537,8 @@ function DealContent() {
             </button>
           </form>
         </section>
-
-        {/* Deal via OloBuy Team (For Complex Deal) */}
+        
+                {/* Deal via OloBuy Team (For Complex Deal) */}
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Headphones className="h-4 w-4 text-[#ff9800]" />
@@ -544,47 +555,58 @@ function DealContent() {
           </button>
         </section>
 
-        {/* OloBuy Official Escrow Account & Payment Section */}
+        {/* OloBuy Official Escrow Account & Payment Section with Admin Verification Box */}
         {currentRole === 'Buyer' && (
           <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-xl">
-            <div className="flex items-center gap-2 mb-3">
-              <Building2 className="h-5 w-5 text-[#ff9800]" />
-              <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
-            </div>
             
-            <div className="bg-[#0a0f1c] border border-amber-500/20 rounded-xl p-4 mb-4 text-xs space-y-2 shadow-inner">
-              <p className="text-slate-400 font-medium">Transfer via JazzCash / EasyPaisa / Bank:</p>
-              <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
-              <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
-              <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">{adminWhatsApp}</span></p>
-            </div>
-
-            <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed">
-              Transfer <span className="font-bold text-white">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account above, then click below.
-            </p>
-
-            {!paymentDone ? (
-              <button 
-                type="button"
-                onClick={markAsSecured} 
-                className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer transition-all"
-              >
-                I Have Paid & Secured Amount
-              </button>
+            {!isCodeVerified ? (
+              <AdminVerifyBox
+                codeInput={adminCodeInput}
+                setCodeInput={setAdminCodeInput}
+                onVerify={verifyAdminCode}
+              />
             ) : (
-              <div className="space-y-3">
-                <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-3 rounded-xl text-center shadow-inner">
-                  ✓ Payment recorded successfully!
+              <>
+                <div className="flex items-center gap-2 mb-3">
+                  <Building2 className="h-5 w-5 text-[#ff9800]" />
+                  <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
                 </div>
-                <button 
-                  type="button"
-                  onClick={openWhatsAppForScreenshot}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer flex items-center justify-center gap-2 transition-all"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  Send SS & Seller Details to WhatsApp
-                </button>
-              </div>
+                
+                <div className="bg-[#0a0f1c] border border-amber-500/20 rounded-xl p-4 mb-4 text-xs space-y-2 shadow-inner">
+                  <p className="text-slate-400 font-medium">Transfer via JazzCash / EasyPaisa / Bank:</p>
+                  <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
+                  <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
+                  <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">{adminWhatsApp}</span></p>
+                </div>
+
+                <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed">
+                  Transfer <span className="font-bold text-white">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account above, then click below.
+                </p>
+
+                {!paymentDone ? (
+                  <button 
+                    type="button"
+                    onClick={markAsSecured} 
+                    className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer transition-all"
+                  >
+                    I Have Paid & Secured Amount
+                  </button>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-3 rounded-xl text-center shadow-inner">
+                      ✓ Payment recorded successfully!
+                    </div>
+                    <button 
+                      type="button"
+                      onClick={openWhatsAppForScreenshot}
+                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer flex items-center justify-center gap-2 transition-all"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      Send SS & Seller Details to WhatsApp
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </section>
         )}
