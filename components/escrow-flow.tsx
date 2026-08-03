@@ -45,9 +45,9 @@ export function EscrowFlow() {
             <ShieldCheck className="h-5 w-5 text-white" />
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-2">
-            How it Works
-          </h3>
+          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black px-7 sm:px-8 py-3 rounded-full text-lg sm:text-xl mb-4 shadow-[0_0_25px_rgba(255,152,0,0.3)] tracking-wide">
+          HOW IT WORKS
+        </div>
           <p className="text-white/55 text-sm leading-relaxed max-w-sm mx-auto mb-8">
             A neutral platform holding funds until both buyer and seller confirm satisfaction.
           </p>
