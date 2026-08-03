@@ -40,11 +40,6 @@ export function EscrowFlow() {
       >
         <div className="rounded-[1.75rem] border border-white/10 bg-[#121a2b]/90 backdrop-blur-xl px-5 py-8 sm:px-8 sm:py-10 shadow-2xl text-center">
           
-          {/* Mini logo mark */}
-          <div className="mx-auto mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#1a237e] to-[#ff9800] shadow-lg">
-            <ShieldCheck className="h-5 w-5 text-white" />
-          </div>
-
           <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black px-7 sm:px-8 py-3 rounded-full text-lg sm:text-xl mb-4 shadow-[0_0_25px_rgba(255,152,0,0.3)] tracking-wide">
           HOW IT WORKS
         </div>
