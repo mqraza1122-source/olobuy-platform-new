@@ -15,6 +15,7 @@ export default function HomePage() {
       <SiteHeader />
       <main className="flex-1">
         <Hero />
+        <EscrowFlow />
         <HowItWorks />
         <Features />
         <Testimonials />
