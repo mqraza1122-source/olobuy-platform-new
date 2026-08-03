@@ -534,58 +534,61 @@ function DealContent() {
         </section>
 
         {/* OloBuy Official Escrow Account & Payment Section */}
-        {currentRole === 'Buyer' && (
-          <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-xl">
-            {/* Admin Code Verification Box */}
-{!isCodeVerified && (
-  <AdminVerifyBox 
-    codeInput={adminCodeInput} 
-    setCodeInput={setAdminCodeInput} 
-    onVerify={verifyAdminCode} 
-  />
-)}
-            <div className="flex items-center gap-2 mb-3">
-              <Building2 className="h-5 w-5 text-[#ff9800]" />
-              <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
-            </div>
-            
-            <div className="bg-[#0a0f1c] border border-amber-500/20 rounded-xl p-4 mb-4 text-xs space-y-2 shadow-inner">
-              <p className="text-slate-400 font-medium">Transfer via JazzCash / EasyPaisa / Bank:</p>
-              <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
-              <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
-              <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">{adminWhatsApp}</span></p>
-            </div>
+     {/* OloBuy Official Escrow Account & Payment Section */}
+{currentRole === 'Buyer' && (
+  <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 mb-4">
+    
+    {/* Admin Code Verification Box */}
+    {!isCodeVerified ? (
+      <AdminVerifyBox
+        codeInput={adminCodeInput}
+        setCodeInput={setAdminCodeInput}
+        onVerify={verifyAdminCode}
+      />
+    ) : (
+      <>
+        <div className="flex items-center gap-2 mb-3">
+          <Building2 className="h-5 w-5 text-[#ff9800]" />
+          <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
+        </div>
 
-            <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed">
-              Transfer <span className="font-bold text-white">Rs {Number(deal.amount || 0).toLocaleString()}</span> to the account above, then click below.
-            </p>
+        <div className="bg-[#0a0f1c] border border-amber-500/20 rounded-xl p-3 space-y-1.5 text-xs">
+          <p className="text-slate-400 font-medium">Transfer via JazzCash / EasyPaisa / Bank Account</p>
+          <p className="text-white font-bold">Account Title: OloBuy Escrow</p>
+          <p className="text-white font-bold">Account / IBAN: <span className="text-[#ff9800]">923043031572</span></p>
+        </div>
 
-            {!paymentDone ? (
-              <button 
-                type="button"
-                onClick={markAsSecured} 
-                className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer transition-all"
-              >
-                I Have Paid & Secured Amount
-              </button>
-            ) : (
-              <div className="space-y-3">
-                <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-3 rounded-xl text-center shadow-inner">
-                  ✓ Payment recorded successfully!
-                </div>
-                <button 
-                  type="button"
-                  onClick={openWhatsAppForScreenshot}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer flex items-center justify-center gap-2 transition-all"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  Send SS & Seller Details to WhatsApp
-                </button>
-              </div>
-            )}
-          </section>
+        <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed mt-3">
+          Transfer <span className="text-white font-bold">Rs {deal.amount || 0}</span> and submit the screenshot.
+        </p>
+
+        {!paymentDone ? (
+          <button
+            type="button"
+            onClick={markAsSecured}
+            className="w-full bg-[#ff9800] hover:bg-orange-600 text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-md"
+          >
+            I Have Paid &amp; Secured Amount
+          </button>
+        ) : (
+          <div className="space-y-3">
+            <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-2.5 rounded-xl text-xs text-center font-medium">
+              ✓ Payment recorded successfully!
+            </div>
+            <button
+              type="button"
+              onClick={openWhatsAppForScreenshot}
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-all shadow-md"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Send Screenshot &amp; Seller Details on WhatsApp
+            </button>
+          </div>
         )}
-
+      </>
+    )}
+  </section>
+)} 
         {/* Seller Controls */}
         {currentRole === 'Seller' && (
           <section className="space-y-4">
