@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
+import AdminVerifyBox from './components/adminverifybox';
+import TimerSection from './components/timersection';
 import { supabase } from '@/lib/supabase';
 import { ShieldCheck, MessageSquare, Send, UserCheck, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Headphones, Edit3, Check, Clock, AlertCircle } from 'lucide-react';
 
@@ -16,6 +18,7 @@ function DealContent() {
 
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [customTimeInput, setCustomTimeInput] = useState<string>('2 Days');
   const [copied, setCopied] = useState<boolean>(false);
   const [detailsOpen, setDetailsOpen] = useState<boolean>(true);
   const [isEditingSeller, setIsEditingSeller] = useState<boolean>(false);
@@ -416,27 +419,13 @@ function DealContent() {
         </header>
 
         {/* 🌟 MOVED: Timer & Escrow Stage / Action Controls to Top */}
-        {currentRole === 'Buyer' && (isShipped || isSecured) && !isCompleted && timeLeft && (
-          <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-5 shadow-xl text-center space-y-4">
-            <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-              <Clock className="h-4 w-4 text-[#ff9800]" />
-              <span>Inspection Period Countdown</span>
-            </div>
-            <div className="grid grid-cols-4 gap-2 text-xs">
-              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800 shadow-inner"><span className="block font-black text-white text-sm">{timeLeft.days}</span>Days</div>
-              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800 shadow-inner"><span className="block font-black text-white text-sm">{timeLeft.hours}</span>Hours</div>
-              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800 shadow-inner"><span className="block font-black text-white text-sm">{timeLeft.minutes}</span>Mins</div>
-              <div className="bg-[#0a0f1c] p-2.5 rounded-xl border border-slate-800 shadow-inner"><span className="block font-black text-white text-sm">{timeLeft.seconds}</span>Secs</div>
-            </div>
-            <button 
-              onClick={releasePayment} 
-              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer flex items-center justify-center gap-2 transition-all"
-            >
-              <ExternalLink className="h-4 w-4" />
-              Release Payment to Seller
-            </button>
-          </section>
-        )}
+        {currentRole === 'Buyer' && isCodeVerified && !isCompleted && timeLeft && (
+  <TimerSection 
+    timeLeft={timeLeft} 
+    customTime={deal.custom_time_frame || customTimeInput} 
+    onRelease={releasePayment} 
+  />
+)}
 
         {/* Progress Stage Bar */}
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg">
@@ -547,6 +536,14 @@ function DealContent() {
         {/* OloBuy Official Escrow Account & Payment Section */}
         {currentRole === 'Buyer' && (
           <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-xl">
+            {/* Admin Code Verification Box */}
+{!isCodeVerified && (
+  <AdminVerifyBox 
+    codeInput={adminCodeInput} 
+    setCodeInput={setAdminCodeInput} 
+    onVerify={verifyAdminCode} 
+  />
+)}
             <div className="flex items-center gap-2 mb-3">
               <Building2 className="h-5 w-5 text-[#ff9800]" />
               <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
