@@ -534,8 +534,7 @@ function DealContent() {
         </section>
 
         {/* OloBuy Official Escrow Account & Payment Section */}
-     {/* OloBuy Official Escrow Account & Payment Section */}
-{currentRole === 'Buyer' && (
+    {currentRole === 'Buyer' && (
   <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 mb-4">
     
     {/* Admin Code Verification Box */}
@@ -554,12 +553,12 @@ function DealContent() {
 
         <div className="bg-[#0a0f1c] border border-amber-500/20 rounded-xl p-3 space-y-1.5 text-xs">
           <p className="text-slate-400 font-medium">Transfer via JazzCash / EasyPaisa / Bank Account</p>
-          <p className="text-white font-bold">Account Title: OloBuy Escrow</p>
-          <p className="text-white font-bold">Account / IBAN: <span className="text-[#ff9800]">923043031572</span></p>
+          <p className="text-white font-bold">Account Title: OloBuy Escrow Services</p>
+          <p className="text-white font-bold">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
         </div>
 
         <p className="text-xs text-slate-300 mb-4 font-medium leading-relaxed mt-3">
-          Transfer <span className="text-white font-bold">Rs {deal.amount || 0}</span> and submit the screenshot.
+          Transfer <span className="text-white font-bold">Rs {deal.amount || 0}</span> and submit the screenshot to <span className="text-[#ff9800] select-all">{adminWhatsApp}</span>
         </p>
 
         {!paymentDone ? (
@@ -588,7 +587,7 @@ function DealContent() {
       </>
     )}
   </section>
-)} 
+)}
         {/* Seller Controls */}
         {currentRole === 'Seller' && (
           <section className="space-y-4">
