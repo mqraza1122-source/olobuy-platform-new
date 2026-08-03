@@ -1,5 +1,6 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
+import { EscrowFlow } from '@/components/escrow-flow'
 import { HowItWorks } from '@/components/how-it-works'
 import { Features } from '@/components/features'
 import { Testimonials } from '@/components/testimonials'
