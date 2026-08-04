@@ -94,6 +94,62 @@ export function HowItWorks() {
       <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-[#1a237e]/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-5xl relative z-10">
+        
+        {/* Visual Flow Banner with Brand Logo */}
+        <div className="mb-8 bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 text-center relative overflow-hidden shadow-xl">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#ff9800]/5 to-transparent pointer-events-none" />
+          
+          <span className="text-[#ff9800] font-black text-[11px] sm:text-xs tracking-[0.2em] uppercase block mb-2">
+            SECURE ESCROW PROTOCOL
+          </span>
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
+            HOW IT WORKS
+          </h2>
+          <p className="text-white/60 text-xs sm:text-sm max-w-lg mx-auto mb-8 leading-relaxed">
+            A neutral platform holding funds until both buyer and seller confirm full satisfaction.
+          </p>
+
+          {/* Flow Container: Buyer -> Logo -> Seller */}
+          <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
+            {/* Buyer Node */}
+            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-2">
+                <MessageSquareText className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <span className="text-white font-bold text-xs sm:text-sm">Buyer</span>
+            </div>
+
+            {/* Arrow */}
+            <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
+
+            {/* Central OloBuy Brand Logo Node */}
+            <div className="flex flex-col items-center flex-1 bg-white/10 border-2 border-[#ff9800]/50 rounded-2xl p-3.5 sm:p-4 shadow-[0_0_25px_rgba(255,152,0,0.2)]">
+              <div className="w-16 h-10 sm:w-20 sm:h-12 flex items-center justify-center mb-1">
+                <img
+                  src="/logo.jpg"
+                  alt="OloBuy Final Logo"
+                  className="h-full w-full object-contain filter drop-shadow-md"
+                />
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
+
+            {/* Seller Node */}
+            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#ff9800]/10 border border-[#ff9800]/20 flex items-center justify-center text-[#ff9800] mb-2">
+                <Package className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <span className="text-white font-bold text-xs sm:text-sm">Seller / Delivery</span>
+            </div>
+          </div>
+
+          <p className="text-white/45 text-xs mt-6">
+            Funds held securely until item is received & inspected.
+          </p>
+        </div>
+
         {/* Steps */}
         <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
           {STEPS.map((step, i) => {
@@ -277,4 +333,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-}
+    }
