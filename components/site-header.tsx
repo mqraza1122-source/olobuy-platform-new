@@ -40,21 +40,21 @@ export function SiteHeader() {
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           scrolled
-            ? 'bg-[#0f172a]/90 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-            : 'bg-[#0f172a] border-b border-white/5'
+            ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
+            : 'bg-white border-b border-gray-100 shadow-sm'
         }`}
       >
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           
-          {/* Logo Brand matching logo colors: Olo in Yellow, Buy in Blue */}
-          <a href="#" className="flex flex-col group">
-            <div className="flex items-center text-2xl sm:text-3xl font-black tracking-tight">
-              <span className="text-[#ff9800] group-hover:scale-105 transition-transform">Olo</span>
-              <span className="text-[#3b82f6] group-hover:scale-105 transition-transform">Buy</span>
+          {/* Professional Brand Logo from public/logo.jpg */}
+          <a href="#" className="flex items-center gap-3 group py-0.5">
+            <div className="relative h-10 w-28 sm:h-12 sm:w-32 flex items-center">
+              <img
+                src="/logo.jpg"
+                alt="OloBuy Final Logo"
+                className="h-full w-full object-contain object-left group-hover:scale-[1.02] transition-transform duration-200"
+              />
             </div>
-            <p className="text-[9px] sm:text-[10px] font-bold text-white/40 uppercase tracking-[0.22em]">
-              Original Life, Original Buy
-            </p>
           </a>
 
           {/* Desktop & Action Section */}
@@ -63,26 +63,26 @@ export function SiteHeader() {
               href="https://wa.me/923043031572"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 bg-[#25d366]/15 hover:bg-[#25d366]/25 border border-[#25d366]/30 text-[#25d366] font-bold px-4 py-2 rounded-xl text-xs transition-all shadow-sm"
+              className="hidden sm:flex items-center gap-2 bg-[#25d366]/10 hover:bg-[#25d366]/20 border border-[#25d366]/30 text-[#128c7e] font-bold px-4 py-2 rounded-xl text-xs transition-all shadow-sm"
             >
-              <MessageCircle className="h-4 w-4" />
+              <MessageCircle className="h-4 w-4 text-[#25d366]" />
               <span>Support</span>
             </a>
 
             {/* Menu Toggle Button */}
             <button
               onClick={() => setOpen(!open)}
-              className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-white transition-colors cursor-pointer"
+              className="p-2.5 bg-gray-100 hover:bg-gray-200/80 border border-gray-200 rounded-2xl text-gray-800 transition-colors cursor-pointer"
               aria-label="Toggle Menu"
             >
-              {open ? <X className="h-6 w-6 text-[#ff9800]" /> : <Menu className="h-6 w-6 text-[#ff9800]" />}
+              {open ? <X className="h-6 w-6 text-[#ff9800]" /> : <Menu className="h-6 w-6 text-[#1A237E]" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Dropdown Menu */}
         <div
-          className={`overflow-hidden transition-all duration-300 ease-out bg-[#0f172a]/95 backdrop-blur-2xl border-b border-white/10 ${
+          className={`overflow-hidden transition-all duration-300 ease-out bg-white/95 backdrop-blur-2xl border-b border-gray-200 shadow-xl ${
             open ? 'max-h-[450px] opacity-100 py-4 px-6' : 'max-h-0 opacity-0 py-0 px-6'
           }`}
         >
@@ -93,7 +93,7 @@ export function SiteHeader() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block py-3 px-4 rounded-xl font-bold text-white/80 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-base"
+                  className="block py-3 px-4 rounded-xl font-bold text-gray-700 hover:text-[#1A237E] hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-base"
                 >
                   {link.label}
                 </a>
@@ -101,14 +101,14 @@ export function SiteHeader() {
                 <button
                   key={link.href}
                   onClick={() => handleLinkClick(link)}
-                  className="w-full text-left block py-3 px-4 rounded-xl font-bold text-white/80 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all text-base cursor-pointer"
+                  className="w-full text-left block py-3 px-4 rounded-xl font-bold text-gray-700 hover:text-[#1A237E] hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all text-base cursor-pointer"
                 >
                   {link.label}
                 </button>
               )
             )}
             
-            <div className="pt-2 border-t border-white/10 flex sm:hidden">
+            <div className="pt-2 border-t border-gray-100 flex sm:hidden">
               <a
                 href="https://wa.me/923043031572"
                 target="_blank"
@@ -188,4 +188,4 @@ export function SiteHeader() {
       )}
     </>
   );
-            }
+              }
