@@ -21,7 +21,7 @@ const FAQS = [
   },
   {
     q: 'How much does OloBuy charge for escrow protection?',
-    a: 'Our service fees are extremely nominal and transparent. We charge a flat and affordable rate of just Rs 20 per Rs 1,000 to completely secure your everyday trades and protect you from fraud.',
+    a: 'The service fee is transparently structured based on the deal amount to ensure safe trade execution for both parties. You can check the complete fee schedule directly above in the pricing section or contact our support via WhatsApp.',
   },
   {
     q: 'Is my money and personal data safe with OloBuy?',
