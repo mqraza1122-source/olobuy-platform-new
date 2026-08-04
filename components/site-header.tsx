@@ -49,7 +49,7 @@ export function SiteHeader() {
           {/* Professional Brand Logo from public/logo.jpg */}
             {/* World-Class Large Prominent Brand Logo */}
           <a href="#" className="flex items-center group py-1.5">
-            <div className="relative h-12 w-36 sm:h-14 sm:w-44 flex items-center">
+            <div className="relative h-14 w-40 sm:h-16 sm:w-48 flex items-center">
               <img
                 src="/logo.jpg"
                 alt="OloBuy Final Logo"
