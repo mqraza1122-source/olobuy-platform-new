@@ -23,8 +23,7 @@ function DealContent() {
   const [sellerName, setSellerName] = useState<string>('');
   const [sellerContact, setSellerContact] = useState<string>('');
   const [sellerAccount, setSellerAccount] = useState<string>('');
-
-  const [inspectionDays, setInspectionDays] = useState<number>(2);
+const [inspectionDays, setInspectionDays] = useState<any>('');
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
 
   const [messages, setMessages] = useState<any[]>([]);
@@ -72,7 +71,7 @@ function DealContent() {
     if (!deal) return;
 
     const baseTime = new Date(deal.created_at || Date.now()).getTime();
-    const daysAllowed = Number(deal.inspection_days || 2);
+    const daysAllowed = Number(deal.inspection_days || 0);
     const targetTime = baseTime + daysAllowed * 24 * 60 * 60 * 1000;
 
     const timer = setInterval(() => {
@@ -173,7 +172,7 @@ function DealContent() {
     const sName = deal?.seller_name || sellerName || 'Not Provided';
     const sContact = deal?.seller_contact || sellerContact || 'Not Provided';
     const sAccount = deal?.seller_account || sellerAccount || 'Not Provided';
-    const sTime = deal?.inspection_days || inspectionDays || 2;
+    const sTime = deal?.inspection_days || inspectionDays || ;
     const prodName = deal?.product_name || 'Gaming accounts';
     const amt = Number(deal?.amount || 0).toLocaleString();
 
