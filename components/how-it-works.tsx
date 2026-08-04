@@ -95,7 +95,7 @@ export function HowItWorks() {
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* Main Card with Original Yellow HOW IT WORKS Button and Central Logo */}
+        {/* Main Card with Original Yellow HOW IT WORKS Button and Solid White Logo Box */}
         <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-6 sm:mb-8">
           
           {/* Original Glowing Yellow HOW IT WORKS Button */}
@@ -107,7 +107,7 @@ export function HowItWorks() {
             A neutral platform holding funds until both buyer and seller confirm satisfaction.
           </p>
 
-          {/* Flow Container: Buyer -> Logo -> Seller */}
+          {/* Flow Container: Buyer -> Solid White Logo -> Seller */}
           <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
             {/* Buyer Node */}
             <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
@@ -120,13 +120,13 @@ export function HowItWorks() {
             {/* Arrow */}
             <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
 
-            {/* Central OloBuy Brand Logo Node (Only Logo, No Text Below) */}
-            <div className="flex flex-col items-center flex-1 bg-[#111827] border-2 border-[#ff9800]/50 rounded-2xl p-3 shadow-[0_0_25px_rgba(255,152,0,0.2)]">
+            {/* Central OloBuy Brand Logo Node with Solid White Background */}
+            <div className="flex flex-col items-center flex-1 bg-white border-2 border-[#ff9800]/60 rounded-2xl p-3.5 shadow-[0_0_25px_rgba(255,152,0,0.25)]">
               <div className="w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center">
                 <img
                   src="/logo.jpg"
                   alt="OloBuy"
-                  className="w-full h-full object-contain filter drop-shadow-md scale-110"
+                  className="w-full h-full object-contain filter drop-shadow-sm scale-110"
                 />
               </div>
             </div>
@@ -190,7 +190,7 @@ export function HowItWorks() {
           })}
         </div>
 
-        {/* Service Charges — after Step 4, same card style */}
+        {/* Service Charges */}
         <div
           ref={fees.ref}
           className={`mb-10 sm:mb-12 transition-all duration-700 ease-out ${
@@ -331,4 +331,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-        }
+    }
