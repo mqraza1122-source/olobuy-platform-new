@@ -95,60 +95,55 @@ export function HowItWorks() {
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* Main How It Works Header Card with Clean Central Logo Flow */}
+        {/* Main Card with Original Yellow HOW IT WORKS Button and Central Logo */}
         <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-6 sm:mb-8">
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#ff9800] to-transparent" />
-
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#ff9800]/10 border border-[#ff9800]/25 text-[#ff9800] font-black text-[11px] sm:text-xs tracking-[0.2em] uppercase mb-3">
-            SECURE ESCROW PROTOCOL
+          
+          {/* Original Glowing Yellow HOW IT WORKS Button */}
+          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-base sm:text-lg tracking-wider px-8 py-3.5 rounded-full shadow-[0_0_25px_rgba(255,152,0,0.4)] mb-6 uppercase">
+            HOW IT WORKS
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
-            HOW IT WORKS
-          </h2>
-
           <p className="text-white/60 text-xs sm:text-sm max-w-md mx-auto mb-8 leading-relaxed">
-            A neutral platform holding funds until both buyer and seller confirm full satisfaction.
+            A neutral platform holding funds until both buyer and seller confirm satisfaction.
           </p>
 
-          {/* Flow Container: Buyer -> Clean Logo -> Seller */}
-          <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-lg mx-auto">
+          {/* Flow Container: Buyer -> Logo -> Seller */}
+          <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
             {/* Buyer Node */}
-            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-4 shadow-sm">
-              <div className="w-12 h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-2">
-                <MessageSquareText className="w-6 h-6" />
+            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-2">
+                <MessageSquareText className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <span className="text-white font-bold text-xs sm:text-sm">Buyer</span>
             </div>
 
             {/* Arrow */}
-            <div className="text-[#ff9800] font-bold text-xl animate-pulse">→</div>
+            <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
 
-            {/* Central OloBuy Brand Logo Node (Clean & Seamless) */}
-            <div className="flex flex-col items-center flex-1 bg-[#111827] border-2 border-[#ff9800]/60 rounded-2xl p-3 shadow-[0_0_30px_rgba(255,152,0,0.25)] relative">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center overflow-hidden bg-white p-1.5 shadow-inner">
+            {/* Central OloBuy Brand Logo Node (Only Logo, No Text Below) */}
+            <div className="flex flex-col items-center flex-1 bg-[#111827] border-2 border-[#ff9800]/50 rounded-2xl p-3 shadow-[0_0_25px_rgba(255,152,0,0.2)]">
+              <div className="w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center">
                 <img
                   src="/logo.jpg"
                   alt="OloBuy"
-                  className="w-full h-full object-contain scale-125"
+                  className="w-full h-full object-contain filter drop-shadow-md scale-110"
                 />
               </div>
-              <span className="text-[#ff9800] font-black text-xs mt-1.5 tracking-wider">OloBuy</span>
             </div>
 
             {/* Arrow */}
-            <div className="text-[#ff9800] font-bold text-xl animate-pulse">→</div>
+            <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
 
             {/* Seller Node */}
-            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-4 shadow-sm">
-              <div className="w-12 h-12 rounded-xl bg-[#ff9800]/10 border border-[#ff9800]/20 flex items-center justify-center text-[#ff9800] mb-2">
-                <Package className="w-6 h-6" />
+            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#ff9800]/10 border border-[#ff9800]/20 flex items-center justify-center text-[#ff9800] mb-2">
+                <Package className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <span className="text-white font-bold text-xs sm:text-sm">Seller / Delivery</span>
             </div>
           </div>
 
-          <p className="text-white/45 text-xs sm:text-sm mt-6">
+          <p className="text-white/45 text-xs mt-6">
             Funds held securely until item is received & inspected.
           </p>
         </div>
@@ -326,7 +321,7 @@ export function HowItWorks() {
 
             <button
               type="button"
-              onClick={() => setSelectedPlugin(null)}
+              onClick={() => setSelectedStep(null)}
               className="w-full bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold px-6 py-3.5 rounded-xl hover:opacity-95 transition-opacity shadow-lg cursor-pointer"
             >
               Got It, Close
@@ -336,4 +331,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-}
+        }
