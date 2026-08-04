@@ -22,8 +22,10 @@ function DealContent() {
   
   const [sellerName, setSellerName] = useState<string>('');
   const [sellerContact, setSellerContact] = useState<string>('');
-  const [sellerAccount, setSellerAccount] = useState<string>('');
-const [inspectionDays, setInspectionDays] = useState<any>('');
+  const [sellerAccountTitle, setSellerAccountTitle] = useState<string>('');
+  const [sellerBankName, setSellerBankName] = useState<string>('JazzCash');
+  const [sellerAccountNumber, setSellerAccountNumber] = useState<string>('');
+  const [inspectionDays, setInspectionDays] = useState<any>('');
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
 
   const [messages, setMessages] = useState<any[]>([]);
@@ -72,6 +74,8 @@ const [inspectionDays, setInspectionDays] = useState<any>('');
 
     const baseTime = new Date(deal.created_at || Date.now()).getTime();
     const daysAllowed = Number(deal.inspection_days || 0);
+    if (daysAllowed <= 0) return;
+
     const targetTime = baseTime + daysAllowed * 24 * 60 * 60 * 1000;
 
     const timer = setInterval(() => {
@@ -107,7 +111,9 @@ const [inspectionDays, setInspectionDays] = useState<any>('');
       if (data?.inspection_days) setInspectionDays(data.inspection_days);
       if (data?.seller_name) setSellerName(data.seller_name);
       if (data?.seller_contact) setSellerContact(data.seller_contact);
-      if (data?.seller_account) setSellerAccount(data.seller_account);
+      if (data?.seller_account_title) setSellerAccountTitle(data.seller_account_title);
+      if (data?.seller_bank_name) setSellerBankName(data.seller_bank_name);
+      if (data?.seller_account) setSellerAccountNumber(data.seller_account);
     }
     setLoading(false);
   };
@@ -131,7 +137,9 @@ const [inspectionDays, setInspectionDays] = useState<any>('');
       .update({
         seller_name: sellerName,
         seller_contact: sellerContact,
-        seller_account: sellerAccount,
+        seller_account_title: sellerAccountTitle,
+        seller_bank_name: sellerBankName,
+        seller_account: sellerAccountNumber,
         inspection_days: inspectionDays,
       })
       .eq('deal_code', id);
@@ -141,7 +149,15 @@ const [inspectionDays, setInspectionDays] = useState<any>('');
       return;
     }
 
-    setDeal({ ...deal, seller_name: sellerName, seller_contact: sellerContact, seller_account: sellerAccount, inspection_days: inspectionDays });
+    setDeal({ 
+      ...deal, 
+      seller_name: sellerName, 
+      seller_contact: sellerContact, 
+      seller_account_title: sellerAccountTitle,
+      seller_bank_name: sellerBankName,
+      seller_account: sellerAccountNumber, 
+      inspection_days: inspectionDays 
+    });
     setIsEditingSeller(false);
     alert('Details updated successfully!');
   };
@@ -171,18 +187,22 @@ const [inspectionDays, setInspectionDays] = useState<any>('');
   const handlePaidClick = () => {
     const sName = deal?.seller_name || sellerName || 'Not Provided';
     const sContact = deal?.seller_contact || sellerContact || 'Not Provided';
-    const sAccount = deal?.seller_account || sellerAccount || 'Not Provided';
+    const sTitle = deal?.seller_account_title || sellerAccountTitle || 'Not Provided';
+    const sBank = deal?.seller_bank_name || sellerBankName || 'Not Provided';
+    const sAcc = deal?.seller_account || sellerAccountNumber || 'Not Provided';
     const sTime = deal?.inspection_days || inspectionDays || 'Not Provided';
-    const prodName = deal?.product_name || 'Gaming accounts'; 
+    const prodName = deal?.product_name || 'Not Provided'; 
     const amt = Number(deal?.amount || 0).toLocaleString();
 
     const text = encodeURIComponent(
 `Hello OloBuy Team, I have paid Rs ${amt} for Deal #${deal?.deal_code}.
 
-📦 Product: ${prodName}
+📦 Buying Product / Service: ${prodName}
 👤 Seller Name: ${sName}
 📞 Seller Contact: ${sContact}
-🏦 Seller Account #: ${sAccount}
+🏦 Account Title: ${sTitle}
+🏛️ Bank / Wallet: ${sBank}
+🔢 Account Number: ${sAcc}
 ⏳ Inspection Time: ${sTime} Days
 
 Here is my payment screenshot:`
@@ -217,25 +237,20 @@ Here is my payment screenshot:`
   };
 
   if (loading) {
-  return (
-    <div className="min-h-screen bg-[#07090e] flex flex-col items-center justify-center px-6">
-      {/* Spinner */}
-      <div className="relative mb-6">
-        <div className="h-14 w-14 rounded-full border-[3px] border-white/10 border-t-[#ff9800] animate-spin" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="h-6 w-6 rounded-full bg-[#ff9800]/20" />
+    return (
+      <div className="min-h-screen bg-[#07090e] flex flex-col items-center justify-center px-6">
+        <div className="relative mb-6">
+          <div className="h-14 w-14 rounded-full border-[3px] border-white/10 border-t-[#ff9800] animate-spin" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="h-6 w-6 rounded-full bg-[#ff9800]/20" />
+          </div>
         </div>
+        <p className="text-[#ff9800] font-black text-sm tracking-[0.2em] uppercase">OloBuy</p>
+        <p className="mt-2 text-white/50 text-xs font-medium tracking-wide">Preparing your secure deal...</p>
       </div>
-
-      <p className="text-[#ff9800] font-black text-sm tracking-[0.2em] uppercase">
-        OloBuy
-      </p>
-      <p className="mt-2 text-white/50 text-xs font-medium tracking-wide">
-        Preparing your secure deal...
-      </p>
-    </div>
-  );
+    );
   }
+
   if (!deal) {
     return (
       <div className="min-h-screen bg-[#07090e] flex items-center justify-center text-white p-4">
@@ -253,7 +268,7 @@ Here is my payment screenshot:`
     <main className="min-h-screen bg-[#07090e] text-slate-100 p-4 sm:p-6 flex items-center justify-center font-sans antialiased">
       <div className="max-w-md w-full bg-[#0d1322]/95 backdrop-blur-xl border border-slate-800/80 rounded-[2.5rem] p-6 sm:p-8 shadow-2xl relative my-6 space-y-6">
         
-        {/* ================= 1. TOP: Deal Code, Product Details, Seller Details & Time Set ================= */}
+        {/* ================= HEADER SECTION ================= */}
         <header className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 shadow-inner">
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
@@ -269,7 +284,7 @@ Here is my payment screenshot:`
               <div className="flex items-center gap-2.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#ff9800]"></span>
                 <span className="text-xs font-bold text-white uppercase truncate max-w-[210px]">
-                  {deal.product_name || 'Gaming accounts'}
+                  {deal.product_name || 'Not Provided'}
                 </span>
               </div>
               {detailsOpen ? <ChevronUp className="h-4 w-4 text-[#ff9800]" /> : <ChevronDown className="h-4 w-4 text-[#ff9800]" />}
@@ -278,8 +293,8 @@ Here is my payment screenshot:`
             {detailsOpen && (
               <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 bg-[#0a0f1c] text-left space-y-3 text-xs">
                 <div className="flex justify-between items-center pb-1.5 border-b border-slate-800/60">
-                  <span className="text-slate-400 font-medium">Product:</span>
-                  <span className="font-bold text-white">{deal.product_name || 'Gaming accounts'}</span>
+                  <span className="text-slate-400 font-medium">Buying Product / Service:</span>
+                  <span className="font-bold text-white">{deal.product_name || 'Not Provided'}</span>
                 </div>
 
                 {!isEditingSeller ? (
@@ -293,16 +308,24 @@ Here is my payment screenshot:`
                       <span className="font-bold text-slate-200 select-all">{deal.seller_contact || 'Not Provided'}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400 font-medium">Seller Account #:</span>
+                      <span className="text-slate-400 font-medium">Account Title:</span>
+                      <span className="font-bold text-slate-200">{deal.seller_account_title || 'Not Provided'}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-400 font-medium">Bank / Wallet:</span>
+                      <span className="font-bold text-indigo-400">{deal.seller_bank_name || 'Not Provided'}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-400 font-medium">Account Number:</span>
                       <span className="font-bold text-[#ff9800] select-all">{deal.seller_account || 'Not Provided'}</span>
                     </div>
                     <div className="flex justify-between items-center pb-1">
                       <span className="text-slate-400 font-medium">Inspection Time:</span>
-                      <span className="font-bold text-emerald-400">{deal.inspection_days || 2} Days</span>
+                      <span className="font-bold text-emerald-400">{deal.inspection_days ? `${deal.inspection_days} Days` : 'Not Provided'}</span>
                     </div>
                     <button
                       onClick={() => setIsEditingSeller(true)}
-                      className="w-full mt-1 bg-[#121b2f] hover:bg-slate-800 text-indigo-400 py-2.5 rounded-xl text-[11px] font-bold uppercase flex items-center justify-center gap-1.5 border border-indigo-500/20"
+                      className="w-full mt-1 bg-[#121b2f] hover:bg-slate-800 text-indigo-400 py-2.5 rounded-xl text-[11px] font-bold uppercase flex items-center justify-center gap-1.5 border border-indigo-500/20 cursor-pointer"
                     >
                       <Edit3 className="h-3.5 w-3.5" /> Edit Details & Time
                     </button>
@@ -313,6 +336,7 @@ Here is my payment screenshot:`
                       <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Name</label>
                       <input 
                         type="text" value={sellerName} onChange={(e) => setSellerName(e.target.value)}
+                        placeholder="e.g. Raza Traders"
                         className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
                       />
                     </div>
@@ -320,13 +344,34 @@ Here is my payment screenshot:`
                       <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Contact</label>
                       <input 
                         type="text" value={sellerContact} onChange={(e) => setSellerContact(e.target.value)}
+                        placeholder="e.g. 0300-1234567"
                         className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Account #</label>
+                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Account Title</label>
                       <input 
-                        type="text" value={sellerAccount} onChange={(e) => setSellerAccount(e.target.value)}
+                        type="text" value={sellerAccountTitle} onChange={(e) => setSellerAccountTitle(e.target.value)}
+                        placeholder="e.g. Ali Raza"
+                        className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Bank / Wallet Name</label>
+                      <select 
+                        value={sellerBankName} onChange={(e) => setSellerBankName(e.target.value)}
+                        className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none cursor-pointer"
+                      >
+                        <option value="JazzCash">JazzCash</option>
+                        <option value="Easypaisa">Easypaisa</option>
+                        <option value="Other Bank Account">Other Bank Account</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-[10px] text-slate-400 font-bold uppercase">Account Number / IBAN</label>
+                      <input 
+                        type="text" value={sellerAccountNumber} onChange={(e) => setSellerAccountNumber(e.target.value)}
+                        placeholder="e.g. 0301-2345678"
                         className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
                       />
                     </div>
@@ -334,14 +379,15 @@ Here is my payment screenshot:`
                       <label className="text-[10px] text-slate-400 font-bold uppercase">Inspection Time (Days)</label>
                       <input 
                         type="number" min={1} max={30} value={inspectionDays} onChange={(e) => setInspectionDays(Number(e.target.value))}
+                        placeholder="e.g. 2"
                         className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
                       />
                     </div>
                     <div className="flex gap-2 pt-1">
-                      <button type="submit" className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-bold uppercase text-[10px] flex items-center justify-center gap-1">
+                      <button type="submit" className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-bold uppercase text-[10px] flex items-center justify-center gap-1 cursor-pointer">
                         <Check className="h-3 w-3" /> Save
                       </button>
-                      <button type="button" onClick={() => setIsEditingSeller(false)} className="bg-slate-800 text-slate-300 px-4 py-2.5 rounded-xl font-bold uppercase text-[10px]">
+                      <button type="button" onClick={() => setIsEditingSeller(false)} className="bg-slate-800 text-slate-300 px-4 py-2.5 rounded-xl font-bold uppercase text-[10px] cursor-pointer">
                         Cancel
                       </button>
                     </div>
@@ -352,7 +398,7 @@ Here is my payment screenshot:`
           </div>
         </header>
 
-        {/* ================= VIP GLOBAL LEVEL COUNTDOWN & RELEASE BUTTON (SHOWN AFTER ADMIN CODE VERIFICATION) ================= */}
+        {/* ================= COUNTDOWN & RELEASE BUTTON ================= */}
         {isCodeVerified && currentRole === 'Buyer' && !isCompleted && timeLeft && (
           <section className="bg-gradient-to-br from-[#121b2f] to-[#0a0f1c] border-2 border-emerald-500/50 rounded-3xl p-6 shadow-2xl text-center space-y-5 relative overflow-hidden">
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
@@ -381,12 +427,6 @@ Here is my payment screenshot:`
               </div>
             </div>
             
-            <div className="bg-amber-500/10 border border-amber-500/30 p-3 rounded-2xl text-left">
-              <p className="text-[11px] text-amber-300 font-medium leading-relaxed">
-                ⚠️ <strong className="text-white">Seller Policy:</strong> Complete work within this time frame. Otherwise, fines or penalties will apply automatically.
-              </p>
-            </div>
-
             <button 
               onClick={releasePayment} 
               className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white py-4 rounded-2xl text-xs uppercase font-black tracking-widest shadow-xl shadow-emerald-900/30 cursor-pointer flex items-center justify-center gap-2.5 transition-all transform active:scale-95"
@@ -396,7 +436,7 @@ Here is my payment screenshot:`
           </section>
         )}
 
-        {/* ================= 2. NEXT: Secure Deal Chat (Both Parties) ================= */}
+        {/* ================= SECURE DEAL CHAT ================= */}
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg">
           <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-slate-800/80">
             <div className="flex items-center gap-2">
@@ -446,7 +486,7 @@ Here is my payment screenshot:`
           </form>
         </section>
 
-        {/* ================= 3. NEXT: Escrow Stage & Amount ================= */}
+        {/* ================= ESCROW STAGE & AMOUNT ================= */}
         <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
           <div className="flex justify-between items-center text-xs font-bold text-slate-400">
             <span>Escrow Stage</span>
@@ -464,7 +504,7 @@ Here is my payment screenshot:`
           </div>
         </section>
 
-        {/* ================= 4. NEXT: OloBuy Official Account ================= */}
+        {/* ================= OFFICIAL ACCOUNT ================= */}
         {currentRole === 'Buyer' && (
           <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
             <div className="flex items-center gap-2">
@@ -480,7 +520,7 @@ Here is my payment screenshot:`
           </section>
         )}
 
-        {/* ================= 5. NEXT: "I Have Paid Amount" Button ================= */}
+        {/* ================= PAYMENT BUTTON ================= */}
         {currentRole === 'Buyer' && !isCodeVerified && (
           <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 text-center shadow-lg space-y-3">
             <button 
@@ -496,7 +536,7 @@ Here is my payment screenshot:`
           </section>
         )}
 
-        {/* ================= 6. NEXT: Admin Code Verification Box ================= */}
+        {/* ================= ADMIN VERIFICATION ================= */}
         {currentRole === 'Buyer' && !isCodeVerified && (
           <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-xl text-center space-y-3">
             <div className="inline-flex p-2.5 bg-amber-500/20 rounded-full text-[#ff9800]">
