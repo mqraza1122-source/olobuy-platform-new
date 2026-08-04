@@ -46,14 +46,13 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           
-          {/* Professional Brand Logo from public/logo.jpg */}
-            {/* World-Class Large Prominent Brand Logo */}
+          {/* Professional Brand Logo with background blend fix */}
           <a href="#" className="flex items-center group py-1.5">
-            <div className="relative h-14 w-40 sm:h-16 sm:w-48 flex items-center">
+            <div className="relative h-12 w-36 sm:h-14 sm:w-44 flex items-center overflow-hidden">
               <img
                 src="/logo.jpg"
-                alt="OloBuy Final Logo"
-                className="h-full w-full object-contain object-left scale-110 sm:scale-125 group-hover:scale-130 transition-transform duration-200"
+                alt="OloBuy Logo"
+                className="h-full w-full object-contain object-left scale-125 group-hover:scale-130 transition-transform duration-200 mix-blend-multiply"
               />
             </div>
           </a>
@@ -189,4 +188,4 @@ export function SiteHeader() {
       )}
     </>
   );
-              }
+        }
