@@ -95,10 +95,9 @@ export function HowItWorks() {
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* Main Card */}
+        {/* Single Main Card with White Logo */}
         <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-6 sm:mb-8">
           
-          {/* Yellow HOW IT WORKS Button */}
           <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-base sm:text-lg tracking-wider px-8 py-3.5 rounded-full shadow-[0_0_25px_rgba(255,152,0,0.4)] mb-6 uppercase">
             HOW IT WORKS
           </div>
@@ -107,7 +106,6 @@ export function HowItWorks() {
             A neutral platform holding funds until both buyer and seller confirm satisfaction.
           </p>
 
-          {/* Flow Container */}
           <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
             {/* Buyer Node */}
             <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
@@ -117,7 +115,6 @@ export function HowItWorks() {
               <span className="text-white font-bold text-xs sm:text-sm">Buyer</span>
             </div>
 
-            {/* Arrow */}
             <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
 
             {/* Central White Logo Node */}
@@ -131,7 +128,6 @@ export function HowItWorks() {
               </div>
             </div>
 
-            {/* Arrow */}
             <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
 
             {/* Seller Node */}
@@ -148,7 +144,7 @@ export function HowItWorks() {
           </p>
         </div>
 
-        {/* Steps */}
+        {/* Steps Grid */}
         <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
@@ -331,4 +327,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-  }
+   }
