@@ -18,11 +18,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -46,15 +42,13 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           
-          {/* Professional Brand Logo with background blend fix */}
-          <a href="#" className="flex items-center group py-1.5">
-            <div className="relative h-12 w-36 sm:h-14 sm:w-44 flex items-center overflow-hidden">
-              <img
-                src="/logo.jpg"
-                alt="OloBuy Logo"
-                className="h-full w-full object-contain object-left scale-125 group-hover:scale-130 transition-transform duration-200 mix-blend-multiply"
-              />
-            </div>
+          {/* Perfect Logo – No white box, only logo visible */}
+          <a href="#" className="flex items-center shrink-0 group">
+            <img
+              src="/logo.jpg"
+              alt="OloBuy"
+              className="h-9 sm:h-10 w-auto object-contain mix-blend-multiply transition-transform duration-200 group-hover:scale-105"
+            />
           </a>
 
           {/* Desktop & Action Section */}
@@ -128,7 +122,6 @@ export function SiteHeader() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200">
           <div className="bg-[#111827] border border-[#ff9800]/35 w-full max-w-md rounded-3xl p-6 sm:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.75)]">
             
-            {/* Close Button */}
             <button
               onClick={() => setModalContent(null)}
               className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
@@ -188,4 +181,4 @@ export function SiteHeader() {
       )}
     </>
   );
-        }
+                        }
