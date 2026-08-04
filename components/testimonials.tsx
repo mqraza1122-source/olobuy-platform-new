@@ -65,7 +65,7 @@ function useFadeUp(threshold = 0.12) {
 }
 
 export function Testimonials() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const header = useFadeUp();
   const list = useFadeUp(0.08);
 
@@ -106,7 +106,7 @@ export function Testimonials() {
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex items-start justify-between gap-3 text-left p-5 sm:p-6"
+                  className="w-full flex items-start justify-between gap-3 text-left p-5 sm:p-6 cursor-pointer"
                 >
                   <div className="min-w-0 flex-1">
                     <h4 className="font-bold text-white text-base sm:text-lg leading-tight">
@@ -151,4 +151,4 @@ export function Testimonials() {
       </div>
     </section>
   );
-    }
+      }
