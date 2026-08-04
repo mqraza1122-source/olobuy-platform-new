@@ -17,7 +17,9 @@ function DealContent() {
   const [deal, setDeal] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
-  const [detailsOpen, setDetailsOpen] = useState<boolean>(true);
+  
+  // World-Class UI State: Details & Chat hidden by default in a clean collapsible tab box
+  const [isDetailsTabOpen, setIsDetailsTabOpen] = useState<boolean>(false);
   const [isEditingSeller, setIsEditingSeller] = useState<boolean>(false);
   
   const [sellerName, setSellerName] = useState<string>('');
@@ -268,30 +270,44 @@ Here is my payment screenshot:`
     <main className="min-h-screen bg-[#07090e] text-slate-100 p-4 sm:p-6 flex items-center justify-center font-sans antialiased">
       <div className="max-w-md w-full bg-[#0d1322]/95 backdrop-blur-xl border border-slate-800/80 rounded-[2.5rem] p-6 sm:p-8 shadow-2xl relative my-6 space-y-6">
         
-        {/* ================= HEADER SECTION ================= */}
+        {/* ================= 1. TOP: Deal Code & Status Button ================= */}
         <header className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 shadow-inner">
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
             <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">OloBuy Secure Escrow ({currentRole})</span>
           </div>
-          <h1 className="text-3xl font-black tracking-tight text-white">Deal #{deal.deal_code}</h1>
           
-          <div className="bg-[#121b2f] border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
-            <button
-              onClick={() => setDetailsOpen(!detailsOpen)}
-              className="w-full px-4 py-3.5 flex items-center justify-between text-left cursor-pointer hover:bg-slate-800/50 transition-all"
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ff9800]"></span>
-                <span className="text-xs font-bold text-white uppercase truncate max-w-[210px]">
-                  {deal.product_name || 'Not Provided'}
-                </span>
-              </div>
-              {detailsOpen ? <ChevronUp className="h-4 w-4 text-[#ff9800]" /> : <ChevronDown className="h-4 w-4 text-[#ff9800]" />}
-            </button>
+          <div className="flex items-center justify-between bg-[#121b2f] border border-slate-800 px-5 py-4 rounded-2xl shadow-lg">
+            <div className="text-left">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Deal Reference</span>
+              <h1 className="text-2xl font-black tracking-tight text-white">#{deal.deal_code}</h1>
+            </div>
+            <div className="px-3.5 py-1.5 bg-[#ff9800]/10 border border-[#ff9800]/30 rounded-xl text-xs font-black text-[#ff9800] uppercase tracking-wider">
+              {deal.status || 'PENDING'}
+            </div>
+          </div>
+        </header>
 
-            {detailsOpen && (
-              <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 bg-[#0a0f1c] text-left space-y-3 text-xs">
+        {/* ================= 2. COLLAPSIBLE ACCORDION TAB BOX (Hidden by default for ultra-clean view) ================= */}
+        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
+          <button
+            onClick={() => setIsDetailsTabOpen(!isDetailsTabOpen)}
+            className="w-full px-4 py-3.5 flex items-center justify-between text-left cursor-pointer hover:bg-slate-800/50 transition-all"
+          >
+            <div className="flex items-center gap-2.5">
+              <Building2 className="h-4 w-4 text-[#ff9800]" />
+              <span className="text-xs font-bold text-white uppercase tracking-wider">
+                View Bank Details, Chat & Product Info
+              </span>
+            </div>
+            {isDetailsTabOpen ? <ChevronUp className="h-4 w-4 text-[#ff9800]" /> : <ChevronDown className="h-4 w-4 text-[#ff9800]" />}
+          </button>
+
+          {isDetailsTabOpen && (
+            <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 bg-[#0a0f1c] text-left space-y-4 text-xs">
+              
+              {/* Product Info */}
+              <div className="space-y-2">
                 <div className="flex justify-between items-center pb-1.5 border-b border-slate-800/60">
                   <span className="text-slate-400 font-medium">Buying Product / Service:</span>
                   <span className="font-bold text-white">{deal.product_name || 'Not Provided'}</span>
@@ -394,11 +410,79 @@ Here is my payment screenshot:`
                   </form>
                 )}
               </div>
-            )}
-          </div>
-        </header>
 
-        {/* ================= COUNTDOWN & RELEASE BUTTON ================= */}
+              {/* Secure Chat Inside Tab */}
+              <div className="pt-3 border-t border-slate-800">
+                <div className="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-800/80">
+                  <div className="flex items-center gap-1.5">
+                    <MessageSquare className="h-3.5 w-3.5 text-[#ff9800]" />
+                    <h3 className="font-bold text-slate-200 text-[11px] uppercase tracking-wider">Secure Deal Chat</h3>
+                  </div>
+                  <button 
+                    onClick={() => handleInvite(currentRole === 'Buyer' ? 'Seller' : 'Buyer')}
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 cursor-pointer"
+                  >
+                    <Share2 className="h-2.5 w-2.5" /> Invite {currentRole === 'Buyer' ? 'Seller' : 'Buyer'}
+                  </button>
+                </div>
+
+                {copied && (
+                  <div className="mb-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] font-bold p-2 rounded-lg text-center">
+                    ✓ Invite link copied & WhatsApp opened!
+                  </div>
+                )}
+
+                <div className="h-32 overflow-y-auto space-y-2 mb-2 pr-1 text-[11px]">
+                  {messages.length === 0 ? (
+                    <p className="text-center text-slate-500 py-6 font-medium">No messages yet.</p>
+                  ) : (
+                    messages.map((msg, index) => {
+                      const isMe = msg.sender_role === currentRole;
+                      return (
+                        <div key={index} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
+                          <span className="text-[8px] font-bold text-slate-500 mb-0.5">{msg.sender_role}</span>
+                          <div className={`p-2.5 rounded-xl max-w-[85%] ${isMe ? 'bg-indigo-600 text-white font-medium' : 'bg-[#121b2f] border border-slate-800 text-slate-200'}`}>
+                            {msg.message}
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+
+                <form onSubmit={sendChatMessage} className="flex gap-1.5">
+                  <input 
+                    type="text" placeholder="Type a secure message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)}
+                    className="bg-[#07090e] border border-slate-800 rounded-xl px-3 py-2 text-[11px] w-full text-slate-100 outline-none focus:border-[#ff9800]"
+                  />
+                  <button type="submit" className="bg-[#ff9800] hover:bg-orange-600 text-white px-3 py-2 rounded-xl cursor-pointer">
+                    <Send className="h-3 w-3" />
+                  </button>
+                </form>
+              </div>
+
+            </div>
+          )}
+        </section>
+
+        {/* ================= 3. ESCROW AMOUNT & OFFICIAL ACCOUNT ================= */}
+        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
+          <div className="flex justify-between items-center pt-1">
+            <span className="text-slate-400 text-xs uppercase font-medium">Escrow Amount</span>
+            <span className="text-2xl font-black text-[#ff9800]">Rs {Number(deal.amount || 0).toLocaleString()}</span>
+          </div>
+          
+          {currentRole === 'Buyer' && (
+            <div className="pt-2 border-t border-slate-800 space-y-1.5 text-xs">
+              <p className="text-slate-400">Transfer via JazzCash / EasyPaisa / Bank:</p>
+              <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
+              <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
+              <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">{adminWhatsApp}</span></p>
+            </div>
+          )}
+        </section>
+
+        {/* ================= 4. COUNTDOWN & RELEASE BUTTON (BOTTOM FOOTER ACTION) ================= */}
         {isCodeVerified && currentRole === 'Buyer' && !isCompleted && timeLeft && (
           <section className="bg-gradient-to-br from-[#121b2f] to-[#0a0f1c] border-2 border-emerald-500/50 rounded-3xl p-6 shadow-2xl text-center space-y-5 relative overflow-hidden">
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
@@ -436,127 +520,42 @@ Here is my payment screenshot:`
           </section>
         )}
 
-        {/* ================= SECURE DEAL CHAT ================= */}
-        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg">
-          <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-slate-800/80">
-            <div className="flex items-center gap-2">
-              <MessageSquare className="h-4 w-4 text-[#ff9800]" />
-              <h3 className="font-bold text-slate-200 text-xs uppercase tracking-wider">Secure Deal Chat</h3>
-            </div>
-            <button 
-              onClick={() => handleInvite(currentRole === 'Buyer' ? 'Seller' : 'Buyer')}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-xl flex items-center gap-1 cursor-pointer transition-all"
-            >
-              <Share2 className="h-3 w-3" /> Invite {currentRole === 'Buyer' ? 'Seller' : 'Buyer'}
-            </button>
-          </div>
-
-          {copied && (
-            <div className="mb-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold p-2.5 rounded-xl text-center">
-              ✓ Invite link copied & WhatsApp opened!
-            </div>
-          )}
-
-          <div className="h-40 overflow-y-auto space-y-2.5 mb-3 pr-1 text-xs">
-            {messages.length === 0 ? (
-              <p className="text-center text-slate-500 py-8 font-medium">No messages yet.</p>
-            ) : (
-              messages.map((msg, index) => {
-                const isMe = msg.sender_role === currentRole;
-                return (
-                  <div key={index} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
-                    <span className="text-[9px] font-bold text-slate-500 mb-0.5">{msg.sender_role}</span>
-                    <div className={`p-3 rounded-2xl max-w-[85%] ${isMe ? 'bg-indigo-600 text-white font-medium' : 'bg-[#0a0f1c] border border-slate-800 text-slate-200'}`}>
-                      {msg.message}
-                    </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
-
-          <form onSubmit={sendChatMessage} className="flex gap-2">
-            <input 
-              type="text" placeholder="Type a secure message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)}
-              className="bg-[#0a0f1c] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs w-full text-slate-100 outline-none focus:border-[#ff9800]"
-            />
-            <button type="submit" className="bg-[#ff9800] hover:bg-orange-600 text-white px-4 py-2.5 rounded-xl cursor-pointer transition-all">
-              <Send className="h-3.5 w-3.5" />
-            </button>
-          </form>
-        </section>
-
-        {/* ================= ESCROW STAGE & AMOUNT ================= */}
-        <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
-          <div className="flex justify-between items-center text-xs font-bold text-slate-400">
-            <span>Escrow Stage</span>
-            <span className="text-[#ff9800] uppercase tracking-wider">{deal.status || 'pending'}</span>
-          </div>
-          <div className="grid grid-cols-4 gap-1.5">
-            <div className="h-2 rounded-full bg-[#ff9800]"></div>
-            <div className={`h-2 rounded-full ${isCodeVerified || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-800'}`}></div>
-            <div className={`h-2 rounded-full ${isCodeVerified || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-800'}`}></div>
-            <div className={`h-2 rounded-full ${isCompleted ? 'bg-emerald-500' : 'bg-slate-800'}`}></div>
-          </div>
-          <div className="flex justify-between items-center pt-2 border-t border-slate-800">
-            <span className="text-slate-400 text-xs uppercase font-medium">Escrow Amount</span>
-            <span className="text-2xl font-black text-[#ff9800]">Rs {Number(deal.amount || 0).toLocaleString()}</span>
-          </div>
-        </section>
-
-        {/* ================= OFFICIAL ACCOUNT ================= */}
-        {currentRole === 'Buyer' && (
-          <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
-            <div className="flex items-center gap-2">
-              <Building2 className="h-5 w-5 text-[#ff9800]" />
-              <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
-            </div>
-            <div className="bg-[#0a0f1c] border border-slate-800 rounded-xl p-3 text-xs space-y-1.5">
-              <p className="text-slate-400">Transfer via JazzCash / EasyPaisa / Bank:</p>
-              <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
-              <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
-              <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">{adminWhatsApp}</span></p>
-            </div>
-          </section>
-        )}
-
-        {/* ================= PAYMENT BUTTON ================= */}
+        {/* ================= 5. PAYMENT BUTTON & ADMIN VERIFICATION (BOTTOM FOOTER) ================= */}
         {currentRole === 'Buyer' && !isCodeVerified && (
-          <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 text-center shadow-lg space-y-3">
-            <button 
-              type="button"
-              onClick={handlePaidClick}
-              className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer transition-all"
-            >
-              I Have Paid Amount
-            </button>
-            <p className="text-[11px] text-slate-400 font-medium">
-              Please send transaction slip to OloBuy team WhatsApp to get verification code.
-            </p>
-          </section>
-        )}
+          <div className="space-y-4">
+            <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 text-center shadow-lg space-y-3">
+              <button 
+                type="button"
+                onClick={handlePaidClick}
+                className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer transition-all"
+              >
+                I Have Paid Amount
+              </button>
+              <p className="text-[11px] text-slate-400 font-medium">
+                Please send transaction slip to OloBuy team WhatsApp to get verification code.
+              </p>
+            </section>
 
-        {/* ================= ADMIN VERIFICATION ================= */}
-        {currentRole === 'Buyer' && !isCodeVerified && (
-          <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-xl text-center space-y-3">
-            <div className="inline-flex p-2.5 bg-amber-500/20 rounded-full text-[#ff9800]">
-              <Lock className="h-5 w-5" />
-            </div>
-            <h3 className="font-bold text-white text-xs uppercase tracking-wider">Admin Verification Required</h3>
-            <p className="text-slate-300 text-[11px]">
-              Enter the secure verification code provided by OloBuy Admin after slip verification.
-            </p>
-            <input 
-              type="password" placeholder="Enter Admin Code..." value={adminCodeInput} onChange={(e) => setAdminCodeInput(e.target.value)}
-              className="w-full bg-[#0a0f1c] border border-amber-500/40 rounded-xl px-4 py-2.5 text-xs text-white text-center font-bold tracking-widest outline-none"
-            />
-            <button
-              type="button" onClick={verifyAdminCode}
-              className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3 rounded-xl text-xs uppercase font-black tracking-widest cursor-pointer transition-all"
-            >
-              Verify Code
-            </button>
-          </section>
+            <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-xl text-center space-y-3">
+              <div className="inline-flex p-2.5 bg-amber-500/20 rounded-full text-[#ff9800]">
+                <Lock className="h-5 w-5" />
+              </div>
+              <h3 className="font-bold text-white text-xs uppercase tracking-wider">Admin Verification Required</h3>
+              <p className="text-slate-300 text-[11px]">
+                Enter the secure verification code provided by OloBuy Admin after slip verification.
+              </p>
+              <input 
+                type="password" placeholder="Enter Admin Code..." value={adminCodeInput} onChange={(e) => setAdminCodeInput(e.target.value)}
+                className="w-full bg-[#0a0f1c] border border-amber-500/40 rounded-xl px-4 py-2.5 text-xs text-white text-center font-bold tracking-widest outline-none"
+              />
+              <button
+                type="button" onClick={verifyAdminCode}
+                className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3 rounded-xl text-xs uppercase font-black tracking-widest cursor-pointer transition-all"
+              >
+                Verify Code
+              </button>
+            </section>
+          </div>
         )}
 
         {isCompleted && (
@@ -576,4 +575,4 @@ export default function DealPage() {
       <DealContent />
     </Suspense>
   );
-            }
+                                                                          }
