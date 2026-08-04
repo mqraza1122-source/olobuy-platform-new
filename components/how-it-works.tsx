@@ -8,6 +8,7 @@ import {
   MessageCircle,
   X,
   ChevronDown,
+  BadgePercent,
 } from 'lucide-react';
 
 const STEPS = [
@@ -45,6 +46,15 @@ const STEPS = [
   },
 ];
 
+const FEE_ROWS = [
+  { range: 'Up to Rs 2,000', fee: 'Rs 50' },
+  { range: 'Rs 2,001 – 5,000', fee: 'Rs 100' },
+  { range: 'Rs 5,001 – 15,000', fee: 'Rs 200' },
+  { range: 'Rs 15,001 – 50,000', fee: '3%' },
+  { range: 'Rs 50,001 – 3,00,000', fee: '2.5%' },
+  { range: 'Above Rs 3,00,000', fee: '2%' },
+];
+
 function useFadeUp(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -52,7 +62,6 @@ function useFadeUp(threshold = 0.12) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -62,7 +71,6 @@ function useFadeUp(threshold = 0.12) {
       },
       { threshold }
     );
-
     observer.observe(el);
     return () => observer.disconnect();
   }, [threshold]);
@@ -72,7 +80,9 @@ function useFadeUp(threshold = 0.12) {
 
 export function HowItWorks() {
   const [selectedStep, setSelectedStep] = useState<(typeof STEPS)[0] | null>(null);
+  const [showFees, setShowFees] = useState(false);
   const grid = useFadeUp(0.08);
+  const fees = useFadeUp(0.1);
   const support = useFadeUp(0.1);
 
   return (
@@ -83,9 +93,9 @@ export function HowItWorks() {
       <div className="absolute top-1/4 left-0 w-64 h-64 bg-[#ff9800]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-[#1a237e]/30 rounded-full blur-3xl pointer-events-none" />
 
-     <div className="mx-auto max-w-5xl relative z-10">
-         {/* Steps */}
-        <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-10 sm:mb-12">
+      <div className="mx-auto max-w-5xl relative z-10">
+        {/* Steps */}
+        <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
@@ -117,14 +127,74 @@ export function HowItWorks() {
                     </p>
                   </div>
 
-                  {/* Arrow Icon matching Why Choose OloBuy style */}
                   <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 group-hover:bg-[#ff9800]/15 border border-white/10 group-hover:border-[#ff9800]/30 transition-all">
-                    <ChevronDown className="w-4 h-4 text-[#ff9800] transition-transform duration-300 group-hover:translate-y-0.5" />
+                    <ChevronDown className="w-4 h-4 text-[#ff9800]" />
                   </div>
                 </div>
               </button>
             );
           })}
+        </div>
+
+        {/* Service Charges — after Step 4, same card style */}
+        <div
+          ref={fees.ref}
+          className={`mb-10 sm:mb-12 transition-all duration-700 ease-out ${
+            fees.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <button
+            type="button"
+            onClick={() => setShowFees(!showFees)}
+            className="group w-full text-left bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/45 rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-300 relative overflow-hidden"
+          >
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#ff9800] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#ff9800]/10 border border-[#ff9800]/20 flex items-center justify-center shrink-0">
+                <BadgePercent className="h-6 w-6 sm:h-7 sm:w-7 text-[#ff9800]" />
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <span className="text-[#ff9800] font-black text-[11px] sm:text-xs tracking-[0.15em] block mb-1">
+                  PRICING
+                </span>
+                <h3 className="text-[17px] sm:text-xl font-bold text-white leading-tight">
+                  OloBuy Service Charges
+                </h3>
+                <p className="text-white/50 text-xs sm:text-sm mt-0.5 leading-snug">
+                  Transparent fees · No hidden charges
+                </p>
+              </div>
+
+              <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10">
+                <ChevronDown
+                  className={`w-4 h-4 text-[#ff9800] transition-transform duration-300 ${
+                    showFees ? 'rotate-180' : ''
+                  }`}
+                />
+              </div>
+            </div>
+
+            {showFees && (
+              <div className="mt-4 pt-4 border-t border-white/10">
+                <ul className="space-y-2.5">
+                  {FEE_ROWS.map((row) => (
+                    <li
+                      key={row.range}
+                      className="flex justify-between gap-3 text-sm text-white/75"
+                    >
+                      <span>{row.range}</span>
+                      <span className="font-bold text-white shrink-0">{row.fee}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-3 pt-3 border-t border-white/10 text-[11px] sm:text-xs leading-relaxed text-white/45">
+                  Pure service fees only. No extra or hidden charges — transparent work in favour of our customers.
+                </p>
+              </div>
+            )}
+          </button>
         </div>
 
         {/* WhatsApp support */}
@@ -163,7 +233,7 @@ export function HowItWorks() {
       {/* Modal */}
       {selectedStep && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="bg-[#111827] border border-[#ff9800]/35 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.75)] animate-in fade-in zoom-in duration-200">
+          <div className="bg-[#111827] border border-[#ff9800]/35 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.75)]">
             <button
               type="button"
               onClick={() => setSelectedStep(null)}
