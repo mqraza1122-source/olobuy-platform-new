@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { MessageCircle, ShieldCheck } from 'lucide-react';
+import { MessageCircle, ShieldCheck, ChevronDown } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 
@@ -10,6 +10,7 @@ export function Hero() {
   const [customProduct, setCustomProduct] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showFees, setShowFees] = useState(false);
   const router = useRouter();
 
   const createDeal = async () => {
@@ -44,7 +45,7 @@ export function Hero() {
         return;
       }
 
-      router.push(`/deal/${dealCode}?role=${role.toLowerCase()}`);
+      router.push(`/deal/\( {dealCode}?role= \){role.toLowerCase()}`);
     } catch (err: any) {
       console.error("Catch Error:", err);
       alert("Network Error: " + (err.message || "Something went wrong"));
@@ -54,30 +55,25 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[90dvh] flex items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#1a237e] to-[#0f172a] overflow-hidden px-4 pt-4 pb-12">
-      {/* Background Glow Accent */}
       <div className="absolute inset-0 bg-[radial-gradient(at_top,#ff9800_0%,transparent_60%)] opacity-10" />
 
       <div className="relative z-10 max-w-lg w-full text-center">
-        {/* Secure Badge */}
         <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 mb-3 shadow-sm">
           <ShieldCheck className="h-4 w-4 text-[#25d366]" />
           <span className="text-xs sm:text-sm font-bold tracking-widest text-white">100% SECURE TRANSACTIONS</span>
         </div>
 
-        {/* Main Heading */}
         <h1 className="text-3xl sm:text-4xl font-black leading-tight text-white mb-5">
           نہ ایڈوانس کا ڈر<br />
           <span className="text-[#ff9800]">نہ پارسل کا فراڈ</span>
         </h1>
 
-        {/* Clean White Card Container */}
         <div className="bg-white rounded-[2rem] shadow-2xl p-5 sm:p-7 text-left border border-white/20">
           <p className="uppercase text-center text-xs tracking-widest font-bold text-gray-500 mb-4">
             Start Your Secure Deal
           </p>
 
           <div className="space-y-4">
-            {/* Role Selection */}
             <div>
               <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase">I am a</label>
               <div className="grid grid-cols-3 gap-2">
@@ -98,7 +94,6 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Product Selection */}
             <div>
               <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Product / Service</label>
               <select
@@ -116,7 +111,6 @@ export function Hero() {
               </select>
             </div>
 
-            {/* Custom Product Input */}
             {product === "Other" && (
               <div>
                 <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Type Product / Service Name</label>
@@ -130,7 +124,6 @@ export function Hero() {
               </div>
             )}
 
-            {/* Amount Input */}
             <div>
               <label className="block text-xs font-bold text-gray-500 mb-1 uppercase">Amount (Rs)</label>
               <input 
@@ -141,9 +134,60 @@ export function Hero() {
                 className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-sm" 
               />
             </div>
+
+            {/* Service Charges — tap to expand */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowFees(!showFees)}
+                className="w-full flex items-center justify-between rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-left cursor-pointer transition-colors hover:border-[#ff9800]/40"
+              >
+                <span className="text-xs font-bold uppercase tracking-wide text-gray-500">
+                  OloBuy Service Charges
+                </span>
+                <ChevronDown
+                  className={`h-4 w-4 text-[#ff9800] shrink-0 transition-transform duration-300 ${
+                    showFees ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+
+              {showFees && (
+                <div className="mt-2 rounded-2xl border border-[#ff9800]/25 bg-[#fffaf3] px-4 py-3">
+                  <ul className="space-y-1.5 text-xs text-[#1a237e]/85">
+                    <li className="flex justify-between gap-3">
+                      <span>Up to Rs 2,000</span>
+                      <span className="font-bold">Rs 50</span>
+                    </li>
+                    <li className="flex justify-between gap-3">
+                      <span>Rs 2,001 – 5,000</span>
+                      <span className="font-bold">Rs 100</span>
+                    </li>
+                    <li className="flex justify-between gap-3">
+                      <span>Rs 5,001 – 15,000</span>
+                      <span className="font-bold">Rs 200</span>
+                    </li>
+                    <li className="flex justify-between gap-3">
+                      <span>Rs 15,001 – 50,000</span>
+                      <span className="font-bold">3%</span>
+                    </li>
+                    <li className="flex justify-between gap-3">
+                      <span>Rs 50,001 – 3,00,000</span>
+                      <span className="font-bold">2.5%</span>
+                    </li>
+                    <li className="flex justify-between gap-3">
+                      <span>Above Rs 3,00,000</span>
+                      <span className="font-bold">2%</span>
+                    </li>
+                  </ul>
+                  <p className="mt-3 pt-2 border-t border-[#ff9800]/15 text-[11px] leading-relaxed text-[#1a237e]/65">
+                    We charge pure service fees only. No extra or hidden charges — transparent work in favour of our customers.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Action Button */}
           <button 
             type="button"
             onClick={createDeal}
@@ -157,4 +201,4 @@ export function Hero() {
       </div>
     </section>
   );
-    }
+          }
