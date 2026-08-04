@@ -47,12 +47,13 @@ export function SiteHeader() {
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           
           {/* Professional Brand Logo from public/logo.jpg */}
-          <a href="#" className="flex items-center gap-3 group py-0.5">
-            <div className="relative h-10 w-28 sm:h-12 sm:w-32 flex items-center">
+            {/* Larger & Prominent Brand Logo */}
+          <a href="#" className="flex items-center gap-3 group py-1">
+            <div className="relative h-11 w-32 sm:h-13 sm:w-38 flex items-center">
               <img
                 src="/logo.jpg"
                 alt="OloBuy Final Logo"
-                className="h-full w-full object-contain object-left group-hover:scale-[1.02] transition-transform duration-200"
+                className="h-full w-full object-contain object-left group-hover:scale-105 transition-transform duration-200"
               />
             </div>
           </a>
