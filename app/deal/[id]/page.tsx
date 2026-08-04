@@ -172,8 +172,8 @@ const [inspectionDays, setInspectionDays] = useState<any>('');
     const sName = deal?.seller_name || sellerName || 'Not Provided';
     const sContact = deal?.seller_contact || sellerContact || 'Not Provided';
     const sAccount = deal?.seller_account || sellerAccount || 'Not Provided';
-    const sTime = deal?.inspection_days || inspectionDays || ;
-    const prodName = deal?.product_name || 'Gaming accounts';
+    const sTime = deal?.inspection_days || inspectionDays || 'Not Provided';
+    const prodName = deal?.product_name || 'Gaming accounts'; 
     const amt = Number(deal?.amount || 0).toLocaleString();
 
     const text = encodeURIComponent(
