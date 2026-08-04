@@ -95,10 +95,9 @@ export function HowItWorks() {
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* Main Card with Original Yellow HOW IT WORKS Button and Solid White Logo Box */}
+        {/* ONLY ONE "HOW IT WORKS" CARD (lower style kept) */}
         <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-6 sm:mb-8">
           
-          {/* Original Glowing Yellow HOW IT WORKS Button */}
           <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-base sm:text-lg tracking-wider px-8 py-3.5 rounded-full shadow-[0_0_25px_rgba(255,152,0,0.4)] mb-6 uppercase">
             HOW IT WORKS
           </div>
@@ -107,9 +106,9 @@ export function HowItWorks() {
             A neutral platform holding funds until both buyer and seller confirm satisfaction.
           </p>
 
-          {/* Flow Container: Buyer -> Solid White Logo -> Seller */}
+          {/* Flow: Buyer (chat) → OloBuy → Seller (WhatsApp) */}
           <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
-            {/* Buyer Node */}
+            {/* Buyer */}
             <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
               <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-2">
                 <MessageSquareText className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -117,10 +116,9 @@ export function HowItWorks() {
               <span className="text-white font-bold text-xs sm:text-sm">Buyer</span>
             </div>
 
-            {/* Arrow */}
             <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
 
-            {/* Central OloBuy Brand Logo Node with Solid White Background */}
+            {/* OloBuy Logo */}
             <div className="flex flex-col items-center flex-1 bg-white border-2 border-[#ff9800]/60 rounded-2xl p-3.5 shadow-[0_0_25px_rgba(255,152,0,0.25)]">
               <div className="w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center">
                 <img
@@ -131,15 +129,14 @@ export function HowItWorks() {
               </div>
             </div>
 
-            {/* Arrow */}
             <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
 
-            {/* Seller Node */}
+            {/* Seller / WhatsApp */}
             <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#ff9800]/10 border border-[#ff9800]/20 flex items-center justify-center text-[#ff9800] mb-2">
-                <Package className="w-5 h-5 sm:w-6 sm:h-6" />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-2">
+                <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <span className="text-white font-bold text-xs sm:text-sm">Seller / Delivery</span>
+              <span className="text-white font-bold text-xs sm:text-sm">Seller</span>
             </div>
           </div>
 
@@ -331,4 +328,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-    }
+  }
