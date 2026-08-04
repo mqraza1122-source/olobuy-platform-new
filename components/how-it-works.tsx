@@ -95,33 +95,32 @@ export function HowItWorks() {
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* Heading Section Matching "Why Choose OloBuy?" Styling */}
-        <div className="text-center mb-8">
-          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black text-lg sm:text-2xl px-8 py-3.5 rounded-full shadow-[0_0_25px_rgba(255,152,0,0.4)] uppercase tracking-wider mb-3">
+        {/* ONLY ONE "HOW IT WORKS" CARD (lower style kept) */}
+        <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-6 sm:mb-8">
+          
+          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-base sm:text-lg tracking-wider px-8 py-3.5 rounded-full shadow-[0_0_25px_rgba(255,152,0,0.4)] mb-6 uppercase">
             HOW IT WORKS
           </div>
-          <p className="text-white/60 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
+
+          <p className="text-white/60 text-xs sm:text-sm max-w-md mx-auto mb-8 leading-relaxed">
             A neutral platform holding funds until both buyer and seller confirm satisfaction.
           </p>
-        </div>
 
-        {/* Main Card with Balanced Flow Layout */}
-        <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-5 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-6 sm:mb-8">
-          
-          <div className="grid grid-cols-[1fr,auto,1.1fr,auto,1fr] items-center gap-1.5 sm:gap-4 max-w-xl mx-auto">
-            {/* Buyer Node */}
-            <div className="flex flex-col items-center bg-white/[0.03] border border-white/10 hover:border-[#25d366]/40 rounded-2xl p-2.5 sm:p-4 shadow-sm transition-all">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-1.5 sm:mb-2">
-                <MessageSquareText className="w-4 h-4 sm:w-6 sm:h-6" />
+          {/* Flow: Buyer (chat) → OloBuy → Seller (WhatsApp) */}
+          <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
+            {/* Buyer */}
+            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-2">
+                <MessageSquareText className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <span className="text-white font-bold text-[11px] sm:text-sm">Buyer</span>
+              <span className="text-white font-bold text-xs sm:text-sm">Buyer</span>
             </div>
 
-            <div className="text-[#ff9800] font-bold text-sm sm:text-xl animate-pulse px-0.5">→</div>
+            <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
 
-            {/* Central White Logo Node */}
-            <div className="flex flex-col items-center bg-white border-2 border-[#ff9800]/60 rounded-2xl p-2.5 sm:p-4 shadow-[0_0_25px_rgba(255,152,0,0.25)]">
-              <div className="w-12 h-8 sm:w-16 sm:h-10 flex items-center justify-center">
+            {/* OloBuy Logo */}
+            <div className="flex flex-col items-center flex-1 bg-white border-2 border-[#ff9800]/60 rounded-2xl p-3.5 shadow-[0_0_25px_rgba(255,152,0,0.25)]">
+              <div className="w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center">
                 <img
                   src="/logo.jpg"
                   alt="OloBuy"
@@ -130,23 +129,23 @@ export function HowItWorks() {
               </div>
             </div>
 
-            <div className="text-[#ff9800] font-bold text-sm sm:text-xl animate-pulse px-0.5">→</div>
+            <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
 
-            {/* Seller Node */}
-            <div className="flex flex-col items-center bg-white/[0.03] border border-white/10 hover:border-[#ff9800]/40 rounded-2xl p-2.5 sm:p-4 shadow-sm transition-all">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#ff9800]/10 border border-[#ff9800]/20 flex items-center justify-center text-[#ff9800] mb-1.5 sm:mb-2">
-                <Package className="w-4 h-4 sm:w-6 sm:h-6" />
+            {/* Seller / WhatsApp */}
+            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-2">
+                <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <span className="text-white font-bold text-[11px] sm:text-sm text-center leading-tight">Seller / Delivery</span>
+              <span className="text-white font-bold text-xs sm:text-sm">Seller</span>
             </div>
           </div>
 
-          <p className="text-white/45 text-xs mt-5 sm:mt-6">
+          <p className="text-white/45 text-xs mt-6">
             Funds held securely until item is received & inspected.
           </p>
         </div>
 
-        {/* Steps Grid */}
+        {/* Steps */}
         <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
@@ -288,7 +287,7 @@ export function HowItWorks() {
           <div className="bg-[#111827] border border-[#ff9800]/35 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.75)]">
             <button
               type="button"
-              onClick={() => setSelectedStyleNull()}
+              onClick={() => setSelectedStep(null)}
               className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
             >
               <X className="w-5 h-5" />
@@ -329,4 +328,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-            }
+                                                                             }
