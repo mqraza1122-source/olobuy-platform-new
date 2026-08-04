@@ -95,7 +95,7 @@ export function HowItWorks() {
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* Single Main Card with White Logo */}
+        {/* Single Main Card with White Logo (Sirf ek dafa rakha gaya hai) */}
         <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-6 sm:mb-8">
           
           <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-base sm:text-lg tracking-wider px-8 py-3.5 rounded-full shadow-[0_0_25px_rgba(255,152,0,0.4)] mb-6 uppercase">
@@ -327,4 +327,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-   }
+    }
