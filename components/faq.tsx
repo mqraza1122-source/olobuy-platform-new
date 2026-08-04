@@ -53,7 +53,7 @@ function useFadeUp(threshold = 0.12) {
 }
 
 export function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default for premium feel
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const header = useFadeUp();
   const list = useFadeUp(0.08);
 
@@ -102,7 +102,7 @@ export function Faq() {
                     {faq.q}
                   </span>
 
-                  <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#ff9800]/3ili transition-colors">
+                  <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#ff9800]/35 transition-colors">
                     <ChevronDown
                       className={`h-5 w-5 text-[#ff9800] transition-transform duration-300 ${
                         isOpen ? 'rotate-180' : ''
@@ -132,4 +132,4 @@ export function Faq() {
       </div>
     </section>
   );
-          }
+      }
