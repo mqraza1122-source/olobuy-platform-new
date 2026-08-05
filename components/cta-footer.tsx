@@ -92,7 +92,7 @@ export function CtaFooter() {
                 <img
                   src="/logo.jpg"
                   alt="OloBuy"
-                  className="h-15 object-contain"
+                  className="h-11 object-contain"
                 />
               </div>
               <p className="mx-auto max-w-xs text-center text-sm leading-relaxed text-white/50 lg:mx-0 lg:text-left">
