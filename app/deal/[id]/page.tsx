@@ -485,7 +485,7 @@ Here is my payment screenshot:`
                       ))}
 
                       <div>
-                        <<label className="text-[10px] text-slate-400 font-bold uppercase">Bank / Wallet</label>
+                        <label className="text-[10px] text-slate-400 font-bold uppercase">Bank / Wallet</label>
                         <select
                           value={sellerBankName}
                           onChange={(e) => setSellerBankName(e.target.value)}
