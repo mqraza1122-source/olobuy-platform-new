@@ -44,10 +44,10 @@
 
 :root {
   color-scheme: light dark;
-  
+
   /* === Main Theme Colors === */
   --background: #0f172a;           /* Deep Navy */
-  --foreground: #f8fafc;
+  --foreground: #f8fafc;           /* Almost pure white - better contrast */
   
   --card: #ffffff;
   --card-foreground: #0f172a;
@@ -62,10 +62,10 @@
   --secondary-foreground: #0f172a;
   
   --muted: #f1f5f9;
-  --muted-foreground: #64748b;
+  --muted-foreground: #94a3b8;     /* Slightly brighter for better readability */
 
   --accent: #ff9800;
-  --accent-foreground: #ffffff;
+  --accent-foreground: #0f172a;    /* Dark text on orange for better contrast */
 
   --destructive: #ef4444;
   --border: #e2e8f0;
@@ -83,13 +83,14 @@
   --radius: 0.75rem;
 }
 
-/* Dark Mode Support (Future Ready) */
+/* Dark Mode Support */
 .dark {
   --background: #0f172a;
   --foreground: #f8fafc;
   --card: #1e2937;
   --card-foreground: #f8fafc;
   --border: #334155;
+  --muted-foreground: #94a3b8;
 }
 
 @layer base {
@@ -100,23 +101,47 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "kern" 1, "liga" 1, "tnum" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-semibold tracking-tight text-foreground;
+  }
+
+  /* Better default text colors for dark background */
+  p, span, li {
+    @apply text-foreground/90;
   }
 
   .urdu-text {
-    @apply font-urdu leading-relaxed;
+    @apply font-urdu leading-[1.7];
   }
 }
 
 @layer utilities {
-  /* Glassmorphism Effect */
+  /* ===== Improved Text Contrast Utilities ===== */
+  .text-high {
+    @apply text-white;
+  }
+
+  .text-medium {
+    @apply text-white/80;
+  }
+
+  .text-low {
+    @apply text-white/60;
+  }
+
+  .text-muted-better {
+    @apply text-white/70;
+  }
+
+  /* Glassmorphism */
   .glass {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   /* Gradient Text */
@@ -124,6 +149,7 @@
     background: linear-gradient(90deg, #ff9800, #ffd700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   /* Smooth Scroll */
@@ -131,29 +157,34 @@
     scroll-behavior: smooth;
   }
 
-  /* Card Hover Effect */
+  /* Card Hover */
   .card-hover {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .card-hover:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
-                0 8px 10px -6px rgb(0 0 0 / 0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.25), 
+                0 8px 10px -6px rgb(0 0 0 / 0.15);
   }
 
   /* WhatsApp Floating Button */
   .whatsapp-float {
-    animation: pulse 2s infinite;
+    animation: pulse 2.2s infinite;
   }
 
   @keyframes pulse {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
+    50% { transform: scale(1.07); }
   }
 
   /* Trust Badge */
   .trust-badge {
-    box-shadow: 0 10px 15px -3px rgb(255 152 0 / 0.2);
+    box-shadow: 0 10px 15px -3px rgb(255 152 0 / 0.25);
   }
-}
+
+  /* Better focus ring for accessibility */
+  .focus-brand {
+    @apply focus:outline-none focus:ring-2 focus:ring-[#ff9800]/60 focus:ring-offset-2 focus:ring-offset-[#0f172a];
+  }
+  }
