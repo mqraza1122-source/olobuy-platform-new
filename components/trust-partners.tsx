@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Building2 } from 'lucide-react';
 
 const COMPLIANCE = [
-  { src: '/logos/sbp.png', name: 'State Bank of Pakistan', note: 'Compliant' },
+  { src: '/logos/sbp.png', name: 'State Bank of Pakistan', note: 'Complaint' },
   { src: '/logos/fbr.jpeg', name: 'Federal Board of Revenue', note: 'Registered' },
   { src: '/logos/secp.jpeg', name: 'Securities & Exchange Commission', note: 'Verified' },
 ];
@@ -58,7 +58,7 @@ export function TrustPartners() {
           }`}
         >
           <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black px-7 sm:px-10 py-3 sm:py-4 rounded-full text-lg sm:text-2xl shadow-[0_0_25px_rgba(255,152,0,0.3)] mb-4 tracking-wide">
-            TRUSTED & COMPLIANT
+            TRUSTED & COMPLAINT 
           </div>
           <p className="text-white/75 max-w-md mx-auto text-sm sm:text-base leading-relaxed">
             OloBuy follows Pakistan&apos;s financial safety standards for secure online deals.
