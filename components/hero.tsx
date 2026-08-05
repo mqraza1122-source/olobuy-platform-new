@@ -53,43 +53,43 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-[90dvh] flex items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#1a237e] to-[#0f172a] overflow-hidden px-4 pt-6 pb-14">
+    <section className="relative flex items-start justify-center bg-gradient-to-br from-[#0f172a] via-[#1a237e] to-[#0f172a] overflow-hidden px-4 pt-3 pb-5">
       {/* Soft Glow */}
       <div className="absolute inset-0 bg-[radial-gradient(at_top,#ff9800_0%,transparent_65%)] opacity-[0.12]" />
 
       <div className="relative z-10 max-w-lg w-full text-center">
         
         {/* Secure Badge */}
-        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 mb-5 shadow-sm">
+        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 mb-3 shadow-sm">
           <ShieldCheck className="h-4 w-4 text-[#25d366]" />
-          <span className="text-xs sm:text-sm font-bold tracking-widest text-white">
+          <span className="text-xs font-bold tracking-widest text-white">
             100% SECURE TRANSACTIONS
           </span>
         </div>
 
-        {/* ===== IMPROVED URDU HEADING ===== */}
-        <h1 className="mb-7">
-          <span className="block text-[1.85rem] sm:text-[2.15rem] font-black text-white leading-[1.55] tracking-wide">
+        {/* Urdu Heading */}
+        <h1 className="mb-4">
+          <span className="block text-[1.6rem] sm:text-[1.9rem] font-black text-white leading-[1.4] tracking-wide">
             نہ ایڈوانس کا ڈر
           </span>
-          <span className="block text-[1.85rem] sm:text-[2.15rem] font-black text-[#ff9800] leading-[1.55] tracking-wide mt-1.5">
+          <span className="block text-[1.6rem] sm:text-[1.9rem] font-black text-[#ff9800] leading-[1.4] tracking-wide mt-0.5">
             نہ پارسل کا فراڈ
           </span>
         </h1>
 
         {/* White Card */}
-        <div className="bg-white rounded-[1.75rem] shadow-2xl p-5 sm:p-7 text-left border border-white/20">
-          <p className="uppercase text-center text-[11px] tracking-[0.2em] font-bold text-gray-500 mb-5">
+        <div className="bg-white rounded-[1.75rem] shadow-2xl p-5 text-left border border-white/20">
+          <p className="uppercase text-center text-[11px] tracking-[0.2em] font-bold text-gray-500 mb-4">
             Start Your Secure Deal
           </p>
 
-          <div className="space-y-5">
-            {/* Role Selection */}
+          <div className="space-y-3.5">
+            {/* Role */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">
+              <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">
                 I am a
               </label>
-              <div className="grid grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-3 gap-2">
                 {["Buyer", "Seller", "Agent"].map((r) => (
                   <button
                     key={r}
@@ -107,19 +107,17 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Product Selection */}
+            {/* Product */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">
+              <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">
                 Product / Service
               </label>
               <select
                 value={product}
                 onChange={(e) => setProduct(e.target.value)}
-                className="w-full px-4 py-3.5 rounded-2xl border border-gray-200 focus:border-[#ff9800] focus:ring-2 focus:ring-[#ff9800]/20 bg-gray-50 text-gray-900 font-semibold outline-none text-sm cursor-pointer transition-all"
+                className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-[#ff9800] focus:ring-2 focus:ring-[#ff9800]/20 bg-gray-50 text-gray-900 font-semibold outline-none text-sm cursor-pointer"
               >
-                <option value="" disabled>
-                  Select Product / Service
-                </option>
+                <option value="" disabled>Select Product / Service</option>
                 <option value="Social accounts">Social accounts</option>
                 <option value="Gaming accounts">Gaming accounts</option>
                 <option value="E-commerce parcel">E-commerce parcel</option>
@@ -132,7 +130,7 @@ export function Hero() {
             {/* Custom Product */}
             {product === "Other" && (
               <div>
-                <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">
+                <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">
                   Type Product / Service Name
                 </label>
                 <input
@@ -140,14 +138,14 @@ export function Hero() {
                   placeholder="e.g. Smart Watch, Logo Design..."
                   value={customProduct}
                   onChange={(e) => setCustomProduct(e.target.value)}
-                  className="w-full px-4 py-3.5 rounded-2xl border-2 border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-sm focus:ring-2 focus:ring-[#ff9800]/20 transition-all"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-[#ff9800] bg-gray-50 text-gray-900 font-semibold outline-none text-sm"
                 />
               </div>
             )}
 
             {/* Amount */}
             <div>
-              <label className="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">
+              <label className="block text-xs font-bold text-gray-500 mb-1.5 uppercase tracking-wide">
                 Amount (Rs)
               </label>
               <input
@@ -155,17 +153,17 @@ export function Hero() {
                 placeholder="5000"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="w-full px-4 py-3.5 rounded-2xl border border-gray-200 focus:border-[#ff9800] focus:ring-2 focus:ring-[#ff9800]/20 bg-gray-50 text-gray-900 font-semibold outline-none text-sm transition-all"
+                className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-[#ff9800] focus:ring-2 focus:ring-[#ff9800]/20 bg-gray-50 text-gray-900 font-semibold outline-none text-sm"
               />
             </div>
           </div>
 
-          {/* CTA Button */}
+          {/* Button - Always fully visible */}
           <button
             type="button"
             onClick={createDeal}
             disabled={loading}
-            className="mt-7 flex items-center justify-center gap-2.5 w-full bg-[#ff9800] text-[#1a237e] font-black py-4 rounded-2xl hover:bg-[#ffb347] active:scale-[0.98] transition-all duration-200 shadow-lg shadow-orange-500/25 text-sm sm:text-base disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+            className="mt-5 flex items-center justify-center gap-2.5 w-full bg-[#ff9800] text-[#1a237e] font-black py-3.5 rounded-2xl hover:bg-[#ffb347] active:scale-[0.98] transition-all duration-200 shadow-lg text-sm disabled:opacity-70 cursor-pointer"
           >
             <MessageCircle className="h-5 w-5" />
             <span>{loading ? "Creating Deal..." : "Start Secure Deal"}</span>
@@ -174,4 +172,4 @@ export function Hero() {
       </div>
     </section>
   );
-  }
+    }
