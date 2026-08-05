@@ -33,7 +33,6 @@ export function SiteHeader() {
 
   return (
     <>
-
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           scrolled
@@ -43,12 +42,12 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
           
-          {{/* Perfect Logo – Transparent */}
+          {/* Perfect Logo – Transparent path fixed to /logo.jpg */}
           <a href="#" className="flex items-center shrink-0 group">
             <img
-              src="public/logo.jpg"
+              src="/logo.jpg"
               alt="OloBuy"
-              className="h-11 sm:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.04]"
+              className="h-10 sm:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.04]"
             />
           </a>
           
@@ -74,6 +73,7 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
+
         {/* Mobile Dropdown Menu */}
         <div
           className={`overflow-hidden transition-all duration-300 ease-out bg-white/95 backdrop-blur-2xl border-b border-gray-200 shadow-xl ${
@@ -181,4 +181,4 @@ export function SiteHeader() {
       )}
     </>
   );
-                        }
+            }
