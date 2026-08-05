@@ -376,7 +376,7 @@ Here is my payment screenshot:`
                       <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Account Title</label>
                       <input 
                         type="text" value={sellerAccountTitle} onChange={(e) => setSellerAccountTitle(e.target.value)}
-                        placeholder="e.g. Ali Raza"
+                        placeholder="e.g.Raza Traders"
                         className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
                       />
                     </div>
@@ -395,7 +395,7 @@ Here is my payment screenshot:`
                       <label className="text-[10px] text-slate-400 font-bold uppercase">Account Number / IBAN</label>
                       <input 
                         type="text" value={sellerAccountNumber} onChange={(e) => setSellerAccountNumber(e.target.value)}
-                        placeholder="e.g. 0301-2345678"
+                        placeholder="e.g. 0301-2345678888"
                         className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
                       />
                     </div>
@@ -403,7 +403,7 @@ Here is my payment screenshot:`
                       <label className="text-[10px] text-slate-400 font-bold uppercase">Inspection Time (Days)</label>
                       <input 
                         type="number" min={1} max={30} value={inspectionDays} onChange={(e) => setInspectionDays(Number(e.target.value))}
-                        placeholder="e.g. 2"
+                        placeholder="e.g. 0"
                         className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
                       />
                     </div>
