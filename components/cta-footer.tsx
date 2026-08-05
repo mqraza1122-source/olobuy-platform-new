@@ -86,16 +86,16 @@ export function CtaFooter() {
           }`}
         >
           <div className="grid gap-12 lg:grid-cols-12">
-            {/* Brand — wider with larger professional logo */}
-            <div className="lg:col-span-4">
-              <div className="mb-5 flex justify-center lg:justify-start items-center">
+            {/* Brand — Logo inside a clean white card for perfect contrast */}
+            <div className="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+              <div className="mb-5 inline-block bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.3)] border border-white/20">
                 <img
                   src="/logo.jpg"
                   alt="OloBuy"
                   className="h-12 sm:h-14 w-auto object-contain"
                 />
               </div>
-              <p className="mx-auto max-w-xs text-center text-sm leading-relaxed text-white/50 lg:mx-0 lg:text-left">
+              <p className="max-w-xs text-sm leading-relaxed text-white/70 font-medium">
                 Pakistan&apos;s trusted manual escrow. We hold payment until you
                 inspect and approve — safer deals on OLX, Facebook & more.
               </p>
@@ -107,7 +107,7 @@ export function CtaFooter() {
                 <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff9800]">
                   About
                 </p>
-                <p className="text-sm leading-relaxed text-white/50">
+                <p className="text-sm leading-relaxed text-white/70 font-medium">
                   Neutral third-party escrow dedicated to fraud-free online
                   trade across Pakistan.
                 </p>
@@ -117,19 +117,19 @@ export function CtaFooter() {
                 <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff9800]">
                   Contact
                 </p>
-                <div className="space-y-3">
+                <div className="space-y-3 font-medium">
                   <a
                     href="mailto:support@olobuy.pk"
-                    className="flex items-center gap-2.5 text-sm text-white/70 transition-colors hover:text-[#ff9800]"
+                    className="flex items-center justify-center lg:justify-start gap-2.5 text-sm text-white/80 transition-colors hover:text-[#ff9800]"
                   >
-                    <Mail className="h-4 w-4 shrink-0 opacity-70" />
+                    <Mail className="h-4 w-4 shrink-0 text-[#ff9800]" />
                     support@olobuy.pk
                   </a>
                   <a
                     href="tel:+923043031572"
-                    className="flex items-center gap-2.5 text-sm text-white/70 transition-colors hover:text-[#ff9800]"
+                    className="flex items-center justify-center lg:justify-start gap-2.5 text-sm text-white/80 transition-colors hover:text-[#ff9800]"
                   >
-                    <Phone className="h-4 w-4 shrink-0 opacity-70" />
+                    <Phone className="h-4 w-4 shrink-0 text-[#ff9800]" />
                     0304-3031572
                   </a>
                 </div>
@@ -137,7 +137,7 @@ export function CtaFooter() {
             </div>
 
             {/* Office */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 text-center lg:text-left">
               <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff9800]">
                 Head Office
               </p>
@@ -148,7 +148,7 @@ export function CtaFooter() {
                   className="h-36 w-full object-cover sm:h-40"
                 />
               </div>
-              <div className="flex items-start gap-2.5 text-sm text-white/50">
+              <div className="flex items-start justify-center lg:justify-start gap-2.5 text-sm text-white/70 font-medium">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#ff9800]" />
                 <p className="leading-relaxed">
                   25 Sea View Rd, Block 4
@@ -161,14 +161,14 @@ export function CtaFooter() {
 
           {/* Bottom */}
           <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 sm:mt-14 sm:flex-row">
-            <p className="text-center text-xs text-white/35 sm:text-left">
+            <p className="text-center text-xs text-white/50 sm:text-left font-medium">
               © {new Date().getFullYear()} OloBuy. All rights reserved. Secure Manual Escrow · Pakistan
             </p>
-            <div className="flex items-center gap-5 text-xs text-white/40">
+            <div className="flex items-center gap-5 text-xs text-white/60 font-medium">
               <a href="/terms" className="transition-colors hover:text-white">
                 Terms
               </a>
-              <span className="text-white/15">·</span>
+              <span className="text-white/20">·</span>
               <a href="/privacy" className="transition-colors hover:text-white">
                 Privacy
               </a>
