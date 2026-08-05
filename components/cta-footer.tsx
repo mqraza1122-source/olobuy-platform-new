@@ -1,33 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { ChevronDown } from 'lucide-react';
-
-const FAQS = [
-  {
-    q: 'What is OloBuy and how does manual escrow work?',
-    a: 'OloBuy is Pakistan’s trusted manual escrow platform. We act as a neutral third-party middleman. The buyer transfers payment to our official secure account, we lock and hold it safely while the seller delivers the item. Once the buyer inspects and approves, we instantly release funds to the seller, eliminating all risks of online fraud.',
-  },
-  {
-    q: 'How do I start a secure deal using OloBuy?',
-    a: 'It is simple! Select your role (Buyer or Seller) on our platform, enter the product or service details along with the agreed amount, and click "Start Secure Deal". This instantly generates a unique Deal Code that tracks your transaction transparently from start to finish.',
-  },
-  {
-    q: 'What platforms and types of deals are supported?',
-    a: 'We secure transactions across all major Pakistani marketplaces including OLX, Facebook Marketplace, Instagram social sellers, independent e-commerce stores, and freelance agreements for digital services, gaming accounts, and physical parcels.',
-  },
-  {
-    q: 'What happens if a dispute or issue arises during delivery?',
-    a: 'If the item does not match the description or the service is unfulfilled, the buyer can flag it on the deal page before approval. Our support team steps in to mediate fairly, and if the deal is cancelled mutually, funds are safely returned to the buyer.',
-  },
-  {
-    q: 'How much does OloBuy charge for escrow protection?',
-    a: 'The service fee is transparently structured based on the deal amount to ensure safe trade execution for both parties. You can check the complete fee schedule directly above in the pricing section or contact our support via WhatsApp.',
-  },
-  {
-    q: 'Is my money and personal data safe with OloBuy?',
-    a: '100% safe. All funds are held in secure, protected holding channels, and we maintain strict data privacy to ensure your transaction records and identity remain completely secure.',
-  },
-];
+import { ArrowRight, Lock, MapPin, Mail, Phone, ShieldCheck } from 'lucide-react';
+import { WHATSAPP_URL } from '@/lib/constants';
 
 function useFadeUp(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
@@ -52,83 +26,156 @@ function useFadeUp(threshold = 0.12) {
   return { ref, visible };
 }
 
-export function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const header = useFadeUp();
-  const list = useFadeUp(0.08);
+export function CtaFooter() {
+  const cta = useFadeUp(0.1);
+  const footer = useFadeUp(0.08);
 
   return (
-    <section id="faq" className="bg-[#0f172a] py-16 sm:py-24 px-4 relative overflow-hidden">
-      {/* Soft background glows */}
-      <div className="absolute top-1/4 right-0 w-72 h-72 bg-[#ff9800]/[0.07] rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/3 left-0 w-80 h-80 bg-[#1a237e]/25 rounded-full blur-3xl pointer-events-none" />
+    <>
+      {/* ===== Final CTA ===== */}
+      <section className="relative bg-[#0f172a] py-16 sm:py-24 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,152,0,0.08)_0%,transparent_65%)] pointer-events-none" />
 
-      <div className="mx-auto max-w-3xl relative z-10">
-        
-        {/* ===== Header ===== */}
+        <div className="mx-auto max-w-4xl relative z-10">
+          <div
+            ref={cta.ref}
+            className={`relative rounded-[2rem] sm:rounded-[2.5rem] bg-white px-6 sm:px-12 py-12 sm:py-16 text-center shadow-[0_25px_60px_rgba(0,0,0,0.35)] transition-all duration-700 ease-out ${
+              cta.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1a237e] to-[#0f172a] shadow-lg">
+              <Lock className="h-7 w-7 text-white" />
+            </div>
+
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#ff9800]/10 px-4 py-1.5">
+              <ShieldCheck className="h-4 w-4 text-[#ff9800]" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#1a237e]">
+                Trusted Escrow · Pakistan
+              </span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#0f172a] leading-[1.15]">
+              Never buy or sell online
+              <span className="block text-[#ff9800] mt-1">without OloBuy</span>
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-lg text-base sm:text-lg leading-relaxed text-[#0f172a]/70">
+              Payment stays protected until you inspect and approve.
+              Start your first safe deal in minutes.
+            </p>
+
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-8 sm:mt-10 inline-flex items-center justify-center gap-3 rounded-2xl bg-[#ff9800] px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-black text-[#0f172a] shadow-[0_12px_30px_rgba(255,152,0,0.35)] transition-all hover:bg-[#ffb347] hover:shadow-[0_16px_40px_rgba(255,152,0,0.45)] active:scale-[0.98]"
+            >
+              Start a Safe Deal Now
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Footer ===== */}
+      <footer className="bg-[#080c14] border-t border-white/[0.06]">
         <div
-          ref={header.ref}
-          className={`text-center mb-12 sm:mb-16 transition-all duration-700 ease-out ${
-            header.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          ref={footer.ref}
+          className={`mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 transition-all duration-700 ease-out ${
+            footer.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black px-8 sm:px-12 py-3.5 sm:py-4 rounded-full text-lg sm:text-2xl shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-5 tracking-wide">
-            FREQUENTLY ASKED QUESTIONS
-          </div>
-          <p className="text-white/70 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-            Everything you need to know about OloBuy&apos;s secure escrow protection
-          </p>
-        </div>
+          <div className="grid gap-12 lg:grid-cols-12">
+            
+            {/* Brand */}
+            <div className="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+              <div className="mb-5 inline-block bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.3)] border border-white/20">
+                <img
+                  src="/logo.jpg"
+                  alt="OloBuy"
+                  className="h-12 sm:h-14 w-auto object-contain"
+                />
+              </div>
+              <p className="max-w-xs text-sm leading-relaxed text-white/70 font-medium">
+                Pakistan&apos;s trusted manual escrow. We hold payment until you
+                inspect and approve — safer online deals on OLX, Instagram, Facebook & more.
+              </p>
+            </div>
 
-        {/* ===== FAQ List ===== */}
-        <div ref={list.ref} className="space-y-3 sm:space-y-4">
-          {FAQS.map((faq, index) => {
-            const isOpen = openIndex === index;
+            {/* About + Contact */}
+            <div className="grid gap-10 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-2">
+              <div>
+                <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff9800]">
+                  About
+                </p>
+                <p className="text-sm leading-relaxed text-white/70 font-medium">
+                  OloBuy is a neutral third-party escrow dedicated to fraud-free online trade across Pakistan.
+                </p>
+              </div>
 
-            return (
-              <div
-                key={index}
-                style={{ transitionDelay: list.visible ? `${index * 70}ms` : '0ms' }}
-                className={`bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/45 rounded-2xl sm:rounded-3xl transition-all duration-500 ease-out ${
-                  list.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-                }`}
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between gap-4 text-left p-5 sm:p-6 cursor-pointer"
-                >
-                  <span className="font-bold text-white text-base sm:text-lg leading-snug pr-2">
-                    {faq.q}
-                  </span>
-
-                  <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 transition-colors">
-                    <ChevronDown
-                      className={`h-5 w-5 text-[#ff9800] transition-transform duration-300 ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </div>
-                </button>
-
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-out ${
-                    isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                  }`}
-                >
-                  <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-                    <div className="border-t border-white/10 pt-4">
-                      <p className="text-white/80 text-sm sm:text-[15px] leading-relaxed">
-                        {faq.a}
-                      </p>
-                    </div>
-                  </div>
+              <div>
+                <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff9800]">
+                  Contact
+                </p>
+                <div className="space-y-3 font-medium">
+                  <a
+                    href="mailto:support@olobuy.pk"
+                    className="flex items-center justify-center lg:justify-start gap-2.5 text-sm text-white/80 transition-colors hover:text-[#ff9800]"
+                  >
+                    <Mail className="h-4 w-4 shrink-0 text-[#ff9800]" />
+                    support@olobuy.pk
+                  </a>
+                  <a
+                    href="tel:03300100010"
+                    className="flex items-center justify-center lg:justify-start gap-2.5 text-sm text-white/80 transition-colors hover:text-[#ff9800]"
+                  >
+                    <Phone className="h-4 w-4 shrink-0 text-[#ff9800]" />
+                    0330-010-0-010
+                  </a>
                 </div>
               </div>
-            );
-          })}
+            </div>
+
+            {/* Head Office */}
+            <div className="lg:col-span-3 text-center lg:text-left">
+              <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff9800]">
+                Head Office
+              </p>
+              <div className="mb-4 overflow-hidden rounded-2xl border border-white/10 shadow-xl">
+                <img
+                  src="/image/olobuy-hq.jpg"
+                  alt="OloBuy Head Office"
+                  className="h-36 w-full object-cover sm:h-40"
+                />
+              </div>
+              <div className="flex items-start justify-center lg:justify-start gap-2.5 text-sm text-white/70 font-medium">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#ff9800]" />
+                <p className="leading-relaxed">
+                  25 Sea View Rd, Block 4
+                  <br />
+                  Clifton, Karachi 74400
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 sm:mt-14 sm:flex-row">
+            <p className="text-center text-xs text-white/50 sm:text-left font-medium">
+              © {new Date().getFullYear()} OloBuy®. All rights reserved. Secure Manual Escrow · Pakistan
+            </p>
+            <div className="flex items-center gap-5 text-xs text-white/60 font-medium">
+              <a href="/terms" className="transition-colors hover:text-white">
+                Terms
+              </a>
+              <span className="text-white/20">·</span>
+              <a href="/privacy" className="transition-colors hover:text-white">
+                Privacy
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </footer>
+    </>
   );
-}
+            }
