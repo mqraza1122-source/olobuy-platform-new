@@ -43,7 +43,7 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
           
-          {/* Perfect Logo – Transparent */}
+          {{/* Perfect Logo – Transparent */}
           <a href="#" className="flex items-center shrink-0 group">
             <img
               src="/logo.jpg"
@@ -51,7 +51,7 @@ export function SiteHeader() {
               className="h-11 sm:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.04]"
             />
           </a>
-/>
+          
           {/* Desktop & Action Section */}
           <div className="flex items-center gap-3">
             <a
