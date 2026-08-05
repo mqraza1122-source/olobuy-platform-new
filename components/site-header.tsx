@@ -42,9 +42,7 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           
-          <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
-  
-  {/* Perfect Brand Logo – World-class size */}
+          {/* Perfect Brand Logo – World-class size */}
   <a href="#" className="flex items-center shrink-0 group">
     <img
       src="/logo.jpg"
