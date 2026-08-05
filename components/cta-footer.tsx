@@ -126,11 +126,11 @@ export function CtaFooter() {
                     support@olobuy.pk
                   </a>
                   <a
-                    href="tel:+923043031572"
+                    href="tel:03300100010"
                     className="flex items-center justify-center lg:justify-start gap-2.5 text-sm text-white/80 transition-colors hover:text-[#ff9800]"
                   >
                     <Phone className="h-4 w-4 shrink-0 text-[#ff9800]" />
-                    0304-3031572
+                    0330-010-0-010
                   </a>
                 </div>
               </div>
@@ -178,4 +178,4 @@ export function CtaFooter() {
       </footer>
     </>
   );
-      }
+                }
