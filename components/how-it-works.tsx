@@ -88,65 +88,66 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="bg-[#0f172a] pt-4 pb-16 sm:pt-6 sm:pb-20 px-4 relative overflow-hidden"
+      className="bg-[#0f172a] pt-6 pb-20 sm:pt-8 sm:pb-24 px-4 relative overflow-hidden"
     >
-      <div className="absolute top-1/4 left-0 w-64 h-64 bg-[#ff9800]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-[#1a237e]/30 rounded-full blur-3xl pointer-events-none" />
+      {/* Soft background glows */}
+      <div className="absolute top-1/4 left-0 w-72 h-72 bg-[#ff9800]/[0.07] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-[#1a237e]/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* ONLY ONE "HOW IT WORKS" CARD (lower style kept) */}
-        <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-6 sm:mb-8">
+        {/* ===== TOP FLOW CARD ===== */}
+        <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-8 sm:mb-10">
           
-          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-base sm:text-lg tracking-wider px-8 py-3.5 rounded-full shadow-[0_0_25px_rgba(255,152,0,0.4)] mb-6 uppercase">
+          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-sm sm:text-base tracking-[0.15em] px-8 py-3 rounded-full shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-6 uppercase">
             HOW IT WORKS
           </div>
 
-          <p className="text-white/60 text-xs sm:text-sm max-w-md mx-auto mb-8 leading-relaxed">
+          <p className="text-white/65 text-sm sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
             A neutral platform holding funds until both buyer and seller confirm satisfaction.
           </p>
 
-          {/* Flow: Buyer (chat) → OloBuy → Seller (WhatsApp) */}
-          <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
+          {/* Buyer → OloBuy → Seller Flow */}
+          <div className="flex items-center justify-center gap-2 sm:gap-5 max-w-md mx-auto">
             {/* Buyer */}
-            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-2">
+            <div className="flex flex-col items-center flex-1 bg-white/[0.04] border border-white/10 rounded-2xl p-4 shadow-sm">
+              <div className="w-12 h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/25 flex items-center justify-center text-[#25d366] mb-2.5">
                 <MessageSquareText className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <span className="text-white font-bold text-xs sm:text-sm">Buyer</span>
             </div>
 
-            <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
+            <div className="text-[#ff9800] font-bold text-xl sm:text-2xl">→</div>
 
-            {/* OloBuy Logo */}
-            <div className="flex flex-col items-center flex-1 bg-white border-2 border-[#ff9800]/60 rounded-2xl p-3.5 shadow-[0_0_25px_rgba(255,152,0,0.25)]">
-              <div className="w-14 h-10 sm:w-16 sm:h-12 flex items-center justify-center">
+            {/* OloBuy */}
+            <div className="flex flex-col items-center flex-1 bg-white border-2 border-[#ff9800]/70 rounded-2xl p-3.5 shadow-[0_0_30px_rgba(255,152,0,0.25)]">
+              <div className="w-16 h-11 sm:w-[72px] sm:h-12 flex items-center justify-center">
                 <img
                   src="/logo.jpg"
                   alt="OloBuy"
-                  className="w-full h-full object-contain filter drop-shadow-sm scale-110"
+                  className="w-full h-full object-contain drop-shadow-sm"
                 />
               </div>
             </div>
 
-            <div className="text-[#ff9800] font-bold text-lg animate-pulse">→</div>
+            <div className="text-[#ff9800] font-bold text-xl sm:text-2xl">→</div>
 
-            {/* Seller / WhatsApp */}
-            <div className="flex flex-col items-center flex-1 bg-white/[0.03] border border-white/10 rounded-2xl p-3.5 sm:p-4 shadow-sm">
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/20 flex items-center justify-center text-[#25d366] mb-2">
+            {/* Seller */}
+            <div className="flex flex-col items-center flex-1 bg-white/[0.04] border border-white/10 rounded-2xl p-4 shadow-sm">
+              <div className="w-12 h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/25 flex items-center justify-center text-[#25d366] mb-2.5">
                 <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <span className="text-white font-bold text-xs sm:text-sm">Seller</span>
             </div>
           </div>
 
-          <p className="text-white/45 text-xs mt-6">
+          <p className="text-white/45 text-xs sm:text-sm mt-7">
             Funds held securely until item is received & inspected.
           </p>
         </div>
 
-        {/* Steps */}
-        <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
+        {/* ===== STEPS (Improved Timeline Style Cards) ===== */}
+        <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-6">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
@@ -154,26 +155,27 @@ export function HowItWorks() {
                 key={i}
                 type="button"
                 onClick={() => setSelectedStep(step)}
-                style={{ transitionDelay: grid.visible ? `${i * 100}ms` : '0ms' }}
-                className={`group w-full text-left bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/45 rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.45)] relative overflow-hidden ${
-                  grid.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                style={{ transitionDelay: grid.visible ? `${i * 90}ms` : '0ms' }}
+                className={`group w-full text-left bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/50 rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative overflow-hidden ${
+                  grid.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
+                {/* Top accent line */}
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#ff9800] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#ff9800]/10 border border-[#ff9800]/20 flex items-center justify-center group-hover:bg-[#ff9800]/20 group-hover:scale-105 transition-all duration-300 shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#ff9800]/10 border border-[#ff9800]/25 flex items-center justify-center group-hover:bg-[#ff9800]/20 group-hover:scale-105 transition-all duration-300 shrink-0">
                     <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-[#ff9800]" />
                   </div>
 
                   <div className="min-w-0 flex-1">
-                    <span className="text-[#ff9800] font-black text-[11px] sm:text-xs tracking-[0.15em] block mb-1">
+                    <span className="text-[#ff9800] font-black text-[11px] sm:text-xs tracking-[0.18em] block mb-1">
                       STEP 0{i + 1}
                     </span>
-                    <h3 className="text-[17px] sm:text-xl font-bold text-white group-hover:text-[#ff9800] transition-colors leading-tight">
+                    <h3 className="text-[17px] sm:text-xl font-bold text-white group-hover:text-[#ff9800] transition-colors leading-snug">
                       {step.title}
                     </h3>
-                    <p className="text-white/50 text-xs sm:text-sm mt-0.5 leading-snug">
+                    <p className="text-white/55 text-xs sm:text-sm mt-1 leading-snug">
                       {step.short}
                     </p>
                   </div>
@@ -187,33 +189,33 @@ export function HowItWorks() {
           })}
         </div>
 
-        {/* Service Charges */}
+        {/* ===== PRICING ===== */}
         <div
           ref={fees.ref}
           className={`mb-10 sm:mb-12 transition-all duration-700 ease-out ${
-            fees.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            fees.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <button
             type="button"
             onClick={() => setShowFees(!showFees)}
-            className="group w-full text-left bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/45 rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-300 relative overflow-hidden"
+            className="group w-full text-left bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/50 rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-300 relative overflow-hidden"
           >
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#ff9800] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#ff9800]/10 border border-[#ff9800]/20 flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#ff9800]/10 border border-[#ff9800]/25 flex items-center justify-center shrink-0">
                 <BadgePercent className="h-6 w-6 sm:h-7 sm:w-7 text-[#ff9800]" />
               </div>
 
               <div className="min-w-0 flex-1">
-                <span className="text-[#ff9800] font-black text-[11px] sm:text-xs tracking-[0.15em] block mb-1">
+                <span className="text-[#ff9800] font-black text-[11px] sm:text-xs tracking-[0.18em] block mb-1">
                   PRICING
                 </span>
-                <h3 className="text-[17px] sm:text-xl font-bold text-white leading-tight">
+                <h3 className="text-[17px] sm:text-xl font-bold text-white leading-snug">
                   OloBuy Service Charges
                 </h3>
-                <p className="text-white/50 text-xs sm:text-sm mt-0.5 leading-snug">
+                <p className="text-white/55 text-xs sm:text-sm mt-1 leading-snug">
                   Transparent fees · No hidden charges
                 </p>
               </div>
@@ -228,19 +230,19 @@ export function HowItWorks() {
             </div>
 
             {showFees && (
-              <div className="mt-4 pt-4 border-t border-white/10">
-                <ul className="space-y-2.5">
+              <div className="mt-5 pt-5 border-t border-white/10">
+                <ul className="space-y-3">
                   {FEE_ROWS.map((row) => (
                     <li
                       key={row.range}
-                      className="flex justify-between gap-3 text-sm text-white/75"
+                      className="flex justify-between gap-4 text-sm text-white/80"
                     >
                       <span>{row.range}</span>
                       <span className="font-bold text-white shrink-0">{row.fee}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="mt-3 pt-3 border-t border-white/10 text-[11px] sm:text-xs leading-relaxed text-white/45">
+                <p className="mt-4 pt-4 border-t border-white/10 text-xs leading-relaxed text-white/45">
                   Pure service fees only. No extra or hidden charges — transparent work in favour of our customers.
                 </p>
               </div>
@@ -248,10 +250,10 @@ export function HowItWorks() {
           </button>
         </div>
 
-        {/* WhatsApp support */}
+        {/* ===== WhatsApp Support ===== */}
         <div
           ref={support.ref}
-          className={`bg-gradient-to-r from-[#1a237e]/90 via-[#0f172a] to-[#1a237e]/90 border border-[#ff9800]/25 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-2xl backdrop-blur-md transition-all duration-700 ease-out ${
+          className={`bg-gradient-to-r from-[#1a237e]/90 via-[#0f172a] to-[#1a237e]/90 border border-[#ff9800]/30 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-2xl backdrop-blur-md transition-all duration-700 ease-out ${
             support.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -281,10 +283,10 @@ export function HowItWorks() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* ===== Detail Modal ===== */}
       {selectedStep && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="bg-[#111827] border border-[#ff9800]/35 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.75)]">
+          <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
             <button
               type="button"
               onClick={() => setSelectedStep(null)}
@@ -307,7 +309,7 @@ export function HowItWorks() {
               </div>
             </div>
 
-            <div className="bg-white/5 rounded-2xl p-4 sm:p-5 border border-white/10 mb-6 space-y-3">
+            <div className="bg-white/5 rounded-2xl p-5 border border-white/10 mb-6 space-y-3">
               <p className="text-white/90 text-sm sm:text-base leading-relaxed">
                 {selectedStep.desc}
               </p>
@@ -328,4 +330,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-                                                                             }
+    }
