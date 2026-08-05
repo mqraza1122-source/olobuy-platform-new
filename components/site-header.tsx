@@ -43,15 +43,15 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
           
-          {/* Perfect Logo – Solid white matching */}
+          {/* Perfect Logo – Transparent */}
           <a href="#" className="flex items-center shrink-0 group">
             <img
-              src="/logo.jpg"
+              src="/logo.png"
               alt="OloBuy"
-              className="h-11 sm:h-12 w-auto object-contain mix-blend-multiply brightness-105 contrast-105 transition-transform duration-200 group-hover:scale-[1.04]"
+              className="h-11 sm:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.04]"
             />
           </a>
-
+/>
           {/* Desktop & Action Section */}
           <div className="flex items-center gap-3">
             <a
