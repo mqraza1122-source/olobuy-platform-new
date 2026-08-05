@@ -58,29 +58,29 @@ export function Faq() {
   const list = useFadeUp(0.08);
 
   return (
-    <section id="faq" className="bg-[#0f172a] py-16 sm:py-20 px-4 relative overflow-hidden">
-      {/* Background Glow Accents */}
-      <div className="absolute top-1/4 right-0 w-64 h-64 bg-[#ff9800]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/3 left-0 w-72 h-72 bg-[#1a237e]/25 rounded-full blur-3xl pointer-events-none" />
+    <section id="faq" className="bg-[#0f172a] py-16 sm:py-24 px-4 relative overflow-hidden">
+      {/* Soft background glows */}
+      <div className="absolute top-1/4 right-0 w-72 h-72 bg-[#ff9800]/[0.07] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/3 left-0 w-80 h-80 bg-[#1a237e]/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* Section Header */}
+        {/* ===== Header ===== */}
         <div
           ref={header.ref}
-          className={`text-center mb-12 sm:mb-14 transition-all duration-700 ease-out ${
+          className={`text-center mb-12 sm:mb-16 transition-all duration-700 ease-out ${
             header.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black px-7 sm:px-10 py-3 sm:py-4 rounded-full text-lg sm:text-2xl shadow-[0_0_25px_rgba(255,152,0,0.3)] mb-4 tracking-wide">
+          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black px-8 sm:px-12 py-3.5 sm:py-4 rounded-full text-lg sm:text-2xl shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-5 tracking-wide">
             FREQUENTLY ASKED QUESTIONS
           </div>
-          <p className="text-white/75 text-sm sm:text-base max-w-md mx-auto">
+          <p className="text-white/70 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
             Everything you need to know about OloBuy&apos;s secure escrow protection
           </p>
         </div>
 
-        {/* FAQs List */}
+        {/* ===== FAQ List ===== */}
         <div ref={list.ref} className="space-y-4 sm:space-y-5">
           {FAQS.map((faq, index) => {
             const isOpen = openIndex === index;
@@ -88,9 +88,9 @@ export function Faq() {
             return (
               <div
                 key={index}
-                style={{ transitionDelay: list.visible ? `${index * 80}ms` : '0ms' }}
-                className={`bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/35 rounded-2xl sm:rounded-3xl transition-all duration-700 ease-out ${
-                  list.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                style={{ transitionDelay: list.visible ? `${index * 70}ms` : '0ms' }}
+                className={`bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/45 rounded-2xl sm:rounded-3xl transition-all duration-500 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.35)] ${
+                  list.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
                 <button
@@ -98,11 +98,11 @@ export function Faq() {
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   className="w-full flex items-center justify-between gap-4 text-left p-5 sm:p-6 cursor-pointer"
                 >
-                  <span className="font-bold text-white text-base sm:text-lg leading-snug">
+                  <span className="font-bold text-white text-base sm:text-lg leading-snug pr-2">
                     {faq.q}
                   </span>
 
-                  <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#ff9800]/35 transition-colors">
+                  <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 transition-colors">
                     <ChevronDown
                       className={`h-5 w-5 text-[#ff9800] transition-transform duration-300 ${
                         isOpen ? 'rotate-180' : ''
@@ -116,7 +116,7 @@ export function Faq() {
                     isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
+                  <div className="px-5 sm:px-6 pb-5 sm:pb-6">
                     <div className="border-t border-white/10 pt-4">
                       <p className="text-white/80 text-sm sm:text-[15px] leading-relaxed">
                         {faq.a}
@@ -128,8 +128,7 @@ export function Faq() {
             );
           })}
         </div>
-
       </div>
     </section>
   );
-      }
+        }
