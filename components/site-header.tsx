@@ -74,7 +74,6 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
-
         {/* Mobile Dropdown Menu */}
         <div
           className={`overflow-hidden transition-all duration-300 ease-out bg-white/95 backdrop-blur-2xl border-b border-gray-200 shadow-xl ${
