@@ -212,16 +212,16 @@ function DealContent() {
 
   // ===== FIXED: Always open OloBuy official WhatsApp =====
   const handlePaidClick = () => {
-    const sName = deal?.seller_name || sellerName || 'Not Provided';
-    const sContact = deal?.seller_contact || sellerContact || 'Not Provided';
-    const sTitle = deal?.seller_account_title || sellerAccountTitle || 'Not Provided';
-    const sBank = deal?.seller_bank_name || sellerBankName || 'Not Provided';
-    const sAcc = deal?.seller_account || sellerAccountNumber || 'Not Provided';
-    const sTime = deal?.inspection_days || inspectionDays || 'Not Provided';
-    const prodName = deal?.product_name || 'Not Provided';
-    const amt = Number(deal?.amount || 0).toLocaleString();
+  const sName = deal?.seller_name || sellerName || 'Not Provided';
+  const sContact = deal?.seller_contact || sellerContact || 'Not Provided';
+  const sTitle = deal?.seller_account_title || sellerAccountTitle || 'Not Provided';
+  const sBank = deal?.seller_bank_name || sellerBankName || 'Not Provided';
+  const sAcc = deal?.seller_account || sellerAccountNumber || 'Not Provided';
+  const sTime = deal?.inspection_days || inspectionDays || 'Not Provided';
+  const prodName = deal?.product_name || 'Not Provided';
+  const amt = Number(deal?.amount || 0).toLocaleString();
 
-    const text = encodeURIComponent(
+  const text = encodeURIComponent(
 `Hello OloBuy Team, I have paid Rs \( {amt} for Deal # \){deal?.deal_code}.
 
 📦 Buying Product / Service: ${prodName}
@@ -233,6 +233,10 @@ function DealContent() {
 ⏳ Inspection Time: ${sTime} Days
 
 Here is my payment screenshot:`
+  );
+
+  window.open(`https://wa.me/923043031572?text=${text}`, '_blank');
+};
     );
 
     // Force open OloBuy official number
@@ -240,22 +244,24 @@ Here is my payment screenshot:`
   };
 
   const releasePayment = async () => {
-    const { error } = await supabase
-      .from('deals')
-      .update({ status: 'completed' })
-      .eq('deal_code', id);
+  const { error } = await supabase
+    .from('deals')
+    .update({ status: 'completed' })
+    .eq('deal_code', id);
 
-    if (error) {
-      alert('Error: ' + error.message);
-      return;
-    }
+  if (error) {
+    alert('Error: ' + error.message);
+    return;
+  }
 
-    setDeal({ ...deal, status: 'completed' });
-    const text = encodeURIComponent(
-      `Hello OloBuy Team, I have confirmed the product for Deal #${deal?.deal_code}. Please release the payment to seller.`
-    );
-    window.open(`https://wa.me/\( {adminWhatsApp}?text= \){text}`, '_blank');
-  };
+  setDeal({ ...deal, status: 'completed' });
+
+  const text = encodeURIComponent(
+    `Hello OloBuy Team, I have confirmed the product for Deal #${deal?.deal_code}. Please release the payment to seller.`
+  );
+
+  window.open(`https://wa.me/923043031572?text=${text}`, '_blank');
+};
 
   const handleInvite = (targetRole: 'Buyer' | 'Seller') => {
     const baseUrl = window.location.origin + window.location.pathname;
