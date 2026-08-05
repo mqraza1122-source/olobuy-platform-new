@@ -96,28 +96,30 @@ export function Features() {
   };
 
   return (
-    <section id="why" className="bg-[#0f172a] py-16 sm:py-20 px-4 relative overflow-hidden">
-      <div className="absolute top-1/3 right-0 w-64 h-64 bg-[#ff9800]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-[#1a237e]/25 rounded-full blur-3xl pointer-events-none" />
+    <section id="why" className="bg-[#0f172a] py-16 sm:py-24 px-4 relative overflow-hidden">
+      {/* Soft glows */}
+      <div className="absolute top-1/3 right-0 w-72 h-72 bg-[#ff9800]/[0.07] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-[#1a237e]/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-5xl relative z-10">
-        {/* Header */}
+        
+        {/* ===== Header ===== */}
         <div
           ref={header.ref}
-          className={`text-center mb-12 sm:mb-14 transition-all duration-700 ease-out ${
+          className={`text-center mb-12 sm:mb-16 transition-all duration-700 ease-out ${
             header.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black px-7 sm:px-10 py-3 sm:py-4 rounded-full text-lg sm:text-2xl shadow-[0_0_25px_rgba(255,152,0,0.3)] mb-4 tracking-wide">
+          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-black px-8 sm:px-12 py-3.5 sm:py-4 rounded-full text-lg sm:text-2xl shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-5 tracking-wide">
             WHY CHOOSE OLOBUY?
           </div>
-          <p className="text-white/75 max-w-md mx-auto text-sm sm:text-base">
+          <p className="text-white/70 max-w-md mx-auto text-sm sm:text-base leading-relaxed">
             Trusted for safe online transactions across Pakistan
           </p>
         </div>
 
-        {/* Features grid */}
-        <div ref={grid.ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-14 sm:mb-16">
+        {/* ===== Features Grid ===== */}
+        <div ref={grid.ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-16 sm:mb-20">
           {FEATURES.map((f, i) => {
             const Icon = f.icon;
             const isOpen = openIndex === i;
@@ -125,9 +127,9 @@ export function Features() {
             return (
               <div
                 key={f.title}
-                style={{ transitionDelay: grid.visible ? `${i * 90}ms` : '0ms' }}
-                className={`bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/40 rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.4)] ${
-                  grid.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                style={{ transitionDelay: grid.visible ? `${i * 80}ms` : '0ms' }}
+                className={`bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-xl border border-white/10 hover:border-[#ff9800]/45 rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)] ${
+                  grid.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
                 <button
@@ -136,7 +138,7 @@ export function Features() {
                   className="w-full text-left"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="mt-0.5 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#ff9800]/10 border border-[#ff9800]/20 flex items-center justify-center shrink-0">
+                    <div className="mt-0.5 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#ff9800]/10 border border-[#ff9800]/25 flex items-center justify-center shrink-0">
                       <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-[#ff9800]" />
                     </div>
 
@@ -160,10 +162,10 @@ export function Features() {
 
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-out ${
-                    isOpen ? 'max-h-40 opacity-100 mt-3' : 'max-h-0 opacity-0'
+                    isOpen ? 'max-h-48 opacity-100 mt-4' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <div className="pl-15 sm:pl-[3.75rem] border-t border-white/10 pt-3">
+                  <div className="pl-[3.25rem] sm:pl-[3.75rem] border-t border-white/10 pt-3.5">
                     <p className="text-white/50 text-xs sm:text-sm leading-relaxed">
                       {f.details}
                     </p>
@@ -174,37 +176,37 @@ export function Features() {
           })}
         </div>
 
-        {/* Trust header */}
+        {/* ===== Trust Header ===== */}
         <div
           ref={trust.ref}
-          className={`text-center mb-8 sm:mb-10 pt-2 transition-all duration-700 ease-out ${
+          className={`text-center mb-8 sm:mb-10 transition-all duration-700 ease-out ${
             trust.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-2xl sm:text-4xl font-black text-[#ff9800] uppercase tracking-tight mb-2">
+          <h2 className="text-3xl sm:text-4xl font-black text-[#ff9800] uppercase tracking-tight mb-2">
             Users Trust Us
           </h2>
-          <p className="text-sm sm:text-lg font-bold text-white/90 tracking-wide uppercase">
+          <p className="text-sm sm:text-base font-bold text-white/85 tracking-wide uppercase">
             Pakistan&apos;s Leading Escrow Trade
           </p>
         </div>
 
-        {/* Stats */}
+        {/* ===== STATS (Much Stronger) ===== */}
         <div
           ref={stats.ref}
-          className={`grid grid-cols-3 gap-3 sm:gap-4 text-center transition-all duration-700 ease-out ${
+          className={`grid grid-cols-3 gap-3 sm:gap-5 text-center transition-all duration-700 ease-out ${
             stats.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           {STATS.map((stat, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl sm:rounded-[2rem] py-6 sm:py-8 px-2 shadow-2xl flex flex-col items-center justify-center transition-transform hover:scale-[1.03]"
+              className="bg-white rounded-2xl sm:rounded-[1.75rem] py-7 sm:py-10 px-3 shadow-[0_10px_40px_rgba(0,0,0,0.25)] flex flex-col items-center justify-center transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_15px_50px_rgba(0,0,0,0.3)]"
             >
-              <div className="text-xl sm:text-3xl font-black text-[#ff9800] mb-1">
+              <div className="text-2xl sm:text-4xl font-black text-[#ff9800] mb-1.5 tracking-tight">
                 {stat.number}
               </div>
-              <div className="text-[#1a237e] text-[9px] sm:text-xs font-bold tracking-widest uppercase">
+              <div className="text-[#1a237e] text-[10px] sm:text-xs font-bold tracking-[0.12em] uppercase leading-tight">
                 {stat.label}
               </div>
             </div>
@@ -213,4 +215,4 @@ export function Features() {
       </div>
     </section>
   );
-}
+      }
