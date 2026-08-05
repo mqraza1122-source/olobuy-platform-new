@@ -46,7 +46,7 @@ export function SiteHeader() {
           {{/* Perfect Logo – Transparent */}
           <a href="#" className="flex items-center shrink-0 group">
             <img
-              src="/logo.jpg"
+              src="public/logo.jpg"
               alt="OloBuy"
               className="h-11 sm:h-12 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.04]"
             />
