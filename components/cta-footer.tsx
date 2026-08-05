@@ -86,13 +86,13 @@ export function CtaFooter() {
           }`}
         >
           <div className="grid gap-12 lg:grid-cols-12">
-            {/* Brand — wider */}
+            {/* Brand — wider with larger professional logo */}
             <div className="lg:col-span-4">
-              <div className="mb-5 flex justify-center lg:justify-start">
+              <div className="mb-5 flex justify-center lg:justify-start items-center">
                 <img
                   src="/logo.jpg"
                   alt="OloBuy"
-                  className="h-11 object-contain"
+                  className="h-12 sm:h-14 w-auto object-contain"
                 />
               </div>
               <p className="mx-auto max-w-xs text-center text-sm leading-relaxed text-white/50 lg:mx-0 lg:text-left">
@@ -178,4 +178,4 @@ export function CtaFooter() {
       </footer>
     </>
   );
-              }
+      }
