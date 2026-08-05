@@ -97,7 +97,7 @@ export function CtaFooter() {
               </div>
               <p className="max-w-xs text-sm leading-relaxed text-white/70 font-medium">
                 Pakistan&apos;s trusted manual escrow. We hold payment until you
-                inspect and approve — safer deals on OLX, Facebook & more.
+                inspect and approve safer all online deals on OLX, Instagram ,Facebook & more.
               </p>
             </div>
 
@@ -108,7 +108,7 @@ export function CtaFooter() {
                   About
                 </p>
                 <p className="text-sm leading-relaxed text-white/70 font-medium">
-                  Neutral third-party escrow dedicated to fraud-free online
+                  OloBuy is Neutral third party escrow dedicated to fraud free online
                   trade across Pakistan.
                 </p>
               </div>
@@ -162,7 +162,7 @@ export function CtaFooter() {
           {/* Bottom */}
           <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 sm:mt-14 sm:flex-row">
             <p className="text-center text-xs text-white/50 sm:text-left font-medium">
-              © {new Date().getFullYear()} OloBuy. All rights reserved. Secure Manual Escrow · Pakistan
+              © {new Date().getFullYear()} OloBuy®. All rights reserved. Secure Manual Escrow · Pakistan
             </p>
             <div className="flex items-center gap-5 text-xs text-white/60 font-medium">
               <a href="/terms" className="transition-colors hover:text-white">
