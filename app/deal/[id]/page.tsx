@@ -35,7 +35,7 @@ function DealContent() {
   const [copied, setCopied] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  // Collapsible states (default CLOSED as requested)
+  // Collapsible states (default CLOSED)
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
@@ -90,13 +90,18 @@ function DealContent() {
     }
   }, [id]);
 
+  // Countdown based on inspection_days
   useEffect(() => {
-    if (!deal) return;
+    if (!deal || !isCodeVerified) return;
 
-    const baseTime = new Date(deal.created_at || Date.now()).getTime();
-    const daysAllowed = Number(deal.inspection_days || 0);
-    if (daysAllowed <= 0) return;
+    const daysAllowed = Number(deal.inspection_days || inspectionDays || 0);
+    if (daysAllowed <= 0) {
+      setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      return;
+    }
 
+    // Start countdown from the moment code is verified (or use created_at if you prefer)
+    const baseTime = new Date().getTime(); // verification time se start
     const targetTime = baseTime + daysAllowed * 24 * 60 * 60 * 1000;
 
     const timer = setInterval(() => {
@@ -115,7 +120,7 @@ function DealContent() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [deal]);
+  }, [deal, isCodeVerified, inspectionDays]);
 
   const fetchDeal = async () => {
     const { data, error } = await supabase
@@ -205,6 +210,7 @@ function DealContent() {
     }
   };
 
+  // ===== FIXED: Always open OloBuy official WhatsApp =====
   const handlePaidClick = () => {
     const sName = deal?.seller_name || sellerName || 'Not Provided';
     const sContact = deal?.seller_contact || sellerContact || 'Not Provided';
@@ -228,6 +234,8 @@ function DealContent() {
 
 Here is my payment screenshot:`
     );
+
+    // Force open OloBuy official number
     window.open(`https://wa.me/\( {adminWhatsApp}?text= \){text}`, '_blank');
   };
 
@@ -297,7 +305,7 @@ Here is my payment screenshot:`
     <main className="min-h-screen bg-[#070b14] text-slate-100 p-4 sm:p-6 flex items-center justify-center font-sans antialiased">
       <div className="max-w-md w-full bg-[#0c1528]/95 backdrop-blur-xl border border-slate-800/60 rounded-[2rem] p-5 sm:p-7 shadow-2xl relative my-6 space-y-5">
 
-        {/* ================= HEADER ================= */}
+        {/* HEADER */}
         <header className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/25 rounded-full px-4 py-1.5">
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
@@ -310,7 +318,7 @@ Here is my payment screenshot:`
           </h1>
         </header>
 
-        {/* ================= STATUS + AMOUNT + PROGRESS ================= */}
+        {/* STATUS + AMOUNT + PROGRESS */}
         <section className="bg-gradient-to-br from-[#0f1a33] to-[#0a1225] border border-slate-800/70 rounded-2xl p-4 shadow-lg space-y-4">
           <div className="flex justify-between items-center text-xs font-bold text-slate-400">
             <span>Escrow Stage</span>
@@ -319,7 +327,6 @@ Here is my payment screenshot:`
             </span>
           </div>
 
-          {/* Progress Bars */}
           <div className="grid grid-cols-4 gap-1.5">
             <div className="h-1.5 rounded-full bg-[#f5c518]" />
             <div className={`h-1.5 rounded-full ${isCodeVerified || isCompleted ? 'bg-[#f5c518]' : 'bg-slate-800'}`} />
@@ -335,10 +342,9 @@ Here is my payment screenshot:`
           </div>
         </section>
 
-        {/* ================= AFTER CODE VERIFIED ================= */}
+        {/* AFTER CODE VERIFIED */}
         {isCodeVerified && (
- <div className="space-y-4">
-            {/* Countdown + Release */}
+          <div className="space-y-4">
             {timeLeft && !isCompleted && (
               <section className="bg-gradient-to-br from-[#0f1a33] to-[#0a1225] border-2 border-emerald-500/40 rounded-2xl p-5 shadow-2xl text-center space-y-5 relative overflow-hidden">
                 <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl" />
@@ -390,10 +396,10 @@ Here is my payment screenshot:`
           </div>
         )}
 
-        {/* ================= BEFORE CODE VERIFIED ================= */}
+        {/* BEFORE CODE VERIFIED */}
         {!isCodeVerified && (
           <>
-            {/* 1. PRODUCT / SELLER DETAILS (Collapsible - default closed) */}
+            {/* SELLER DETAILS - Heading fixed to "Seller Details" */}
             <div className="bg-[#0f1a33] border border-slate-800/70 rounded-2xl overflow-hidden shadow-lg">
               <button
                 onClick={() => setDetailsOpen(!detailsOpen)}
@@ -401,8 +407,8 @@ Here is my payment screenshot:`
               >
                 <div className="flex items-center gap-2.5">
                   <span className="w-2 h-2 rounded-full bg-[#f5c518]" />
-                  <span className="text-xs font-bold text-white uppercase truncate max-w-[200px]">
-                    {deal.product_name || 'Contract / Product Details'}
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">
+                    Seller Details
                   </span>
                 </div>
                 {detailsOpen ? (
@@ -479,7 +485,7 @@ Here is my payment screenshot:`
                       ))}
 
                       <div>
-                        <label className="text-[10px] text-slate-400 font-bold uppercase">Bank / Wallet</label>
+                        <<label className="text-[10px] text-slate-400 font-bold uppercase">Bank / Wallet</label>
                         <select
                           value={sellerBankName}
                           onChange={(e) => setSellerBankName(e.target.value)}
@@ -537,7 +543,7 @@ Here is my payment screenshot:`
               )}
             </div>
 
-            {/* 2. SECURE DEAL CHAT (Collapsible - default closed) */}
+            {/* SECURE DEAL CHAT */}
             <div className="bg-[#0f1a33] border border-slate-800/70 rounded-2xl overflow-hidden shadow-lg">
               <button
                 onClick={() => setChatOpen(!chatOpen)}
@@ -575,7 +581,7 @@ Here is my payment screenshot:`
                   <div className="h-36 overflow-y-auto space-y-2.5 pr-1 text-xs">
                     {messages.length === 0 ? (
                       <p className="text-center text-slate-500 py-8 font-medium">No messages yet.</p>
-                 ) : (
+                    ) : (
                       messages.map((msg, index) => {
                         const isMe = msg.sender_role === currentRole;
                         return (
@@ -615,7 +621,7 @@ Here is my payment screenshot:`
               )}
             </div>
 
-            {/* 3. OLOBUY OFFICIAL ACCOUNT (Collapsible - default closed) - Only for Buyer */}
+            {/* OLOBUY OFFICIAL ACCOUNT */}
             {currentRole === 'Buyer' && (
               <div className="bg-[#0f1a33] border border-slate-800/70 rounded-2xl overflow-hidden shadow-lg">
                 <button
@@ -678,7 +684,7 @@ Here is my payment screenshot:`
               </div>
             )}
 
-            {/* PAYMENT + VERIFICATION (Only Buyer) */}
+            {/* PAYMENT + VERIFICATION */}
             {currentRole === 'Buyer' && (
               <>
                 <section className="bg-[#0f1a33] border border-slate-800/70 rounded-2xl p-4 text-center space-y-3">
@@ -740,4 +746,4 @@ export default function DealPage() {
       <DealContent />
     </Suspense>
   );
-                                                     }
+                        }
