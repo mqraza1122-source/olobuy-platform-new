@@ -42,37 +42,39 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           
-          {/* Perfect Logo – No white box, only logo visible */}
-          <a href="#" className="flex items-center shrink-0 group">
-            <img
-              src="/logo.jpg"
-              alt="OloBuy"
-              className="h-9 sm:h-10 w-auto object-contain mix-blend-multiply transition-transform duration-200 group-hover:scale-105"
-            />
-          </a>
+          <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
+  
+  {/* Perfect Brand Logo – World-class size */}
+  <a href="#" className="flex items-center shrink-0 group">
+    <img
+      src="/logo.jpg"
+      alt="OloBuy"
+      className="h-11 sm:h-12 w-auto object-contain mix-blend-multiply transition-transform duration-200 group-hover:scale-[1.04]"
+    />
+  </a>
 
-          {/* Desktop & Action Section */}
-          <div className="flex items-center gap-3">
-            <a
-              href="https://wa.me/923043031572"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 bg-[#25d366]/10 hover:bg-[#25d366]/20 border border-[#25d366]/30 text-[#128c7e] font-bold px-4 py-2 rounded-xl text-xs transition-all shadow-sm"
-            >
-              <MessageCircle className="h-4 w-4 text-[#25d366]" />
-              <span>Support</span>
-            </a>
+  {/* Desktop & Action Section */}
+  <div className="flex items-center gap-3">
+    <a
+      href="https://wa.me/923043031572"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hidden sm:flex items-center gap-2 bg-[#25d366]/10 hover:bg-[#25d366]/20 border border-[#25d366]/30 text-[#128c7e] font-bold px-4 py-2 rounded-xl text-xs transition-all shadow-sm"
+    >
+      <MessageCircle className="h-4 w-4 text-[#25d366]" />
+      <span>Support</span>
+    </a>
 
-            {/* Menu Toggle Button */}
-            <button
-              onClick={() => setOpen(!open)}
-              className="p-2.5 bg-gray-100 hover:bg-gray-200/80 border border-gray-200 rounded-2xl text-gray-800 transition-colors cursor-pointer"
-              aria-label="Toggle Menu"
-            >
-              {open ? <X className="h-6 w-6 text-[#ff9800]" /> : <Menu className="h-6 w-6 text-[#1A237E]" />}
-            </button>
-          </div>
-        </div>
+    {/* Menu Toggle Button */}
+    <button
+      onClick={() => setOpen(!open)}
+      className="p-2.5 bg-gray-100 hover:bg-gray-200/80 border border-gray-200 rounded-2xl text-gray-800 transition-colors cursor-pointer"
+      aria-label="Toggle Menu"
+    >
+      {open ? <X className="h-6 w-6 text-[#ff9800]" /> : <Menu className="h-6 w-6 text-[#1A237E]" />}
+    </button>
+  </div>
+</div>
 
         {/* Mobile Dropdown Menu */}
         <div
