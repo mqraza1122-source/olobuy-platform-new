@@ -2,39 +2,57 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShieldCheck, MessageSquare, Send, Share2, Building2, ExternalLink, ChevronDown, ChevronUp, Edit3, Check, Clock, AlertCircle, Lock } from 'lucide-react';
+import {
+  ShieldCheck,
+  MessageSquare,
+  Send,
+  Share2,
+  Building2,
+  ExternalLink,
+  ChevronDown,
+  ChevronUp,
+  Edit3,
+  Check,
+  Clock,
+  AlertCircle,
+  Lock,
+  Copy,
+  CheckCircle2,
+} from 'lucide-react';
 
 function DealContent() {
   const params = useParams();
   const searchParams = useSearchParams();
-  const id = params?.id;
-  
+  const id = params?.id as string;
+
   const roleQuery = searchParams.get('role');
   const [currentRole, setCurrentRole] = useState<string>(
     roleQuery ? roleQuery.charAt(0).toUpperCase() + roleQuery.slice(1).toLowerCase() : 'Buyer'
   );
 
   const [deal, setDeal] = useState<any>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [copied, setCopied] = useState<boolean>(false);
-  const [detailsOpen, setDetailsOpen] = useState<boolean>(true);
-  
-  // World-Class UX State for Collapsible Tab Box after Pin Verification
-  const [isPostVerifyTabOpen, setIsPostVerifyTabOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  const [isEditingSeller, setIsEditingSeller] = useState<boolean>(false);
-  const [sellerName, setSellerName] = useState<string>('');
-  const [sellerContact, setSellerContact] = useState<string>('');
-  const [sellerAccountTitle, setSellerAccountTitle] = useState<string>('');
-  const [sellerBankName, setSellerBankName] = useState<string>('JazzCash');
-  const [sellerAccountNumber, setSellerAccountNumber] = useState<string>('');
+  // Collapsible states (default CLOSED as requested)
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+
+  const [isEditingSeller, setIsEditingSeller] = useState(false);
+  const [sellerName, setSellerName] = useState('');
+  const [sellerContact, setSellerContact] = useState('');
+  const [sellerAccountTitle, setSellerAccountTitle] = useState('');
+  const [sellerBankName, setSellerBankName] = useState('JazzCash');
+  const [sellerAccountNumber, setSellerAccountNumber] = useState('');
   const [inspectionDays, setInspectionDays] = useState<any>('');
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
 
   const [messages, setMessages] = useState<any[]>([]);
-  const [newMessage, setNewMessage] = useState<string>('');
-  const [isCodeVerified, setIsCodeVerified] = useState<boolean>(false);
-  const [adminCodeInput, setAdminCodeInput] = useState<string>('');
+  const [newMessage, setNewMessage] = useState('');
+  const [isCodeVerified, setIsCodeVerified] = useState(false);
+  const [adminCodeInput, setAdminCodeInput] = useState('');
 
   const adminWhatsApp = '923043031572';
 
@@ -152,14 +170,14 @@ function DealContent() {
       return;
     }
 
-    setDeal({ 
-      ...deal, 
-      seller_name: sellerName, 
-      seller_contact: sellerContact, 
+    setDeal({
+      ...deal,
+      seller_name: sellerName,
+      seller_contact: sellerContact,
       seller_account_title: sellerAccountTitle,
       seller_bank_name: sellerBankName,
-      seller_account: sellerAccountNumber, 
-      inspection_days: inspectionDays 
+      seller_account: sellerAccountNumber,
+      inspection_days: inspectionDays,
     });
     setIsEditingSeller(false);
     alert('Details updated successfully!');
@@ -194,11 +212,11 @@ function DealContent() {
     const sBank = deal?.seller_bank_name || sellerBankName || 'Not Provided';
     const sAcc = deal?.seller_account || sellerAccountNumber || 'Not Provided';
     const sTime = deal?.inspection_days || inspectionDays || 'Not Provided';
-    const prodName = deal?.product_name || 'Not Provided'; 
+    const prodName = deal?.product_name || 'Not Provided';
     const amt = Number(deal?.amount || 0).toLocaleString();
 
     const text = encodeURIComponent(
-`Hello OloBuy Team, I have paid Rs ${amt} for Deal #${deal?.deal_code}.
+`Hello OloBuy Team, I have paid Rs \( {amt} for Deal # \){deal?.deal_code}.
 
 📦 Buying Product / Service: ${prodName}
 👤 Seller Name: ${sName}
@@ -210,7 +228,7 @@ function DealContent() {
 
 Here is my payment screenshot:`
     );
-    window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
+    window.open(`https://wa.me/\( {adminWhatsApp}?text= \){text}`, '_blank');
   };
 
   const releasePayment = async () => {
@@ -225,13 +243,15 @@ Here is my payment screenshot:`
     }
 
     setDeal({ ...deal, status: 'completed' });
-    const text = encodeURIComponent(`Hello OloBuy Team, I have confirmed the product for Deal #${deal?.deal_code}. Please release the payment to seller.`);
-    window.open(`https://wa.me/${adminWhatsApp}?text=${text}`, '_blank');
+    const text = encodeURIComponent(
+      `Hello OloBuy Team, I have confirmed the product for Deal #${deal?.deal_code}. Please release the payment to seller.`
+    );
+    window.open(`https://wa.me/\( {adminWhatsApp}?text= \){text}`, '_blank');
   };
 
   const handleInvite = (targetRole: 'Buyer' | 'Seller') => {
     const baseUrl = window.location.origin + window.location.pathname;
-    const inviteLink = `${baseUrl}?role=${targetRole.toLowerCase()}`;
+    const inviteLink = `\( {baseUrl}?role= \){targetRole.toLowerCase()}`;
     navigator.clipboard.writeText(inviteLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
@@ -239,16 +259,22 @@ Here is my payment screenshot:`
     window.open(`https://wa.me/?text=${message}`, '_blank');
   };
 
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
+  };
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#07090e] flex flex-col items-center justify-center px-6">
+      <div className="min-h-screen bg-[#070b14] flex flex-col items-center justify-center px-6">
         <div className="relative mb-6">
-          <div className="h-14 w-14 rounded-full border-[3px] border-white/10 border-t-[#ff9800] animate-spin" />
+          <div className="h-14 w-14 rounded-full border-[3px] border-white/10 border-t-[#f5c518] animate-spin" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-6 w-6 rounded-full bg-[#ff9800]/20" />
+            <div className="h-6 w-6 rounded-full bg-[#f5c518]/20" />
           </div>
         </div>
-        <p className="text-[#ff9800] font-black text-sm tracking-[0.2em] uppercase">OloBuy</p>
+        <p className="text-[#f5c518] font-black text-sm tracking-[0.2em] uppercase">OloBuy</p>
         <p className="mt-2 text-white/50 text-xs font-medium tracking-wide">Preparing your secure deal...</p>
       </div>
     );
@@ -256,8 +282,8 @@ Here is my payment screenshot:`
 
   if (!deal) {
     return (
-      <div className="min-h-screen bg-[#07090e] flex items-center justify-center text-white p-4">
-        <div className="text-center bg-[#0d1322] border border-slate-800/80 p-8 rounded-3xl shadow-2xl">
+      <div className="min-h-screen bg-[#070b14] flex items-center justify-center text-white p-4">
+        <div className="text-center bg-[#0f1a33] border border-slate-800/80 p-8 rounded-3xl shadow-2xl">
           <AlertCircle className="h-10 w-10 text-red-400 mx-auto mb-3" />
           <h2 className="text-sm font-bold text-red-400 uppercase tracking-wider">Deal Not Found</h2>
         </div>
@@ -268,384 +294,435 @@ Here is my payment screenshot:`
   const isCompleted = deal.status === 'completed';
 
   return (
-    <main className="min-h-screen bg-[#07090e] text-slate-100 p-4 sm:p-6 flex items-center justify-center font-sans antialiased">
-      <div className="max-w-md w-full bg-[#0d1322]/95 backdrop-blur-xl border border-slate-800/80 rounded-[2.5rem] p-6 sm:p-8 shadow-2xl relative my-6 space-y-6">
-        
-        {/* ================= HEADER SECTION ================= */}
+    <main className="min-h-screen bg-[#070b14] text-slate-100 p-4 sm:p-6 flex items-center justify-center font-sans antialiased">
+      <div className="max-w-md w-full bg-[#0c1528]/95 backdrop-blur-xl border border-slate-800/60 rounded-[2rem] p-5 sm:p-7 shadow-2xl relative my-6 space-y-5">
+
+        {/* ================= HEADER ================= */}
         <header className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 shadow-inner">
+          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/25 rounded-full px-4 py-1.5">
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">OloBuy Secure Escrow ({currentRole})</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">
+              OloBuy Secure Escrow ({currentRole})
+            </span>
           </div>
-          <h1 className="text-3xl font-black tracking-tight text-white">Deal #{deal.deal_code}</h1>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+            Deal #{deal.deal_code}
+          </h1>
         </header>
 
-        {/* ================= ESCROW STAGE & AMOUNT (PERMANENTLY PLACED RIGHT UNDER DEAL CODE) ================= */}
-        <section className="bg-gradient-to-br from-[#121b2f] to-[#0a0f1c] border border-slate-800/80 rounded-2xl p-4 shadow-lg space-y-3">
+        {/* ================= STATUS + AMOUNT + PROGRESS ================= */}
+        <section className="bg-gradient-to-br from-[#0f1a33] to-[#0a1225] border border-slate-800/70 rounded-2xl p-4 shadow-lg space-y-4">
           <div className="flex justify-between items-center text-xs font-bold text-slate-400">
             <span>Escrow Stage</span>
-            <span className="text-[#ff9800] uppercase tracking-wider bg-[#ff9800]/10 px-2.5 py-1 rounded-lg border border-[#ff9800]/20">{deal.status || 'PENDING'}</span>
+            <span className="text-[#f5c518] uppercase tracking-wider bg-[#f5c518]/10 px-2.5 py-1 rounded-lg border border-[#f5c518]/25 text-[10px]">
+              {isCompleted ? 'COMPLETED' : isCodeVerified ? 'FUNDS VERIFIED' : deal.status || 'PENDING'}
+            </span>
           </div>
+
+          {/* Progress Bars */}
           <div className="grid grid-cols-4 gap-1.5">
-            <div className={`h-2 rounded-full ${isCodeVerified || isCompleted ? 'bg-[#ff9800]' : 'bg-[#ff9800]'}`}></div>
-            <div className={`h-2 rounded-full ${isCodeVerified || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-800'}`}></div>
-            <div className={`h-2 rounded-full ${isCodeVerified || isCompleted ? 'bg-[#ff9800]' : 'bg-slate-800'}`}></div>
-            <div className={`h-2 rounded-full ${isCompleted ? 'bg-emerald-500' : 'bg-slate-800'}`}></div>
+            <div className="h-1.5 rounded-full bg-[#f5c518]" />
+            <div className={`h-1.5 rounded-full ${isCodeVerified || isCompleted ? 'bg-[#f5c518]' : 'bg-slate-800'}`} />
+            <div className={`h-1.5 rounded-full ${isCodeVerified || isCompleted ? 'bg-[#f5c518]' : 'bg-slate-800'}`} />
+            <div className={`h-1.5 rounded-full ${isCompleted ? 'bg-emerald-500' : 'bg-slate-800'}`} />
           </div>
-          <div className="flex justify-between items-center pt-2 border-t border-slate-800/80">
+
+          <div className="flex justify-between items-center pt-1 border-t border-slate-800/70">
             <span className="text-slate-400 text-xs uppercase font-medium">Escrow Amount</span>
-            <span className="text-2xl font-black text-[#ff9800]">Rs {Number(deal.amount || 0).toLocaleString()}</span>
+            <span className="text-2xl font-black text-[#f5c518]">
+              Rs {Number(deal.amount || 0).toLocaleString()}
+            </span>
           </div>
         </section>
 
-        {/* ================= PRODUCT / SELLER DETAILS (BEFORE PIN VERIFICATION) ================= */}
-        {!isCodeVerified && (
-          <div className="bg-[#121b2f] border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
-            <button
-              onClick={() => setDetailsOpen(!detailsOpen)}
-              className="w-full px-4 py-3.5 flex items-center justify-between text-left cursor-pointer hover:bg-slate-800/50 transition-all"
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ff9800]"></span>
-                <span className="text-xs font-bold text-white uppercase truncate max-w-[210px]">
-                  {deal.product_name || 'Not Provided'}
-                </span>
-              </div>
-              {detailsOpen ? <ChevronUp className="h-4 w-4 text-[#ff9800]" /> : <ChevronDown className="h-4 w-4 text-[#ff9800]" />}
-            </button>
-
-            {detailsOpen && (
-              <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 bg-[#0a0f1c] text-left space-y-3 text-xs">
-                <div className="flex justify-between items-center pb-1.5 border-b border-slate-800/60">
-                  <span className="text-slate-400 font-medium">Buying Product / Service:</span>
-                  <span className="font-bold text-white">{deal.product_name || 'Not Provided'}</span>
-                </div>
-
-                {!isEditingSeller ? (
-                  <>
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-400 font-medium">Seller Name:</span>
-                      <span className="font-bold text-slate-200">{deal.seller_name || 'Not Provided'}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-400 font-medium">Seller Contact:</span>
-                      <span className="font-bold text-slate-200 select-all">{deal.seller_contact || 'Not Provided'}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-400 font-medium">Account Title:</span>
-                      <span className="font-bold text-slate-200">{deal.seller_account_title || 'Not Provided'}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-400 font-medium">Bank / Wallet:</span>
-                      <span className="font-bold text-indigo-400">{deal.seller_bank_name || 'Not Provided'}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-400 font-medium">Account Number:</span>
-                      <span className="font-bold text-[#ff9800] select-all">{deal.seller_account || 'Not Provided'}</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-1">
-                      <span className="text-slate-400 font-medium">Inspection Time:</span>
-                      <span className="font-bold text-emerald-400">{deal.inspection_days ? `${deal.inspection_days} Days` : 'Not Provided'}</span>
-                    </div>
-                    <button
-                      onClick={() => setIsEditingSeller(true)}
-                      className="w-full mt-1 bg-[#121b2f] hover:bg-slate-800 text-indigo-400 py-2.5 rounded-xl text-[11px] font-bold uppercase flex items-center justify-center gap-1.5 border border-indigo-500/20 cursor-pointer"
-                    >
-                      <Edit3 className="h-3.5 w-3.5" /> Edit Details & Time
-                    </button>
-                  </>
-                ) : (
-                  <form onSubmit={saveSellerDetails} className="space-y-3 pt-1">
-                    <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Name</label>
-                      <input 
-                        type="text" value={sellerName} onChange={(e) => setSellerName(e.target.value)}
-                        placeholder="e.g. Raza Traders"
-                        className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Contact</label>
-                      <input 
-                        type="text" value={sellerContact} onChange={(e) => setSellerContact(e.target.value)}
-                        placeholder="e.g. 0300-1234567"
-                        className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Account Title</label>
-                      <input 
-                        type="text" value={sellerAccountTitle} onChange={(e) => setSellerAccountTitle(e.target.value)}
-                        placeholder="e.g.Raza Traders"
-                        className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Seller Bank / Wallet Name</label>
-                      <select 
-                        value={sellerBankName} onChange={(e) => setSellerBankName(e.target.value)}
-                        className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none cursor-pointer"
-                      >
-                        <option value="JazzCash">JazzCash</option>
-                        <option value="Easypaisa">Easypaisa</option>
-                        <option value="Other Bank Account">Other Bank Account</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Account Number / IBAN</label>
-                      <input 
-                        type="text" value={sellerAccountNumber} onChange={(e) => setSellerAccountNumber(e.target.value)}
-                        placeholder="e.g. 0301-2345678888"
-                        className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[10px] text-slate-400 font-bold uppercase">Inspection Time (Days)</label>
-                      <input 
-                        type="number" min={1} max={30} value={inspectionDays} onChange={(e) => setInspectionDays(Number(e.target.value))}
-                        placeholder="e.g. 0"
-                        className="w-full bg-[#07090e] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none" required
-                      />
-                    </div>
-                    <div className="flex gap-2 pt-1">
-                      <button type="submit" className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-bold uppercase text-[10px] flex items-center justify-center gap-1 cursor-pointer">
-                        <Check className="h-3 w-3" /> Save
-                      </button>
-                      <button type="button" onClick={() => setIsEditingSeller(false)} className="bg-slate-800 text-slate-300 px-4 py-2.5 rounded-xl font-bold uppercase text-[10px] cursor-pointer">
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
-                )}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* ================= IF PIN VERIFIED: COUNTDOWN & RELEASE BUTTON ================= */}
+        {/* ================= AFTER CODE VERIFIED ================= */}
         {isCodeVerified && (
-          <div className="space-y-4">
+ <div className="space-y-4">
+            {/* Countdown + Release */}
             {timeLeft && !isCompleted && (
-              <section className="bg-gradient-to-br from-[#121b2f] to-[#0a0f1c] border-2 border-emerald-500/50 rounded-3xl p-6 shadow-2xl text-center space-y-5 relative overflow-hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
-                
+              <section className="bg-gradient-to-br from-[#0f1a33] to-[#0a1225] border-2 border-emerald-500/40 rounded-2xl p-5 shadow-2xl text-center space-y-5 relative overflow-hidden">
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl" />
+
                 <div className="flex items-center justify-center gap-2 text-xs font-black text-emerald-400 uppercase tracking-widest">
                   <Clock className="h-4 w-4 animate-pulse" />
                   <span>Secure Inspection Countdown</span>
                 </div>
 
-                <div className="grid grid-cols-4 gap-2.5">
-                  <div className="bg-[#07090e] p-3 rounded-2xl border border-emerald-500/20 shadow-inner">
-                    <span className="block font-black text-white text-lg tracking-tight">{timeLeft.days}</span>
-                    <span className="text-[9px] text-slate-400 uppercase font-bold">Days</span>
-                  </div>
-                  <div className="bg-[#07090e] p-3 rounded-2xl border border-emerald-500/20 shadow-inner">
-                    <span className="block font-black text-white text-lg tracking-tight">{timeLeft.hours}</span>
-                    <span className="text-[9px] text-slate-400 uppercase font-bold">Hours</span>
-                  </div>
-                  <div className="bg-[#07090e] p-3 rounded-2xl border border-emerald-500/20 shadow-inner">
-                    <span className="block font-black text-white text-lg tracking-tight">{timeLeft.minutes}</span>
-                    <span className="text-[9px] text-slate-400 uppercase font-bold">Mins</span>
-                  </div>
-                  <div className="bg-[#07090e] p-3 rounded-2xl border border-emerald-500/20 shadow-inner">
-                    <span className="block font-black text-emerald-400 text-lg tracking-tight">{timeLeft.seconds}</span>
-                    <span className="text-[9px] text-slate-400 uppercase font-bold">Secs</span>
-                  </div>
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { value: timeLeft.days, label: 'Days' },
+                    { value: timeLeft.hours, label: 'Hours' },
+                    { value: timeLeft.minutes, label: 'Mins' },
+                    { value: timeLeft.seconds, label: 'Secs', highlight: true },
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className="bg-[#070b14] p-3 rounded-xl border border-emerald-500/20 shadow-inner"
+                    >
+                      <span
+                        className={`block font-black text-lg tracking-tight ${
+                          item.highlight ? 'text-emerald-400' : 'text-white'
+                        }`}
+                      >
+                        {item.value}
+                      </span>
+                      <span className="text-[9px] text-slate-400 uppercase font-bold">{item.label}</span>
+                    </div>
+                  ))}
                 </div>
-                
-                <button 
-                  onClick={releasePayment} 
-                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white py-4 rounded-2xl text-xs uppercase font-black tracking-widest shadow-xl shadow-emerald-900/30 cursor-pointer flex items-center justify-center gap-2.5 transition-all transform active:scale-95"
+
+                <button
+                  onClick={releasePayment}
+                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white py-4 rounded-xl text-xs uppercase font-black tracking-widest shadow-xl shadow-emerald-900/30 flex items-center justify-center gap-2.5 transition-all active:scale-[0.98]"
                 >
-                  <ExternalLink className="h-4 w-4" /> Release Payment to Seller
+                  <ExternalLink className="h-4 w-4" />
+                  Release Payment to Seller
                 </button>
               </section>
             )}
 
-            {/* COLLAPSIBLE TAB BOX FOR CHAT & ACCOUNT DETAILS AFTER VERIFICATION */}
-            <div className="bg-[#121b2f] border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
+            {isCompleted && (
+              <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-4 rounded-2xl text-center flex items-center justify-center gap-2">
+                <CheckCircle2 className="h-4 w-4" />
+                Deal Completed & Payment Released Successfully!
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ================= BEFORE CODE VERIFIED ================= */}
+        {!isCodeVerified && (
+          <>
+            {/* 1. PRODUCT / SELLER DETAILS (Collapsible - default closed) */}
+            <div className="bg-[#0f1a33] border border-slate-800/70 rounded-2xl overflow-hidden shadow-lg">
               <button
-                onClick={() => setIsPostVerifyTabOpen(!isPostVerifyTabOpen)}
-                className="w-full px-4 py-3.5 flex items-center justify-between text-left cursor-pointer hover:bg-slate-800/50 transition-all"
+                onClick={() => setDetailsOpen(!detailsOpen)}
+                className="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-slate-800/40 transition-all"
               >
-                <div className="flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4 text-[#ff9800]" />
-                  <span className="text-xs font-bold text-white uppercase tracking-wider">
-                    View Bank Details & Chat (Tab Box)
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-[#f5c518]" />
+                  <span className="text-xs font-bold text-white uppercase truncate max-w-[200px]">
+                    {deal.product_name || 'Contract / Product Details'}
                   </span>
                 </div>
-                {isPostVerifyTabOpen ? <ChevronUp className="h-4 w-4 text-[#ff9800]" /> : <ChevronDown className="h-4 w-4 text-[#ff9800]" />}
+                {detailsOpen ? (
+                  <ChevronUp className="h-4 w-4 text-[#f5c518]" />
+                ) : (
+                  <ChevronDown className="h-4 w-4 text-[#f5c518]" />
+                )}
               </button>
 
-              {isPostVerifyTabOpen && (
-                <div className="px-4 pb-4 pt-2 border-t border-slate-800/80 bg-[#0a0f1c] space-y-4 text-xs">
-                  <div className="space-y-1.5">
-                    <p className="text-slate-400 font-semibold">Official Escrow Account:</p>
-                    <p className="text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
-                    <p className="text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
+              {detailsOpen && (
+                <div className="px-4 pb-4 pt-2 border-t border-slate-800/70 bg-[#0a1225] text-left space-y-3 text-xs">
+                  <div className="flex justify-between items-center pb-1.5 border-b border-slate-800/50">
+                    <span className="text-slate-400 font-medium">Product / Service</span>
+                    <span className="font-bold text-white text-right max-w-[160px] truncate">
+                      {deal.product_name || 'Not Provided'}
+                    </span>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-800">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-slate-400 font-bold uppercase text-[10px]">Secure Deal Chat</span>
-                      <button 
-                        onClick={() => handleInvite(currentRole === 'Buyer' ? 'Seller' : 'Buyer')}
-                        className="bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 cursor-pointer"
+                  {!isEditingSeller ? (
+                    <>
+                      {[
+                        { label: 'Seller Name', value: deal.seller_name },
+                        { label: 'Seller Contact', value: deal.seller_contact },
+                        { label: 'Account Title', value: deal.seller_account_title },
+                        { label: 'Bank / Wallet', value: deal.seller_bank_name },
+                        { label: 'Account Number', value: deal.seller_account, highlight: true },
+                        {
+                          label: 'Inspection Time',
+                          value: deal.inspection_days ? `${deal.inspection_days} Days` : null,
+                          green: true,
+                        },
+                      ].map((row) => (
+                        <div key={row.label} className="flex justify-between items-center">
+                          <span className="text-slate-400 font-medium">{row.label}</span>
+                          <span
+                            className={`font-bold ${
+                              row.highlight
+                                ? 'text-[#f5c518]'
+                                : row.green
+                                ? 'text-emerald-400'
+                                : 'text-slate-200'
+                            }`}
+                          >
+                            {row.value || 'Not Provided'}
+                          </span>
+                        </div>
+                      ))}
+
+                      <button
+                        onClick={() => setIsEditingSeller(true)}
+                        className="w-full mt-2 bg-[#0c1528] hover:bg-slate-800 text-[#f5c518] py-2.5 rounded-xl text-[11px] font-bold uppercase flex items-center justify-center gap-1.5 border border-[#f5c518]/20"
                       >
-                        <Share2 className="h-2.5 w-2.5" /> Invite
+                        <Edit3 className="h-3.5 w-3.5" /> Edit Details & Time
                       </button>
-                    </div>
+                    </>
+                  ) : (
+                    <form onSubmit={saveSellerDetails} className="space-y-3 pt-1">
+                      {[
+                        { label: 'Seller Name', value: sellerName, setter: setSellerName, placeholder: 'e.g. Raza Traders' },
+                        { label: 'Seller Contact', value: sellerContact, setter: setSellerContact, placeholder: 'e.g. 0300-1234567' },
+                        { label: 'Account Title', value: sellerAccountTitle, setter: setSellerAccountTitle, placeholder: 'e.g. Raza Traders' },
+                      ].map((field) => (
+                        <div key={field.label}>
+                          <label className="text-[10px] text-slate-400 font-bold uppercase">{field.label}</label>
+                          <input
+                            type="text"
+                            value={field.value}
+                            onChange={(e) => field.setter(e.target.value)}
+                            placeholder={field.placeholder}
+                            className="w-full bg-[#070b14] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none focus:border-[#f5c518]"
+                            required
+                          />
+                        </div>
+                      ))}
 
-                    <div className="h-32 overflow-y-auto space-y-2 mb-2 pr-1 text-[11px]">
-                      {messages.length === 0 ? (
-                        <p className="text-center text-slate-500 py-6">No messages yet.</p>
-                      ) : (
-                        messages.map((msg, index) => {
-                          const isMe = msg.sender_role === currentRole;
-                          return (
-                            <div key={index} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
-                              <span className="text-[8px] font-bold text-slate-500 mb-0.5">{msg.sender_role}</span>
-                              <div className={`p-2.5 rounded-xl max-w-[85%] ${isMe ? 'bg-indigo-600 text-white font-medium' : 'bg-[#121b2f] border border-slate-800 text-slate-200'}`}>
-                                {msg.message}
-                              </div>
-                            </div>
-                          );
-                        })
-                      )}
-                    </div>
+                      <div>
+                        <label className="text-[10px] text-slate-400 font-bold uppercase">Bank / Wallet</label>
+                        <select
+                          value={sellerBankName}
+                          onChange={(e) => setSellerBankName(e.target.value)}
+                          className="w-full bg-[#070b14] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none cursor-pointer"
+                        >
+                          <option value="JazzCash">JazzCash</option>
+                          <option value="Easypaisa">Easypaisa</option>
+                          <option value="Other Bank Account">Other Bank Account</option>
+                        </select>
+                      </div>
 
-                    <form onSubmit={sendChatMessage} className="flex gap-1.5">
-                      <input 
-                        type="text" placeholder="Type a secure message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)}
-                        className="bg-[#07090e] border border-slate-800 rounded-xl px-3 py-2 text-[11px] w-full text-slate-100 outline-none"
-                      />
-                      <button type="submit" className="bg-[#ff9800] hover:bg-orange-600 text-white px-3 py-2 rounded-xl cursor-pointer">
-                        <Send className="h-3 w-3" />
-                      </button>
+                      <div>
+                        <label className="text-[10px] text-slate-400 font-bold uppercase">Account Number / IBAN</label>
+                        <input
+                          type="text"
+                          value={sellerAccountNumber}
+                          onChange={(e) => setSellerAccountNumber(e.target.value)}
+                          placeholder="e.g. 0301-2345678"
+                          className="w-full bg-[#070b14] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none focus:border-[#f5c518]"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] text-slate-400 font-bold uppercase">Inspection Time (Days)</label>
+                        <input
+                          type="number"
+                          min={1}
+                          max={30}
+                          value={inspectionDays}
+                          onChange={(e) => setInspectionDays(Number(e.target.value))}
+                          className="w-full bg-[#070b14] border border-slate-700 rounded-xl px-3 py-2 text-xs text-white mt-1 outline-none focus:border-[#f5c518]"
+                          required
+                        />
+                      </div>
+
+                      <div className="flex gap-2 pt-1">
+                        <button
+                          type="submit"
+                          className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-bold uppercase text-[10px] flex items-center justify-center gap-1"
+                        >
+                          <Check className="h-3 w-3" /> Save
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setIsEditingSeller(false)}
+                          className="bg-slate-800 text-slate-300 px-4 py-2.5 rounded-xl font-bold uppercase text-[10px]"
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </form>
-                  </div>
+                  )}
                 </div>
               )}
             </div>
-          </div>
-        )}
 
-        {/* ================= BEFORE PIN VERIFICATION: STANDARD VIEWS ================= */}
-        {!isCodeVerified && (
-          <>
-            {/* SECURE DEAL CHAT */}
-            <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg">
-              <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-slate-800/80">
-                <div className="flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4 text-[#ff9800]" />
-                  <h3 className="font-bold text-slate-200 text-xs uppercase tracking-wider">Secure Deal Chat</h3>
+            {/* 2. SECURE DEAL CHAT (Collapsible - default closed) */}
+            <div className="bg-[#0f1a33] border border-slate-800/70 rounded-2xl overflow-hidden shadow-lg">
+              <button
+                onClick={() => setChatOpen(!chatOpen)}
+                className="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-slate-800/40 transition-all"
+              >
+                <div className="flex items-center gap-2.5">
+                  <MessageSquare className="h-4 w-4 text-[#f5c518]" />
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">Secure Deal Chat</span>
                 </div>
-                <button 
-                  onClick={() => handleInvite(currentRole === 'Buyer' ? 'Seller' : 'Buyer')}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-xl flex items-center gap-1 cursor-pointer transition-all"
-                >
-                  <Share2 className="h-3 w-3" /> Invite {currentRole === 'Buyer' ? 'Seller' : 'Buyer'}
-                </button>
-              </div>
+                {chatOpen ? (
+                  <ChevronUp className="h-4 w-4 text-[#f5c518]" />
+                ) : (
+                  <ChevronDown className="h-4 w-4 text-[#f5c518]" />
+                )}
+              </button>
 
-              {copied && (
-                <div className="mb-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold p-2.5 rounded-xl text-center">
-                  ✓ Invite link copied & WhatsApp opened!
+              {chatOpen && (
+                <div className="px-4 pb-4 pt-2 border-t border-slate-800/70 bg-[#0a1225] space-y-3">
+                  <div className="flex justify-end">
+                    <button
+                      onClick={() => handleInvite(currentRole === 'Buyer' ? 'Seller' : 'Buyer')}
+                      className="bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1"
+                    >
+                      <Share2 className="h-3 w-3" />
+                      Invite {currentRole === 'Buyer' ? 'Seller' : 'Buyer'}
+                    </button>
+                  </div>
+
+                  {copied && (
+                    <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold p-2 rounded-xl text-center">
+                      ✓ Invite link copied & WhatsApp opened!
+                    </div>
+                  )}
+
+                  <div className="h-36 overflow-y-auto space-y-2.5 pr-1 text-xs">
+                    {messages.length === 0 ? (
+                      <p className="text-center text-slate-500 py-8 font-medium">No messages yet.</p>
+                 ) : (
+                      messages.map((msg, index) => {
+                        const isMe = msg.sender_role === currentRole;
+                        return (
+                          <div key={index} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
+                            <span className="text-[9px] font-bold text-slate-500 mb-0.5">{msg.sender_role}</span>
+                            <div
+                              className={`p-2.5 rounded-xl max-w-[85%] ${
+                                isMe
+                                  ? 'bg-indigo-600 text-white font-medium'
+                                  : 'bg-[#0c1528] border border-slate-800 text-slate-200'
+                              }`}
+                            >
+                              {msg.message}
+                            </div>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+
+                  <form onSubmit={sendChatMessage} className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Type a secure message..."
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      className="bg-[#070b14] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs w-full text-slate-100 outline-none focus:border-[#f5c518]"
+                    />
+                    <button
+                      type="submit"
+                      className="bg-[#f5c518] hover:bg-[#e6b800] text-[#0a1225] px-4 py-2.5 rounded-xl font-bold"
+                    >
+                      <Send className="h-3.5 w-3.5" />
+                    </button>
+                  </form>
                 </div>
               )}
+            </div>
 
-              <div className="h-40 overflow-y-auto space-y-2.5 mb-3 pr-1 text-xs">
-                {messages.length === 0 ? (
-                  <p className="text-center text-slate-500 py-8 font-medium">No messages yet.</p>
-                ) : (
-                  messages.map((msg, index) => {
-                    const isMe = msg.sender_role === currentRole;
-                    return (
-                      <div key={index} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
-                        <span className="text-[9px] font-bold text-slate-500 mb-0.5">{msg.sender_role}</span>
-                        <div className={`p-3 rounded-2xl max-w-[85%] ${isMe ? 'bg-indigo-600 text-white font-medium' : 'bg-[#0a0f1c] border border-slate-800 text-slate-200'}`}>
-                          {msg.message}
+            {/* 3. OLOBUY OFFICIAL ACCOUNT (Collapsible - default closed) - Only for Buyer */}
+            {currentRole === 'Buyer' && (
+              <div className="bg-[#0f1a33] border border-slate-800/70 rounded-2xl overflow-hidden shadow-lg">
+                <button
+                  onClick={() => setAccountOpen(!accountOpen)}
+                  className="w-full px-4 py-3.5 flex items-center justify-between text-left hover:bg-slate-800/40 transition-all"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Building2 className="h-4 w-4 text-[#f5c518]" />
+                    <span className="text-xs font-bold text-white uppercase tracking-wider">
+                      OloBuy Official Escrow Account
+                    </span>
+                  </div>
+                  {accountOpen ? (
+                    <ChevronUp className="h-4 w-4 text-[#f5c518]" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-[#f5c518]" />
+                  )}
+                </button>
+
+                {accountOpen && (
+                  <div className="px-4 pb-4 pt-3 border-t border-slate-800/70 bg-[#0a1225] space-y-3 text-xs">
+                    <p className="text-slate-400">Transfer via JazzCash / EasyPaisa / Bank:</p>
+
+                    <div className="space-y-2.5">
+                      <div className="flex justify-between items-center bg-[#070b14] rounded-xl px-3 py-2.5 border border-slate-800">
+                        <div>
+                          <p className="text-[10px] text-slate-500 uppercase">Account Title</p>
+                          <p className="font-bold text-indigo-400">OloBuy Escrow Services</p>
                         </div>
                       </div>
-                    );
-                  })
+
+                      <div className="flex justify-between items-center bg-[#070b14] rounded-xl px-3 py-2.5 border border-slate-800">
+                        <div>
+                          <p className="text-[10px] text-slate-500 uppercase">Account / IBAN</p>
+                          <p className="font-bold text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</p>
+                        </div>
+                        <button
+                          onClick={() => copyToClipboard('PK03 OLOBUY 0000 12345678', 'iban')}
+                          className="text-[#f5c518] p-1.5 hover:bg-[#f5c518]/10 rounded-lg"
+                        >
+                          {copiedField === 'iban' ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                        </button>
+                      </div>
+
+                      <div className="flex justify-between items-center bg-[#070b14] rounded-xl px-3 py-2.5 border border-slate-800">
+                        <div>
+                          <p className="text-[10px] text-slate-500 uppercase">JazzCash / EasyPaisa</p>
+                          <p className="font-bold text-[#f5c518] select-all">{adminWhatsApp}</p>
+                        </div>
+                        <button
+                          onClick={() => copyToClipboard(adminWhatsApp, 'jazz')}
+                          className="text-[#f5c518] p-1.5 hover:bg-[#f5c518]/10 rounded-lg"
+                        >
+                          {copiedField === 'jazz' ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
-
-              <form onSubmit={sendChatMessage} className="flex gap-2">
-                <input 
-                  type="text" placeholder="Type a secure message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)}
-                  className="bg-[#0a0f1c] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs w-full text-slate-100 outline-none focus:border-[#ff9800]"
-                />
-                <button type="submit" className="bg-[#ff9800] hover:bg-orange-600 text-white px-4 py-2.5 rounded-xl cursor-pointer transition-all">
-                  <Send className="h-3.5 w-3.5" />
-                </button>
-              </form>
-            </section>
-
-            {/* OFFICIAL ACCOUNT */}
-            {currentRole === 'Buyer' && (
-              <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
-                <div className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-[#ff9800]" />
-                  <h3 className="font-bold text-white text-xs uppercase tracking-wider">OloBuy Official Escrow Account</h3>
-                </div>
-                <div className="bg-[#0a0f1c] border border-slate-800 rounded-xl p-3 text-xs space-y-1.5">
-                  <p className="text-slate-400">Transfer via JazzCash / EasyPaisa / Bank:</p>
-                  <p className="font-bold text-slate-200">Account Title: <span className="text-indigo-400">OloBuy Escrow Services</span></p>
-                  <p className="font-bold text-slate-200">Account / IBAN: <span className="text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</span></p>
-                  <p className="font-bold text-slate-200">JazzCash / EasyPaisa: <span className="text-[#ff9800] select-all">{adminWhatsApp}</span></p>
-                </div>
-              </section>
             )}
 
-            {/* PAYMENT BUTTON */}
+            {/* PAYMENT + VERIFICATION (Only Buyer) */}
             {currentRole === 'Buyer' && (
-              <section className="bg-[#121b2f] border border-slate-800 rounded-2xl p-4 text-center shadow-lg space-y-3">
-                <button 
-                  type="button"
-                  onClick={handlePaidClick}
-                  className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg cursor-pointer transition-all"
-                >
-                  I Have Paid Amount
-                </button>
-                <p className="text-[11px] text-slate-400 font-medium">
-                  Please send transaction slip to OloBuy team WhatsApp to get verification code.
-                </p>
-              </section>
-            )}
+              <>
+                <section className="bg-[#0f1a33] border border-slate-800/70 rounded-2xl p-4 text-center space-y-3">
+                  <button
+                    type="button"
+                    onClick={handlePaidClick}
+                    className="w-full bg-[#f5c518] hover:bg-[#e6b800] text-[#0a1225] py-3.5 rounded-xl text-xs uppercase font-black tracking-widest shadow-lg transition-all active:scale-[0.98]"
+                  >
+                    I Have Paid Amount
+                  </button>
+                  <p className="text-[11px] text-slate-400 font-medium leading-relaxed">
+                    Please send transaction slip to OloBuy team WhatsApp to get verification code.
+                  </p>
+                </section>
 
-            {/* ADMIN VERIFICATION */}
-            {currentRole === 'Buyer' && (
-              <section className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 shadow-xl text-center space-y-3">
-                <div className="inline-flex p-2.5 bg-amber-500/20 rounded-full text-[#ff9800]">
-                  <Lock className="h-5 w-5" />
-                </div>
-                <h3 className="font-bold text-white text-xs uppercase tracking-wider">Admin Verification Required</h3>
-                <p className="text-slate-300 text-[11px]">
-                  Enter the secure verification code provided by OloBuy Admin after slip verification.
-                </p>
-                <input 
-                  type="password" placeholder="Enter Admin Code..." value={adminCodeInput} onChange={(e) => setAdminCodeInput(e.target.value)}
-                  className="w-full bg-[#0a0f1c] border border-amber-500/40 rounded-xl px-4 py-2.5 text-xs text-white text-center font-bold tracking-widest outline-none"
-                />
-                <button
-                  type="button" onClick={verifyAdminCode}
-                  className="w-full bg-[#ff9800] hover:bg-orange-600 text-white py-3 rounded-xl text-xs uppercase font-black tracking-widest cursor-pointer transition-all"
-                >
-                  Verify Code
-                </button>
-              </section>
+                <section className="bg-[#f5c518]/5 border border-[#f5c518]/25 rounded-2xl p-5 text-center space-y-3">
+                  <div className="inline-flex p-2.5 bg-[#f5c518]/15 rounded-full text-[#f5c518]">
+                    <Lock className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-bold text-white text-xs uppercase tracking-wider">
+                    Admin Verification Required
+                  </h3>
+                  <p className="text-slate-300 text-[11px] leading-relaxed">
+                    Enter the 4-digit secure verification code provided by OloBuy Admin after slip verification.
+                  </p>
+                  <input
+                    type="password"
+                    placeholder="Enter Admin Code..."
+                    value={adminCodeInput}
+                    onChange={(e) => setAdminCodeInput(e.target.value)}
+                    className="w-full bg-[#070b14] border border-[#f5c518]/40 rounded-xl px-4 py-2.5 text-xs text-white text-center font-bold tracking-widest outline-none focus:border-[#f5c518]"
+                  />
+                  <button
+                    type="button"
+                    onClick={verifyAdminCode}
+                    className="w-full bg-[#f5c518] hover:bg-[#e6b800] text-[#0a1225] py-3 rounded-xl text-xs uppercase font-black tracking-widest transition-all active:scale-[0.98]"
+                  >
+                    Verify Code
+                  </button>
+                </section>
+              </>
             )}
           </>
         )}
-
-        {isCompleted && (
-          <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold p-4 rounded-2xl text-center">
-            ✓ Deal Completed & Payment Released Successfully!
-          </div>
-        )}
-
       </div>
     </main>
   );
@@ -653,8 +730,14 @@ Here is my payment screenshot:`
 
 export default function DealPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#07090e] text-[#ff9800] flex items-center justify-center font-bold text-xs uppercase tracking-widest">Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#070b14] text-[#f5c518] flex items-center justify-center font-bold text-xs uppercase tracking-widest">
+          Loading...
+        </div>
+      }
+    >
       <DealContent />
     </Suspense>
   );
-                                                      }
+                                                     }
