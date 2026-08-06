@@ -35,39 +35,39 @@ export default function HomePage() {
               </Link>
             </div>
             
-            {/* ہورائزنٹل سوائپ کارڈز - درست سائز کے ساتھ */}
+            {/* ہوریزنٹل سوائپ کارڈز - اب پروفیشنل اور بڑے سائز کے ساتھ */}
             <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-none">
               {blogsData.map((post) => (
                 <div 
                   key={post.slug} 
-                  className="w-[280px] md:w-[320px] bg-white rounded-[28px] p-6 shadow-xl flex-shrink-0 flex flex-col justify-between border border-slate-100"
+                  className="w-[320px] md:w-[360px] bg-white rounded-[32px] p-8 shadow-2xl flex-shrink-0 flex flex-col justify-between border border-slate-100 hover:shadow-3xl hover:-translate-y-1 transition-all duration-300"
                 >
                   <div>
                     {/* آئیکن */}
-                    <div className="flex justify-center mb-4">
-                      <div className="w-12 h-12 rounded-2xl bg-[#0b132b] flex items-center justify-center shadow-md text-amber-400">
-                        <ShieldCheck className="w-6 h-6" />
+                    <div className="flex justify-center mb-6">
+                      <div className="w-14 h-14 rounded-2xl bg-[#0b132b] flex items-center justify-center shadow-md text-amber-400">
+                        <ShieldCheck className="w-7 h-7" />
                       </div>
                     </div>
                     
                     <div className="text-center">
-                      <span className="inline-block px-2.5 py-0.5 bg-amber-50 text-amber-800 text-[10px] font-extrabold rounded-full uppercase tracking-wider mb-2">
+                      <span className="inline-block px-4 py-1 bg-amber-50 text-amber-800 text-xs font-extrabold rounded-full uppercase tracking-wider mb-3">
                         {post.category}
                       </span>
-                      <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-snug line-clamp-2">
+                      <h3 className="text-xl font-extrabold text-slate-900 mb-3 leading-snug line-clamp-2">
                         {post.title}
                       </h3>
-                      <p className="text-slate-600 text-xs mb-4 line-clamp-2 leading-relaxed">
+                      <p className="text-slate-600 text-[13px] mb-6 line-clamp-2 leading-relaxed">
                         {post.excerpt}
                       </p>
                     </div>
                   </div>
 
-                  {/* بٹن */}
+                  {/* بٹن - اب بڑا اور پروفیشنل */}
                   <div>
                     <Link 
                       href={`/blog/${post.slug}`}
-                      className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-3 px-4 rounded-xl transition-all shadow-sm text-xs"
+                      className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-sm text-base"
                     >
                       Read Article <span>→</span>
                     </Link>
@@ -84,4 +84,4 @@ export default function HomePage() {
       <WhatsAppFloat />
     </div>
   )
-        }
+                        }
