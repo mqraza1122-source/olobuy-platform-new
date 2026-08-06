@@ -34,22 +34,22 @@ export default function HomePage() {
                 View All Blog →
               </Link>
             </div>
-            
-            {/* ہوریزنٹل سوائپ کارڈز - اب پروفیشنل اور بڑے سائز کے ساتھ */}
+
+            {/* Horizontal Swipe Cards - Pro Level Design */}
             <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-none">
               {blogsData.map((post) => (
-                <div 
-                  key={post.slug} 
+                <div
+                  key={post.slug}
                   className="w-[320px] md:w-[360px] bg-white rounded-[32px] p-8 shadow-2xl flex-shrink-0 flex flex-col justify-between border border-slate-100 hover:shadow-3xl hover:-translate-y-1 transition-all duration-300"
                 >
                   <div>
-                    {/* آئیکن */}
+                    {/* Shield Icon */}
                     <div className="flex justify-center mb-6">
                       <div className="w-14 h-14 rounded-2xl bg-[#0b132b] flex items-center justify-center shadow-md text-amber-400">
                         <ShieldCheck className="w-7 h-7" />
                       </div>
                     </div>
-                    
+
                     <div className="text-center">
                       <span className="inline-block px-4 py-1 bg-amber-50 text-amber-800 text-xs font-extrabold rounded-full uppercase tracking-wider mb-3">
                         {post.category}
@@ -63,9 +63,9 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  {/* بٹن - اب بڑا اور پروفیشنل */}
+                  {/* Read Article Button - Large & Professional */}
                   <div>
-                    <Link 
+                    <Link
                       href={`/blog/${post.slug}`}
                       className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-sm text-base"
                     >
@@ -84,4 +84,4 @@ export default function HomePage() {
       <WhatsAppFloat />
     </div>
   )
-                    }
+                  }
