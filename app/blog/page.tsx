@@ -11,7 +11,7 @@ export default function BlogListingPage() {
       <main className="flex-1 py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
               Blog
             </h1>
             <p className="text-slate-400 text-sm max-w-xl mx-auto">
@@ -19,12 +19,14 @@ export default function BlogListingPage() {
             </p>
           </div>
 
+          {/* ایمیزون اسٹائل لسٹ لے آؤٹ */}
           <div className="space-y-4">
             {blogsData.map((post) => (
               <div 
                 key={post.slug}
                 className="bg-white rounded-[24px] p-5 shadow-lg flex flex-col md:flex-row items-center gap-6 border border-slate-100 transition-all hover:shadow-xl"
               >
+                {/* بائیں طرف سیکیورٹی گرافک کارڈ */}
                 <div className="w-full md:w-48 h-32 rounded-2xl bg-slate-900 flex flex-col items-center justify-center p-4 relative overflow-hidden shrink-0 border-2 border-amber-400/20 shadow-inner">
                   <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-[#ff9f1c]/20 rounded-full blur-xl"></div>
                   <ShieldCheck className="w-8 h-8 text-amber-400 mb-2" />
@@ -33,6 +35,7 @@ export default function BlogListingPage() {
                   </span>
                 </div>
 
+                {/* دائیں طرف ڈیٹیلز اور Learn more بٹن */}
                 <div className="flex-1 w-full">
                   <span className="text-[10px] font-extrabold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
                     {post.category}
