@@ -10,7 +10,6 @@ export default async function BlogPost({ params }: PageProps) {
   const resolvedParams = await params
   const slug = resolvedParams.slug
 
-  // بلاگ تلاش کریں
   const post = blogsData.find((p) => p.slug === slug)
 
   if (!post) {
@@ -32,8 +31,9 @@ export default async function BlogPost({ params }: PageProps) {
           {post.title}
         </h1>
         
-        <div className="text-slate-700 text-base leading-relaxed space-y-4">
-          <p>{post.content}</p>
+        {/* یہاں ٹیکسٹ کا کلر گہرا (slate-800) کر دیا گیا ہے تاکہ صاف نظر آئے */}
+        <div className="text-slate-800 text-base leading-relaxed space-y-4">
+          <p className="whitespace-pre-line">{post.content}</p>
         </div>
       </article>
     </div>
