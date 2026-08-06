@@ -1,64 +1,61 @@
-import Link from 'next/link';
-import { SiteHeader } from '@/components/site-header';
-import { CtaFooter } from '@/components/cta-footer';
-import { WhatsAppFloat } from '@/components/whatsapp-float';
-import blogsData from '@/data/blogs.json';
+import blogsData from '@/data/blogs.json'
+import Link from 'next/link'
+import { ShieldCheck } from 'lucide-react'
+import { SiteHeader } from '@/components/site-header'
+import { CtaFooter } from '@/components/cta-footer'
 
-export const metadata = {
-  title: 'OloBuy Blog — Scam Prevention & Secure Escrow Guides Pakistan',
-  description: 'Discover actionable insights and guides to protect your online transactions in Pakistan.',
-};
-
-export default function BlogPage() {
+export default function BlogListingPage() {
   return (
-    <div className="flex min-h-dvh flex-col bg-slate-50 text-slate-900">
+    <div className="flex min-h-dvh flex-col bg-[#0b132b]">
       <SiteHeader />
-      
-      <main className="flex-1 px-4 py-12 md:px-8 lg:px-16 max-w-5xl mx-auto w-full">
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900">
-            Blog
-          </h1>
-          <p className="text-lg text-slate-600 max-w-2xl">
-            Actionable insights, expert tips, and guides to help your digital transactions succeed safely in Pakistan.
-          </p>
-        </div>
+      <main className="flex-1 py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+              Fraud Protection & Security Guides
+            </h1>
+            <p className="text-slate-400 text-sm max-w-xl mx-auto">
+              Learn how to stay safe from online scams, fake receipts, and secure your transactions using OloBuy.
+            </p>
+          </div>
 
-        <div className="grid gap-8">
-          {blogsData.map((post) => (
-            <article 
-              key={post.slug}
-              className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-6 md:p-8 flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between text-xs font-semibold text-blue-600 uppercase tracking-wider mb-3">
-                  <span>{post.category}</span>
-                  <span className="text-slate-400 font-normal">{post.date}</span>
+          {/* تمام بلاگز کی لسٹ */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {blogsData.map((post) => (
+              <div 
+                key={post.slug} 
+                className="bg-white rounded-[28px] p-6 shadow-xl flex flex-col justify-between border border-slate-100"
+              >
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#0b132b] flex items-center justify-center text-amber-400">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <span className="px-2.5 py-0.5 bg-amber-50 text-amber-800 text-[10px] font-extrabold rounded-full uppercase tracking-wider">
+                      {post.category}
+                    </span>
+                  </div>
+                  
+                  <h2 className="text-lg font-extrabold text-slate-900 mb-2 leading-snug">
+                    {post.title}
+                  </h2>
+                  <p className="text-slate-600 text-xs mb-6 line-clamp-2 leading-relaxed">
+                    {post.excerpt}
+                  </p>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 mb-3 hover:text-blue-600 transition-colors">
-                  {post.title}
-                </h2>
-                <p className="text-slate-600 text-base md:text-lg mb-6 leading-relaxed">
-                  {post.excerpt}
-                </p>
-              </div>
 
-              <div>
                 <Link 
                   href={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-slate-900 font-medium hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all text-sm group"
+                  className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-3 px-4 rounded-xl transition-all shadow-sm text-xs"
                 >
-                  Learn more 
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  Read Article <span>→</span>
                 </Link>
               </div>
-            </article>
-          ))}
+            ))}
+          </div>
         </div>
       </main>
-
       <CtaFooter />
-      <WhatsAppFloat />
     </div>
-  );
+  )
 }
