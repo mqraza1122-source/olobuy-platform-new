@@ -1,0 +1,87 @@
+import Link from 'next/link';
+import { SiteHeader } from '@/components/site-header';
+import { CtaFooter } from '@/components/cta-footer';
+import { WhatsAppFloat } from '@/components/whatsapp-float';
+
+export const metadata = {
+  title: 'OloBuy Blog — Scam Prevention & Secure Escrow Guides Pakistan',
+  description: 'Discover actionable insights, expert tips, and guides to protect your online transactions, OLX deals, and freelancer payments in Pakistan.',
+};
+
+const blogPosts = [
+  {
+    slug: 'olx-fraud-protection-pakistan',
+    category: 'Enterprise, Small & Medium Business',
+    title: 'How to Safely Buy & Sell on OLX and Facebook in Pakistan',
+    excerpt: 'With OloBuy, buyers and organizations of any size can simplify secure purchasing and eliminate online scams through manual escrow.',
+    date: 'August 2026',
+  },
+  {
+    slug: 'freelancer-payment-security-pakistan',
+    category: 'Freelancers & Remote Work',
+    title: 'Why Pakistani Freelancers Need Manual Escrow Protection',
+    excerpt: 'Learn how remote workers and digital agencies secure client payments without fear of advance payment frauds or chargebacks.',
+    date: 'August 2026',
+  },
+  {
+    slug: 'future-of-secure-online-transactions',
+    category: 'E-Commerce Growth',
+    title: 'The Future of Zero-Risk B2B & C2C Trading in Pakistan',
+    excerpt: 'Explore how transparent escrow infrastructure is transforming the digital economy and building absolute trust online.',
+    date: 'August 2026',
+  },
+];
+
+export default function BlogPage() {
+  return (
+    <div className="flex min-h-dvh flex-col bg-slate-50 text-slate-900">
+      <SiteHeader />
+      
+      <main className="flex-1 px-4 py-12 md:px-8 lg:px-16 max-w-5xl mx-auto w-full">
+        <div className="mb-12">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900">
+            Blog
+          </h1>
+          <p className="text-lg text-slate-600 max-w-2xl">
+            Actionable insights, expert tips, and the latest trends to help your digital transactions succeed safely in Pakistan.
+          </p>
+        </div>
+
+        <div className="grid gap-8">
+          {blogPosts.map((post) => (
+            <article 
+              key={post.slug}
+              className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-6 md:p-8 flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between text-xs font-semibold text-blue-600 uppercase tracking-wider mb-3">
+                  <span>{post.category}</span>
+                  <span className="text-slate-400 font-normal">{post.date}</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 mb-3 hover:text-blue-600 transition-colors">
+                  {post.title}
+                </h2>
+                <p className="text-slate-600 text-base md:text-lg mb-6 leading-relaxed">
+                  {post.excerpt}
+                </p>
+              </div>
+
+              <div>
+                <Link 
+                  href={`/blog/${post.slug}`}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-slate-900 font-medium hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all text-sm group"
+                >
+                  Learn more 
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </main>
+
+      <CtaFooter />
+      <WhatsAppFloat />
+    </div>
+  );
+}
