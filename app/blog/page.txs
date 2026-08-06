@@ -2,35 +2,12 @@ import Link from 'next/link';
 import { SiteHeader } from '@/components/site-header';
 import { CtaFooter } from '@/components/cta-footer';
 import { WhatsAppFloat } from '@/components/whatsapp-float';
+import blogsData from '@/data/blogs.json';
 
 export const metadata = {
   title: 'OloBuy Blog — Scam Prevention & Secure Escrow Guides Pakistan',
-  description: 'Discover actionable insights, expert tips, and guides to protect your online transactions, OLX deals, and freelancer payments in Pakistan.',
+  description: 'Discover actionable insights and guides to protect your online transactions in Pakistan.',
 };
-
-const blogPosts = [
-  {
-    slug: 'olx-fraud-protection-pakistan',
-    category: 'Enterprise, Small & Medium Business',
-    title: 'How to Safely Buy & Sell on OLX and Facebook in Pakistan',
-    excerpt: 'With OloBuy, buyers and organizations of any size can simplify secure purchasing and eliminate online scams through manual escrow.',
-    date: 'August 2026',
-  },
-  {
-    slug: 'freelancer-payment-security-pakistan',
-    category: 'Freelancers & Remote Work',
-    title: 'Why Pakistani Freelancers Need Manual Escrow Protection',
-    excerpt: 'Learn how remote workers and digital agencies secure client payments without fear of advance payment frauds or chargebacks.',
-    date: 'August 2026',
-  },
-  {
-    slug: 'future-of-secure-online-transactions',
-    category: 'E-Commerce Growth',
-    title: 'The Future of Zero-Risk B2B & C2C Trading in Pakistan',
-    excerpt: 'Explore how transparent escrow infrastructure is transforming the digital economy and building absolute trust online.',
-    date: 'August 2026',
-  },
-];
 
 export default function BlogPage() {
   return (
@@ -43,12 +20,12 @@ export default function BlogPage() {
             Blog
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl">
-            Actionable insights, expert tips, and the latest trends to help your digital transactions succeed safely in Pakistan.
+            Actionable insights, expert tips, and guides to help your digital transactions succeed safely in Pakistan.
           </p>
         </div>
 
         <div className="grid gap-8">
-          {blogPosts.map((post) => (
+          {blogsData.map((post) => (
             <article 
               key={post.slug}
               className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all p-6 md:p-8 flex flex-col justify-between"
