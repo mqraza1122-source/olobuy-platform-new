@@ -209,9 +209,8 @@ function DealContent() {
       alert('Please enter a valid verification code.');
     }
   };
-
-  // ===== FIXED: Always open OloBuy official WhatsApp =====
-  const handlePaidClick = () => {
+// ===== FIXED: Always open OloBuy official WhatsApp =====
+const handlePaidClick = () => {
   const sName = deal?.seller_name || sellerName || 'Not Provided';
   const sContact = deal?.seller_contact || sellerContact || 'Not Provided';
   const sTitle = deal?.seller_account_title || sellerAccountTitle || 'Not Provided';
@@ -220,30 +219,23 @@ function DealContent() {
   const sTime = deal?.inspection_days || inspectionDays || 'Not Provided';
   const prodName = deal?.product_name || 'Not Provided';
   const amt = Number(deal?.amount || 0).toLocaleString();
+  const dealCode = deal?.deal_code || '';
 
-  const text = encodeURIComponent(
-`Hello OloBuy Team, I have paid Rs \( {amt} for Deal # \){deal?.deal_code}.
+  const message = 
+    'Hello OloBuy Team, I have paid Rs ' + amt + ' for Deal #' + dealCode + '.\n\n' +
+    '📦 Buying Product / Service: ' + prodName + '\n' +
+    '👤 Seller Name: ' + sName + '\n' +
+    '📞 Seller Contact: ' + sContact + '\n' +
+    '🏦 Account Title: ' + sTitle + '\n' +
+    '🏛️ Bank / Wallet: ' + sBank + '\n' +
+    '🔢 Account Number: ' + sAcc + '\n' +
+    '⏳ Inspection Time: ' + sTime + ' Days\n\n' +
+    'Here is my payment screenshot:';
 
-📦 Buying Product / Service: ${prodName}
-👤 Seller Name: ${sName}
-📞 Seller Contact: ${sContact}
-🏦 Account Title: ${sTitle}
-🏛️ Bank / Wallet: ${sBank}
-🔢 Account Number: ${sAcc}
-⏳ Inspection Time: ${sTime} Days
-
-Here is my payment screenshot:`
-  );
-
-  window.open(`https://wa.me/923043031572?text=${text}`, '_blank');
+  const text = encodeURIComponent(message);
+  window.open('https://wa.me/923043031572?text=' + text, '_blank');
 };
-    );
-
-    // Force open OloBuy official number
-    window.open(`https://wa.me/\( {adminWhatsApp}?text= \){text}`, '_blank');
-  };
-
-  const releasePayment = async () => {
+const releasePayment = async () => {
   const { error } = await supabase
     .from('deals')
     .update({ status: 'completed' })
@@ -256,13 +248,13 @@ Here is my payment screenshot:`
 
   setDeal({ ...deal, status: 'completed' });
 
-  const text = encodeURIComponent(
-    `Hello OloBuy Team, I have confirmed the product for Deal #${deal?.deal_code}. Please release the payment to seller.`
-  );
+  const dealCode = deal?.deal_code || '';
+  const message = 'Hello OloBuy Team, I have confirmed the product for Deal #' + dealCode + '. Please release the payment to seller.';
+  const text = encodeURIComponent(message);
 
-  window.open(`https://wa.me/923043031572?text=${text}`, '_blank');
+  window.open('https://wa.me/923043031572?text=' + text, '_blank');
 };
-
+  
   const handleInvite = (targetRole: 'Buyer' | 'Seller') => {
     const baseUrl = window.location.origin + window.location.pathname;
     const inviteLink = `\( {baseUrl}?role= \){targetRole.toLowerCase()}`;
