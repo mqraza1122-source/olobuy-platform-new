@@ -35,7 +35,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Horizontal Swipe Cards - Pro Level Design */}
+            {/* Horizontal Swipe Cards - Amazon Style Pro Design */}
             <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-none">
               {blogsData.map((post) => (
                 <div
@@ -63,13 +63,13 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  {/* Read Article Button - Large & Professional */}
+                  {/* Read More Articles Button - Super Powerful & Glowing */}
                   <div>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-sm text-base"
+                      className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-xl hover:shadow-2xl text-base"
                     >
-                      Read Article <span>→</span>
+                      Read More Articles →
                     </Link>
                   </div>
                 </div>
@@ -84,4 +84,14 @@ export default function HomePage() {
       <WhatsAppFloat />
     </div>
   )
-                  }
+}
+Extra Pro Tips (Amazon jaisa feel ke liye):
+Button mein glowing effect add karne ke liye tailwind.config.js mein ye line add kar do (sirf ek baar):
+theme: {
+  extend: {
+    boxShadow: {
+      'glow': '0 0 20px -5px rgb(249 115 22)',
+      'glow-xl': '0 0 30px -5px rgb(249 115 22)',
+    }
+  }
+        }
