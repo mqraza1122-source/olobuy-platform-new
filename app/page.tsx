@@ -1,87 +1,60 @@
-import { SiteHeader } from '@/components/site-header'
-import { Hero } from '@/components/hero'
-import { HowItWorks } from '@/components/how-it-works'
-import { Features } from '@/components/features'
-import { Testimonials } from '@/components/testimonials'
-import { Faq } from '@/components/faq'
-import { TrustPartners } from '@/components/trust-partners'
-import { CtaFooter } from '@/components/cta-footer'
-import { WhatsAppFloat } from '@/components/whatsapp-float'
-import SchemaMarkup from '@/components/schema-markup'
 import blogsData from '@/data/blogs.json'
 import Link from 'next/link'
 import { ShieldCheck } from 'lucide-react'
 
-export default function HomePage() {
+export function HomeBlogSection() {
   return (
-    <div className="flex min-h-dvh flex-col bg-[#0b132b]">
-      <SchemaMarkup />
-      <SiteHeader />
-      <main className="flex-1">
-        <Hero />
-        <HowItWorks />
-        <Features />
-        <Testimonials />
-        <Faq />
-        <TrustPartners />
-
-        {/* --- پرفیکٹ گلوبل سائز بلاگ کارڈ سیکشن --- */}
-        <section className="py-16 px-4 bg-[#0b132b]">
-          <div className="max-w-5xl mx-auto">
-            <div className="flex justify-between items-end mb-8">
-              <h2 className="text-2xl md:text-3xl font-extrabold text-white">Fraud Protection Guides</h2>
-              <Link href="/blog" className="text-sm font-semibold text-amber-400 hover:underline">
-                View All Blog →
-              </Link>
-            </div>
-            
-            {/* ہوریزنٹل سوائپ کارڈز - اب پروفیشنل اور بڑے سائز کے ساتھ */}
-            <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-none">
-              {blogsData.map((post) => (
-                <div 
-                  key={post.slug} 
-                  className="w-[320px] md:w-[360px] bg-white rounded-[32px] p-8 shadow-2xl flex-shrink-0 flex flex-col justify-between border border-slate-100 hover:shadow-3xl hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div>
-                    {/* آئیکن */}
-                    <div className="flex justify-center mb-6">
-                      <div className="w-14 h-14 rounded-2xl bg-[#0b132b] flex items-center justify-center shadow-md text-amber-400">
-                        <ShieldCheck className="w-7 h-7" />
-                      </div>
-                    </div>
-                    
-                    <div className="text-center">
-                      <span className="inline-block px-4 py-1 bg-amber-50 text-amber-800 text-xs font-extrabold rounded-full uppercase tracking-wider mb-3">
-                        {post.category}
-                      </span>
-                      <h3 className="text-xl font-extrabold text-slate-900 mb-3 leading-snug line-clamp-2">
-                        {post.title}
-                      </h3>
-                      <p className="text-slate-600 text-[13px] mb-6 line-clamp-2 leading-relaxed">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* بٹن - اب بڑا اور پروفیشنل */}
-                  <div>
-                    <Link 
-                      href={`/blog/${post.slug}`}
-                      className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-sm text-base"
-                    >
-                      Read Article <span>→</span>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
+    <section className="py-16 px-4 bg-[#0b132b]">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex justify-between items-end mb-10">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-2">
+              Fraud Protection Guides
+            </h2>
+            <p className="text-slate-400 text-xs">Latest insights to keep your trades secure.</p>
           </div>
-        </section>
-        {/* ---------------------------------------------------- */}
+          <Link href="/blog" className="text-amber-400 hover:underline font-bold text-sm">
+            View All Blog →
+          </Link>
+        </div>
 
-      </main>
-      <CtaFooter />
-      <WhatsAppFloat />
-    </div>
+        <div className="space-y-4">
+          {blogsData.slice(0, 4).map((post) => (
+            <div 
+              key={post.slug}
+              className="bg-white rounded-[24px] p-5 shadow-lg flex flex-col md:flex-row items-center gap-6 border border-slate-100 transition-all hover:shadow-xl"
+            >
+              {/* بائیں طرف چھوٹا خوبصورت کارڈ / گرافک */}
+              <div className="w-full md:w-48 h-32 rounded-2xl bg-slate-900 flex flex-col items-center justify-center p-4 relative overflow-hidden shrink-0 border-2 border-amber-400/20 shadow-inner">
+                <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-[#ff9f1c]/20 rounded-full blur-xl"></div>
+                <ShieldCheck className="w-8 h-8 text-amber-400 mb-2" />
+                <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest text-center">
+                  OloBuy Security
+                </span>
+              </div>
+
+              {/* دائیں طرف کیٹیگری، ٹائتل اور لنک */}
+              <div className="flex-1 w-full">
+                <span className="text-[10px] font-extrabold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
+                  {post.category}
+                </span>
+                <h3 className="text-base md:text-lg font-extrabold text-slate-900 mb-2 leading-snug line-clamp-2">
+                  {post.title}
+                </h3>
+                <p className="text-slate-600 text-xs mb-4 line-clamp-1">
+                  {post.excerpt}
+                </p>
+                <Link 
+                  href={`/blog/${post.slug}`}
+                  className="inline-flex items-center gap-2 text-xs font-bold text-slate-950 bg-[#ff9f1c] hover:bg-[#f3930e] px-4 py-2 rounded-xl transition-all shadow-sm"
+                >
+                  Learn more <span>→</span>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   )
-                        }
+      }
