@@ -24,39 +24,26 @@ export default function HomePage() {
         <Faq />
         <TrustPartners />
 
-        {/* --- ورلڈ کلاس بلاگ سوائپ سلائیڈر (فوٹر سے ٹھیک اوپر) --- */}
-        <section className="py-12 bg-slate-50 border-t border-slate-200">
-          <div className="max-w-6xl mx-auto px-4 md:px-8">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-slate-900">Fraud Protection Guides</h2>
-              <Link href="/blog" className="text-sm font-semibold text-blue-600 hover:underline">
-                View All Blog →
-              </Link>
-            </div>
-            
-            {/* موبائل پر بائیں دائیں سوائپ (Horizontal Scroll) ہونے والا باکس */}
-            <div className="flex gap-6 overflow-x-auto pb-4 pt-1 px-1 scrollbar-none">
-              {blogsData.map((post) => (
-                <div 
-                  key={post.slug} 
-                  className="min-w-[280px] md:min-w-[350px] bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex-shrink-0 flex flex-col justify-between"
-                >
-                  <div>
-                    <span className="text-xs font-semibold uppercase text-blue-600">{post.category}</span>
-                    <h3 className="text-lg font-bold text-slate-900 mt-2 mb-2 line-clamp-2">{post.title}</h3>
-                    <p className="text-slate-600 text-sm line-clamp-3 mb-4">{post.excerpt}</p>
-                  </div>
-                  <Link 
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-slate-900 hover:text-blue-600"
-                  >
-                    Learn more →
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ہوم پیج سلائیڈر سیکشن */}
+<section className="py-12 bg-white">
+  <div className="max-w-5xl mx-auto px-4">
+    <div className="flex justify-between items-end mb-8">
+      <h2 className="text-2xl font-bold text-slate-900">Fraud Protection Guides</h2>
+      <Link href="/blog" className="text-sm font-semibold text-blue-600 hover:underline">View All →</Link>
+    </div>
+    
+    {/* چھوٹا اور اسٹائلش کارڈ سوائپر */}
+    <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+      {blogsData.map((post) => (
+        <div key={post.slug} className="min-w-[240px] max-w-[240px] bg-slate-50 rounded-2xl p-5 border border-slate-100 flex-shrink-0">
+          <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">{post.category}</span>
+          <h3 className="text-sm font-bold text-slate-900 mt-2 mb-3 leading-snug line-clamp-2">{post.title}</h3>
+          <Link href={`/blog/${post.slug}`} className="text-xs font-bold text-slate-900 underline">Learn more</Link>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
         {/* ---------------------------------------------------- */}
 
       </main>
