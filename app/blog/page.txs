@@ -19,7 +19,6 @@ export default function BlogListingPage() {
             </p>
           </div>
 
-          {/* تمام بلاگز کی لسٹ */}
           <div className="grid gap-6 md:grid-cols-2">
             {blogsData.map((post) => (
               <div 
