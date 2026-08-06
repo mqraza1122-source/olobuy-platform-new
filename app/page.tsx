@@ -35,7 +35,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Horizontal Swipe Cards - Amazon Style Pro Design */}
+            {/* Horizontal Swipe Cards - Pro Design */}
             <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-none">
               {blogsData.map((post) => (
                 <div
@@ -63,7 +63,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  {/* Read More Articles Button - Super Powerful & Glowing */}
+                  {/* Read More Articles Button - Powerful */}
                   <div>
                     <Link
                       href={`/blog/${post.slug}`}
@@ -85,13 +85,3 @@ export default function HomePage() {
     </div>
   )
 }
-Extra Pro Tips (Amazon jaisa feel ke liye):
-Button mein glowing effect add karne ke liye tailwind.config.js mein ye line add kar do (sirf ek baar):
-theme: {
-  extend: {
-    boxShadow: {
-      'glow': '0 0 20px -5px rgb(249 115 22)',
-      'glow-xl': '0 0 30px -5px rgb(249 115 22)',
-    }
-  }
-        }
