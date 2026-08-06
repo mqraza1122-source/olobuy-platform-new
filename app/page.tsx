@@ -1,4 +1,10 @@
 import { SiteHeader } from '@/components/site-header'
+import { Hero } from '@/components/hero'
+import { HowItWorks } from '@/components/how-it-works'
+import { Features } from '@/components/features'
+import { Testimonials } from '@/components/testimonials'
+import { Faq } from '@/components/faq'
+import { TrustPartners } from '@/components/trust-partners'
 import { CtaFooter } from '@/components/cta-footer'
 import { WhatsAppFloat } from '@/components/whatsapp-float'
 import SchemaMarkup from '@/components/schema-markup'
@@ -10,40 +16,45 @@ export default function HomePage() {
     <div className="flex min-h-dvh flex-col bg-[#0b132b]">
       <SchemaMarkup />
       <SiteHeader />
-      <main className="flex-1 py-16 px-4">
-        <div className="max-w-md mx-auto text-center">
-          <h2 className="text-3xl font-extrabold text-white mb-8">
-            Fraud Protection Guides
-          </h2>
+      
+      <main className="flex-1">
+        <Hero />
+        <HowItWorks />
+        <Features />
+        <Testimonials />
+        <Faq />
+        <TrustPartners />
 
-          <div className="bg-white rounded-[32px] p-6 shadow-2xl border border-slate-100">
-            <div className="flex justify-center mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#0b132b] flex items-center justify-center text-amber-400">
-                <ShieldCheck className="w-6 h-6" />
+        {/* --- فکسڈ بلاگ سیکشن: صرف ایک صاف ستھرا بٹن جو بلاگ پیج پر لے جائے گا --- */}
+        <section className="py-16 px-4 bg-[#0b132b]">
+          <div className="max-w-md mx-auto">
+            <div className="bg-white rounded-[32px] p-8 shadow-2xl border border-slate-100 text-center">
+              <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-[#0b132b] flex items-center justify-center text-amber-400">
+                  <ShieldCheck className="w-8 h-8" />
+                </div>
               </div>
-            </div>
-            
-            <span className="inline-block px-3 py-1 bg-amber-50 text-amber-800 text-[10px] font-extrabold rounded-full uppercase tracking-wider mb-2">
-              Security Guides
-            </span>
-            
-            <h3 className="text-lg font-extrabold text-slate-900 mb-3">
-              Explore All OloBuy Security & Fraud Protection Articles
-            </h3>
-            
-            <p className="text-slate-600 text-xs mb-6">
-              Learn how to stay safe from online scams, fake receipts, and secure your transactions.
-            </p>
+              
+              <h2 className="text-2xl font-extrabold text-slate-900 mb-3">
+                Fraud Protection Guides
+              </h2>
+              <p className="text-slate-600 text-sm mb-8">
+                Explore our expert guides to protect your online transactions and stay safe from scams.
+              </p>
 
-            <Link 
-              href="/blog"
-              className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-md text-sm"
-            >
-              View All Blog Articles <span>→</span>
-            </Link>
+              <Link 
+                href="/blog"
+                className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-md"
+              >
+                View All Articles <span>→</span>
+              </Link>
+            </div>
           </div>
-        </div>
+        </section>
+        {/* ---------------------------------------------------- */}
+
       </main>
+      
       <CtaFooter />
       <WhatsAppFloat />
     </div>
