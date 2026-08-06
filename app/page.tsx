@@ -7,10 +7,12 @@ import { Faq } from '@/components/faq'
 import { TrustPartners } from '@/components/trust-partners'
 import { CtaFooter } from '@/components/cta-footer'
 import { WhatsAppFloat } from '@/components/whatsapp-float'
+import SchemaMarkup from '@/components/schema-markup'
 
 export default function HomePage() {
   return (
     <div className="flex min-h-dvh flex-col">
+      <SchemaMarkup />
       <SiteHeader />
       <main className="flex-1">
         <Hero />
