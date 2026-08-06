@@ -35,7 +35,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Horizontal Swipe Cards - Pro Design */}
+            {/* Horizontal Swipe Cards */}
             <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-none">
               {blogsData.map((post) => (
                 <div
@@ -63,7 +63,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  {/* Read More Articles Button - Powerful */}
+                  {/* Read More Articles Button - Large & Clear */}
                   <div>
                     <Link
                       href={`/blog/${post.slug}`}
@@ -84,4 +84,4 @@ export default function HomePage() {
       <WhatsAppFloat />
     </div>
   )
-}
+                    }
