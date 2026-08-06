@@ -25,7 +25,7 @@ export default function HomePage() {
         <Faq />
         <TrustPartners />
 
-        {/* --- ورلڈ کلاس OloBuy اسٹائل بلاگ کارڈ سیکشن --- */}
+        {/* --- پرفیکٹ گلوبل سائز بلاگ کارڈ سیکشن --- */}
         <section className="py-16 px-4 bg-[#0b132b]">
           <div className="max-w-5xl mx-auto">
             <div className="flex justify-between items-end mb-8">
@@ -35,39 +35,39 @@ export default function HomePage() {
               </Link>
             </div>
             
-            {/* ہورائزنٹل سوائپ کارڈز (बिल्कुल OloBuy سٹائل) */}
-            <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-none">
+            {/* ہورائزنٹل سوائپ کارڈز - درست سائز کے ساتھ */}
+            <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-none">
               {blogsData.map((post) => (
                 <div 
                   key={post.slug} 
-                  className="min-w-[300px] md:min-w-[340px] bg-white rounded-[32px] p-8 shadow-2xl flex-shrink-0 flex flex-col justify-between border border-slate-100 relative"
+                  className="w-[280px] md:w-[320px] bg-white rounded-[28px] p-6 shadow-xl flex-shrink-0 flex flex-col justify-between border border-slate-100"
                 >
                   <div>
-                    {/* اوپر چھوٹا پریمیم آئیکن اور بیج */}
-                    <div className="flex justify-center mb-6">
-                      <div className="w-14 h-14 rounded-2xl bg-[#0b132b] flex items-center justify-center shadow-lg text-amber-400">
-                        <ShieldCheck className="w-7 h-7" />
+                    {/* آئیکن */}
+                    <div className="flex justify-center mb-4">
+                      <div className="w-12 h-12 rounded-2xl bg-[#0b132b] flex items-center justify-center shadow-md text-amber-400">
+                        <ShieldCheck className="w-6 h-6" />
                       </div>
                     </div>
                     
                     <div className="text-center">
-                      <span className="inline-block px-3 py-1 bg-amber-50 text-amber-800 text-[11px] font-extrabold rounded-full uppercase tracking-wider mb-3">
+                      <span className="inline-block px-2.5 py-0.5 bg-amber-50 text-amber-800 text-[10px] font-extrabold rounded-full uppercase tracking-wider mb-2">
                         {post.category}
                       </span>
-                      <h3 className="text-xl font-extrabold text-slate-900 mb-3 leading-snug line-clamp-2">
+                      <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-snug line-clamp-2">
                         {post.title}
                       </h3>
-                      <p className="text-slate-600 text-sm mb-6 line-clamp-3 leading-relaxed">
+                      <p className="text-slate-600 text-xs mb-4 line-clamp-2 leading-relaxed">
                         {post.excerpt}
                       </p>
                     </div>
                   </div>
 
-                  {/* نیچے خوبصورت اورنج بٹن (بالکل ہوم پیج والے کارڈ جیسا) */}
+                  {/* بٹن */}
                   <div>
                     <Link 
                       href={`/blog/${post.slug}`}
-                      className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-3.5 px-6 rounded-2xl transition-all shadow-md text-sm"
+                      className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-3 px-4 rounded-xl transition-all shadow-sm text-xs"
                     >
                       Read Article <span>→</span>
                     </Link>
@@ -84,4 +84,4 @@ export default function HomePage() {
       <WhatsAppFloat />
     </div>
   )
-}
+        }
