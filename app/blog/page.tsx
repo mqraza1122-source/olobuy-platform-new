@@ -12,43 +12,44 @@ export default function BlogListingPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-              Fraud Protection & Security Guides
+              Blog
             </h1>
             <p className="text-slate-400 text-sm max-w-xl mx-auto">
-              Learn how to stay safe from online scams, fake receipts, and secure your transactions using OloBuy.
+              Explore expert insights, security tips, and guides to protect your online transactions.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="space-y-4">
             {blogsData.map((post) => (
               <div 
-                key={post.slug} 
-                className="bg-white rounded-[28px] p-6 shadow-xl flex flex-col justify-between border border-slate-100"
+                key={post.slug}
+                className="bg-white rounded-[24px] p-5 shadow-lg flex flex-col md:flex-row items-center gap-6 border border-slate-100 transition-all hover:shadow-xl"
               >
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#0b132b] flex items-center justify-center text-amber-400">
-                      <ShieldCheck className="w-5 h-5" />
-                    </div>
-                    <span className="px-2.5 py-0.5 bg-amber-50 text-amber-800 text-[10px] font-extrabold rounded-full uppercase tracking-wider">
-                      {post.category}
-                    </span>
-                  </div>
-                  
-                  <h2 className="text-lg font-extrabold text-slate-900 mb-2 leading-snug">
-                    {post.title}
-                  </h2>
-                  <p className="text-slate-600 text-xs mb-6 line-clamp-2 leading-relaxed">
-                    {post.excerpt}
-                  </p>
+                <div className="w-full md:w-48 h-32 rounded-2xl bg-slate-900 flex flex-col items-center justify-center p-4 relative overflow-hidden shrink-0 border-2 border-amber-400/20 shadow-inner">
+                  <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-[#ff9f1c]/20 rounded-full blur-xl"></div>
+                  <ShieldCheck className="w-8 h-8 text-amber-400 mb-2" />
+                  <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest text-center">
+                    OloBuy Security
+                  </span>
                 </div>
 
-                <Link 
-                  href={`/blog/${post.slug}`}
-                  className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-3 px-4 rounded-xl transition-all shadow-sm text-xs"
-                >
-                  Read Article <span>→</span>
-                </Link>
+                <div className="flex-1 w-full">
+                  <span className="text-[10px] font-extrabold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
+                    {post.category}
+                  </span>
+                  <h2 className="text-base md:text-lg font-extrabold text-slate-900 mb-2 leading-snug line-clamp-2">
+                    {post.title}
+                  </h2>
+                  <p className="text-slate-600 text-xs mb-4 line-clamp-1">
+                    {post.excerpt}
+                  </p>
+                  <Link 
+                    href={`/blog/${post.slug}`}
+                    className="inline-flex items-center gap-2 text-xs font-bold text-slate-950 bg-[#ff9f1c] hover:bg-[#f3930e] px-4 py-2 rounded-xl transition-all shadow-sm"
+                  >
+                    Learn more <span>→</span>
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
