@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { label: 'Why OloBuy', href: '#why', type: 'scroll' },
   { label: 'Reviews', href: '#reviews', type: 'scroll' },
   { label: 'FAQs', href: '#faq', type: 'scroll' },
+  { label: 'Blog', href: '/blog', type: 'link' }, // <--- یہ نیا بلاگ کا لنک یہاں ایڈ کر دیا ہے
   { label: 'About Us', href: 'about', type: 'modal' },
   { label: 'Contact Us', href: 'contact', type: 'modal' },
 ];
