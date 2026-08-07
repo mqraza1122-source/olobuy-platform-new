@@ -15,6 +15,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   ArrowDownLeft,
+  ArrowLeftRight,
 } from 'lucide-react';
 
 const STEPS = [
@@ -92,6 +93,18 @@ export function HowItWorks() {
   const grid = useFadeUp(0.08);
   const fees = useFadeUp(0.1);
   const support = useFadeUp(0.1);
+
+  // Circular Flow Data (RazorpayX jaisa visual)
+  const flowNodes = [
+    { id: 'buyer', icon: User, color: '#ff9800', label: 'Buyer', sub: 'Sends Funds' },
+    { id: 'seller', icon: ShoppingBag, color: '#3b82f6', label: 'Seller', sub: 'Fulfills Order' },
+  ];
+
+  const flowArrows = [
+    { from: 'buyer', to: 'escrow', label: 'Cash to Escrow', dir: 'down' },
+    { from: 'seller', to: 'escrow', label: 'Release Cash', dir: 'up' },
+    { from: 'escrow', to: 'buyer', label: 'Goods / Service Delivery', dir: 'right' },
+  ];
 
   return (
     <section
@@ -262,7 +275,7 @@ export function HowItWorks() {
         </div>
       </div>
 
-      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL (CLEAN CIRCULAR LOOP LAYOUT) ===== */}
+      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL (CLEAN CIRCULAR LOOP) ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
           <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
@@ -287,13 +300,13 @@ export function HowItWorks() {
               </p>
             </div>
 
-            {/* Circular Loop Diagram Box */}
-            <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md relative space-y-8">
+            {/* Clean Circular Loop Diagram */}
+            <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md relative">
               
-              {/* TOP ROW: Buyer & Seller with Goods Delivery Arrow in between */}
-              <div className="flex items-center justify-between relative px-2">
+              {/* Top Row: Buyer & Seller with Goods Delivery */}
+              <div className="flex items-center justify-between relative px-2 mb-8">
                 
-                {/* Buyer Node */}
+                {/* Buyer */}
                 <div className="flex flex-col items-center z-10">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800] flex items-center justify-center shadow-lg">
                     <User className="w-7 h-7 sm:w-8 sm:h-8 text-[#ff9800]" />
@@ -302,7 +315,7 @@ export function HowItWorks() {
                   <span className="text-[11px] text-[#ff9800] font-semibold">Sends Funds</span>
                 </div>
 
-                {/* Top Center: Goods / Service Delivery Badge with Arrow */}
+                {/* Goods Delivery Badge */}
                 <div className="absolute left-1/2 -translate-x-1/2 top-4 flex flex-col items-center">
                   <div className="inline-flex items-center gap-1.5 text-[#22c55e] bg-[#22c55e]/10 px-3 py-1.5 rounded-full border border-[#22c55e]/30 text-xs font-extrabold shadow-[0_0_15px_rgba(34,197,94,0.15)] whitespace-nowrap">
                     <span><ArrowRight className="w-3.5 h-3.5 rotate-180 inline" /></span>
@@ -311,7 +324,7 @@ export function HowItWorks() {
                   <span className="text-[10px] text-white/50 mt-0.5">Seller to Buyer</span>
                 </div>
 
-                {/* Seller Node */}
+                {/* Seller */}
                 <div className="flex flex-col items-center z-10">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6] flex items-center justify-center shadow-lg">
                     <ShoppingBag className="w-7 h-7 sm:w-8 sm:h-8 text-[#3b82f6]" />
@@ -322,8 +335,8 @@ export function HowItWorks() {
 
               </div>
 
-              {/* MIDDLE / BOTTOM FLOW LABELS */}
-              <div className="flex items-center justify-between px-4 text-xs font-bold">
+              {/* Cash Arrows */}
+              <div className="flex items-center justify-between px-4 text-xs font-bold mb-8">
                 <div className="flex items-center gap-1 text-[#eab308] bg-[#eab308]/10 px-3 py-1.5 rounded-full border border-[#eab308]/30">
                   <ArrowDownLeft className="w-3.5 h-3.5" />
                   <span>Cash to Escrow</span>
@@ -334,7 +347,7 @@ export function HowItWorks() {
                 </div>
               </div>
 
-              {/* BOTTOM CENTER: OloBuy Escrow Agent */}
+              {/* OloBuy Agent (Center) */}
               <div className="flex flex-col items-center z-10">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-2 shadow-xl">
                   <img
@@ -401,15 +414,4 @@ export function HowItWorks() {
             </div>
 
             <button
-              type="button"
-              onClick={() => setSelectedStep(null)}
-              className="w-full bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold px-6 py-3.5 rounded-xl hover:opacity-95 transition-opacity shadow-lg cursor-pointer"
-            >
-              Got It, Close
-            </button>
-          </div>
-        </div>
-      )}
-    </section>
-  );
-        }
+    
