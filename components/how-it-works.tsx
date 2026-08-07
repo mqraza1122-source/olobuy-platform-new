@@ -259,7 +259,7 @@ export function HowItWorks() {
         </div>
       </div>
 
-      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL (BADGE STYLE FLOW) ===== */}
+      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL (EXACT DESIRED LAYOUT) ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
           <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
@@ -287,19 +287,8 @@ export function HowItWorks() {
             {/* Diagram Box */}
             <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md relative space-y-6 text-center">
               
-              {/* 1. GREEN BADGE ARROW SECTION (Matching bottom style) */}
-              <div className="flex flex-col items-center">
-                <div className="inline-flex items-center gap-2 text-[#22c55e] bg-[#22c55e]/10 px-3.5 py-1.5 rounded-full border border-[#22c55e]/30 text-xs font-bold shadow-[0_0_15px_rgba(34,197,94,0.15)]">
-                  <Package className="w-4 h-4" />
-                  <span>Goods / Service Delivery</span>
-                </div>
-                <div className="mt-1.5 text-[#22c55e] font-extrabold text-xs tracking-wide flex items-center gap-1">
-                  <span>↓ Seller to Buyer</span>
-                </div>
-              </div>
-
               {/* Buyer & Seller Top Row */}
-              <div className="flex items-center justify-between px-6 relative z-10">
+              <div className="flex items-center justify-between px-6 relative z-10 pt-2">
                 
                 {/* Buyer Node */}
                 <div className="flex flex-col items-center">
@@ -307,6 +296,14 @@ export function HowItWorks() {
                     <User className="w-8 h-8 text-[#ff9800]" />
                   </div>
                   <span className="mt-2 text-white font-extrabold text-sm">Buyer</span>
+                </div>
+
+                {/* Seller to Buyer Green Badge (Placed right between Buyer & Seller with arrow pointing correctly) */}
+                <div className="absolute left-1/2 -translate-x-1/2 top-8">
+                  <div className="inline-flex items-center gap-1.5 text-[#22c55e] bg-[#22c55e]/10 px-3 py-1.5 rounded-full border border-[#22c55e]/30 text-xs font-extrabold shadow-[0_0_15px_rgba(34,197,94,0.15)] whitespace-nowrap">
+                    <span>←</span>
+                    <span>Seller to Buyer</span>
+                  </div>
                 </div>
 
                 {/* Seller Node */}
@@ -319,7 +316,7 @@ export function HowItWorks() {
 
               </div>
 
-              {/* Bottom Direction Indicators (Yellow & Blue Badges) */}
+              {/* Bottom Direction Indicators (Yellow & Blue Badges matching bottom flows) */}
               <div className="flex items-center justify-between px-2 text-[11px] font-bold">
                 <span className="text-[#eab308] bg-[#eab308]/10 px-2.5 py-1 rounded-full border border-[#eab308]/30 flex items-center gap-1">
                   <span>↙ Payment to OloBuy</span>
@@ -407,4 +404,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-              }
+}
