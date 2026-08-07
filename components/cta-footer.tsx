@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Lock, MapPin, Mail, Phone, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Lock, MapPin, Mail, Phone, ShieldCheck, ChevronDown } from 'lucide-react';
 import { WHATSAPP_URL } from '@/lib/constants';
 
 function useFadeUp(threshold = 0.12) {
@@ -29,6 +29,7 @@ function useFadeUp(threshold = 0.12) {
 export function CtaFooter() {
   const cta = useFadeUp(0.1);
   const footer = useFadeUp(0.08);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
 
   return (
     <>
@@ -104,13 +105,29 @@ export function CtaFooter() {
 
             {/* About + Contact */}
             <div className="grid gap-10 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-2">
+              {/* Dropdown About Section (FAQ Style) */}
               <div>
                 <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff9800]">
                   About
                 </p>
-                <p className="text-sm leading-relaxed text-white/70 font-medium">
-                  OloBuy is a neutral third-party escrow dedicated to fraud-free online trade across Pakistan.
-                </p>
+                <div className="rounded-xl border border-white/10 bg-white/[0.02] overflow-hidden transition-all">
+                  <button
+                    onClick={() => setIsAboutOpen(!isAboutOpen)}
+                    className="w-full flex items-center justify-between p-3.5 text-left text-sm font-semibold text-white/90 hover:text-[#ff9800] transition-colors"
+                  >
+                    <span>OloBuy Overview</span>
+                    <ChevronDown
+                      className={`h-4 w-4 text-[#ff9800] transition-transform duration-300 ${
+                        isAboutOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  {isAboutOpen && (
+                    <div className="px-3.5 pb-3.5 pt-1 text-sm leading-relaxed text-white/70 font-medium border-t border-white/5 animate-fadeIn">
+                      OloBuy is a neutral third-party escrow dedicated to fraud-free online trade across Pakistan.
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div>
@@ -178,4 +195,4 @@ export function CtaFooter() {
       </footer>
     </>
   );
-            }
+              }
