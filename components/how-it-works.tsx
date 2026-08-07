@@ -333,7 +333,7 @@ export function HowItWorks() {
               <div className="w-14 h-14 rounded-2xl bg-[#ff9800]/15 border border-[#ff9800]/30 flex items-center justify-center shrink-0">
                 <selectedStep.icon className="h-7 w-7 text-[#ff9800]" />
               </div>
-            <div>
+              <div>
                 <span className="text-[#ff9800] text-[11px] font-bold tracking-[0.15em] uppercase">
                   OloBuy Protocol
                 </span>
@@ -358,10 +358,10 @@ export function HowItWorks() {
               className="w-full bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold px-6 py-3.5 rounded-xl hover:opacity-95 transition-opacity shadow-lg cursor-pointer"
             >
               Got It, Close
-            </Link>
+            </button>
           </div>
         </div>
       )}
     </section>
   );
-}
+            }
