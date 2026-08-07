@@ -3,30 +3,74 @@ import Link from 'next/link'
 import { ShieldCheck } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { CtaFooter } from '@/components/cta-footer'
+import { WhatsAppFloat } from '@/components/whatsapp-float'
 
-export default function BlogListingPage() {
+export default function BlogPage() {
+  // سب سے پہلا/تازہ ترین بلاگ جو ٹاپ پر پورا شو ہوگا
+  const featuredPost = blogsData[0]
+  // باقی کے تمام بلاگز جو نیچے لسٹ کی شکل میں آئیں گے
+  const remainingPosts = blogsData.slice(1)
+
   return (
     <div className="flex min-h-dvh flex-col bg-[#0b132b]">
       <SiteHeader />
+      
       <main className="flex-1 py-16 px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto">
+          {/* پیج کی ہیڈنگ */}
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3">
-              Blog
+              Blog & Fraud Protection Guides
             </h1>
-            <p className="text-slate-400 text-sm max-w-xl mx-auto">
-              Explore expert insights, security tips, and guides to protect your online transactions.
+            <p className="text-slate-400 text-xs md:text-sm max-w-lg mx-auto">
+              Explore expert insights and security tips to protect your online transactions.
             </p>
           </div>
 
-          {/* ایمیزون اسٹائل لسٹ لے آؤٹ */}
+          {/* 1. ٹاپ پر تازہ ترین بلاگ پورا شو ہوگا */}
+          {featuredPost && (
+            <div className="bg-white rounded-[32px] p-6 md:p-8 shadow-2xl mb-12 border border-slate-100">
+              <div className="w-full h-40 rounded-2xl bg-slate-900 flex flex-col items-center justify-center p-4 relative overflow-hidden mb-6 border-2 border-amber-400/20 shadow-inner">
+                <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[#ff9f1c]/20 rounded-full blur-xl"></div>
+                <ShieldCheck className="w-10 h-10 text-amber-400 mb-2" />
+                <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest text-center">
+                  OloBuy Featured Security Guide
+                </span>
+              </div>
+
+              <span className="text-[10px] font-extrabold text-amber-800 bg-amber-50 px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
+                {featuredPost.category}
+              </span>
+              
+              <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-3 leading-snug">
+                {featuredPost.title}
+              </h2>
+              
+              <p className="text-slate-600 text-xs md:text-sm mb-6 leading-relaxed">
+                {featuredPost.excerpt}
+              </p>
+
+              <Link 
+                href={`/blog/${featuredPost.slug}`}
+                className="inline-flex items-center gap-2 text-xs font-bold text-slate-950 bg-[#ff9f1c] hover:bg-[#f3930e] px-5 py-3 rounded-xl transition-all shadow-md"
+              >
+                Read Full Article <span>→</span>
+              </Link>
+            </div>
+          )}
+
+          {/* 2. نیچے باقی تمام بلاگز Amazon اسٹائل لسٹ میں */}
           <div className="space-y-4">
-            {blogsData.map((post) => (
+            <h3 className="text-xl font-extrabold text-white mb-6 pt-4 border-t border-slate-800">
+              More Articles
+            </h3>
+
+            {remainingPosts.map((post) => (
               <div 
                 key={post.slug}
-                className="bg-white rounded-[24px] p-5 shadow-lg flex flex-col md:flex-row items-center gap-6 border border-slate-100 transition-all hover:shadow-xl"
+                className="bg-white rounded-[24px] p-5 md:p-6 shadow-xl flex flex-col md:flex-row items-center gap-6 border border-slate-100 transition-all hover:shadow-2xl"
               >
-                {/* بائیں طرف سیکیورٹی گرافک کارڈ */}
+                {/* بائیں طرف چھوٹا گرافک کارڈ */}
                 <div className="w-full md:w-48 h-32 rounded-2xl bg-slate-900 flex flex-col items-center justify-center p-4 relative overflow-hidden shrink-0 border-2 border-amber-400/20 shadow-inner">
                   <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-[#ff9f1c]/20 rounded-full blur-xl"></div>
                   <ShieldCheck className="w-8 h-8 text-amber-400 mb-2" />
@@ -35,14 +79,14 @@ export default function BlogListingPage() {
                   </span>
                 </div>
 
-                {/* دائیں طرف ڈیٹیلز اور Learn more بٹن */}
-                <div className="flex-1 w-full">
-                  <span className="text-[10px] font-extrabold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
+                {/* دائیں طرف ٹائٹل اور بٹن */}
+                <div className="flex-1 w-full text-left">
+                  <span className="text-[10px] font-extrabold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
                     {post.category}
                   </span>
-                  <h2 className="text-base md:text-lg font-extrabold text-slate-900 mb-2 leading-snug line-clamp-2">
+                  <h4 className="text-base md:text-lg font-extrabold text-slate-900 mb-2 leading-snug">
                     {post.title}
-                  </h2>
+                  </h4>
                   <p className="text-slate-600 text-xs mb-4 line-clamp-1">
                     {post.excerpt}
                   </p>
@@ -56,9 +100,12 @@ export default function BlogListingPage() {
               </div>
             ))}
           </div>
+
         </div>
       </main>
+
       <CtaFooter />
+      <WhatsAppFloat />
     </div>
   )
-}
+              }
