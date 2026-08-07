@@ -654,7 +654,7 @@ const releasePayment = async () => {
                       <div className="flex justify-between items-center bg-[#070b14] rounded-xl px-3 py-2.5 border border-slate-800">
                         <div>
                           <p className="text-[10px] text-slate-500 uppercase">Account / IBAN</p>
-                          <p className="font-bold text-emerald-400 select-all">PK03 OLOBUY 0000 12345678</p>
+                          <p className="font-bold text-emerald-400 select-all">PK09 olobuy 0000 04271972788</p>
                         </div>
                         <button
                           onClick={() => copyToClipboard('PK03 OLOBUY 0000 12345678', 'iban')}
