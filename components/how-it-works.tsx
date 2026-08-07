@@ -271,7 +271,7 @@ export function HowItWorks() {
 
             <div className="text-center mb-6 pr-6">
               <span className="text-[#ff9800] text-[11px] font-extrabold tracking-[0.2em] uppercase bg-[#ff9800]/10 px-3 py-1 rounded-full border border-[#ff9800]/30">
-                Visual Protocol Flow
+                VISUAL PROTOCOL FLOW
               </span>
               <h3 className="text-xl sm:text-2xl font-black text-white mt-2">
                 OloBuy Escrow Architecture
@@ -284,25 +284,24 @@ export function HowItWorks() {
             {/* Exact Card Layout */}
             <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md relative">
               
-              {/* Buyer & Seller with Goods Delivery */}
-              <div className="flex items-center justify-between relative px-2 mb-8">
+              {/* Goods Delivery Badge (Top) */}
+              <div className="flex justify-center mb-8">
+                <div className="inline-flex items-center gap-1.5 text-[#22c55e] bg-[#22c55e]/10 px-6 py-2.5 rounded-full border border-[#22c55e]/30 text-xs font-extrabold shadow-[0_0_20px_rgba(34,197,94,0.2)]">
+                  <span className="text-2xl">📦</span>
+                  <span>Goods / Service Delivery</span>
+                </div>
+              </div>
+
+              {/* Buyer & Seller Nodes */}
+              <div className="flex items-center justify-between relative px-6">
                 
                 {/* Buyer */}
                 <div className="flex flex-col items-center z-10">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800] flex items-center justify-center shadow-lg">
                     <User className="w-7 h-7 sm:w-8 sm:h-8 text-[#ff9800]" />
                   </div>
-                  <span className="mt-2 text-white font-extrabold text-sm">Buyer</span>
+                  <span className="mt-3 text-white font-extrabold text-sm">Buyer</span>
                   <span className="text-[11px] text-[#ff9800] font-semibold">Sends Funds</span>
-                </div>
-
-                {/* Goods Delivery Arrow */}
-                <div className="absolute left-1/2 -translate-x-1/2 top-4 flex flex-col items-center">
-                  <div className="inline-flex items-center gap-1.5 text-[#22c55e] bg-[#22c55e]/10 px-3 py-1.5 rounded-full border border-[#22c55e]/30 text-xs font-extrabold shadow-[0_0_15px_rgba(34,197,94,0.15)] whitespace-nowrap">
-                    <span><ArrowRight className="w-3.5 h-3.5 rotate-180 inline" /></span>
-                    <span>Goods / Service Delivery</span>
-                  </div>
-                  <span className="text-[10px] text-white/50 mt-0.5">Seller to Buyer</span>
                 </div>
 
                 {/* Seller */}
@@ -310,26 +309,34 @@ export function HowItWorks() {
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6] flex items-center justify-center shadow-lg">
                     <ShoppingBag className="w-7 h-7 sm:w-8 sm:h-8 text-[#3b82f6]" />
                   </div>
-                  <span className="mt-2 text-white font-extrabold text-sm">Seller</span>
+                  <span className="mt-3 text-white font-extrabold text-sm">Seller</span>
                   <span className="text-[11px] text-[#3b82f6] font-semibold">Fulfills Order</span>
                 </div>
 
               </div>
 
+              {/* Green Goods Arrow (Down) */}
+              <div className="flex justify-center mt-4">
+                <div className="inline-flex items-center gap-1.5 bg-[#22c55e]/10 px-5 py-2 rounded-full border border-[#22c55e]/30 text-xs font-bold">
+                  <ArrowDownLeft className="w-4 h-4 text-[#22c55e]" />
+                  <span className="text-[#22c55e]">Goods / Service Delivery</span>
+                </div>
+              </div>
+
               {/* Cash Arrows */}
-              <div className="flex items-center justify-between px-4 text-xs font-bold mb-8">
-                <div className="flex items-center gap-1 text-[#eab308] bg-[#eab308]/10 px-3 py-1.5 rounded-full border border-[#eab308]/30">
+              <div className="flex items-center justify-between px-8 text-xs font-bold mt-8">
+                <div className="flex items-center gap-1 text-[#eab308] bg-[#eab308]/10 px-4 py-2 rounded-full border border-[#eab308]/30">
                   <ArrowDownLeft className="w-3.5 h-3.5" />
                   <span>Cash to Escrow</span>
                 </div>
-                <div className="flex items-center gap-1 text-[#3b82f6] bg-[#3b82f6]/10 px-3 py-1.5 rounded-full border border-[#3b82f6]/30">
+                <div className="flex items-center gap-1 text-[#3b82f6] bg-[#3b82f6]/10 px-4 py-2 rounded-full border border-[#3b82f6]/30">
                   <span>Release Cash</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </div>
               </div>
 
               {/* OloBuy Agent (Center) */}
-              <div className="flex flex-col items-center z-10">
+              <div className="flex flex-col items-center z-10 mt-8">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-2 shadow-xl">
                   <img
                     src="/logo.jpg"
@@ -405,4 +412,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-                  }
+   }
