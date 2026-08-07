@@ -9,6 +9,7 @@ import {
   X,
   ChevronDown,
   BadgePercent,
+  ArrowRight,
 } from 'lucide-react';
 
 const STEPS = [
@@ -107,38 +108,44 @@ export function HowItWorks() {
             A neutral platform holding funds until both buyer and seller confirm satisfaction.
           </p>
 
-          {/* Buyer → OloBuy → Seller Flow */}
-          <div className="flex items-center justify-center gap-2 sm:gap-5 max-w-md mx-auto">
-            {/* Buyer */}
-            <div className="flex flex-col items-center flex-1 bg-white/[0.04] border border-white/10 rounded-2xl p-4 shadow-sm">
-              <div className="w-12 h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/25 flex items-center justify-center text-[#25d366] mb-2.5">
-                <MessageSquareText className="w-5 h-5 sm:w-6 sm:h-6" />
+          {/* Buyer → OloBuy → Seller Clean Flow Diagram */}
+          <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
+            
+            {/* Buyer Side (Yellow Theme) */}
+            <div className="flex flex-col items-center text-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ff9800]/10 border border-[#ff9800]/25 shadow-md">
+                <MessageSquareText className="h-6 w-6 text-[#ff9800]" />
               </div>
-              <span className="text-white font-bold text-xs sm:text-sm">Buyer</span>
+              <span className="mt-2.5 text-xs font-bold tracking-wide text-white/90">
+                Buyer
+              </span>
             </div>
 
-            <div className="text-[#ff9800] font-bold text-xl sm:text-2xl">→</div>
+            {/* Left Arrow */}
+            <ArrowRight className="h-5 w-5 text-[#ff9800] shrink-0" />
 
-            {/* OloBuy */}
-            <div className="flex flex-col items-center flex-1 bg-white border-2 border-[#ff9800]/70 rounded-2xl p-3.5 shadow-[0_0_30px_rgba(255,152,0,0.25)]">
-              <div className="w-16 h-11 sm:w-[72px] sm:h-12 flex items-center justify-center">
-                <img
-                  src="/logo.jpg"
-                  alt="OloBuy"
-                  className="w-full h-full object-contain drop-shadow-sm"
-                />
-              </div>
+            {/* Center Logo Box */}
+            <div className="relative flex h-16 w-24 items-center justify-center rounded-2xl bg-white p-2 shadow-[0_0_25px_rgba(255,152,0,0.25)] border border-white/20">
+              <img
+                src="/logo.jpg"
+                alt="OloBuy"
+                className="h-full w-auto object-contain"
+              />
             </div>
 
-            <div className="text-[#ff9800] font-bold text-xl sm:text-2xl">→</div>
+            {/* Right Arrow */}
+            <ArrowRight className="h-5 w-5 text-[#3b82f6] shrink-0" />
 
-            {/* Seller */}
-            <div className="flex flex-col items-center flex-1 bg-white/[0.04] border border-white/10 rounded-2xl p-4 shadow-sm">
-              <div className="w-12 h-12 rounded-xl bg-[#25d366]/10 border border-[#25d366]/25 flex items-center justify-center text-[#25d366] mb-2.5">
-                <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+            {/* Seller Side (Blue Theme) */}
+            <div className="flex flex-col items-center text-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#3b82f6]/10 border border-[#3b82f6]/25 shadow-md">
+                <MessageCircle className="h-6 w-6 text-[#3b82f6]" />
               </div>
-              <span className="text-white font-bold text-xs sm:text-sm">Seller</span>
+              <span className="mt-2.5 text-xs font-bold tracking-wide text-white/90">
+                Seller
+              </span>
             </div>
+
           </div>
 
           <p className="text-white/45 text-xs sm:text-sm mt-7">
@@ -330,4 +337,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-    }
+}
