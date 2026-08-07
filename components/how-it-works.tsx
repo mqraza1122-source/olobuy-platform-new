@@ -256,9 +256,10 @@ export function HowItWorks() {
         </div>
       </div>
 
+      {/* ===== ESCROW ARCHITECTURE MODAL (Exact Attached Design) ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-          <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
+          <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-xl w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
             
             <button
               type="button"
@@ -276,14 +277,17 @@ export function HowItWorks() {
                 OloBuy Escrow Architecture
               </h3>
               <p className="text-white/60 text-xs sm:text-sm mt-1">
-                How funds and goods securely move between parties under neutral custody.
+                A neutral platform holding funds securely until both buyer and seller confirm satisfaction.
               </p>
             </div>
 
+            {/* Exact Card Layout from Attached Image */}
             <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md relative">
               
+              {/* Top Row: Buyer & Seller with Goods Delivery */}
               <div className="flex items-center justify-between relative px-2 mb-8">
                 
+                {/* Buyer */}
                 <div className="flex flex-col items-center z-10">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800] flex items-center justify-center shadow-lg">
                     <User className="w-7 h-7 sm:w-8 sm:h-8 text-[#ff9800]" />
@@ -292,6 +296,7 @@ export function HowItWorks() {
                   <span className="text-[11px] text-[#ff9800] font-semibold">Sends Funds</span>
                 </div>
 
+                {/* Goods Delivery Badge */}
                 <div className="absolute left-1/2 -translate-x-1/2 top-4 flex flex-col items-center">
                   <div className="inline-flex items-center gap-1.5 text-[#22c55e] bg-[#22c55e]/10 px-3 py-1.5 rounded-full border border-[#22c55e]/30 text-xs font-extrabold shadow-[0_0_15px_rgba(34,197,94,0.15)] whitespace-nowrap">
                     <span><ArrowRight className="w-3.5 h-3.5 rotate-180 inline" /></span>
@@ -300,6 +305,7 @@ export function HowItWorks() {
                   <span className="text-[10px] text-white/50 mt-0.5">Seller to Buyer</span>
                 </div>
 
+                {/* Seller */}
                 <div className="flex flex-col items-center z-10">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6] flex items-center justify-center shadow-lg">
                     <ShoppingBag className="w-7 h-7 sm:w-8 sm:h-8 text-[#3b82f6]" />
@@ -310,6 +316,7 @@ export function HowItWorks() {
 
               </div>
 
+              {/* Cash Arrows */}
               <div className="flex items-center justify-between px-4 text-xs font-bold mb-8">
                 <div className="flex items-center gap-1 text-[#eab308] bg-[#eab308]/10 px-3 py-1.5 rounded-full border border-[#eab308]/30">
                   <ArrowDownLeft className="w-3.5 h-3.5" />
@@ -321,6 +328,7 @@ export function HowItWorks() {
                 </div>
               </div>
 
+              {/* OloBuy Agent (Center) */}
               <div className="flex flex-col items-center z-10">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-2 shadow-xl">
                   <img
@@ -330,14 +338,14 @@ export function HowItWorks() {
                   />
                 </div>
                 <span className="mt-2 text-white font-black text-xs tracking-wider uppercase bg-white/10 px-4 py-1.5 rounded-full border border-white/10">
-                  Escrow Agent
+                  OLOBUY ESCROW AGENT
                 </span>
               </div>
 
             </div>
 
             <p className="text-white/45 text-xs text-center mt-5 leading-relaxed">
-              Funds are kept frozen safely in our secure account until the buyer physically inspects and approves the order.
+              Funds held securely in neutral custody until item is received & inspected.
             </p>
 
             <button
@@ -397,4 +405,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-      }
+    }
