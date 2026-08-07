@@ -84,6 +84,7 @@ function useFadeUp(threshold = 0.12) {
 export function HowItWorks() {
   const [selectedStep, setSelectedStep] = useState<(typeof STEPS)[0] | null>(null);
   const [showFees, setShowFees] = useState(false);
+  const [showEscrowModal, setShowEscrowModal] = useState(false);
   
   const grid = useFadeUp(0.08);
   const fees = useFadeUp(0.1);
@@ -100,94 +101,25 @@ export function HowItWorks() {
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* ===== SECTION HEADER ===== */}
-        <div className="text-center mb-8">
+        {/* ===== SECTION HEADER WITH VISUAL BUTTON ===== */}
+        <div className="text-center mb-10">
           <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-sm sm:text-base tracking-[0.15em] px-8 py-3 rounded-full shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-4 uppercase">
             HOW OLOBUY WORKS
           </div>
 
+          <div className="mb-4">
+            <button
+              type="button"
+              onClick={() => setShowEscrowModal(true)}
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-[#ff9800]/40 hover:border-[#ff9800] text-[#ff9800] text-xs sm:text-sm font-bold transition-all duration-300 shadow-[0_0_25px_rgba(255,152,0,0.2)] group cursor-pointer"
+            >
+              <HelpCircle className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <span>View Escrow Architecture & Flow Diagram</span>
+            </button>
+          </div>
+
           <p className="text-white/60 text-xs sm:text-sm tracking-wide">
             It works in 4 simple steps
-          </p>
-        </div>
-
-        {/* ===== 3-CIRCLE CLEAN FLOW CARD (As requested) ===== */}
-        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden shadow-2xl mb-8">
-          
-          <div className="text-center mb-8">
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-              A neutral platform holding funds securely until both buyer and seller confirm satisfaction.
-            </h3>
-          </div>
-
-          {/* Infographic Circular Flow Layout */}
-          <div className="relative max-w-lg mx-auto py-4 flex flex-col items-center justify-center gap-6 sm:gap-10">
-            
-            {/* Top Center: Goods / Service Delivery Box with Arrow */}
-            <div className="flex flex-col items-center mb-1">
-              <div className="bg-[#0f172a] border border-[#ff9800]/50 px-4 py-1.5 rounded-full text-xs text-white backdrop-blur-md shadow-[0_0_20px_rgba(255,152,0,0.2)] flex items-center gap-2">
-                <Package className="w-4 h-4 text-[#ff9800]" />
-                <span className="font-semibold">Goods / Service Delivery</span>
-              </div>
-              <div className="text-[#ff9800] font-black text-lg tracking-widest mt-1 animate-bounce">↓</div>
-            </div>
-
-            {/* Top Row: Buyer & Seller */}
-            <div className="w-full flex items-center justify-between px-2 sm:px-6 relative">
-              
-              {/* Buyer Node */}
-              <div className="flex flex-col items-center group">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800] flex items-center justify-center shadow-[0_0_30px_rgba(255,152,0,0.2)]">
-                  <User className="w-8 h-8 sm:w-10 sm:h-10 text-[#ff9800]" />
-                </div>
-                <span className="mt-3 text-white font-extrabold text-sm sm:text-base tracking-wide">
-                  Buyer
-                </span>
-                <span className="text-xs text-[#ff9800] font-medium">Sends Funds</span>
-              </div>
-
-              {/* Seller Node */}
-              <div className="flex flex-col items-center group">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6] flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.2)]">
-                  <ShoppingBag className="w-8 h-8 sm:w-10 sm:h-10 text-[#3b82f6]" />
-                </div>
-                <span className="mt-3 text-white font-extrabold text-sm sm:text-base tracking-wide">
-                  Seller
-                </span>
-                <span className="text-xs text-[#3b82f6] font-medium">Fulfills Order</span>
-              </div>
-
-            </div>
-
-            {/* Bottom Center Node: OloBuy Escrow Agent */}
-            <div className="flex flex-col items-center relative z-10 pt-2">
-              
-              {/* Cash flow label indicators */}
-              <div className="flex items-center justify-between w-full max-w-[280px] text-xs text-white/60 mb-2 px-2 font-medium">
-                <span className="text-[#ff9800]">Cash to Escrow ↘</span>
-                <span className="text-[#3b82f6]">↗ Release Cash</span>
-              </div>
-
-              {/* OloBuy Central Hub Circle */}
-              <div className="flex flex-col items-center group">
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-3 shadow-[0_0_40px_rgba(255,152,0,0.35)]">
-                  <img
-                    src="/logo.jpg"
-                    alt="OloBuy Escrow"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <span className="mt-4 text-white font-black text-sm sm:text-base tracking-wider uppercase bg-white/10 px-5 py-2 rounded-full border border-white/10 shadow-md">
-                  OloBuy Escrow Agent
-                </span>
-              </div>
-
-            </div>
-
-          </div>
-
-          <p className="text-white/50 text-sm mt-8 max-w-md mx-auto leading-relaxed">
-            Funds held securely in neutral custody until item is received & inspected.
           </p>
         </div>
 
@@ -327,6 +259,98 @@ export function HowItWorks() {
         </div>
       </div>
 
+      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL (OPENS ON BUTTON CLICK) ===== */}
+      {showEscrowModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+          <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
+            
+            <button
+              type="button"
+              onClick={() => setShowEscrowModal(false)}
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="text-center mb-6 pr-6">
+              <span className="text-[#ff9800] text-[11px] font-extrabold tracking-[0.2em] uppercase bg-[#ff9800]/10 px-3 py-1 rounded-full border border-[#ff9800]/30">
+                Visual Protocol Flow
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-white mt-2">
+                OloBuy Escrow Architecture
+              </h3>
+              <p className="text-white/60 text-xs sm:text-sm mt-1">
+                How funds and goods securely move between parties under neutral custody.
+              </p>
+            </div>
+
+            {/* 3-Circle Professional Flow Inside Modal */}
+            <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md space-y-6 text-center">
+              
+              {/* Green Indicator: Seller -> Goods/Service Delivery -> Buyer */}
+              <div className="flex flex-col items-center">
+                <div className="bg-[#0f172a] border border-[#22c55e]/50 px-4 py-1.5 rounded-full text-xs text-white backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.2)] flex items-center gap-2">
+                  <Package className="w-4 h-4 text-[#22c55e]" />
+                  <span className="font-semibold text-[#22c55e]">Goods / Service Delivery</span>
+                </div>
+                <div className="text-[#22c55e] font-black text-base tracking-widest mt-1 animate-bounce">↓ Seller to Buyer</div>
+              </div>
+
+              {/* Buyer & Seller Circles Row */}
+              <div className="flex items-center justify-between px-4">
+                
+                <div className="flex flex-col items-center">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800] flex items-center justify-center shadow-lg">
+                    <User className="w-8 h-8 text-[#ff9800]" />
+                  </div>
+                  <span className="mt-2 text-white font-extrabold text-sm">Buyer</span>
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6] flex items-center justify-center shadow-lg">
+                    <ShoppingBag className="w-8 h-8 text-[#3b82f6]" />
+                  </div>
+                  <span className="mt-2 text-white font-extrabold text-sm">Seller</span>
+                </div>
+
+              </div>
+
+              {/* Bottom Escrow Agent Circle with Yellow & Blue Indicators */}
+              <div className="flex flex-col items-center pt-2">
+                <div className="flex items-center justify-between w-full text-xs mb-3 px-2 font-semibold">
+                  <span className="text-[#eab308]">💛 Payment to OloBuy ↘</span>
+                  <span className="text-[#3b82f6]">↗ Release Payment to Seller 💙</span>
+                </div>
+
+                <div className="w-20 h-20 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-2.5 shadow-xl">
+                  <img
+                    src="/logo.jpg"
+                    alt="OloBuy"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <span className="mt-3 text-white font-black text-xs tracking-wider uppercase bg-white/10 px-4 py-1.5 rounded-full border border-white/10">
+                  OloBuy Escrow Agent
+                </span>
+              </div>
+
+            </div>
+
+            <p className="text-white/45 text-xs text-center mt-5 leading-relaxed">
+              Funds are kept frozen safely in our secure account until the buyer physically inspects and approves the order.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => setShowEscrowModal(false)}
+              className="w-full mt-6 bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold px-6 py-3.5 rounded-xl hover:opacity-95 transition-opacity shadow-lg cursor-pointer"
+            >
+              Got It, Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* ===== Step Detail Modal ===== */}
       {selectedStep && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
@@ -334,7 +358,7 @@ export function HowItWorks() {
             <button
               type="button"
               onClick={() => setSelectedStep(null)}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
