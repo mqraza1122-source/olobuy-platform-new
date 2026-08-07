@@ -11,6 +11,8 @@ import {
   BadgePercent,
   ShoppingBag,
   User,
+  ArrowRight,
+  ArrowLeft,
 } from 'lucide-react';
 
 const STEPS = [
@@ -92,91 +94,90 @@ export function HowItWorks() {
       id="how-it-works"
       className="bg-[#0f172a] pt-6 pb-20 sm:pt-8 sm:pb-24 px-4 relative overflow-hidden"
     >
-      {/* Soft background glows matching brand theme */}
+      {/* Soft background glows */}
       <div className="absolute top-1/4 left-0 w-72 h-72 bg-[#ff9800]/[0.07] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-[#1a237e]/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* ===== TOP PRO CIRCULAR ESCROW FLOW CARD ===== */}
-        <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden shadow-2xl mb-8 sm:mb-10">
+        {/* ===== TOP CLEAN MODERN ARCHITECTURE FLOW CARD ===== */}
+        <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-8 sm:mb-10">
           
-          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-sm sm:text-base tracking-[0.15em] px-8 py-3 rounded-full shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-4 uppercase">
+          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-sm sm:text-base tracking-[0.15em] px-8 py-3 rounded-full shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-5 uppercase">
             HOW ESCROW WORKS
           </div>
 
-          <p className="text-white/65 text-sm sm:text-base max-w-lg mx-auto mb-10 leading-relaxed">
+          <p className="text-white/65 text-sm sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
             A neutral platform holding funds securely until both buyer and seller confirm satisfaction.
           </p>
 
-          {/* Infographic Circular Flow Layout */}
-          <div className="relative max-w-md mx-auto py-6 flex flex-col items-center justify-center gap-8 sm:gap-12">
+          {/* Clean Horizontal / Stacked Flow Box Layout */}
+          <div className="max-w-md mx-auto bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md shadow-inner space-y-4">
             
-            {/* Top Row: Buyer & Seller */}
-            <div className="w-full flex items-center justify-between px-2 sm:px-6 relative">
+            {/* Top row: Buyer & Seller with clear rounded-2xl cards */}
+            <div className="flex items-center justify-between gap-3">
               
-              {/* Buyer Node */}
-              <div className="flex flex-col items-center group">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800]/60 flex items-center justify-center shadow-[0_0_30px_rgba(255,152,0,0.2)] group-hover:scale-105 transition-transform duration-300">
-                  <User className="w-8 h-8 sm:w-10 sm:h-10 text-[#ff9800]" />
+              {/* Buyer Box */}
+              <div className="flex-1 flex flex-col items-center bg-[#ff9800]/10 border border-[#ff9800]/30 rounded-2xl p-3.5 shadow-sm">
+                <div className="w-11 h-11 rounded-xl bg-[#ff9800]/20 flex items-center justify-center text-[#ff9800] mb-2">
+                  <User className="w-5 h-5" />
                 </div>
-                <span className="mt-3 text-white font-extrabold text-sm sm:text-base tracking-wide">
-                  Buyer
-                </span>
-                <span className="text-[11px] text-[#ff9800] font-medium">Sends Funds</span>
+                <span className="text-white font-bold text-xs sm:text-sm">Buyer</span>
+                <span className="text-[10px] text-[#ff9800] mt-0.5 font-medium">Sends Funds</span>
               </div>
 
-              {/* Goods Flow Arrow/Indicator across top */}
-              <div className="flex flex-col items-center absolute left-1/2 -translate-x-1/2 -top-4">
-                <div className="flex items-center gap-1.5 bg-white/[0.06] border border-white/10 px-3 py-1 rounded-full text-[11px] text-white/80 backdrop-blur-md shadow-lg">
-                  <Package className="w-3.5 h-3.5 text-[#ff9800]" />
-                  <span>Goods / Service Delivery</span>
+              {/* Delivery Indicator */}
+              <div className="flex flex-col items-center px-1">
+                <div className="text-[10px] text-white/60 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md mb-1 flex items-center gap-1">
+                  <Package className="w-3 h-3 text-[#ff9800]" />
+                  <span>Goods Delivery</span>
                 </div>
-                <div className="text-[#ff9800] font-bold text-lg tracking-widest mt-0.5">⟶</div>
+                <ArrowRight className="w-4 h-4 text-[#ff9800]" />
               </div>
 
-              {/* Seller Node */}
-              <div className="flex flex-col items-center group">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6]/60 flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.2)] group-hover:scale-105 transition-transform duration-300">
-                  <ShoppingBag className="w-8 h-8 sm:w-10 sm:h-10 text-[#3b82f6]" />
+              {/* Seller Box */}
+              <div className="flex-1 flex flex-col items-center bg-[#3b82f6]/10 border border-[#3b82f6]/30 rounded-2xl p-3.5 shadow-sm">
+                <div className="w-11 h-11 rounded-xl bg-[#3b82f6]/20 flex items-center justify-center text-[#3b82f6] mb-2">
+                  <ShoppingBag className="w-5 h-5" />
                 </div>
-                <span className="mt-3 text-white font-extrabold text-sm sm:text-base tracking-wide">
-                  Seller
-                </span>
-                <span className="text-[11px] text-[#3b82f6] font-medium">Fulfills Order</span>
+                <span className="text-white font-bold text-xs sm:text-sm">Seller</span>
+                <span className="text-[10px] text-[#3b82f6] mt-0.5 font-medium">Fulfills Order</span>
               </div>
 
             </div>
 
-            {/* Bottom Center Node: OloBuy Escrow Agent */}
-            <div className="flex flex-col items-center relative z-10 -mt-2">
-              
-              {/* Cash flow label indicators */}
-              <div className="flex items-center justify-between w-full max-w-[280px] text-[11px] text-white/50 mb-2 px-2 font-medium">
-                <span>Cash to Escrow ↘</span>
-                <span>↗ Release Cash</span>
-              </div>
+            {/* Divider / Connector to OloBuy Escrow Agent */}
+            <div className="relative flex items-center justify-center py-1">
+              <div className="h-px bg-white/10 w-full absolute" />
+              <span className="relative z-10 bg-[#0f172a] px-3 text-[11px] text-white/45 uppercase tracking-wider font-semibold">
+                Secured By
+              </span>
+            </div>
 
-              {/* OloBuy Central Hub Circle */}
-              <div className="flex flex-col items-center group">
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-3 shadow-[0_0_40px_rgba(255,152,0,0.35)] group-hover:scale-105 transition-transform duration-300">
+            {/* Bottom Row: OloBuy Escrow Agent Logo Box */}
+            <div className="flex items-center justify-between bg-white/[0.04] border border-white/10 rounded-2xl p-3.5">
+              <div className="flex items-center gap-2.5">
+                <div className="h-10 w-16 bg-white rounded-xl p-1.5 flex items-center justify-center shadow-md border border-white/20">
                   <img
                     src="/logo.jpg"
-                    alt="OloBuy Escrow"
-                    className="w-full h-full object-contain"
+                    alt="OloBuy"
+                    className="h-full w-auto object-contain"
                   />
                 </div>
-                <span className="mt-3 text-white font-black text-xs sm:text-sm tracking-wider uppercase bg-white/10 px-4 py-1 rounded-full border border-white/10 shadow-md">
-                  OloBuy Escrow Agent
-                </span>
+                <div className="text-left">
+                  <span className="text-xs font-bold text-white block">OloBuy Escrow Agent</span>
+                  <span className="text-[10px] text-white/50">Neutral Custody & Protection</span>
+                </div>
               </div>
-
+              <span className="text-[11px] font-bold text-[#ff9800] bg-[#ff9800]/10 border border-[#ff9800]/30 px-2.5 py-1 rounded-lg">
+                100% Safe
+              </span>
             </div>
 
           </div>
 
-          <p className="text-white/45 text-xs sm:text-sm mt-8">
-            Funds held securely in neutral custody until item is received & inspected.
+          <p className="text-white/45 text-xs sm:text-sm mt-6">
+            Funds held securely until item is received & inspected.
           </p>
         </div>
 
@@ -364,4 +365,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-            }
+}
