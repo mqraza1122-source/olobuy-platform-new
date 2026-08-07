@@ -123,7 +123,7 @@ export function HowItWorks() {
           </p>
         </div>
 
-        {/* ===== STEPS CARDS (Starting from Step 01) ===== */}
+        {/* ===== STEPS CARDS ===== */}
         <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-6">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
@@ -259,7 +259,7 @@ export function HowItWorks() {
         </div>
       </div>
 
-      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL (OPENS ON BUTTON CLICK) ===== */}
+      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL (BADGE STYLE FLOW) ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
           <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
@@ -284,21 +284,24 @@ export function HowItWorks() {
               </p>
             </div>
 
-            {/* 3-Circle Professional Flow Inside Modal */}
-            <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md space-y-6 text-center">
+            {/* Diagram Box */}
+            <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md relative space-y-6 text-center">
               
-              {/* Green Indicator: Seller -> Goods/Service Delivery -> Buyer */}
+              {/* 1. GREEN BADGE ARROW SECTION (Matching bottom style) */}
               <div className="flex flex-col items-center">
-                <div className="bg-[#0f172a] border border-[#22c55e]/50 px-4 py-1.5 rounded-full text-xs text-white backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.2)] flex items-center gap-2">
-                  <Package className="w-4 h-4 text-[#22c55e]" />
-                  <span className="font-semibold text-[#22c55e]">Goods / Service Delivery</span>
+                <div className="inline-flex items-center gap-2 text-[#22c55e] bg-[#22c55e]/10 px-3.5 py-1.5 rounded-full border border-[#22c55e]/30 text-xs font-bold shadow-[0_0_15px_rgba(34,197,94,0.15)]">
+                  <Package className="w-4 h-4" />
+                  <span>Goods / Service Delivery</span>
                 </div>
-                <div className="text-[#22c55e] font-black text-base tracking-widest mt-1 animate-bounce">↓ Seller to Buyer</div>
+                <div className="mt-1.5 text-[#22c55e] font-extrabold text-xs tracking-wide flex items-center gap-1">
+                  <span>↓ Seller to Buyer</span>
+                </div>
               </div>
 
-              {/* Buyer & Seller Circles Row */}
-              <div className="flex items-center justify-between px-4">
+              {/* Buyer & Seller Top Row */}
+              <div className="flex items-center justify-between px-6 relative z-10">
                 
+                {/* Buyer Node */}
                 <div className="flex flex-col items-center">
                   <div className="w-20 h-20 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800] flex items-center justify-center shadow-lg">
                     <User className="w-8 h-8 text-[#ff9800]" />
@@ -306,6 +309,7 @@ export function HowItWorks() {
                   <span className="mt-2 text-white font-extrabold text-sm">Buyer</span>
                 </div>
 
+                {/* Seller Node */}
                 <div className="flex flex-col items-center">
                   <div className="w-20 h-20 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6] flex items-center justify-center shadow-lg">
                     <ShoppingBag className="w-8 h-8 text-[#3b82f6]" />
@@ -315,13 +319,18 @@ export function HowItWorks() {
 
               </div>
 
-              {/* Bottom Escrow Agent Circle with Yellow & Blue Indicators */}
-              <div className="flex flex-col items-center pt-2">
-                <div className="flex items-center justify-between w-full text-xs mb-3 px-2 font-semibold">
-                  <span className="text-[#eab308]">💛 Payment to OloBuy ↘</span>
-                  <span className="text-[#3b82f6]">↗ Release Payment to Seller 💙</span>
-                </div>
+              {/* Bottom Direction Indicators (Yellow & Blue Badges) */}
+              <div className="flex items-center justify-between px-2 text-[11px] font-bold">
+                <span className="text-[#eab308] bg-[#eab308]/10 px-2.5 py-1 rounded-full border border-[#eab308]/30 flex items-center gap-1">
+                  <span>↙ Payment to OloBuy</span>
+                </span>
+                <span className="text-[#3b82f6] bg-[#3b82f6]/10 px-2.5 py-1 rounded-full border border-[#3b82f6]/30 flex items-center gap-1">
+                  <span>Release Payment ↗</span>
+                </span>
+              </div>
 
+              {/* Bottom Escrow Agent Circle */}
+              <div className="flex flex-col items-center pt-1 relative z-10">
                 <div className="w-20 h-20 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-2.5 shadow-xl">
                   <img
                     src="/logo.jpg"
@@ -398,4 +407,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-        }
+              }
