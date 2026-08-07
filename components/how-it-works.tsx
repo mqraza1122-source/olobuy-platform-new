@@ -13,9 +13,8 @@ import {
   User,
   HelpCircle,
   ArrowRight,
-  ArrowLeft,
-  Banknote,
-  Box,
+  ArrowUpRight,
+  ArrowDownLeft,
 } from 'lucide-react';
 
 const STEPS = [
@@ -257,9 +256,10 @@ export function HowItWorks() {
         </div>
       </div>
 
+      {/* ===== ESCROW ARCHITECTURE MODAL - Exact Attached Design ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-          <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
+          <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-xl w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
             
             <button
               type="button"
@@ -271,93 +271,81 @@ export function HowItWorks() {
 
             <div className="text-center mb-6 pr-6">
               <span className="text-[#ff9800] text-[11px] font-extrabold tracking-[0.2em] uppercase bg-[#ff9800]/10 px-3 py-1 rounded-full border border-[#ff9800]/30">
-                How Escrow Works
+                Visual Protocol Flow
               </span>
               <h3 className="text-xl sm:text-2xl font-black text-white mt-2">
-                Escrow Lifecycle Flow
+                OloBuy Escrow Architecture
               </h3>
               <p className="text-white/60 text-xs sm:text-sm mt-1">
-                Triangular flow matching standard secure escrow architecture.
+                A neutral platform holding funds securely until both buyer and seller confirm satisfaction.
               </p>
             </div>
 
-            {/* Exact Triangular Flow Matching User Reference Image */}
-            <div className="bg-[#1e293b]/60 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-md relative min-h-[340px] flex flex-col justify-between">
+            {/* Exact Card Layout */}
+            <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md relative">
               
-              {/* Center Title */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none opacity-90">
-                <h4 className="text-blue-200 font-black text-lg sm:text-xl tracking-tight text-center leading-snug">
-                  How Escrow<br />Works
-                </h4>
-              </div>
-
-              {/* Top Row: Buyer (Left) & Seller (Right) with Goods Flow across top */}
-              <div className="flex items-center justify-between relative z-10 w-full">
+              {/* Buyer & Seller with Goods Delivery */}
+              <div className="flex items-center justify-between relative px-2 mb-8">
                 
-                {/* Buyer Node */}
-                <div className="flex flex-col items-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#dbeafe] border-4 border-[#93c5fd] flex items-center justify-center shadow-lg">
-                    <User className="w-10 h-10 sm:w-12 sm:h-12 text-[#1e3a8a]" />
+                {/* Buyer */}
+                <div className="flex flex-col items-center z-10">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800] flex items-center justify-center shadow-lg">
+                    <User className="w-7 h-7 sm:w-8 sm:h-8 text-[#ff9800]" />
                   </div>
-                  <span className="mt-2 text-white font-extrabold text-sm sm:text-base">Buyer</span>
+                  <span className="mt-2 text-white font-extrabold text-sm">Buyer</span>
+                  <span className="text-[11px] text-[#ff9800] font-semibold">Sends Funds</span>
                 </div>
 
-                {/* Goods Flow Arrow (Top Arc from Seller to Buyer) */}
-                <div className="flex-1 flex flex-col items-center mx-2 relative -top-3">
-                  <div className="flex items-center text-blue-400 font-bold text-xs gap-1">
-                    <Box className="w-4 h-4 text-amber-400 inline" />
-                    <span className="italic text-white/90">Goods</span>
+                {/* Goods Delivery Arrow */}
+                <div className="absolute left-1/2 -translate-x-1/2 top-4 flex flex-col items-center">
+                  <div className="inline-flex items-center gap-1.5 text-[#22c55e] bg-[#22c55e]/10 px-3 py-1.5 rounded-full border border-[#22c55e]/30 text-xs font-extrabold shadow-[0_0_15px_rgba(34,197,94,0.15)] whitespace-nowrap">
+                    <span><ArrowRight className="w-3.5 h-3.5 rotate-180 inline" /></span>
+                    <span>Goods / Service Delivery</span>
                   </div>
-                  <div className="w-full flex items-center justify-center">
-                    <ArrowLeft className="w-8 h-8 text-blue-400 stroke-[2.5]" />
-                  </div>
+                  <span className="text-[10px] text-white/50 mt-0.5">Seller to Buyer</span>
                 </div>
 
-                {/* Seller Node */}
-                <div className="flex flex-col items-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#dbeafe] border-4 border-[#93c5fd] flex items-center justify-center shadow-lg">
-                    <ShoppingBag className="w-10 h-10 sm:w-12 sm:h-12 text-[#1e3a8a]" />
+                {/* Seller */}
+                <div className="flex flex-col items-center z-10">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6] flex items-center justify-center shadow-lg">
+                    <ShoppingBag className="w-7 h-7 sm:w-8 sm:h-8 text-[#3b82f6]" />
                   </div>
-                  <span className="mt-2 text-white font-extrabold text-sm sm:text-base">Seller</span>
+                  <span className="mt-2 text-white font-extrabold text-sm">Seller</span>
+                  <span className="text-[11px] text-[#3b82f6] font-semibold">Fulfills Order</span>
                 </div>
 
               </div>
 
-              {/* Bottom Row: Escrow Agent in Center with Cash arrows pointing down-right and up-right */}
-              <div className="flex items-end justify-between relative z-10 w-full pt-4">
-                
-                {/* Cash from Buyer to Escrow */}
-                <div className="flex flex-col items-center ml-4">
-                  <div className="flex items-center gap-1 text-amber-300 text-xs font-bold mb-1">
-                    <Banknote className="w-4 h-4 text-amber-400" />
-                    <span className="italic">Cash</span>
-                  </div>
-                  <ArrowRight className="w-7 h-7 text-blue-400 rotate-45 stroke-[2.5]" />
+              {/* Cash Arrows */}
+              <div className="flex items-center justify-between px-4 text-xs font-bold mb-8">
+                <div className="flex items-center gap-1 text-[#eab308] bg-[#eab308]/10 px-3 py-1.5 rounded-full border border-[#eab308]/30">
+                  <ArrowDownLeft className="w-3.5 h-3.5" />
+                  <span>Cash to Escrow</span>
                 </div>
-
-                {/* Escrow Agent Node */}
-                <div className="flex flex-col items-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#dbeafe] border-4 border-[#93c5fd] flex items-center justify-center shadow-lg">
-                    <Landmark className="w-10 h-10 sm:w-12 sm:h-12 text-[#1e3a8a]" />
-                  </div>
-                  <span className="mt-2 text-white font-extrabold text-sm sm:text-base">Escrow Agent</span>
+                <div className="flex items-center gap-1 text-[#3b82f6] bg-[#3b82f6]/10 px-3 py-1.5 rounded-full border border-[#3b82f6]/30">
+                  <span>Release Cash</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </div>
+              </div>
 
-                {/* Cash from Escrow to Seller */}
-                <div className="flex flex-col items-center mr-4">
-                  <div className="flex items-center gap-1 text-amber-300 text-xs font-bold mb-1">
-                    <Banknote className="w-4 h-4 text-amber-400" />
-                    <span className="italic">Cash</span>
-                  </div>
-                  <ArrowRight className="w-7 h-7 text-blue-400 -rotate-45 stroke-[2.5]" />
+              {/* OloBuy Agent (Center) */}
+              <div className="flex flex-col items-center z-10">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-2 shadow-xl">
+                  <img
+                    src="/logo.jpg"
+                    alt="OloBuy"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
-
+                <span className="mt-2 text-white font-black text-xs tracking-wider uppercase bg-white/10 px-4 py-1.5 rounded-full border border-white/10">
+                  OLOBUY ESCROW AGENT
+                </span>
               </div>
 
             </div>
 
             <p className="text-white/45 text-xs text-center mt-5 leading-relaxed">
-              Funds are securely held under neutral custody until the transaction is successfully completed.
+              Funds held securely in neutral custody until item is received & inspected.
             </p>
 
             <button
@@ -417,4 +405,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-   }
+                  }
