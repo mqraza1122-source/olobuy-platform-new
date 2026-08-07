@@ -94,7 +94,6 @@ export function HowItWorks() {
   const fees = useFadeUp(0.1);
   const support = useFadeUp(0.1);
 
-  // Circular Flow Data (RazorpayX jaisa visual)
   const flowNodes = [
     { id: 'buyer', icon: User, color: '#ff9800', label: 'Buyer', sub: 'Sends Funds' },
     { id: 'seller', icon: ShoppingBag, color: '#3b82f6', label: 'Seller', sub: 'Fulfills Order' },
@@ -275,7 +274,7 @@ export function HowItWorks() {
         </div>
       </div>
 
-      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL (CLEAN CIRCULAR LOOP) ===== */}
+      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
           <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
@@ -414,4 +413,5 @@ export function HowItWorks() {
             </div>
 
             <button
-    
+              type="button"
+              onClick={() => setSelectedStep(nu
