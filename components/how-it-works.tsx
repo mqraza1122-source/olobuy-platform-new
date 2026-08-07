@@ -126,13 +126,13 @@ export function HowItWorks() {
           </button>
         </div>
 
-        {/* ===== STEPS (Improved Timeline Style Cards) ===== */}
+        {/* ===== STEPS CARDS ===== */}
         <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-6">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
               <button
-                key={i}
+                key={step.title}
                 type="button"
                 onClick={() => setSelectedStep(step)}
                 style={{ transitionDelay: grid.visible ? `${i * 90}ms` : '0ms' }}
@@ -263,12 +263,11 @@ export function HowItWorks() {
         </div>
       </div>
 
-      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL (TRIGGERED BY ? BUTTON) ===== */}
+      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL ===== */}
       {showEscrowModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
           <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-xl w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
             
-            {/* Close Button */}
             <button
               type="button"
               onClick={() => setShowEscrowModal(false)}
@@ -277,7 +276,6 @@ export function HowItWorks() {
               <X className="w-5 h-5" />
             </button>
 
-            {/* Modal Header */}
             <div className="text-center mb-6 pr-6">
               <span className="text-[#ff9800] text-[11px] font-extrabold tracking-[0.2em] uppercase bg-[#ff9800]/10 px-3 py-1 rounded-full border border-[#ff9800]/30">
                 Visual Protocol Flow
@@ -290,13 +288,10 @@ export function HowItWorks() {
               </p>
             </div>
 
-            {/* Modern Rounded Cards Flow Diagram */}
             <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md space-y-5">
               
-              {/* Top Row: Buyer & Seller with Goods/Service Delivery Arrow */}
               <div className="flex items-center justify-between gap-3 relative">
                 
-                {/* Buyer Card */}
                 <div className="flex-1 flex flex-col items-center bg-[#ff9800]/10 border border-[#ff9800]/30 rounded-2xl p-4 text-center shadow-sm">
                   <div className="w-12 h-12 rounded-xl bg-[#ff9800]/20 flex items-center justify-center text-[#ff9800] mb-2 shadow-inner">
                     <User className="w-6 h-6" />
@@ -305,7 +300,6 @@ export function HowItWorks() {
                   <span className="text-[11px] text-[#ff9800] font-medium mt-0.5">Sends Payment ↘</span>
                 </div>
 
-                {/* Delivery Arrow Direction: Seller to Buyer */}
                 <div className="flex flex-col items-center absolute left-1/2 -translate-x-1/2 -top-3 z-10">
                   <div className="flex items-center gap-1.5 bg-[#0f172a] border border-[#ff9800]/40 px-3 py-1 rounded-full text-[11px] text-white shadow-xl">
                     <Package className="w-3.5 h-3.5 text-[#ff9800]" />
@@ -317,7 +311,6 @@ export function HowItWorks() {
                   </div>
                 </div>
 
-                {/* Seller Card */}
                 <div className="flex-1 flex flex-col items-center bg-[#3b82f6]/10 border border-[#3b82f6]/30 rounded-2xl p-4 text-center shadow-sm">
                   <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/20 flex items-center justify-center text-[#3b82f6] mb-2 shadow-inner">
                     <ShoppingBag className="w-6 h-6" />
@@ -328,7 +321,6 @@ export function HowItWorks() {
 
               </div>
 
-              {/* Central Divider Indicator */}
               <div className="relative flex items-center justify-center py-1">
                 <div className="h-px bg-white/10 w-full absolute" />
                 <span className="relative z-10 bg-[#111827] px-3 text-[11px] text-white/45 uppercase tracking-wider font-bold">
@@ -336,7 +328,6 @@ export function HowItWorks() {
                 </span>
               </div>
 
-              {/* Bottom Row: OloBuy Escrow Agent (Rounded Card, No White Circle) */}
               <div className="flex items-center justify-between bg-white/[0.04] border border-white/10 rounded-2xl p-4 shadow-md">
                 <div className="flex items-center gap-3">
                   <div className="h-10 w-16 bg-white/10 rounded-xl p-1.5 flex items-center justify-center border border-white/20">
@@ -396,16 +387,6 @@ export function HowItWorks() {
                 <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">
                   {selectedStep.title}
                 </h3>
-              </div>
-            </div>
-
-            <div className="bg-white/5 rounded-2xl p-5 border border-white/10 mb-6 space-y-3">
-              <p className="text-white/90 text-sm sm:text-base leading-relaxed">
-                {selectedStep.desc}
-              </p>
-              <p className="text-white/55 text-sm leading-relaxed border-t border-white/10 pt-3">
-                {selectedStep.details}
-            </h3>
               </div>
             </div>
 
