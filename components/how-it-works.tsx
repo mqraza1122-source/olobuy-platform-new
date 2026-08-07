@@ -15,7 +15,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   ArrowDownLeft,
-  ArrowLeftRight,
 } from 'lucide-react';
 
 const STEPS = [
@@ -94,29 +93,15 @@ export function HowItWorks() {
   const fees = useFadeUp(0.1);
   const support = useFadeUp(0.1);
 
-  const flowNodes = [
-    { id: 'buyer', icon: User, color: '#ff9800', label: 'Buyer', sub: 'Sends Funds' },
-    { id: 'seller', icon: ShoppingBag, color: '#3b82f6', label: 'Seller', sub: 'Fulfills Order' },
-  ];
-
-  const flowArrows = [
-    { from: 'buyer', to: 'escrow', label: 'Cash to Escrow', dir: 'down' },
-    { from: 'seller', to: 'escrow', label: 'Release Cash', dir: 'up' },
-    { from: 'escrow', to: 'buyer', label: 'Goods / Service Delivery', dir: 'right' },
-  ];
-
   return (
     <section
       id="how-it-works"
       className="bg-[#0f172a] pt-6 pb-20 sm:pt-8 sm:pb-24 px-4 relative overflow-hidden"
     >
-      {/* Soft background glows */}
       <div className="absolute top-1/4 left-0 w-72 h-72 bg-[#ff9800]/[0.07] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-[#1a237e]/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-5xl relative z-10">
-        
-        {/* ===== SECTION HEADER WITH VISUAL BUTTON ===== */}
         <div className="text-center mb-10">
           <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-sm sm:text-base tracking-[0.15em] px-8 py-3 rounded-full shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-4 uppercase">
             HOW OLOBUY WORKS
@@ -138,7 +123,6 @@ export function HowItWorks() {
           </p>
         </div>
 
-        {/* ===== STEPS CARDS ===== */}
         <div ref={grid.ref} className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-6">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
@@ -180,7 +164,6 @@ export function HowItWorks() {
           })}
         </div>
 
-        {/* ===== PRICING ===== */}
         <div
           ref={fees.ref}
           className={`mb-10 sm:mb-12 transition-all duration-700 ease-out ${
@@ -241,7 +224,6 @@ export function HowItWorks() {
           </button>
         </div>
 
-        {/* ===== WhatsApp Support ===== */}
         <div
           ref={support.ref}
           className={`bg-gradient-to-r from-[#1a237e]/90 via-[#0f172a] to-[#1a237e]/90 border border-[#ff9800]/30 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-2xl backdrop-blur-md transition-all duration-700 ease-out ${
@@ -274,7 +256,6 @@ export function HowItWorks() {
         </div>
       </div>
 
-      {/* ===== ESCROW ARCHITECTURE & FLOW MODAL ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
           <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto">
@@ -299,13 +280,10 @@ export function HowItWorks() {
               </p>
             </div>
 
-            {/* Clean Circular Loop Diagram */}
             <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 sm:p-6 backdrop-blur-md relative">
               
-              {/* Top Row: Buyer & Seller with Goods Delivery */}
               <div className="flex items-center justify-between relative px-2 mb-8">
                 
-                {/* Buyer */}
                 <div className="flex flex-col items-center z-10">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800] flex items-center justify-center shadow-lg">
                     <User className="w-7 h-7 sm:w-8 sm:h-8 text-[#ff9800]" />
@@ -314,7 +292,6 @@ export function HowItWorks() {
                   <span className="text-[11px] text-[#ff9800] font-semibold">Sends Funds</span>
                 </div>
 
-                {/* Goods Delivery Badge */}
                 <div className="absolute left-1/2 -translate-x-1/2 top-4 flex flex-col items-center">
                   <div className="inline-flex items-center gap-1.5 text-[#22c55e] bg-[#22c55e]/10 px-3 py-1.5 rounded-full border border-[#22c55e]/30 text-xs font-extrabold shadow-[0_0_15px_rgba(34,197,94,0.15)] whitespace-nowrap">
                     <span><ArrowRight className="w-3.5 h-3.5 rotate-180 inline" /></span>
@@ -323,7 +300,6 @@ export function HowItWorks() {
                   <span className="text-[10px] text-white/50 mt-0.5">Seller to Buyer</span>
                 </div>
 
-                {/* Seller */}
                 <div className="flex flex-col items-center z-10">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6] flex items-center justify-center shadow-lg">
                     <ShoppingBag className="w-7 h-7 sm:w-8 sm:h-8 text-[#3b82f6]" />
@@ -334,7 +310,6 @@ export function HowItWorks() {
 
               </div>
 
-              {/* Cash Arrows */}
               <div className="flex items-center justify-between px-4 text-xs font-bold mb-8">
                 <div className="flex items-center gap-1 text-[#eab308] bg-[#eab308]/10 px-3 py-1.5 rounded-full border border-[#eab308]/30">
                   <ArrowDownLeft className="w-3.5 h-3.5" />
@@ -346,7 +321,6 @@ export function HowItWorks() {
                 </div>
               </div>
 
-              {/* OloBuy Agent (Center) */}
               <div className="flex flex-col items-center z-10">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-2 shadow-xl">
                   <img
@@ -377,7 +351,6 @@ export function HowItWorks() {
         </div>
       )}
 
-      {/* ===== Step Detail Modal ===== */}
       {selectedStep && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
           <div className="bg-[#111827] border border-[#ff9800]/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
@@ -414,4 +387,14 @@ export function HowItWorks() {
 
             <button
               type="button"
-              onClick={() => setSelectedStep(nu
+              onClick={() => setSelectedStep(null)}
+              className="w-full bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold px-6 py-3.5 rounded-xl hover:opacity-95 transition-opacity shadow-lg cursor-pointer"
+            >
+              Got It, Close
+            </button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+      }
