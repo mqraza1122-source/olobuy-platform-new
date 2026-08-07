@@ -105,7 +105,7 @@ export function CtaFooter() {
 
             {/* About + Contact */}
             <div className="grid gap-10 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-2">
-              {/* Dropdown About Section (FAQ Style) */}
+              {/* Dropdown About Section (Smart & Professional Teaser Fusion) */}
               <div>
                 <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff9800]">
                   About
@@ -123,8 +123,13 @@ export function CtaFooter() {
                     />
                   </button>
                   {isAboutOpen && (
-                    <div className="px-3.5 pb-3.5 pt-1 text-sm leading-relaxed text-white/70 font-medium border-t border-white/5 animate-fadeIn">
-                      OloBuy is a neutral third-party escrow dedicated to fraud-free online trade across Pakistan.
+                    <div className="px-3.5 pb-4 pt-1 text-xs sm:text-sm leading-relaxed text-white/70 font-medium border-t border-white/5 space-y-2 animate-fadeIn">
+                      <p>
+                        OloBuy is a neutral third-party escrow dedicated to fraud-free online trade across Pakistan.
+                      </p>
+                      <p className="text-white/50 pt-1 border-t border-white/[0.04]">
+                        <strong className="text-[#ff9800] font-semibold">Next-Gen Roadmap:</strong> Expanding in phases with advanced authentication layers, automated bidding environments, and enterprise retail infrastructure. Stay ahead of the market.
+                      </p>
                     </div>
                   )}
                 </div>
@@ -195,4 +200,4 @@ export function CtaFooter() {
       </footer>
     </>
   );
-                    }
+              }
