@@ -1,21 +1,31 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Menu, X, MessageCircle, Info, Phone } from 'lucide-react';
-
-const NAV_LINKS = [
-  { label: 'How It Works', href: '#how-it-works', type: 'scroll' },
-  { label: 'Why OloBuy', href: '#why', type: 'scroll' },
-  { label: 'Reviews', href: '#reviews', type: 'scroll' },
-  { label: 'FAQs', href: '#faq', type: 'scroll' },
-  { label: 'Blog', href: '/blog', type: 'link' }, // <--- یہ نیا بلاگ کا لنک یہاں ایڈ کر دیا ہے
-  { label: 'About Us', href: 'about', type: 'modal' },
-  { label: 'Contact Us', href: 'contact', type: 'modal' },
-];
+import { usePathname } from 'next/navigation';
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [modalContent, setModalContent] = useState<null | 'about' | 'contact'>(null);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  
+  const isHomePage = pathname === '/';
+
+  // متحرک لنکس: اگر ہوم پیج پر ہیں تو سیکشن اسکرول اور ماڈلز، اگر بلاگ یا کسی اور پیج پر ہیں تو ہوم اور بلاگ
+  const NAV_LINKS = isHomePage ? [
+    { label: 'How It Works', href: '#how-it-works', type: 'scroll' },
+    { label: 'Why OloBuy', href: '#why', type: 'scroll' },
+    { label: 'Reviews', href: '#reviews', type: 'scroll' },
+    { label: 'FAQs', href: '#faq', type: 'scroll' },
+    { label: 'Blog', href: '/blog', type: 'link' },
+    { label: 'About Us', href: 'about', type: 'modal' },
+    { label: 'Contact Us', href: 'contact', type: 'modal' },
+  ] : [
+    { label: 'Home', href: '/', type: 'link' },
+    { label: 'Blog', href: '/blog', type: 'link' },
+    { label: 'About Us', href: 'about', type: 'modal' },
+    { label: 'Contact Us', href: 'contact', type: 'modal' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,7 +54,7 @@ export function SiteHeader() {
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
           
           {/* Perfect Logo – Transparent path fixed to /logo.jpg */}
-          <a href="#" className="flex items-center shrink-0 group">
+          <a href="/" className="flex items-center shrink-0 group">
             <img
               src="/logo.jpg"
               alt="OloBuy"
@@ -83,7 +93,7 @@ export function SiteHeader() {
         >
           <div className="space-y-2 max-w-xl mx-auto">
             {NAV_LINKS.map((link) =>
-              link.type === 'scroll' ? (
+              link.type === 'scroll' || link.type === 'link' ? (
                 <a
                   key={link.href}
                   href={link.href}
@@ -182,4 +192,4 @@ export function SiteHeader() {
       )}
     </>
   );
-            }
+  }
