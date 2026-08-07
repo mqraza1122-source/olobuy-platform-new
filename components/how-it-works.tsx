@@ -9,7 +9,8 @@ import {
   X,
   ChevronDown,
   BadgePercent,
-  ArrowRight,
+  ShoppingBag,
+  User,
 } from 'lucide-react';
 
 const STEPS = [
@@ -91,65 +92,91 @@ export function HowItWorks() {
       id="how-it-works"
       className="bg-[#0f172a] pt-6 pb-20 sm:pt-8 sm:pb-24 px-4 relative overflow-hidden"
     >
-      {/* Soft background glows */}
+      {/* Soft background glows matching brand theme */}
       <div className="absolute top-1/4 left-0 w-72 h-72 bg-[#ff9800]/[0.07] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-[#1a237e]/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-5xl relative z-10">
         
-        {/* ===== TOP FLOW CARD ===== */}
-        <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl mb-8 sm:mb-10">
+        {/* ===== TOP PRO CIRCULAR ESCROW FLOW CARD ===== */}
+        <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden shadow-2xl mb-8 sm:mb-10">
           
-          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-sm sm:text-base tracking-[0.15em] px-8 py-3 rounded-full shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-6 uppercase">
-            HOW IT WORKS
+          <div className="inline-block bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-extrabold text-sm sm:text-base tracking-[0.15em] px-8 py-3 rounded-full shadow-[0_0_30px_rgba(255,152,0,0.35)] mb-4 uppercase">
+            HOW ESCROW WORKS
           </div>
 
-          <p className="text-white/65 text-sm sm:text-base max-w-lg mx-auto mb-8 leading-relaxed">
-            A neutral platform holding funds until both buyer and seller confirm satisfaction.
+          <p className="text-white/65 text-sm sm:text-base max-w-lg mx-auto mb-10 leading-relaxed">
+            A neutral platform holding funds securely until both buyer and seller confirm satisfaction.
           </p>
 
-          {/* Buyer → OloBuy → Seller Clean Flow Diagram */}
-          <div className="flex items-center justify-center gap-3 sm:gap-6 max-w-md mx-auto">
+          {/* Infographic Circular Flow Layout */}
+          <div className="relative max-w-md mx-auto py-6 flex flex-col items-center justify-center gap-8 sm:gap-12">
             
-            {/* Buyer Side (Yellow Theme) */}
-            <div className="flex flex-col items-center text-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ff9800]/10 border border-[#ff9800]/25 shadow-md">
-                <MessageSquareText className="h-6 w-6 text-[#ff9800]" />
+            {/* Top Row: Buyer & Seller */}
+            <div className="w-full flex items-center justify-between px-2 sm:px-6 relative">
+              
+              {/* Buyer Node */}
+              <div className="flex flex-col items-center group">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-[#ff9800]/20 to-[#ff9800]/5 border-2 border-[#ff9800]/60 flex items-center justify-center shadow-[0_0_30px_rgba(255,152,0,0.2)] group-hover:scale-105 transition-transform duration-300">
+                  <User className="w-8 h-8 sm:w-10 sm:h-10 text-[#ff9800]" />
+                </div>
+                <span className="mt-3 text-white font-extrabold text-sm sm:text-base tracking-wide">
+                  Buyer
+                </span>
+                <span className="text-[11px] text-[#ff9800] font-medium">Sends Funds</span>
               </div>
-              <span className="mt-2.5 text-xs font-bold tracking-wide text-white/90">
-                Buyer
-              </span>
+
+              {/* Goods Flow Arrow/Indicator across top */}
+              <div className="flex flex-col items-center absolute left-1/2 -translate-x-1/2 -top-4">
+                <div className="flex items-center gap-1.5 bg-white/[0.06] border border-white/10 px-3 py-1 rounded-full text-[11px] text-white/80 backdrop-blur-md shadow-lg">
+                  <Package className="w-3.5 h-3.5 text-[#ff9800]" />
+                  <span>Goods / Service Delivery</span>
+                </div>
+                <div className="text-[#ff9800] font-bold text-lg tracking-widest mt-0.5">⟶</div>
+              </div>
+
+              {/* Seller Node */}
+              <div className="flex flex-col items-center group">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-[#3b82f6]/20 to-[#3b82f6]/5 border-2 border-[#3b82f6]/60 flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.2)] group-hover:scale-105 transition-transform duration-300">
+                  <ShoppingBag className="w-8 h-8 sm:w-10 sm:h-10 text-[#3b82f6]" />
+                </div>
+                <span className="mt-3 text-white font-extrabold text-sm sm:text-base tracking-wide">
+                  Seller
+                </span>
+                <span className="text-[11px] text-[#3b82f6] font-medium">Fulfills Order</span>
+              </div>
+
             </div>
 
-            {/* Left Arrow */}
-            <ArrowRight className="h-5 w-5 text-[#ff9800] shrink-0" />
-
-            {/* Center Logo Box */}
-            <div className="relative flex h-16 w-24 items-center justify-center rounded-2xl bg-white p-2 shadow-[0_0_25px_rgba(255,152,0,0.25)] border border-white/20">
-              <img
-                src="/logo.jpg"
-                alt="OloBuy"
-                className="h-full w-auto object-contain"
-              />
-            </div>
-
-            {/* Right Arrow */}
-            <ArrowRight className="h-5 w-5 text-[#3b82f6] shrink-0" />
-
-            {/* Seller Side (Blue Theme) */}
-            <div className="flex flex-col items-center text-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#3b82f6]/10 border border-[#3b82f6]/25 shadow-md">
-                <MessageCircle className="h-6 w-6 text-[#3b82f6]" />
+            {/* Bottom Center Node: OloBuy Escrow Agent */}
+            <div className="flex flex-col items-center relative z-10 -mt-2">
+              
+              {/* Cash flow label indicators */}
+              <div className="flex items-center justify-between w-full max-w-[280px] text-[11px] text-white/50 mb-2 px-2 font-medium">
+                <span>Cash to Escrow ↘</span>
+                <span>↗ Release Cash</span>
               </div>
-              <span className="mt-2.5 text-xs font-bold tracking-wide text-white/90">
-                Seller
-              </span>
+
+              {/* OloBuy Central Hub Circle */}
+              <div className="flex flex-col items-center group">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white border-4 border-[#ff9800] flex items-center justify-center p-3 shadow-[0_0_40px_rgba(255,152,0,0.35)] group-hover:scale-105 transition-transform duration-300">
+                  <img
+                    src="/logo.jpg"
+                    alt="OloBuy Escrow"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <span className="mt-3 text-white font-black text-xs sm:text-sm tracking-wider uppercase bg-white/10 px-4 py-1 rounded-full border border-white/10 shadow-md">
+                  OloBuy Escrow Agent
+                </span>
+              </div>
+
             </div>
 
           </div>
 
-          <p className="text-white/45 text-xs sm:text-sm mt-7">
-            Funds held securely until item is received & inspected.
+          <p className="text-white/45 text-xs sm:text-sm mt-8">
+            Funds held securely in neutral custody until item is received & inspected.
           </p>
         </div>
 
@@ -306,7 +333,7 @@ export function HowItWorks() {
               <div className="w-14 h-14 rounded-2xl bg-[#ff9800]/15 border border-[#ff9800]/30 flex items-center justify-center shrink-0">
                 <selectedStep.icon className="h-7 w-7 text-[#ff9800]" />
               </div>
-              <div>
+            <div>
                 <span className="text-[#ff9800] text-[11px] font-bold tracking-[0.15em] uppercase">
                   OloBuy Protocol
                 </span>
@@ -331,7 +358,7 @@ export function HowItWorks() {
               className="w-full bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold px-6 py-3.5 rounded-xl hover:opacity-95 transition-opacity shadow-lg cursor-pointer"
             >
               Got It, Close
-            </button>
+            </Link>
           </div>
         </div>
       )}
