@@ -22,54 +22,51 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const renderBlogContent = () => {
     switch (slug) {
-      case 'safe-online-shopping-in-pakistan-avoiding-scams':
+      case 'how-to-start-safe-trade-freelance-in-pakistan':
+      case 'safe-trade-and-freelance-pakistan-without-traveling':
         return (
           <div className="space-y-6 text-slate-900 text-sm md:text-base leading-relaxed">
-            <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-3">The Rise of E-Commerce and Scams in Pakistan</h2>
+            <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-3">Why Pakistani Freelancers and Traders Struggle with Trust</h2>
             <p className="text-slate-900 font-normal">
-              Online shopping has revolutionized retail in Pakistan. From buying gadgets on Facebook marketplace to securing clothing deals on Instagram, millions of transactions happen daily. However, this boom has also led to a massive surge in advance payment scams, fake items, and non-delivery frauds.
+              Digital commerce and freelancing are booming across Pakistan. Whether you are delivering a high-value graphic design project in Lahore, buying a used gaming laptop from Karachi, or selling customized products online from Islamabad, one major hurdle remains: <strong>the trust gap</strong>. 
             </p>
-            <div className="bg-slate-100 p-5 rounded-2xl border border-slate-300 text-slate-900">
-              <h3 className="text-lg font-bold text-amber-900 mb-2">Common Risks Faced by Pakistani Shoppers:</h3>
-              <ul className="space-y-2 text-slate-900">
-                <li className="flex items-start gap-2 text-slate-900"><span className="text-amber-700 font-bold">•</span> Paying full advance via JazzCash/EasyPaisa and receiving bricks or low-quality clothes.</li>
-                <li className="flex items-start gap-2 text-slate-900"><span className="text-amber-700 font-bold">•</span> Sellers blocking buyers after receiving online transfers.</li>
-                <li className="flex items-start gap-2 text-slate-900"><span className="text-amber-700 font-bold">•</span> No secure mechanism for peer-to-peer (P2P) trading.</li>
+            <p className="text-slate-900 font-normal">
+              Historically, completing high-value deals or trading items across different cities meant taking massive risks, or worse—spending time and money traveling just to verify a product face-to-face.
+            </p>
+
+            <div className="bg-slate-100 p-5 rounded-2xl border border-slate-300 text-slate-900 my-6">
+              <h3 className="text-lg font-bold text-amber-900 mb-3">The Hidden Costs of Traditional Inter-City Trading:</h3>
+              <ul className="space-y-3 text-slate-900">
+                <li className="flex items-start gap-2 text-slate-900">
+                  <span className="text-amber-700 font-bold">•</span> 
+                  <div><strong className="text-slate-900">Heavy Travel Expenses:</strong> Booking bus or train tickets between cities just to inspect a product or close a deal often drains your profit margin.</div>
+                </li>
+                <li className="flex items-start gap-2 text-slate-900">
+                  <span className="text-amber-700 font-bold">•</span> 
+                  <div><strong className="text-slate-900">Massive Time Waste:</strong> Spending hours on the road or coordinating schedules halts your core business productivity.</div>
+                </li>
+                <li className="flex items-start gap-2 text-slate-900">
+                  <span className="text-amber-700 font-bold">•</span> 
+                  <div><strong className="text-slate-900">Advance Payment Fear:</strong> Transferring 100% money upfront to strangers on social media carries a high risk of getting scammed or receiving fake goods.</div>
+                </li>
               </ul>
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-3">How OloBuy Solves This Problem via Manual Escrow</h2>
-            <p className="text-slate-900 font-normal">
-              To guarantee <strong className="text-slate-900 font-bold">safe online shopping in Pakistan</strong>, OloBuy acts as a trusted third-party manual escrow service. Instead of sending money directly to an unknown seller, the buyer transfers funds to OloBuy. We hold the money securely until the buyer receives the package, checks it, and confirms satisfaction. Only then is the payment released to the seller.
-            </p>
-          </div>
-        );
 
-      case 'how-to-avoid-online-shopping-fraud-pakistan':
-        return (
-          <div className="space-y-6 text-slate-900 text-sm md:text-base leading-relaxed">
-            <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-3">Ultimate Guide to Spotting Online Scams</h2>
+            <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-3">How to Start Safe Trade & Freelancing Without Traveling</h2>
             <p className="text-slate-900 font-normal">
-              Getting scammed online leaves a bitter experience. Whether you are trading used items on OLX or purchasing from social media pages, protecting your hard-earned cash requires strict security protocols.
+              You no longer need to pack your bags or risk your hard-earned cash to conduct safe business transactions in Pakistan. Platforms like <strong className="text-slate-900 font-bold">OloBuy</strong> have completely transformed digital trade by introducing a secure manual escrow system tailored for local buyers, sellers, and freelancers.
             </p>
-            <h3 className="text-xl font-bold text-amber-900 mt-4 mb-2">Top 4 Rules to Avoid Fraud:</h3>
+
+            <h3 className="text-xl font-bold text-amber-900 mt-5 mb-2">The OloBuy 3-Step Safe Trading Process:</h3>
             <ol className="list-decimal pl-5 space-y-3 text-slate-900">
-              <li className="text-slate-900"><strong className="text-slate-900">Never trust unverified sellers:</strong> Always check reviews and business legitimacy.</li>
-              <li className="text-slate-900"><strong className="text-slate-900">Avoid 100% advance payments:</strong> Never transfer full amounts to random personal bank accounts.</li>
-              <li className="text-slate-900"><strong className="text-slate-900">Use Escrow Services:</strong> Always prefer platforms like OloBuy that hold payments securely.</li>
-              <li className="text-slate-900"><strong className="text-slate-900">Keep Conversation Proof:</strong> Save all chat logs and transaction receipts until the deal is successfully completed.</li>
+              <li className="text-slate-900"><strong className="text-slate-900">Secure Deposit:</strong> The buyer deposits the payment into OloBuy's secure neutral account instead of sending it directly to an unknown seller's personal bank account.</li>
+              <li className="text-slate-900"><strong className="text-slate-900">Home Inspection (Chiz Ghar Beth Kay Check Kro):</strong> The product or freelance deliverable is shipped or handed over. You inspect the item thoroughly from the comfort of your home.</li>
+              <li className="text-slate-900"><strong className="text-slate-900">Risk-Free Payment Release:</strong> Only when you are 100% satisfied with the quality does OloBuy release the funds to the seller. If there's an issue, your money remains safe.</li>
             </ol>
-          </div>
-        );
 
-      case 'why-manual-escrow-service-is-future-of-pakistan-ecommerce':
-        return (
-          <div className="space-y-6 text-slate-900 text-sm md:text-base leading-relaxed">
-            <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-3">Bridging the Trust Gap in Digital Commerce</h2>
+            <h2 className="text-2xl font-extrabold text-slate-900 mt-6 mb-3">Empowering Pakistan's Digital Economy</h2>
             <p className="text-slate-900 font-normal">
-              The digital economy in Pakistan relies heavily on trust, but trust is scarce when dealing with anonymous parties online. Traditional payment gateways only process transactions; they do not protect buyers from fraud. This is where a <strong className="text-slate-900 font-bold">Manual Escrow Service</strong> becomes a game-changer.
-            </p>
-            <p className="text-slate-900 font-normal">
-              By holding funds in a secure neutral pool, manual escrow eliminates the fear of online cheating, empowering small businesses, freelancers, and everyday buyers to execute high-value deals with complete peace of mind.
+              By eliminating travel requirements, saving valuable hours, and removing the fear of advance payment fraud, <strong className="text-slate-900 font-bold">OloBuy</strong> provides the ultimate infrastructure for safe trade and freelancing in Pakistan. Whether you scale your online business or hire a remote freelancer, security is now just a click away.
             </p>
           </div>
         );
@@ -116,7 +113,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               </span>
             </div>
 
-            {/* Content Area with absolute dark coloring */}
+            {/* Content Area */}
             <div className="text-slate-900">
               {renderBlogContent()}
             </div>
@@ -143,4 +140,4 @@ export default async function BlogPostPage({ params }: PageProps) {
       <WhatsAppFloat />
     </div>
   )
-            }
+              }
