@@ -12,7 +12,6 @@ import {
   ShoppingBag,
   User,
   HelpCircle,
-  ArrowRight,
 } from 'lucide-react';
 
 const STEPS = [
@@ -258,152 +257,90 @@ export function HowItWorks() {
         </div>
       </div>
 
-      {/* ===== PROFESSIONAL ESCROW VISUAL MODAL ===== */}
+      {/* ===== FINAL PROFESSIONAL ESCROW VISUAL MODAL ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-    <div className="bg-[#0f172a] border border-white/10 rounded-3xl max-w-[360px] w-full p-5 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
-      
-      <button
-        type="button"
-        onClick={() => setShowEscrowModal(false)}
-        className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/50 hover:text-white z-20"
-      >
-        <X className="w-4 h-4" />
-      </button>
+          <div className="bg-[#0f172a] border border-white/10 rounded-3xl max-w-[360px] w-full p-5 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
+            
+            <button
+              type="button"
+              onClick={() => setShowEscrowModal(false)}
+              className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/50 hover:text-white z-20"
+            >
+              <X className="w-4 h-4" />
+            </button>
 
-      <div className="bg-[#111827] border border-white/10 rounded-2xl p-5 relative">
+            <div className="bg-[#111827] border border-white/10 rounded-2xl p-5 relative">
 
-        <p className="text-center text-white font-bold text-sm mb-5">
-          How OloBuy Works
-        </p>
+              <p className="text-center text-white font-bold text-sm mb-5">
+                How OloBuy Works
+              </p>
 
-        {/* Top Goods / Services */}
-        <div className="flex items-center justify-center gap-3 mb-5">
-          <div className="w-6 h-[2px] bg-[#22c55e] rounded-full" />
-          <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#22c55e] bg-[#22c55e]/10 border border-[#22c55e]/30 px-3 py-1 rounded-full">
-            <Package className="w-3.5 h-3.5" />
-            Goods / Services
-          </div>
-          <div className="w-6 h-[2px] bg-[#22c55e] rounded-full" />
-        </div>
+              {/* Top Goods / Services */}
+              <div className="flex items-center justify-center gap-3 mb-5">
+                <div className="w-6 h-[2px] bg-[#22c55e] rounded-full" />
+                <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#22c55e] bg-[#22c55e]/10 border border-[#22c55e]/30 px-3 py-1 rounded-full">
+                  <Package className="w-3.5 h-3.5" />
+                  Goods / Services
+                </div>
+                <div className="w-6 h-[2px] bg-[#22c55e] rounded-full" />
+              </div>
 
-        {/* Buyer + Seller */}
-        <div className="flex justify-between px-5 mb-1">
-          <div className="flex flex-col items-center">
-            <div className="w-14 h-14 rounded-full bg-[#ff9800]/15 border-2 border-[#ff9800] flex items-center justify-center">
-              <User className="w-6 h-6 text-[#ff9800]" />
+              {/* Buyer + Seller */}
+              <div className="flex justify-between px-5 mb-1">
+                <div className="flex flex-col items-center">
+                  <div className="w-14 h-14 rounded-full bg-[#ff9800]/15 border-2 border-[#ff9800] flex items-center justify-center">
+                    <User className="w-6 h-6 text-[#ff9800]" />
+                  </div>
+                  <span className="mt-1.5 text-white text-xs font-bold">Buyer</span>
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <div className="w-14 h-14 rounded-full bg-[#3b82f6]/15 border-2 border-[#3b82f6] flex items-center justify-center">
+                    <ShoppingBag className="w-6 h-6 text-[#3b82f6]" />
+                  </div>
+                  <span className="mt-1.5 text-white text-xs font-bold">Seller</span>
+                </div>
+              </div>
+
+              {/* Payment arrows */}
+              <div className="flex justify-between px-8 mt-3 mb-1">
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] font-semibold text-[#eab308] mb-0.5">Payment</span>
+                  <div className="text-[#eab308] text-lg leading-none">⤵</div>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] font-semibold text-[#3b82f6] mb-0.5">Payment</span>
+                  <div className="text-[#3b82f6] text-lg leading-none">⤵</div>
+                </div>
+              </div>
+
+              {/* Center Logo */}
+              <div className="flex justify-center mt-1">
+                <div className="w-[76px] h-[76px] rounded-full bg-white border-[3px] border-[#ff9800] flex items-center justify-center overflow-hidden shadow-[0_0_25px_rgba(255,152,0,0.3)]">
+                  <img
+                    src="/logo.jpg"
+                    alt="OloBuy"
+                    className="w-[88%] h-[88%] object-contain mix-blend-multiply"
+                  />
+                </div>
+              </div>
+
+              <p className="text-center text-white/40 text-[11px] mt-4 leading-relaxed">
+                Funds held securely until both parties confirm satisfaction.
+              </p>
             </div>
-            <span className="mt-1.5 text-white text-xs font-bold">Buyer</span>
-          </div>
 
-          <div className="flex flex-col items-center">
-            <div className="w-14 h-14 rounded-full bg-[#3b82f6]/15 border-2 border-[#3b82f6] flex items-center justify-center">
-              <ShoppingBag className="w-6 h-6 text-[#3b82f6]" />
-            </div>
-            <span className="mt-1.5 text-white text-xs font-bold">Seller</span>
-          </div>
-        </div>
-
-        {/* Payment curved feel */}
-        <div className="flex justify-between px-8 mt-3 mb-1">
-          <div className="flex flex-col items-center">
-            <span className="text-[10px] font-semibold text-[#eab308] mb-0.5">Payment</span>
-            <div className="text-[#eab308] text-lg leading-none">⤵</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-[10px] font-semibold text-[#3b82f6] mb-0.5">Payment</span>
-            <div className="text-[#3b82f6] text-lg leading-none">⤵</div>
+            <button
+              type="button"
+              onClick={() => setShowEscrowModal(false)}
+              className="w-full mt-4 bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold py-3.5 rounded-xl"
+            >
+              Got It
+            </button>
           </div>
         </div>
-
-        {/* Center Logo */}
-        <div className="flex justify-center mt-1">
-          <div className="w-[76px] h-[76px] rounded-full bg-white border-[3px] border-[#ff9800] flex items-center justify-center overflow-hidden shadow-[0_0_25px_rgba(255,152,0,0.3)]">
-            <img
-              src="/logo.jpg"
-              alt="OloBuy"
-              className="w-[88%] h-[88%] object-contain mix-blend-multiply"
-            />
-          </div>
-        </div>
-
-        <p className="text-center text-white/40 text-[11px] mt-4 leading-relaxed">
-          Funds held securely until both parties confirm satisfaction.
-        </p>
-      </div>
-
-      <button
-        type="button"
-        onClick={() => setShowEscrowModal(false)}
-        className="w-full mt-4 bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold py-3.5 rounded-xl"
-      >
-        Got It
-      </button>
-    </div>
-  </div>
-)}
-
-        {/* ===== BOTTOM CURVED ARROWS - Payment ===== */}
-        <div className="relative h-16 mt-2">
-          {/* Left Payment Arrow (Buyer → OloBuy) */}
-          <svg viewBox="0 0 150 60" className="absolute left-0 w-1/2 h-full">
-            <path
-              d="M 30 5 Q 30 45 75 50"
-              fill="none"
-              stroke="#eab308"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            />
-            <path d="M 75 50 L 68 44 L 72 54 Z" fill="#eab308" />
-          </svg>
-
-          {/* Right Payment Arrow (OloBuy → Seller) */}
-          <svg viewBox="0 0 150 60" className="absolute right-0 w-1/2 h-full">
-            <path
-              d="M 120 5 Q 120 45 75 50"
-              fill="none"
-              stroke="#3b82f6"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            />
-            <path d="M 75 50 L 82 44 L 78 54 Z" fill="#3b82f6" />
-          </svg>
-
-          {/* Payment Labels */}
-          <div className="absolute left-4 top-6 text-[10px] font-semibold text-[#eab308]">
-            Payment
-          </div>
-          <div className="absolute right-4 top-6 text-[10px] font-semibold text-[#3b82f6]">
-            Payment
-          </div>
-        </div>
-
-        {/* Center OloBuy Logo */}
-        <div className="flex flex-col items-center -mt-2">
-          <div className="w-[72px] h-[72px] rounded-full bg-white border-[3px] border-[#ff9800] flex items-center justify-center overflow-hidden shadow-[0_0_20px_rgba(255,152,0,0.3)]">
-            <img
-              src="/logo.jpg"
-              alt="OloBuy"
-              className="w-[85%] h-[85%] object-contain mix-blend-multiply"
-            />
-          </div>
-        </div>
-
-        <p className="text-center text-white/40 text-[11px] mt-3 leading-relaxed">
-          Funds held securely until both parties confirm satisfaction.
-        </p>
-      </div>
-
-      <button
-        type="button"
-        onClick={() => setShowEscrowModal(false)}
-        className="w-full mt-4 bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold py-3.5 rounded-xl"
-      >
-        Got It
-      </button>
-    </div>
-  </div>
-)}
+      )}
 
       {/* Step Detail Modal */}
       {selectedStep && (
@@ -452,4 +389,4 @@ export function HowItWorks() {
       )}
     </section>
   );
-   }
+      }
