@@ -261,7 +261,7 @@ export function HowItWorks() {
       {/* ===== PROFESSIONAL ESCROW VISUAL MODAL ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-    <div className="bg-[#0f172a] border border-white/10 rounded-3xl max-w-[380px] w-full p-5 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
+    <div className="bg-[#0f172a] border border-white/10 rounded-3xl max-w-[360px] w-full p-5 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
       
       <button
         type="button"
@@ -271,37 +271,24 @@ export function HowItWorks() {
         <X className="w-4 h-4" />
       </button>
 
-      {/* Visual Card */}
-      <div className="bg-[#111827] border border-white/10 rounded-2xl p-5 relative overflow-hidden">
+      <div className="bg-[#111827] border border-white/10 rounded-2xl p-5 relative">
 
-        <p className="text-center text-white font-bold text-sm mb-4">
+        <p className="text-center text-white font-bold text-sm mb-5">
           How OloBuy Works
         </p>
 
-        {/* ===== TOP CURVED ARROW - Goods / Services ===== */}
-        <div className="relative h-10 mb-2">
-          <svg viewBox="0 0 300 40" className="w-full h-full">
-            <path
-              d="M 40 30 Q 150 0 260 30"
-              fill="none"
-              stroke="#22c55e"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            />
-            {/* Arrow head left */}
-            <path d="M 40 30 L 48 24 L 48 36 Z" fill="#22c55e" />
-            {/* Arrow head right */}
-            <path d="M 260 30 L 252 24 L 252 36 Z" fill="#22c55e" />
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="bg-[#111827] px-2 text-[11px] font-bold text-[#22c55e]">
-              Goods / Services
-            </span>
+        {/* Top Goods / Services */}
+        <div className="flex items-center justify-center gap-3 mb-5">
+          <div className="w-6 h-[2px] bg-[#22c55e] rounded-full" />
+          <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#22c55e] bg-[#22c55e]/10 border border-[#22c55e]/30 px-3 py-1 rounded-full">
+            <Package className="w-3.5 h-3.5" />
+            Goods / Services
           </div>
+          <div className="w-6 h-[2px] bg-[#22c55e] rounded-full" />
         </div>
 
         {/* Buyer + Seller */}
-        <div className="flex justify-between px-6 mb-1">
+        <div className="flex justify-between px-5 mb-1">
           <div className="flex flex-col items-center">
             <div className="w-14 h-14 rounded-full bg-[#ff9800]/15 border-2 border-[#ff9800] flex items-center justify-center">
               <User className="w-6 h-6 text-[#ff9800]" />
@@ -316,6 +303,45 @@ export function HowItWorks() {
             <span className="mt-1.5 text-white text-xs font-bold">Seller</span>
           </div>
         </div>
+
+        {/* Payment curved feel */}
+        <div className="flex justify-between px-8 mt-3 mb-1">
+          <div className="flex flex-col items-center">
+            <span className="text-[10px] font-semibold text-[#eab308] mb-0.5">Payment</span>
+            <div className="text-[#eab308] text-lg leading-none">⤵</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-[10px] font-semibold text-[#3b82f6] mb-0.5">Payment</span>
+            <div className="text-[#3b82f6] text-lg leading-none">⤵</div>
+          </div>
+        </div>
+
+        {/* Center Logo */}
+        <div className="flex justify-center mt-1">
+          <div className="w-[76px] h-[76px] rounded-full bg-white border-[3px] border-[#ff9800] flex items-center justify-center overflow-hidden shadow-[0_0_25px_rgba(255,152,0,0.3)]">
+            <img
+              src="/logo.jpg"
+              alt="OloBuy"
+              className="w-[88%] h-[88%] object-contain mix-blend-multiply"
+            />
+          </div>
+        </div>
+
+        <p className="text-center text-white/40 text-[11px] mt-4 leading-relaxed">
+          Funds held securely until both parties confirm satisfaction.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setShowEscrowModal(false)}
+        className="w-full mt-4 bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold py-3.5 rounded-xl"
+      >
+        Got It
+      </button>
+    </div>
+  </div>
+)}
 
         {/* ===== BOTTOM CURVED ARROWS - Payment ===== */}
         <div className="relative h-16 mt-2">
