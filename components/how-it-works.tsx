@@ -260,87 +260,91 @@ export function HowItWorks() {
       {/* ===== FINAL PROFESSIONAL ESCROW VISUAL MODAL ===== */}
       {showEscrowModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-          <div className="bg-[#0f172a] border border-white/10 rounded-3xl max-w-[360px] w-full p-5 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
-            
-            <button
-              type="button"
-              onClick={() => setShowEscrowModal(false)}
-              className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/50 hover:text-white z-20"
-            >
-              <X className="w-4 h-4" />
-            </button>
+    <div className="bg-[#0f172a] border border-white/10 rounded-3xl max-w-[360px] w-full p-5 relative shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
+      
+      <button
+        type="button"
+        onClick={() => setShowEscrowModal(false)}
+        className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/50 hover:text-white z-20"
+      >
+        <X className="w-4 h-4" />
+      </button>
 
-            <div className="bg-[#111827] border border-white/10 rounded-2xl p-5 relative">
+      <div className="bg-[#111827] border border-white/10 rounded-2xl p-5 relative">
 
-              <p className="text-center text-white font-bold text-sm mb-5">
-                How OloBuy Works
-              </p>
+        <p className="text-center text-white font-bold text-sm mb-4">
+          How OloBuy Works
+        </p>
 
-              {/* Top Goods / Services */}
-              <div className="flex items-center justify-center gap-3 mb-5">
-                <div className="w-6 h-[2px] bg-[#22c55e] rounded-full" />
-                <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#22c55e] bg-[#22c55e]/10 border border-[#22c55e]/30 px-3 py-1 rounded-full">
-                  <Package className="w-3.5 h-3.5" />
-                  Goods / Services
-                </div>
-                <div className="w-6 h-[2px] bg-[#22c55e] rounded-full" />
-              </div>
-
-              {/* Buyer + Seller */}
-              <div className="flex justify-between px-5 mb-1">
-                <div className="flex flex-col items-center">
-                  <div className="w-14 h-14 rounded-full bg-[#ff9800]/15 border-2 border-[#ff9800] flex items-center justify-center">
-                    <User className="w-6 h-6 text-[#ff9800]" />
-                  </div>
-                  <span className="mt-1.5 text-white text-xs font-bold">Buyer</span>
-                </div>
-
-                <div className="flex flex-col items-center">
-                  <div className="w-14 h-14 rounded-full bg-[#3b82f6]/15 border-2 border-[#3b82f6] flex items-center justify-center">
-                    <ShoppingBag className="w-6 h-6 text-[#3b82f6]" />
-                  </div>
-                  <span className="mt-1.5 text-white text-xs font-bold">Seller</span>
-                </div>
-              </div>
-
-              {/* Payment arrows */}
-              <div className="flex justify-between px-8 mt-3 mb-1">
-                <div className="flex flex-col items-center">
-                  <span className="text-[10px] font-semibold text-[#eab308] mb-0.5">Payment</span>
-                  <div className="text-[#eab308] text-lg leading-none">⤵</div>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-[10px] font-semibold text-[#3b82f6] mb-0.5">Payment</span>
-                  <div className="text-[#3b82f6] text-lg leading-none">⤵</div>
-                </div>
-              </div>
-
-              {/* Center Logo */}
-              <div className="flex justify-center mt-1">
-                <div className="w-[76px] h-[76px] rounded-full bg-white border-[3px] border-[#ff9800] flex items-center justify-center overflow-hidden shadow-[0_0_25px_rgba(255,152,0,0.3)]">
-                  <img
-                    src="/logo.jpg"
-                    alt="OloBuy"
-                    className="w-[88%] h-[88%] object-contain mix-blend-multiply"
-                  />
-                </div>
-              </div>
-
-              <p className="text-center text-white/40 text-[11px] mt-4 leading-relaxed">
-                Funds held securely until both parties confirm satisfaction.
-              </p>
+        {/* ===== TOP CENTER: Goods / Services with curved feel ===== */}
+        <div className="relative mb-4">
+          <div className="flex justify-center">
+            <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#22c55e] bg-[#22c55e]/10 border border-[#22c55e]/30 px-3 py-1.5 rounded-full">
+              <Package className="w-3.5 h-3.5" />
+              Goods / Services
             </div>
-
-            <button
-              type="button"
-              onClick={() => setShowEscrowModal(false)}
-              className="w-full mt-4 bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold py-3.5 rounded-xl"
-            >
-              Got It
-            </button>
+          </div>
+          {/* Curved arrow line under goods */}
+          <div className="flex justify-center mt-1">
+            <div className="text-[#22c55e] text-xs tracking-widest">↖ — — — ↗</div>
           </div>
         </div>
-      )}
+
+        {/* Buyer + Seller */}
+        <div className="flex justify-between px-6 mb-2">
+          <div className="flex flex-col items-center">
+            <div className="w-14 h-14 rounded-full bg-[#ff9800]/15 border-2 border-[#ff9800] flex items-center justify-center">
+              <User className="w-6 h-6 text-[#ff9800]" />
+            </div>
+            <span className="mt-1.5 text-white text-xs font-bold">Buyer</span>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="w-14 h-14 rounded-full bg-[#3b82f6]/15 border-2 border-[#3b82f6] flex items-center justify-center">
+              <ShoppingBag className="w-6 h-6 text-[#3b82f6]" />
+            </div>
+            <span className="mt-1.5 text-white text-xs font-bold">Seller</span>
+          </div>
+        </div>
+
+        {/* Payment arrows pointing down to logo */}
+        <div className="flex justify-between px-10 mt-3 mb-1">
+          <div className="flex flex-col items-center">
+            <span className="text-[10px] font-semibold text-[#eab308]">Payment</span>
+            <div className="text-[#eab308] text-xl leading-none mt-0.5">↓</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-[10px] font-semibold text-[#3b82f6]">Payment</span>
+            <div className="text-[#3b82f6] text-xl leading-none mt-0.5">↓</div>
+          </div>
+        </div>
+
+        {/* Center OloBuy Logo */}
+        <div className="flex justify-center">
+          <div className="w-[80px] h-[80px] rounded-full bg-white border-[3px] border-[#ff9800] flex items-center justify-center overflow-hidden shadow-[0_0_25px_rgba(255,152,0,0.3)]">
+            <img
+              src="/logo.jpg"
+              alt="OloBuy"
+              className="w-[88%] h-[88%] object-contain mix-blend-multiply"
+            />
+          </div>
+        </div>
+
+        <p className="text-center text-white/40 text-[11px] mt-4 leading-relaxed">
+          Funds held securely until both parties confirm satisfaction.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setShowEscrowModal(false)}
+        className="w-full mt-4 bg-gradient-to-r from-[#ff9800] to-[#f57c00] text-[#0f172a] font-bold py-3.5 rounded-xl"
+      >
+        Got It
+      </button>
+    </div>
+  </div>
+)}
 
       {/* Step Detail Modal */}
       {selectedStep && (
