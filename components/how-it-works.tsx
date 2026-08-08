@@ -272,26 +272,22 @@ export function HowItWorks() {
 
       <div className="bg-[#111827] border border-white/10 rounded-2xl p-5 relative">
 
-        <p className="text-center text-white font-bold text-sm mb-4">
+        <p className="text-center text-white font-bold text-sm mb-5">
           How OloBuy Works
         </p>
 
-        {/* ===== TOP CENTER: Goods / Services with curved feel ===== */}
-        <div className="relative mb-4">
-          <div className="flex justify-center">
-            <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#22c55e] bg-[#22c55e]/10 border border-[#22c55e]/30 px-3 py-1.5 rounded-full">
-              <Package className="w-3.5 h-3.5" />
-              Goods / Services
-            </div>
-          </div>
-          {/* Curved arrow line under goods */}
-          <div className="flex justify-center mt-1">
-            <div className="text-[#22c55e] text-xs tracking-widest">↖ — — — ↗</div>
-          </div>
+        {/* Goods / Services - Simple text */}
+        <div className="flex flex-col items-center mb-4">
+          <span className="text-[12px] font-semibold text-[#22c55e]">
+            Goods / Services
+          </span>
+          <span className="text-[10px] text-[#22c55e]/70 mt-0.5">
+            Seller → Buyer
+          </span>
         </div>
 
         {/* Buyer + Seller */}
-        <div className="flex justify-between px-6 mb-2">
+        <div className="flex justify-between px-6 mb-3">
           <div className="flex flex-col items-center">
             <div className="w-14 h-14 rounded-full bg-[#ff9800]/15 border-2 border-[#ff9800] flex items-center justify-center">
               <User className="w-6 h-6 text-[#ff9800]" />
@@ -307,20 +303,23 @@ export function HowItWorks() {
           </div>
         </div>
 
-        {/* Payment arrows pointing down to logo */}
-        <div className="flex justify-between px-10 mt-3 mb-1">
+        {/* Payment Flow */}
+        <div className="flex justify-between px-8 mb-2">
           <div className="flex flex-col items-center">
             <span className="text-[10px] font-semibold text-[#eab308]">Payment</span>
-            <div className="text-[#eab308] text-xl leading-none mt-0.5">↓</div>
+            <div className="text-[#eab308] text-lg">↓</div>
+            <span className="text-[9px] text-white/40">to OloBuy</span>
           </div>
+
           <div className="flex flex-col items-center">
             <span className="text-[10px] font-semibold text-[#3b82f6]">Payment</span>
-            <div className="text-[#3b82f6] text-xl leading-none mt-0.5">↓</div>
+            <div className="text-[#3b82f6] text-lg">↑</div>
+            <span className="text-[9px] text-white/40">to Seller</span>
           </div>
         </div>
 
         {/* Center OloBuy Logo */}
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-1">
           <div className="w-[80px] h-[80px] rounded-full bg-white border-[3px] border-[#ff9800] flex items-center justify-center overflow-hidden shadow-[0_0_25px_rgba(255,152,0,0.3)]">
             <img
               src="/logo.jpg"
