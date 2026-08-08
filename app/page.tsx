@@ -25,7 +25,7 @@ export default function HomePage() {
         <Faq />
         <TrustPartners />
 
-        {/* --- فکسڈ انسائٹس/بلاگ سیکشن: صرف ایک سنگل اوتھنٹک کارڈ جو تمام بلاگز اور کیٹیگریز کھولے گا --- */}
+        {/* --- فکسڈ انسائٹس/بلاگ سیکشن: صرف ایک سنگل اوتھنٹک کارڈ اور سنگل بٹन --- */}
         <section className="py-16 px-4 bg-[#0b132b]">
           <div className="max-w-md mx-auto">
             <div className="bg-slate-900 rounded-[32px] p-8 shadow-2xl border border-white/10 text-center relative overflow-hidden">
@@ -49,18 +49,12 @@ export default function HomePage() {
                 Explore Research Institute, Entrepreneurship, Business & Trade news to protect and scale your online trade.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 relative z-10">
+              <div className="relative z-10">
                 <Link 
                   href="/insights"
-                  className="flex-1 flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-md"
+                  className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-md"
                 >
-                  Explore Hub <span>→</span>
-                </Link>
-                <Link 
-                  href="/blog"
-                  className="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-6 rounded-2xl transition-all border border-white/10"
-                >
-                  View All Blogs
+                  Explore Insights Hub <span>→</span>
                 </Link>
               </div>
             </div>
