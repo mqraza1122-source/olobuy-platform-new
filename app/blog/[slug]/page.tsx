@@ -7,12 +7,11 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-// یہ فنکشن Vercel کو بتاتا ہے کہ JSON سے تمام سلگس اٹھا کر ان کے صفحات پہلے ہی بنا لو
 export async function generateStaticParams() {
   return blogsData.map((post) => ({
     slug: post.slug,
@@ -20,7 +19,8 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = params
+  const resolvedParams = await params
+  const { slug } = resolvedParams
   const post = blogsData.find((p) => p.slug === slug)
 
   if (!post) {
@@ -59,18 +59,19 @@ export default async function BlogPostPage({ params }: PageProps) {
               </span>
             </div>
 
-            {/* Content Area */}
+            {/* Content Area - اب یہاں JSON والا فل آرٹیکل خود بخود شو ہوگا */}
             <div className="text-slate-900 space-y-6 text-sm md:text-base leading-relaxed">
               <p className="text-slate-900 font-medium text-lg">
                 {post.excerpt}
               </p>
               
-              <div className="border-t border-slate-200 pt-6 mt-6">
-                <h2 className="text-xl font-bold text-slate-900 mb-3">OloBuy Escrow & Security Standards</h2>
-                <p className="text-slate-700">
-                  Protecting your digital transactions and preventing online shopping fraud in Pakistan is our primary mission. Whether you are dealing across cities like Lahore, Karachi, Islamabad, or Pishin, OloBuy ensures complete financial safety through manual verification and secure escrow processing.
-                </p>
-              </div>
+              {post.content && (
+                <div className="border-t border-slate-200 pt-6 mt-6">
+                  <p className="text-slate-700 whitespace-pre-line leading-relaxed">
+                    {post.content}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -95,4 +96,4 @@ export default async function BlogPostPage({ params }: PageProps) {
       <WhatsAppFloat />
     </div>
   )
-            }
+      }
