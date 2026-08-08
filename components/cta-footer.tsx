@@ -78,8 +78,8 @@ export function CtaFooter() {
         </div>
       </section>
 
-      {/* ===== OloBuy Insights Banner Card (Placed right before Footer) ===== */}
-      <section className="bg-[#080c14] px-4 pt-8 pb-4">
+      {/* ===== OloBuy Insights Hub Banner ===== */}
+      <section className="bg-[#080c14] px-4 pt-6 pb-2">
         <div className="mx-auto max-w-4xl">
           <a
             href="/insights"
@@ -136,7 +136,6 @@ export function CtaFooter() {
 
             {/* About + Contact */}
             <div className="grid gap-10 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-2">
-              {/* Dropdown About Section (Smart & Professional Teaser Fusion) */}
               <div>
                 <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ff9800]">
                   About
@@ -154,7 +153,7 @@ export function CtaFooter() {
                     />
                   </button>
                   {isAboutOpen && (
-                    <div className="px-3.5 pb-4 pt-1 text-xs sm:text-sm leading-relaxed text-white/70 font-medium border-t border-white/5 space-y-2 animate-fadeIn">
+                    <div className="px-3.5 pb-4 pt-1 text-xs sm:text-sm leading-relaxed text-white/70 font-medium border-t border-white/5 space-y-2">
                       <p>
                         OloBuy is a neutral third-party escrow dedicated to fraud-free online trade across Pakistan.
                       </p>
@@ -231,4 +230,4 @@ export function CtaFooter() {
       </footer>
     </>
   );
-      }
+        }
