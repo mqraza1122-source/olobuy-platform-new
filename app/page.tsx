@@ -1,15 +1,15 @@
-import { SiteHeader } from '@/components/site-header'
-import { Hero } from '@/components/hero'
-import { HowItWorks } from '@/components/how-it-works'
-import { Features } from '@/components/features'
-import { Testimonials } from '@/components/testimonials'
-import { Faq } from '@/components/faq'
-import { TrustPartners } from '@/components/trust-partners'
-import { CtaFooter } from '@/components/cta-footer'
-import { WhatsAppFloat } from '@/components/whatsapp-float'
-import SchemaMarkup from '@/components/schema-markup'
-import Link from 'next/link'
-import { BookOpen } from 'lucide-react'
+import { SiteHeader } from '@/components/site-header';
+import { Hero } from '@/components/hero';
+import { HowItWorks } from '@/components/how-it-works';
+import { Features } from '@/components/features';
+import { Testimonials } from '@/components/testimonials';
+import { Faq } from '@/components/faq';
+import { TrustPartners } from '@/components/trust-partners';
+import { CtaFooter } from '@/components/cta-footer';
+import { WhatsAppFloat } from '@/components/whatsapp-float';
+import SchemaMarkup from '@/components/schema-markup';
+import Link from 'next/link';
+import { BookOpen } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -25,7 +25,7 @@ export default function HomePage() {
         <Faq />
         <TrustPartners />
 
-        {/* --- فکسڈ انسائٹس/بلاگ سیکشن: صرف ایک سنگل اوتھنٹک کارڈ اور سنگل بٹन --- */}
+        {/* --- فکسڈ انسائٹس/بلاگ سیکشن: صرف ایک سنگل اوتھنٹک کارڈ اور سنگل بٹن --- */}
         <section className="py-16 px-4 bg-[#0b132b]">
           <div className="max-w-md mx-auto">
             <div className="bg-slate-900 rounded-[32px] p-8 shadow-2xl border border-white/10 text-center relative overflow-hidden">
@@ -67,5 +67,5 @@ export default function HomePage() {
       <CtaFooter />
       <WhatsAppFloat />
     </div>
-  )
+  );
 }
