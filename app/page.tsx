@@ -1,71 +1,92 @@
-import { SiteHeader } from '@/components/site-header';
-import { Hero } from '@/components/hero';
-import { HowItWorks } from '@/components/how-it-works';
-import { Features } from '@/components/features';
-import { Testimonials } from '@/components/testimonials';
-import { Faq } from '@/components/faq';
-import { TrustPartners } from '@/components/trust-partners';
-import { CtaFooter } from '@/components/cta-footer';
-import { WhatsAppFloat } from '@/components/whatsapp-float';
-import SchemaMarkup from '@/components/schema-markup';
-import Link from 'next/link';
-import { BookOpen } from 'lucide-react';
+import blogsData from '@/data/blogs.json'
+import { SiteHeader } from '@/components/site-header'
+import { CtaFooter } from '@/components/cta-footer'
+import { WhatsAppFloat } from '@/components/whatsapp-float'
+import { ShieldCheck, ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
 
-export default function HomePage() {
+interface PageProps {
+  params: Promise<{
+    slug: string
+  }>
+}
+
+export default async function BlogPostPage({ params }: PageProps) {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+  const post = blogsData.find((p) => p.slug === slug)
+
+  if (!post) {
+    notFound()
+  }
+
   return (
     <div className="flex min-h-dvh flex-col bg-[#0b132b]">
-      <SchemaMarkup />
       <SiteHeader />
       
-      <main className="flex-1">
-        <Hero />
-        <HowItWorks />
-        <Features />
-        <Testimonials />
-        <Faq />
-        <TrustPartners />
+      <main className="flex-1 py-12 px-4">
+        <article className="max-w-3xl mx-auto">
+          {/* Back button */}
+          <Link 
+            href="/blog" 
+            className="inline-flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white mb-8 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" /> Back to Blog & Guides
+          </Link>
 
-        {/* --- فکسڈ انسائٹس/بلاگ سیکشن: صرف ایک سنگل اوتھنٹک کارڈ اور سنگل بٹن --- */}
-        <section className="py-16 px-4 bg-[#0b132b]">
-          <div className="max-w-md mx-auto">
-            <div className="bg-slate-900 rounded-[32px] p-8 shadow-2xl border border-white/10 text-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,152,0,0.06)_0%,transparent_70%)] pointer-events-none" />
-              
-              <div className="flex justify-center mb-6 relative z-10">
-                <div className="w-16 h-16 rounded-2xl bg-[#ff9f1c]/10 border border-[#ff9f1c]/20 flex items-center justify-center text-[#ff9f1c]">
-                  <BookOpen className="w-8 h-8" />
-                </div>
-              </div>
-              
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#ff9f1c] relative z-10 block mb-1">
-                Knowledge & Research Hub
+          {/* Main Card */}
+          <div className="bg-white rounded-[32px] p-6 md:p-10 shadow-2xl mb-8 border border-slate-200">
+            <span className="text-[10px] font-extrabold text-amber-900 bg-amber-100 px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">
+              {post.category}
+            </span>
+            
+            <h1 className="text-2xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
+              {post.title}
+            </h1>
+
+            <div className="w-full h-48 rounded-2xl bg-slate-900 flex flex-col items-center justify-center p-4 relative overflow-hidden mb-8 border-2 border-amber-400/20 shadow-inner">
+              <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[#ff9f1c]/20 rounded-full blur-xl"></div>
+              <ShieldCheck className="w-12 h-12 text-amber-400 mb-2" />
+              <span className="text-xs font-bold text-slate-200 uppercase tracking-widest text-center">
+                OloBuy Verified Security Article
               </span>
-              
-              <h2 className="text-2xl font-extrabold text-white mb-3 relative z-10">
-                OloBuy Insights & Blogs
-              </h2>
-              
-              <p className="text-white/60 text-sm mb-8 relative z-10">
-                Explore Research Institute, Entrepreneurship, Business & Trade news to protect and scale your online trade.
-              </p>
+            </div>
 
-              <div className="relative z-10">
-                <Link 
-                  href="/insights"
-                  className="w-full flex items-center justify-center gap-2 bg-[#ff9f1c] hover:bg-[#f3930e] text-slate-950 font-bold py-4 px-6 rounded-2xl transition-all shadow-md"
-                >
-                  Explore Insights Hub <span>→</span>
-                </Link>
+            {/* Content Area */}
+            <div className="text-slate-900 space-y-6 text-sm md:text-base leading-relaxed">
+              <p className="text-slate-900 font-medium text-lg">
+                {post.excerpt}
+              </p>
+              
+              <div className="border-t border-slate-200 pt-6 mt-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-3">OloBuy Escrow & Security Standards</h2>
+                <p className="text-slate-700">
+                  Protecting your digital transactions and preventing online shopping fraud in Pakistan is our primary mission. Whether you are dealing across cities like Lahore, Karachi, Islamabad, or Pishin, OloBuy ensures complete financial safety through manual verification and secure escrow processing.
+                </p>
               </div>
             </div>
           </div>
-        </section>
-        {/* ---------------------------------------------------- */}
 
+          {/* WhatsApp Support Box */}
+          <div className="bg-[#111827] border border-amber-500/30 rounded-3xl p-6 text-center shadow-xl">
+            <h3 className="text-lg font-bold text-white mb-2">Need a Secure Deal Verification?</h3>
+            <p className="text-slate-300 text-xs mb-4">Protect your transactions instantly using OloBuy manual escrow.</p>
+            <a
+              href="https://wa.me/923043031572"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-[#25d366] text-white font-bold px-6 py-3 rounded-xl text-xs shadow-md hover:bg-[#20ba5a] transition-all"
+            >
+              <span>Chat with Escrow Expert on WhatsApp</span>
+            </a>
+          </div>
+
+        </article>
       </main>
-      
+
       <CtaFooter />
       <WhatsAppFloat />
     </div>
-  );
-}
+  )
+            }
