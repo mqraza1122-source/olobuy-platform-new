@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Lock, MapPin, Mail, Phone, ShieldCheck, ChevronDown } from 'lucide-react';
+import { ArrowRight, Lock, MapPin, Mail, Phone, ShieldCheck, ChevronDown, BookOpen } from 'lucide-react';
 import { WHATSAPP_URL } from '@/lib/constants';
 
 function useFadeUp(threshold = 0.12) {
@@ -78,6 +78,37 @@ export function CtaFooter() {
         </div>
       </section>
 
+      {/* ===== OloBuy Insights Banner Card (Placed right before Footer) ===== */}
+      <section className="bg-[#080c14] px-4 pt-8 pb-4">
+        <div className="mx-auto max-w-4xl">
+          <a
+            href="/insights"
+            className="group relative flex flex-col sm:flex-row items-center justify-between rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-white/10 p-6 sm:p-8 shadow-xl transition-all hover:border-[#ff9800]/50 hover:shadow-[0_10px_30px_rgba(255,152,0,0.15)]"
+          >
+            <div className="flex items-center gap-4 mb-4 sm:mb-0 text-center sm:text-left">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#ff9800]/10 text-[#ff9800] border border-[#ff9800]/20">
+                <BookOpen className="h-6 w-6" />
+              </div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#ff9800]">
+                  Knowledge & Research Hub
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#ff9800] transition-colors">
+                  OloBuy Insights
+                </h3>
+                <p className="text-xs sm:text-sm text-white/60 mt-0.5">
+                  Explore Research Institute, Entrepreneurship, Business & Trade News.
+                </p>
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-xl bg-[#ff9800] px-5 py-2.5 text-xs sm:text-sm font-bold text-[#0f172a] transition-all group-hover:bg-[#ffb347] shrink-0">
+              <span>Explore Hub</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </div>
+          </a>
+        </div>
+      </section>
+
       {/* ===== Footer ===== */}
       <footer className="bg-[#080c14] border-t border-white/[0.06]">
         <div
@@ -99,7 +130,7 @@ export function CtaFooter() {
               </div>
               <p className="max-w-xs text-sm leading-relaxed text-white/70 font-medium">
                 Pakistan&apos;s trusted manual escrow. We hold payment until you
-                inspect and approve  safer online deals on OLX, Instagram, Facebook & more.
+                inspect and approve — safer online deals on OLX, Instagram, Facebook & more.
               </p>
             </div>
 
@@ -125,7 +156,7 @@ export function CtaFooter() {
                   {isAboutOpen && (
                     <div className="px-3.5 pb-4 pt-1 text-xs sm:text-sm leading-relaxed text-white/70 font-medium border-t border-white/5 space-y-2 animate-fadeIn">
                       <p>
-                        OloBuy is a neutral third-party escrow dedicated to fraud free online trade across Pakistan.
+                        OloBuy is a neutral third-party escrow dedicated to fraud-free online trade across Pakistan.
                       </p>
                       <p className="text-white/50 pt-1 border-t border-white/[0.04]">
                         <strong className="text-[#ff9800] font-semibold">Next-Gen Roadmap:</strong> Expanding in phases with advanced authentication layers, automated bidding environments, and enterprise retail infrastructure. Stay ahead of the market.
@@ -200,4 +231,4 @@ export function CtaFooter() {
       </footer>
     </>
   );
-              }
+      }
