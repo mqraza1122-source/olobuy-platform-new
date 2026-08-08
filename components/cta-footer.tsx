@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Lock, MapPin, Mail, Phone, ShieldCheck, ChevronDown, BookOpen } from 'lucide-react';
+import { ArrowRight, Lock, MapPin, Mail, Phone, ShieldCheck, ChevronDown } from 'lucide-react';
 import { WHATSAPP_URL } from '@/lib/constants';
 
 function useFadeUp(threshold = 0.12) {
@@ -33,37 +33,6 @@ export function CtaFooter() {
 
   return (
     <>
-      {/* ===== OloBuy Insights Hub Banner (Placed ABOVE Final CTA where Fraud Protection used to be) ===== */}
-      <section className="bg-[#080c14] px-4 pt-12 pb-4">
-        <div className="mx-auto max-w-4xl">
-          <a
-            href="/insights"
-            className="group relative flex flex-col sm:flex-row items-center justify-between rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-white/10 p-6 sm:p-8 shadow-xl transition-all hover:border-[#ff9800]/50 hover:shadow-[0_10px_30px_rgba(255,152,0,0.15)]"
-          >
-            <div className="flex items-center gap-4 mb-4 sm:mb-0 text-center sm:text-left">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#ff9800]/10 text-[#ff9800] border border-[#ff9800]/20">
-                <BookOpen className="h-6 w-6" />
-              </div>
-              <div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#ff9800]">
-                  Knowledge & Research Hub
-                </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#ff9800] transition-colors">
-                  OloBuy Insights
-                </h3>
-                <p className="text-xs sm:text-sm text-white/60 mt-0.5">
-                  Explore Research Institute, Entrepreneurship, Business & Trade News.
-                </p>
-              </div>
-            </div>
-            <div className="inline-flex items-center gap-2 rounded-xl bg-[#ff9800] px-5 py-2.5 text-xs sm:text-sm font-bold text-[#0f172a] transition-all group-hover:bg-[#ffb347] shrink-0">
-              <span>Explore Hub</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </div>
-          </a>
-        </div>
-      </section>
-
       {/* ===== Final CTA ===== */}
       <section className="relative bg-[#0f172a] py-16 sm:py-24 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,152,0,0.08)_0%,transparent_65%)] pointer-events-none" />
@@ -109,7 +78,7 @@ export function CtaFooter() {
         </div>
       </section>
 
-      {/* ===== Footer ===== */}
+      {/* ===== Footer Links & Info ===== */}
       <footer className="bg-[#080c14] border-t border-white/[0.06]">
         <div
           ref={footer.ref}
@@ -230,4 +199,4 @@ export function CtaFooter() {
       </footer>
     </>
   );
-            }
+                      }
